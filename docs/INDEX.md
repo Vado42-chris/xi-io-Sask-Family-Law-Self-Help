@@ -46,6 +46,7 @@ Project: `sask_family_law_self_help`
 | Source registry | `sources/source-registry.json` | current snapshot pointer created |
 | Kit #3J source record | `docs/source-materials/jcc-kit-3j-source-record-v1.md` | captured, unverified current |
 | Source capture and freshness standard | `docs/source-materials/source-capture-and-freshness-standard-v1.md` | active project standard |
+| Official companion form source discovery | `docs/source-materials/official-companion-form-source-discovery-v1.md` | official URLs located, artifacts not yet archived |
 | Kit #3J form index | `sources/jcc-kit-3j/2026-03-30/forms-index.json` | six included forms indexed |
 | FAM-PD #7-2 line items | `sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-2.json` | 71 line items, review pending |
 | Form 10-3 Draft Order line items | `sources/jcc-kit-3j/2026-03-30/forms/form-10-3-draft-order.json` | 24 line items, review pending |
@@ -57,18 +58,20 @@ Project: `sask_family_law_self_help`
 
 No completed user forms or private case evidence belong in this repository.
 
-## Companion source gaps
+## Companion source status
 
-The Kit #3J snapshot names or depends on the following forms that are not physically included and therefore are not yet canonical source snapshots:
+Official source locations are now recorded for all six companion forms, but no companion form has yet been promoted to an immutable canonical snapshot:
 
-- FAM-PD #7-1
-- FAM-PD #7-3
-- FAM-PD #7-4, court generated
-- Form 15-8A
-- Form 15-47
-- Form 15-49
+- FAM-PD #7-1, located in the official FAM-PD #7 PDF
+- FAM-PD #7-3, located in the official FAM-PD #7 PDF
+- FAM-PD #7-4, located in the official FAM-PD #7 PDF and classified as court generated
+- Form 15-8A, located through the official King's Bench Forms catalogue
+- Form 15-47, located through the official King's Bench Forms catalogue
+- Form 15-49, located through the official King's Bench Forms catalogue
 
-The application must not claim complete JCC coverage until these sources are captured and reviewed.
+See `docs/source-materials/official-companion-form-source-discovery-v1.md` for URLs, page ranges, authority states and capture requirements.
+
+The application must not claim complete JCC coverage until the exact artifacts are downloaded, hashed, archived, line-item indexed and independently reviewed.
 
 ## xi project profiles
 
@@ -128,5 +131,5 @@ Framework documents used:
 
 - Exact original Kit #3J binary is hash-identified but not yet archived in the repo.
 - The 267 source line items require independent rendered-page review.
-- Six named companion forms remain uncaptured.
+- Six official companion source locations are recorded, but their exact artifacts, hashes and line-item catalogs remain uncaptured.
 - Runtime, private workspace, executable schemas, forms engine, AI adapter, document export, service, filing, email, authentication, encryption, and automated source monitoring remain missing.
