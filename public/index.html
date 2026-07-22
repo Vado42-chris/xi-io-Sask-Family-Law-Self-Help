@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>xi-io: Family Law Workbench</title>
+  <link rel="stylesheet" href="./styles/legal-workbench.css">
+</head>
+<body>
+  <a class="skip-link" href="#document-workspace">Skip to document workspace</a>
+
+  <div class="app-shell" id="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">xi</div>
+        <div>
+          <p class="eyebrow">xi-io</p>
+          <h1>Family Law Workbench</h1>
+        </div>
+      </div>
+
+      <button class="matter-switcher" id="matter-switcher" type="button" aria-label="Current synthetic matter">
+        <span class="matter-switcher__label">Synthetic matter</span>
+        <strong>JCC preparation demo</strong>
+        <span class="matter-switcher__meta">Saskatoon · no real client data</span>
+      </button>
+
+      <label class="command-field" for="global-search">
+        <span class="sr-only">Search this matter</span>
+        <span aria-hidden="true">⌕</span>
+        <input id="global-search" type="search" autocomplete="off" placeholder="Search forms, questions, tasks…">
+        <kbd>/</kbd>
+      </label>
+
+      <div class="trust-cluster" aria-label="Trust and source status">
+        <span class="status-token status-token--warning">Source review pending</span>
+        <span class="status-token">Local demo</span>
+        <span class="status-token">No transmission</span>
+      </div>
+
+      <button class="ibal-trigger" id="ibal-trigger" type="button" aria-haspopup="dialog" aria-controls="ibal-drawer">
+        <span class="ibal-trigger__spark" aria-hidden="true">✦</span>
+        Ask Ibal
+      </button>
+    </header>
+
+    <nav class="scope-rail" aria-label="Primary navigation">
+      <button class="scope-item is-active" type="button" data-route="matter" aria-current="page">
+        <span aria-hidden="true">⌂</span><span> matter</span>
+      </button>
+      <button class="scope-item" type="button" data-route="calendar">
+        <span aria-hidden="true">□</span><span>calendar</span>
+      </button>
+      <button class="scope-item" type="button" data-route="tasks">
+        <span aria-hidden="true">✓</span><span>tasks</span>
+      </button>
+      <button class="scope-item" type="button" data-route="activity">
+        <span aria-hidden="true">↺</span><span>activity</span>
+      </button>
+      <div class="scope-rail__spacer"></div>
+      <button class="scope-item" type="button" data-route="contacts">
+        <span aria-hidden="true">◇</span><span>contacts</span>
+      </button>
+      <button class="scope-item" type="button" data-route="settings">
+        <span aria-hidden="true">⚙</span><span>settings</span>
+      </button>
+    </nav>
+
+    <aside class="work-queue" aria-labelledby="queue-title">
+      <div class="queue-header">
+        <div>
+          <p class="eyebrow">Current matter</p>
+          <h2 id="queue-title">Work to complete</h2>
+        </div>
+        <button class="icon-button" id="queue-filter-button" type="button" aria-label="Filter work queue">≡</button>
+      </div>
+
+      <section class="matter-progress" aria-labelledby="matter-progress-title">
+        <div class="progress-heading">
+          <h3 id="matter-progress-title">JCC preparation</h3>
+          <strong id="matter-progress-percent">0%</strong>
+        </div>
+        <div class="progress-track" aria-hidden="true"><span id="matter-progress-bar"></span></div>
+        <p id="matter-progress-copy">Loading the verified catalog structure…</p>
+      </section>
+
+      <div class="queue-tabs" role="tablist" aria-label="Work queue views">
+        <button class="queue-tab is-active" type="button" role="tab" aria-selected="true" data-queue-view="all">All</button>
+        <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="forms">Forms</button>
+        <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="tasks">Tasks</button>
+        <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="correspondence">Mail</button>
+      </div>
+
+      <div class="queue-list" id="queue-list" aria-live="polite"></div>
+    </aside>
+
+    <main class="document-workspace" id="document-workspace" tabindex="-1">
+      <section class="workspace-empty" id="workspace-empty">
+        <div class="empty-icon" aria-hidden="true">▤</div>
+        <p class="eyebrow">Select a work item</p>
+        <h2>Your form and next safe step will appear here.</h2>
+        <p>The preview loads real catalog structure with synthetic answers only. It does not file, serve, email, or create a court-ready document.</p>
+      </section>
+
+      <section class="form-workspace is-hidden" id="form-workspace" aria-labelledby="form-title">
+        <header class="form-control-header">
+          <div class="form-control-header__identity">
+            <p class="eyebrow" id="form-number">Form</p>
+            <h2 id="form-title">Form title</h2>
+            <p id="form-source-summary">Source details</p>
+          </div>
+
+          <div class="form-control-header__stats" aria-label="Form status">
+            <div><span>Questions</span><strong id="form-question-count">0</strong></div>
+            <div><span>Answered</span><strong id="form-answered-count">0</strong></div>
+            <div><span>Needs review</span><strong id="form-review-count">0</strong></div>
+            <div><span>Revision</span><strong id="form-revision">r1</strong></div>
+          </div>
+
+          <div class="form-control-header__actions">
+            <button class="secondary-button" id="continue-wizard" type="button">Continue wizard</button>
+            <button class="secondary-button" id="validate-form" type="button">Validate</button>
+            <button class="primary-button" id="preview-pages" type="button">Preview pages</button>
+          </div>
+        </header>
+
+        <div class="freshness-banner" id="freshness-banner" role="status">
+          <strong>Source review pending.</strong>
+          <span>This workflow was captured from Kit #3J dated March 30, 2026. It has not yet been independently verified against every current official court source.</span>
+          <button type="button" id="show-source-details">View source record</button>
+        </div>
+
+        <div class="workspace-mode-bar" role="toolbar" aria-label="Document workspace mode">
+          <div class="segmented-control" role="group" aria-label="Workspace mode">
+            <button class="mode-button is-active" type="button" data-mode="guided">Guided questions</button>
+            <button class="mode-button" type="button" data-mode="sections">Section review</button>
+            <button class="mode-button" type="button" data-mode="pages">Page preview</button>
+            <button class="mode-button" type="button" data-mode="package">Package preview</button>
+          </div>
+          <div class="mode-actions">
+            <button class="text-button" id="compare-revisions" type="button">Compare revisions</button>
+            <button class="text-button" id="clear-demo" type="button">Reset demo answers</button>
+          </div>
+        </div>
+
+        <div class="workspace-canvas">
+          <section class="guided-view" id="guided-view" aria-label="Guided form questions">
+            <div class="question-toolbar">
+              <div>
+                <p class="eyebrow">Current section</p>
+                <h3 id="current-section-title">Getting started</h3>
+              </div>
+              <div class="question-navigation">
+                <button class="icon-button" id="previous-question" type="button" aria-label="Previous question">←</button>
+                <span id="question-position">0 of 0</span>
+                <button class="icon-button" id="next-question" type="button" aria-label="Next question">→</button>
+              </div>
+            </div>
+            <div id="guided-question-card"></div>
+          </section>
+
+          <section class="section-view is-hidden" id="section-view" aria-label="Section-by-section review"></section>
+          <section class="page-view is-hidden" id="page-view" aria-label="Paginated form preview"></section>
+          <section class="package-view is-hidden" id="package-view" aria-label="Final package preview"></section>
+        </div>
+      </section>
+
+      <section class="generic-workspace is-hidden" id="generic-workspace" aria-labelledby="generic-title">
+        <header class="generic-header">
+          <div>
+            <p class="eyebrow" id="generic-eyebrow">Work item</p>
+            <h2 id="generic-title">Selected item</h2>
+            <p id="generic-summary"></p>
+          </div>
+          <button class="primary-button" id="generic-action" type="button">Mark reviewed</button>
+        </header>
+        <div id="generic-content"></div>
+      </section>
+    </main>
+
+    <aside class="context-inspector" aria-labelledby="inspector-title">
+      <div class="inspector-header">
+        <div>
+          <p class="eyebrow">Context</p>
+          <h2 id="inspector-title">Why this matters</h2>
+        </div>
+        <span class="status-dot" title="Context follows your selection"></span>
+      </div>
+
+      <div class="inspector-content" id="inspector-content">
+        <section class="inspector-panel">
+          <h3>Selected work</h3>
+          <p>Select a form, task, correspondence item, or individual question to see its source, applicability, evidence links, blockers, and revision history.</p>
+        </section>
+      </div>
+    </aside>
+  </div>
+
+  <div class="drawer-scrim is-hidden" id="drawer-scrim"></div>
+  <aside class="ibal-drawer" id="ibal-drawer" role="dialog" aria-modal="true" aria-labelledby="ibal-title" aria-hidden="true">
+    <header class="ibal-header">
+      <div>
+        <p class="eyebrow">Contextual concierge</p>
+        <h2 id="ibal-title">Ibal</h2>
+      </div>
+      <button class="icon-button" id="close-ibal" type="button" aria-label="Close Ibal">×</button>
+    </header>
+
+    <div class="ibal-context" id="ibal-context">
+      <span class="status-token">Synthetic preview</span>
+      <p>Select a form question, task, or correspondence item before asking Ibal.</p>
+    </div>
+
+    <div class="ibal-conversation" id="ibal-conversation" aria-live="polite">
+      <article class="ibal-message ibal-message--assistant">
+        <strong>I can help you understand and revise the selected item.</strong>
+        <p>In this preview I only generate local demonstration proposals. I cannot change answers, approve documents, send email, file, or serve anything.</p>
+      </article>
+    </div>
+
+    <form class="ibal-compose" id="ibal-form">
+      <label for="ibal-prompt">Ask about the selected item</label>
+      <div>
+        <textarea id="ibal-prompt" rows="3" placeholder="What does this question mean? What am I missing?"></textarea>
+        <button class="primary-button" type="submit">Propose</button>
+      </div>
+      <p>Every proposed edit remains reviewable and unapplied until you explicitly accept it.</p>
+    </form>
+  </aside>
+
+  <template id="question-template">
+    <article class="question-card">
+      <header>
+        <div>
+          <span class="question-kind"></span>
+          <h4 class="question-label"></h4>
+        </div>
+        <button class="text-button question-help" type="button">Ask Ibal</button>
+      </header>
+      <p class="question-rule"></p>
+      <div class="question-input"></div>
+      <footer>
+        <button class="text-button question-unknown" type="button">I do not know yet</button>
+        <button class="secondary-button question-save" type="button">Save answer</button>
+      </footer>
+    </article>
+  </template>
+
+  <script type="module" src="./src/legal-workbench.js"></script>
+</body>
+</html>
