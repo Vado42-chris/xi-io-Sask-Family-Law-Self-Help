@@ -99,6 +99,7 @@ Ledgers are append-only. Corrections require a new entry that identifies the cor
 | Bootstrap review packet | `docs/reviews/local-review-packet-sask_family_law_self_help-001.md` | author complete, peer review pending |
 | Startup packet | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-07-22.md` | created |
 | JCC source capture receipt | `docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md` | source transcription complete, review pending |
+| JCC source capture review packet | `docs/reviews/local-review-packet-jcc-source-capture-001.md` | author complete, independent source review pending |
 
 ## Validation
 
