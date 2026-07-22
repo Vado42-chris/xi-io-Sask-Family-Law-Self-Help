@@ -1,0 +1,11 @@
+{
+  "name": "xi-io-sask-family-law-self-help",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Governance-first bootstrap for a Saskatchewan family-law self-help workflow assistant.",
+  "type": "module",
+  "scripts": {
+    "check": "node scripts/check-foundation.mjs",
+    "check:foundation": "node scripts/check-foundation.mjs"
+  }
+}

@@ -1,0 +1,148 @@
+feature_index_version: 1
+project_id: sask_family_law_self_help
+status: bootstrap
+
+features:
+  - feature_id: source_registry
+    feature_name: Versioned legal source registry
+    user_value: Prevent workflows from silently relying on stale kits.
+    human_only_path: Human verifies and approves source metadata.
+    ai_optional_path: AI may summarize differences, never approve them.
+    ui_surfaces: [source_status, source_change_review]
+    atomic_components: [status_badge, source_link, blocker_notice]
+    api_boundaries: [future_read_only_source_fetch]
+    mcp_boundaries: [future_read_only_source_resource]
+    data_schema_dependencies: [workflow_definition]
+    security_privacy_notes: Public source metadata only.
+    logging_events: [source_verified, source_stale]
+    automation_hooks: [future_source_change_watch]
+    validation_requirements: [checksum, version_compare, human_review]
+    evidence_requirements: [official_url, retrieved_at, checksum, reviewer]
+    current_status: docs_only
+    known_blockers: [official_source_verification_missing]
+
+  - feature_id: eligibility_triage
+    feature_name: Deterministic eligibility triage
+    user_value: Explain whether a kit appears applicable and why.
+    human_only_path: Guided questions and transparent rules.
+    ai_optional_path: Intent parsing may prefill answers for confirmation.
+    ui_surfaces: [triage_interview, decision_preview]
+    atomic_components: [question_card, explanation_panel, answer_summary]
+    api_boundaries: []
+    mcp_boundaries: []
+    data_schema_dependencies: [workflow_definition, matter_record]
+    security_privacy_notes: Minimize personal data during triage.
+    logging_events: [answer_changed, workflow_proposed, workflow_rejected]
+    automation_hooks: []
+    validation_requirements: [decision_table_tests, synthetic_fixtures]
+    evidence_requirements: [source_anchors, deterministic_test_results]
+    current_status: planned
+    known_blockers: [executable_schemas_missing]
+
+  - feature_id: task_plan
+    feature_name: Forms and homework task plan
+    user_value: Show every required form, record, action, deadline, and awaited input.
+    human_only_path: Deterministic plan from confirmed answers.
+    ai_optional_path: Plain-language explanations only.
+    ui_surfaces: [matter_dashboard, task_list, blocker_summary]
+    atomic_components: [task_card, actor_badge, due_state, dependency_list]
+    api_boundaries: []
+    mcp_boundaries: []
+    data_schema_dependencies: [workflow_definition, matter_record]
+    security_privacy_notes: Task labels must avoid leaking sensitive details in notifications.
+    logging_events: [task_added, task_completed, blocker_opened]
+    automation_hooks: [future_reminders_with_opt_in]
+    validation_requirements: [dependency_tests, deadline_rule_tests]
+    evidence_requirements: [source_rule_refs]
+    current_status: planned
+    known_blockers: [workflow_engine_missing]
+
+  - feature_id: fact_ledger
+    feature_name: Reusable fact and evidence ledger
+    user_value: Enter once, review once, reuse with traceability.
+    human_only_path: Manual entry and approval.
+    ai_optional_path: Normalization and contradiction suggestions.
+    ui_surfaces: [fact_review, timeline, evidence_links]
+    atomic_components: [fact_card, provenance_label, dispute_state]
+    api_boundaries: [future_private_workspace_api]
+    mcp_boundaries: []
+    data_schema_dependencies: [matter_record]
+    security_privacy_notes: Private encrypted workspace required.
+    logging_events: [fact_created, fact_approved, fact_changed]
+    automation_hooks: []
+    validation_requirements: [isolation, audit_replay, redaction]
+    evidence_requirements: [approval_receipts]
+    current_status: blocked
+    known_blockers: [private_workspace_missing]
+
+  - feature_id: narrative_assistant
+    feature_name: User-controlled narrative drafting
+    user_value: Make a difficult story concise without losing ownership.
+    human_only_path: Manual editor and structured prompts.
+    ai_optional_path: Draft suggestions from approved facts.
+    ui_surfaces: [draft_workspace, source_fact_panel, change_review]
+    atomic_components: [draft_block, provenance_label, accept_edit_reject_controls]
+    api_boundaries: [future_ai_adapter]
+    mcp_boundaries: [future_proposal_only_drafting_tool]
+    data_schema_dependencies: [matter_record]
+    security_privacy_notes: Explicit consent and provider contract required.
+    logging_events: [draft_proposed, draft_edited, draft_approved]
+    automation_hooks: []
+    validation_requirements: [fact_grounding, no_invention, provider_fallback]
+    evidence_requirements: [source_fact_ids, approval_receipt]
+    current_status: blocked
+    known_blockers: [ai_consent_contract_missing, private_workspace_missing]
+
+  - feature_id: form_mapper
+    feature_name: Semantic form mapping
+    user_value: Insert approved facts into the correct form fields.
+    human_only_path: Manual field mapping and review.
+    ai_optional_path: Mapping suggestions only.
+    ui_surfaces: [form_review, field_source_inspector]
+    atomic_components: [form_field, source_chip, mismatch_notice]
+    api_boundaries: [future_docuforge_template_api]
+    mcp_boundaries: []
+    data_schema_dependencies: [workflow_definition, matter_record, docuforge_field_map]
+    security_privacy_notes: Completed forms remain private.
+    logging_events: [field_mapped, mismatch_found, form_generated]
+    automation_hooks: []
+    validation_requirements: [field_map_tests, visual_pdf_review]
+    evidence_requirements: [template_version, field_map_version]
+    current_status: planned
+    known_blockers: [docuforge_handoff_contract_missing]
+
+  - feature_id: package_builder
+    feature_name: Reviewable package builder
+    user_value: Export ordered forms, attachments, checklist, and unresolved warnings.
+    human_only_path: Manual review and export.
+    ai_optional_path: Summary suggestions only.
+    ui_surfaces: [package_review, attachment_manifest, export_receipt]
+    atomic_components: [document_row, warning_panel, approval_checklist]
+    api_boundaries: [future_local_export]
+    mcp_boundaries: []
+    data_schema_dependencies: [matter_record, workflow_definition]
+    security_privacy_notes: Export destination and residual files must be visible.
+    logging_events: [package_built, package_approved, package_exported]
+    automation_hooks: []
+    validation_requirements: [manifest_integrity, unresolved_blocker_gate]
+    evidence_requirements: [package_manifest, user_approval]
+    current_status: planned
+    known_blockers: [forms_engine_missing]
+
+  - feature_id: egress_controller
+    feature_name: Filing, service, and email proposal gate
+    user_value: Prevent accidental or unauthorized transmission.
+    human_only_path: User sees instructions and performs external action manually.
+    ai_optional_path: No autonomous send.
+    ui_surfaces: [recipient_review, channel_status, final_confirmation, delivery_receipt]
+    atomic_components: [recipient_card, channel_badge, attachment_list, approval_gate]
+    api_boundaries: [future_email_or_filing_adapters]
+    mcp_boundaries: [future_approval_required_tools]
+    data_schema_dependencies: [matter_record, workflow_definition]
+    security_privacy_notes: Highest-risk feature, disabled by default.
+    logging_events: [transmission_proposed, transmission_approved, delivery_reported]
+    automation_hooks: []
+    validation_requirements: [recipient_verification, channel_contract, receipt_tests]
+    evidence_requirements: [explicit_approval, transmission_receipt, acceptance_state]
+    current_status: forbidden_not_implemented
+    known_blockers: [receiving_process_unverified]

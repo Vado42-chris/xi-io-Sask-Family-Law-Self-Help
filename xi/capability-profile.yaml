@@ -1,0 +1,73 @@
+capability_profile_version: 1
+project_id: sask_family_law_self_help
+status: docs_only
+
+default_posture:
+  read_only_until_approved: true
+  no_secrets: true
+  no_env_display: true
+  no_direct_deploy: true
+  no_arbitrary_shell: true
+  no_public_tunnel: true
+  no_destructive_git: true
+  no_cross_repo_write: true
+  no_private_data_egress: true
+
+read_only_capabilities:
+  - id: public_source_metadata_read
+    state: planned
+  - id: workflow_definition_read
+    state: planned
+  - id: synthetic_fixture_read
+    state: planned
+
+proposal_only_capabilities:
+  - id: workflow_candidate_proposal
+    state: planned
+  - id: drafting_suggestion
+    state: blocked_until_private_and_ai_gates
+  - id: package_manifest_proposal
+    state: planned
+  - id: transmission_proposal
+    state: forbidden_not_implemented
+
+approval_required_mutations:
+  - id: approve_fact
+    approval: user
+  - id: approve_draft
+    approval: user
+  - id: export_package
+    approval: user_final_confirmation
+  - id: send_or_file
+    approval: forbidden_until_channel_contract_exists
+
+forbidden_capabilities:
+  - autonomous_legal_advice
+  - outcome_prediction
+  - invent_fact_or_source
+  - sign_or_swear_for_user
+  - claim_service_or_filing_without_receipt
+  - autonomous_send
+  - public_storage_of_completed_forms
+  - unconsented_AI_processing
+
+mcp_resources: []
+mcp_tools: []
+api_endpoints: []
+
+receipts_required:
+  - source_verification
+  - workflow_review
+  - fact_approval
+  - draft_approval
+  - package_export
+  - future_transmission
+
+rollback_or_disable_plan:
+  current: repository_revert_only
+  future_requirements:
+    - disable_provider_adapter
+    - disable_source_version
+    - disable_workflow
+    - revoke_transmission_adapter
+    - preserve_audit_receipt
