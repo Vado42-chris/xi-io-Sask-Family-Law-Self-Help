@@ -1,0 +1,108 @@
+{
+  "fixture_version": 1,
+  "fixture_notice": "Synthetic demonstration data only. It does not describe a real person or legal matter.",
+  "matter": {
+    "matter_id": "synthetic-jcc-demo-001",
+    "safe_title": "JCC preparation demo",
+    "court_file_number": "FL-00000-000",
+    "judicial_centre": "Saskatoon",
+    "stage": "Preparing initial JCC request",
+    "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+    "next_deadline": null,
+    "last_progress_event": "Demo workspace initialized"
+  },
+  "answers": {
+    "fam-pd-7-2": {
+      "header.judicial_centre": "Saskatoon",
+      "header.court_file_number": "FL-00000-000",
+      "header.petitioner": "Alex Example",
+      "header.respondent": "Jordan Example",
+      "p1.requesting_party_name": "Alex Example",
+      "p1.requesting_party_role": "petitioner",
+      "p1.request_type": "An initiating request for a Judicial Case Conference",
+      "p3.parenting_time_selected": true,
+      "p3.parenting_time_children_terms": "Synthetic draft: interim parenting time on a predictable weekly schedule.",
+      "p3.child_support_selected": true,
+      "p3.child_support_children_terms": "Synthetic draft: child support in an amount to be determined from verified income information.",
+      "p4.expedited": "NO",
+      "p5.factual_basis": "Synthetic demonstration text. The parties require a structured court process to address interim parenting and support issues.",
+      "p8.resolution_efforts": "Synthetic demonstration text. The parties exchanged written proposals but did not reach a complete interim agreement.",
+      "p10.pleadings_closed": "NO",
+      "p10.not_closed_explanation": "Synthetic demonstration answer for preview purposes.",
+      "p11.financial_statement_filed": "NO",
+      "p11.financial_statement_explanation": "The Financial Statement is listed as outstanding homework in this synthetic matter.",
+      "p14.dispute_resolution_compliance": "YES",
+      "p18.availability_mode": "Any date set by the court",
+      "p19.name": "Alex Example",
+      "p19.address_for_service": "100 Example Street, Saskatoon, Saskatchewan",
+      "p19.telephone": "306-555-0100",
+      "p19.email": "alex@example.invalid"
+    }
+  },
+  "unknown_answers": {
+    "fam-pd-7-2": [
+      "p6.legal_grounds",
+      "p9.consented_relief"
+    ]
+  },
+  "tasks": [
+    {
+      "work_id": "task-financial-statement",
+      "type": "task",
+      "title": "Complete Form 15-47 Financial Statement",
+      "summary": "Required before the support branch can be treated as complete.",
+      "state": "blocked_source_missing",
+      "due_label": "Source capture required",
+      "source_ref": "fam-pd-7-2:p11.financial_statement_filed",
+      "next_action": "Capture and independently verify the official Form 15-47 catalog."
+    },
+    {
+      "work_id": "task-proof-service",
+      "type": "task",
+      "title": "Choose and document service method",
+      "summary": "The workflow must distinguish personal service from alternate service.",
+      "state": "planned",
+      "due_label": "After request review",
+      "source_ref": "jcc-kit-3j service instructions",
+      "next_action": "Review the service branch and select the applicable proof form."
+    },
+    {
+      "work_id": "task-review-legal-grounds",
+      "type": "task",
+      "title": "Review legal-grounds paragraph",
+      "summary": "The user marked this answer as not known yet.",
+      "state": "needs_help",
+      "due_label": "Before finalization",
+      "source_ref": "fam-pd-7-2:p6.legal_grounds",
+      "next_action": "Use the plain-language explanation and obtain legal information if needed."
+    }
+  ],
+  "correspondence": [
+    {
+      "work_id": "mail-court-notice-placeholder",
+      "type": "correspondence",
+      "title": "Court-issued Notice placeholder",
+      "summary": "Demonstrates how FAM-PD #7-4 will enter the matter after the court schedules a conference.",
+      "state": "awaiting_external_input",
+      "due_label": "Not yet received",
+      "source_ref": "FAM-PD #7-4",
+      "next_action": "When received, preserve the original, hash it, confirm the matter match, and create service tasks."
+    }
+  ],
+  "activity": [
+    {
+      "event_id": "demo-event-001",
+      "event_type": "matter.created",
+      "title": "Synthetic matter created",
+      "at": "2026-07-22T16:00:00-06:00",
+      "receipt_state": "demo_only"
+    },
+    {
+      "event_id": "demo-event-002",
+      "event_type": "answer.saved",
+      "title": "Synthetic answers loaded for FAM-PD #7-2",
+      "at": "2026-07-22T16:01:00-06:00",
+      "receipt_state": "demo_only"
+    }
+  ]
+}
