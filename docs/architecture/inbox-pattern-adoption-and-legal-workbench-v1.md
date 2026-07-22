@@ -1,6 +1,7 @@
 # Inbox Pattern Adoption and Legal Workbench Architecture v1
 
-Status: `source-mapped architecture proposal, no Inbox mutation, no runtime implementation`  
+Status: `OWNER-APPROVED LOCKED DIRECTION; no Inbox mutation; runtime implementation gated`  
+Decision token: `SFL_PRODUCT_ARCHITECTURE_LOCK_001_ACCEPTED`  
 Date: `2026-07-22`  
 Target project: `sask_family_law_self_help`  
 Read-only donor: `Vado42-chris/xi-io-Inbox@500f1ae5b6dade15bf113b696cea9dfd93ab1cc6`
@@ -11,7 +12,7 @@ The xi-io Inbox product is a strong interaction and control-plane donor for this
 
 Adopt its proven patterns and selected source slices into this repository through a source-mapped, reviewable process. Do not modify the Inbox repository. Do not import its Gmail-specific domain model as the legal domain model.
 
-The legal product should use the same broad interaction grammar:
+The legal product uses the interaction grammar:
 
 ```text
 matter scope -> work queue -> selected artifact -> contextual inspector / Ibal
@@ -394,7 +395,7 @@ Uncertain matter matches go to quarantine or `needs-human-decision`; they are ne
 
 ## Submission model
 
-The product should support one finalized package per egress event, not one irreversible submission for the entire matter.
+The product supports one finalized package per egress event, not one irreversible submission for the entire matter.
 
 A JCC matter can require separate events for:
 
@@ -518,10 +519,10 @@ The correct CBA is to reuse the shell and control-plane patterns while building 
 11. Implement immutable finalization and package generation.
 12. Implement ongoing correspondence ingress.
 13. Implement print/download egress.
-14. Implement email, service or court filing only after destination-specific verification and receipts.
+14. Add electronic filing, service or email adapters only after official receiving rules and delivery receipts are independently verified.
 
-## Current gate
+## Approval and implementation gate
 
-This document authorizes no runtime code import and no Inbox repository mutation.
+The architecture direction is owner-approved through `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`.
 
-The next safe action remains source completion and independent review, followed by a target-owned synthetic shell and database contract.
+Runtime implementation remains blocked by `SFL-SOURCE-REVIEW-002`. The source gate must archive the official artifacts, capture the companion forms and independently verify every line item before executable legal schemas or form rendering begin.
