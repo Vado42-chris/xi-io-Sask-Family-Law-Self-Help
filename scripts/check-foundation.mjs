@@ -23,6 +23,7 @@ const requiredFiles = [
   'docs/schemas/matter-record-schema-v1.md',
   'docs/schemas/workflow-definition-schema-v1.md',
   'docs/reviews/local-review-packet-sask_family_law_self_help-001.md',
+  'docs/reviews/local-review-packet-jcc-source-capture-001.md',
   'sources/source-registry.json',
   'sources/jcc-kit-3j/2026-03-30/forms-index.json',
   'sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-2.json',
