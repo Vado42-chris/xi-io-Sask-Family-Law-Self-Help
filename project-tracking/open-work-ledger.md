@@ -18,6 +18,13 @@ Status: append-only
 | SFL-WORK-012 | SFL-SOURCE-REVIEW-002 | Capture official companion forms FAM-PD #7-1, #7-3, #7-4, Form 15-8A, Form 15-47, and Form 15-49 | blocked | legal_sensitive, data_model | official source snapshots and line-item catalogs | Retrieve from official sources and review scope |
 | SFL-WORK-013 | SFL-SOURCE-REVIEW-002 | Resolve source discrepancies for Form 12-3 naming and email-service proof requirements | blocked | legal_sensitive | official procedural source or qualified review | Preserve both statements until resolved |
 | SFL-WORK-014 | SFL-SOURCE-REVIEW-002 | Approve user-facing source date, capture date, verification date, and stale-warning behavior | ready_for_review | ui_component, legal_sensitive | UX review and source standard approval | Review required disclosure language |
+| SFL-WORK-015 | SFL-ARCH-001 | Review the Inbox pattern adoption and legal workbench architecture | ready_for_review | ui_component, cross_repo_adoption, legal_sensitive | source map, architecture review, owner decision | Review stacked architecture PR |
+| SFL-WORK-016 | SFL-ARCH-001 | Review PostgreSQL plus encrypted object-vault ADR | ready_for_review | data_model, secrets_auth, legal_sensitive | architecture, security and operations review | Approve, revise or reject ADR-001 |
+| SFL-WORK-017 | SFL-UI-SOURCE-MAP-001 | Inspect exact Inbox components and create adoption receipts before code reuse | planned | cross_repo_adoption, ui_component | donor commit, paths, license/privacy review, target tests | Start only after architecture approval |
+| SFL-WORK-018 | SFL-UX-SHELL-001 | Build target-owned synthetic legal workbench shell | blocked | ui_component | route, geometry, accessibility and owner visual proof | Wait for source and architecture gates |
+| SFL-WORK-019 | SFL-WIZARD-001 | Build deterministic resumable question wizard and progress engine | blocked | engine_runtime, legal_sensitive | reviewed question catalogs and synthetic decision tests | Wait for source and schema gates |
+| SFL-WORK-020 | SFL-EDITOR-001 | Build structured document block model and paginated editor/preview | blocked | engine_runtime, legal_sensitive | field bindings, revision tests, render comparison | Wait for source/schema and shell gates |
+| SFL-WORK-021 | SFL-INGRESS-EGRESS-ARCH-001 | Define ongoing correspondence ingress and one-package-per-egress-event contracts | planned | legal_sensitive, deployment_live | preservation, matching, approval, recipient and receipt schemas | Architecture pass after source review |
 
 ## Supersession note, 2026-07-22
 
