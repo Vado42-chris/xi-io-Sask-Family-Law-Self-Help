@@ -1,12 +1,14 @@
 # Documentation Index v1
 
-Status: `active bootstrap and source-capture index`  
+Status: `active bootstrap, source-capture and owner-locked architecture index`  
 Project: `sask_family_law_self_help`
 
 ## Start here
 
 | Purpose | Path | State |
 |---|---|---|
+| Canonical product vision | `docs/product/product-vision-locked-v1.md` | owner-approved locked direction |
+| Owner architecture approval | `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md` | accepted |
 | Human orientation | `README.md` | created |
 | Agent and operator rules | `AGENTS.md` | created |
 | Managed project contract | `xi/managed-project.manifest.yaml` | created, runtime not checked |
@@ -16,19 +18,22 @@ Project: `sask_family_law_self_help`
 
 ## Product
 
-| Document | Path |
-|---|---|
-| Product brief | `docs/product/product-brief-v1.md` |
-| First reference slice | `docs/product/first-reference-slice-v1.md` |
+| Document | Path | State |
+|---|---|---|
+| Canonical product vision | `docs/product/product-vision-locked-v1.md` | owner-approved locked direction |
+| Product brief | `docs/product/product-brief-v1.md` | earlier planning checkpoint |
+| First reference slice | `docs/product/first-reference-slice-v1.md` | planned after source gate |
 
 ## Architecture and data
 
-| Document | Path |
-|---|---|
-| System architecture | `docs/architecture/system-architecture-v1.md` |
-| Privacy and data boundary | `docs/architecture/privacy-and-data-boundary-v1.md` |
-| Matter record schema | `docs/schemas/matter-record-schema-v1.md` |
-| Workflow definition schema | `docs/schemas/workflow-definition-schema-v1.md` |
+| Document | Path | State |
+|---|---|---|
+| System architecture | `docs/architecture/system-architecture-v1.md` | bootstrap draft |
+| Privacy and data boundary | `docs/architecture/privacy-and-data-boundary-v1.md` | bootstrap draft |
+| Inbox pattern adoption and legal workbench | `docs/architecture/inbox-pattern-adoption-and-legal-workbench-v1.md` | owner-approved locked direction, no Inbox mutation |
+| ADR-001 PostgreSQL runtime catalog | `docs/architecture/adr-001-postgresql-runtime-catalog-v1.md` | owner-accepted direction, no database configured |
+| Matter record schema | `docs/schemas/matter-record-schema-v1.md` | conceptual |
+| Workflow definition schema | `docs/schemas/workflow-definition-schema-v1.md` | conceptual |
 
 ## Workflow and UX
 
@@ -58,9 +63,17 @@ Project: `sask_family_law_self_help`
 
 No completed user forms or private case evidence belong in this repository.
 
+## Donor pattern sources
+
+| Donor | Record | State |
+|---|---|---|
+| xi-io Inbox | `docs/source-materials/inbox-pattern-source-map-v1.md` | read-only source map, adoption not implemented |
+
+The Inbox repository is a read-only donor. This project must not depend on its active `main` branch at runtime or change Inbox while implementing the family-law product.
+
 ## Companion source status
 
-Official source locations are now recorded for all six companion forms, but no companion form has yet been promoted to an immutable canonical snapshot:
+Official source locations are recorded for all six companion forms, but no companion form has yet been promoted to an immutable canonical snapshot:
 
 - FAM-PD #7-1, located in the official FAM-PD #7 PDF
 - FAM-PD #7-3, located in the official FAM-PD #7 PDF
@@ -99,7 +112,8 @@ Ledgers are append-only. Corrections require a new entry that identifies the cor
 
 | Artifact | Path | State |
 |---|---|---|
-| Bootstrap review packet | `docs/reviews/local-review-packet-sask_family_law_self_help-001.md` | author complete, peer review pending |
+| Product architecture lock | `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md` | owner-approved |
+| Bootstrap review packet | `docs/reviews/local-review-packet-sask_family_law_self_help-001.md` | author complete, owner direction accepted through architecture lock |
 | Startup packet | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-07-22.md` | created |
 | JCC source capture receipt | `docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md` | source transcription complete, review pending |
 | JCC source capture review packet | `docs/reviews/local-review-packet-jcc-source-capture-001.md` | author complete, independent source review pending |
@@ -124,12 +138,20 @@ Framework documents used:
 - `docs/framework/readme-standard-v1.md`
 - `docs/framework/managed-project-manifest-standard-v1.md`
 - `docs/framework/agent-run-ledger-standard-v1.md`
+- `docs/framework/project-kernel-standard-v1.md`
+- `docs/framework/legal-private-ingress-boundary-standard-v1.md`
+- `docs/framework/egress-adapter-standard-v1.md`
+- `docs/framework/framework-component-registry-proposal-v1.md`
 - `docs/framework/templates/managed-project-white-label-launch-prompt-v1.md`
 - `docs/framework/templates/local-review-packet-template-v1.md`
 
-## Current gaps
+## Current gate and gaps
+
+Architecture is owner-approved. `SFL-SOURCE-REVIEW-002` remains the implementation gate.
 
 - Exact original Kit #3J binary is hash-identified but not yet archived in the repo.
 - The 267 source line items require independent rendered-page review.
 - Six official companion source locations are recorded, but their exact artifacts, hashes and line-item catalogs remain uncaptured.
+- Inbox adoption is documentation-only; no target shell or reusable target components exist yet.
+- PostgreSQL is accepted as the direction but is not provisioned, threat-modelled or migration-tested.
 - Runtime, private workspace, executable schemas, forms engine, AI adapter, document export, service, filing, email, authentication, encryption, and automated source monitoring remain missing.

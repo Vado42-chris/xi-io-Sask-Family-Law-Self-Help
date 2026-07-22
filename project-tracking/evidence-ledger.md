@@ -19,6 +19,15 @@ Status: append-only
 | SFL-EVID-013 | source standard | `docs/source-materials/source-capture-and-freshness-standard-v1.md` | Defines immutable capture, user-facing dates, freshness states, discrepancies, supersession, validation, and future monitoring gates | verified repository artifact, owner review pending | no |
 | SFL-EVID-014 | capture receipt | `docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md` | Records source identity, six forms, 267 line items, missing forms, official-source check, discrepancies, and next review gate | verified repository artifact, source approval pending | no |
 | SFL-EVID-015 | structural validator | `scripts/check-source-catalog.mjs` | Checks snapshot identity, six forms, source/hash consistency, unique IDs, expected per-form counts, total 267, explicit gaps, discrepancies, and freshness disclosure language | implementation present, CI result pending | no |
+| SFL-EVID-016 | donor repository | `Vado42-chris/xi-io-Inbox@500f1ae5b6dade15bf113b696cea9dfd93ab1cc6` | README, AGENTS, UI north star, component inventory, Ibal concierge/runtime/local-first contracts, runtime-store boundary, private-data boundary and mail egress contracts inspected read-only | verified source inspection, no donor mutation | yes, donor repo private but no private mail bodies copied |
+| SFL-EVID-017 | donor source map | `docs/source-materials/inbox-pattern-source-map-v1.md` | Pins reusable shell, list/reader, inspector, Ibal, task/calendar, security, draft/approval/outbox and receipt patterns and rejects wholesale copy | repository artifact, owner review pending | no |
+| SFL-EVID-018 | framework standards | `Vado42-chris/xi-io.net` project kernel, legal-private ingress boundary and egress adapter standards | Confirms queues, ledgers, source preservation, human review, controlled output and receipts are framework-supported patterns | verified docs, target adoption review pending | no |
+| SFL-EVID-019 | database primary documentation | PostgreSQL current documentation | JSON/JSONB, full-text search, transactions and row-security capabilities reviewed for ADR-001; no database was provisioned | external primary docs reviewed, architecture proposal only | no |
+| SFL-EVID-020 | architecture proposal | `docs/architecture/inbox-pattern-adoption-and-legal-workbench-v1.md` | Maps the Inbox interaction grammar to a target-owned legal workbench and defines wizard, editor, Ibal, task, ingress and egress boundaries | repository artifact, owner review pending | no |
+| SFL-EVID-021 | database ADR | `docs/architecture/adr-001-postgresql-runtime-catalog-v1.md` | Proposes PostgreSQL for structured state and encrypted object storage for immutable bytes | repository artifact, security and operations review pending | no |
+| SFL-EVID-022 | CI validation | GitHub Actions Foundation check run #5 on `33cbdd64ed2cc47ede28fd701caad185593a7a9e` | Existing foundation and source-catalog checks passed for the initial architecture PR head | verified CI pass; later lock commits require their own run | no |
+| SFL-EVID-023 | owner approval | `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md` | Owner accepted the product vision, Inbox-derived workbench, Ibal boundary, PostgreSQL/object-vault direction, progress requirements and lifecycle model | owner-approved architecture direction | no |
+| SFL-EVID-024 | canonical product artifact | `docs/product/product-vision-locked-v1.md` | Consolidates the hard product invariants, UI areas, wizard, evidence, ingress, egress, backend, security and ordered gates into repository truth | owner-approved locked direction; runtime not implemented | no |
 
 ## Evidence limits
 
@@ -27,3 +36,6 @@ Status: append-only
 - No independent reviewer has compared all 267 line items against rendered pages.
 - No captured source snapshot exists yet for the six listed companion forms.
 - A structural validator cannot prove legal correctness or currentness.
+- No Inbox code has been adopted or tested in the target repository.
+- No PostgreSQL instance, migration, row-security policy, object vault, backup or recovery path has been implemented or tested.
+- Architecture approval does not constitute security approval, legal review or runtime proof.
