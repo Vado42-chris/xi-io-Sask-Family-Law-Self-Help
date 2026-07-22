@@ -64,3 +64,45 @@ Date: 2026-07-22
 Decision: Source catalog validation checks structure, counts, IDs, metadata, and snapshot consistency, but cannot approve legal accuracy or currentness. Independent rendered-page and official-source review remains a separate gate.  
 Reason: Automated consistency checks cannot determine whether a transcription or procedural interpretation is legally correct.  
 State: accepted for validation design.
+
+## SFL-DEC-010, Inbox is a read-only pattern donor
+
+Date: 2026-07-22  
+Decision: Use `Vado42-chris/xi-io-Inbox` as a pinned, read-only donor of interaction, security, state-machine and testing patterns. Build target-owned implementations in this repository. Do not modify Inbox, couple release schedules, or depend on Inbox `main` at runtime.  
+Reason: Inbox contains valuable proven product patterns, but its active runtime and substantial UI monolith would make a whole-repo fork expensive and create cross-product regression risk.  
+State: proposed architecture, owner review pending.
+
+## SFL-DEC-011, legal workbench uses the Inbox interaction grammar
+
+Date: 2026-07-22  
+Decision: Translate the Inbox shell into `matter scope -> work queue -> selected artifact -> contextual inspector/Ibal`. The reader becomes a structured, paginated document workspace. The account rail becomes a matter rail.  
+Reason: This preserves a mature, understandable interaction model while keeping legal-domain data and workflow semantics explicit.  
+State: proposed architecture, no runtime implementation.
+
+## SFL-DEC-012, visual form header is control metadata, not form truth
+
+Date: 2026-07-22  
+Decision: Reuse the email-header visual anatomy for form title, freshness, progress, validation, revision, attachments and actions. Do not store form answers in an email-header object or treat editor HTML as canonical form data.  
+Reason: Every answer must remain bound to a stable reviewed question ID and source snapshot.  
+State: proposed architecture.
+
+## SFL-DEC-013, PostgreSQL plus encrypted object storage
+
+Date: 2026-07-22  
+Decision: Plan PostgreSQL as the structured runtime database and an encrypted private object vault for original forms, evidence, correspondence bytes, rendered documents and packages.  
+Reason: The product needs relational integrity, transactions, search, revision history, authorization and audit records while large immutable files require a separate preservation boundary.  
+State: proposed ADR; no database provisioned or migration authorized.
+
+## SFL-DEC-014, one finalized package per egress event
+
+Date: 2026-07-22  
+Decision: A matter may contain multiple finalized packages. Each filing, service, courtesy delivery, later memo or other procedural delivery is a separate egress event with its own approval and receipt.  
+Reason: One email or submission cannot accurately represent the entire lifecycle of a legal matter.  
+State: proposed architecture.
+
+## SFL-DEC-015, ongoing correspondence ingress remains separate from filed state
+
+Date: 2026-07-22  
+Decision: Preserve incoming court and party correspondence as immutable ingress events linked to the matter. Incoming documents may generate tasks and new revisions but must never modify a previously finalized submission snapshot.  
+Reason: The product must support continuing legal matters while preserving exactly what was filed or served at each event.  
+State: proposed architecture.
