@@ -1,6 +1,6 @@
 # Documentation Index v1
 
-Status: `active bootstrap and source-capture index`  
+Status: `active bootstrap, source-capture and architecture index`  
 Project: `sask_family_law_self_help`
 
 ## Start here
@@ -23,12 +23,14 @@ Project: `sask_family_law_self_help`
 
 ## Architecture and data
 
-| Document | Path |
-|---|---|
-| System architecture | `docs/architecture/system-architecture-v1.md` |
-| Privacy and data boundary | `docs/architecture/privacy-and-data-boundary-v1.md` |
-| Matter record schema | `docs/schemas/matter-record-schema-v1.md` |
-| Workflow definition schema | `docs/schemas/workflow-definition-schema-v1.md` |
+| Document | Path | State |
+|---|---|---|
+| System architecture | `docs/architecture/system-architecture-v1.md` | bootstrap draft |
+| Privacy and data boundary | `docs/architecture/privacy-and-data-boundary-v1.md` | bootstrap draft |
+| Inbox pattern adoption and legal workbench | `docs/architecture/inbox-pattern-adoption-and-legal-workbench-v1.md` | proposed, no Inbox mutation |
+| ADR-001 PostgreSQL runtime catalog | `docs/architecture/adr-001-postgresql-runtime-catalog-v1.md` | proposed, no database configured |
+| Matter record schema | `docs/schemas/matter-record-schema-v1.md` | conceptual |
+| Workflow definition schema | `docs/schemas/workflow-definition-schema-v1.md` | conceptual |
 
 ## Workflow and UX
 
@@ -57,6 +59,14 @@ Project: `sask_family_law_self_help`
 | Capture receipt | `docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md` | author complete, human source review pending |
 
 No completed user forms or private case evidence belong in this repository.
+
+## Donor pattern sources
+
+| Donor | Record | State |
+|---|---|---|
+| xi-io Inbox | `docs/source-materials/inbox-pattern-source-map-v1.md` | read-only source map, adoption not implemented |
+
+The Inbox repository is a read-only donor. This project must not depend on its active `main` branch at runtime or change Inbox while implementing the family-law product.
 
 ## Companion source status
 
@@ -124,6 +134,10 @@ Framework documents used:
 - `docs/framework/readme-standard-v1.md`
 - `docs/framework/managed-project-manifest-standard-v1.md`
 - `docs/framework/agent-run-ledger-standard-v1.md`
+- `docs/framework/project-kernel-standard-v1.md`
+- `docs/framework/legal-private-ingress-boundary-standard-v1.md`
+- `docs/framework/egress-adapter-standard-v1.md`
+- `docs/framework/framework-component-registry-proposal-v1.md`
 - `docs/framework/templates/managed-project-white-label-launch-prompt-v1.md`
 - `docs/framework/templates/local-review-packet-template-v1.md`
 
@@ -132,4 +146,6 @@ Framework documents used:
 - Exact original Kit #3J binary is hash-identified but not yet archived in the repo.
 - The 267 source line items require independent rendered-page review.
 - Six official companion source locations are recorded, but their exact artifacts, hashes and line-item catalogs remain uncaptured.
+- Inbox adoption is documentation-only; no target shell or reusable target components exist yet.
+- PostgreSQL is proposed but not provisioned, threat-modelled or migration-tested.
 - Runtime, private workspace, executable schemas, forms engine, AI adapter, document export, service, filing, email, authentication, encryption, and automated source monitoring remain missing.
