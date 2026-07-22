@@ -25,10 +25,17 @@ Status: append-only
 | SFL-WORK-019 | SFL-WIZARD-001 | Build deterministic resumable question wizard and progress engine | blocked | engine_runtime, legal_sensitive | reviewed question catalogs and synthetic decision tests | Wait for source and schema gates |
 | SFL-WORK-020 | SFL-EDITOR-001 | Build structured document block model and paginated editor/preview | blocked | engine_runtime, legal_sensitive | field bindings, revision tests, render comparison | Wait for source/schema and shell gates |
 | SFL-WORK-021 | SFL-INGRESS-EGRESS-ARCH-001 | Define ongoing correspondence ingress and one-package-per-egress-event contracts | planned | legal_sensitive, deployment_live | preservation, matching, approval, recipient and receipt schemas | Architecture pass after source review |
+| SFL-WORK-022 | SFL-ARCH-001 | Lock canonical product vision, legal workbench architecture and PostgreSQL/object-vault direction | completed_owner_approved | legal_sensitive, cross_repo_adoption, data_model | owner approval receipt, canonical vision, architecture docs, CI | Merge stacked architecture after checks and review fixes |
+| SFL-WORK-023 | SFL-SOURCE-REVIEW-002 | Execute the canonical source-completion gate as the next active product work | active | legal_sensitive, provenance, data_model | exact binaries, hashes, line-item catalogs, two-pass review, source approval receipt | Capture companion artifacts and independently verify every question |
+| SFL-WORK-024 | SFL-UX-SHELL-001 | Prepare target-owned synthetic workbench shell plan without implementing legal runtime | queued_after_source_gate | ui_component, cross_repo_adoption | source-map receipts, route model, synthetic fixtures, geometry/a11y checks | Begin only when SFL-SOURCE-REVIEW-002 closes |
 
-## Supersession note, 2026-07-22
+## Supersession notes, 2026-07-22
 
-`SFL-WORK-002` is superseded in scope by `SFL-WORK-009` through `SFL-WORK-014`. The original row remains preserved because this ledger is append-only.
+- `SFL-WORK-002` is superseded in scope by `SFL-WORK-009` through `SFL-WORK-014`.
+- `SFL-WORK-015` and `SFL-WORK-016` are completed through `SFL-WORK-022` and `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`.
+- Architecture approval does not unblock runtime. `SFL-WORK-023` is the active implementation gate.
+
+The original rows remain preserved because this ledger is append-only.
 
 ## Rule
 
