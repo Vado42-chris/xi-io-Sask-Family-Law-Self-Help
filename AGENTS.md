@@ -6,11 +6,14 @@ Before changing this repository, read:
 
 1. `README.md`
 2. `docs/INDEX.md`
-3. `xi/managed-project.manifest.yaml`
-4. `docs/ops/execution-sequence-v1.md`
-5. `docs/architecture/privacy-and-data-boundary-v1.md`
-6. `docs/legal/legal-information-boundary-v1.md`
-7. `project-tracking/open-work-ledger.md`
+3. `sources/source-registry.json`
+4. `sources/jcc-kit-3j/2026-03-30/forms-index.json`
+5. `docs/source-materials/source-capture-and-freshness-standard-v1.md`
+6. `xi/managed-project.manifest.yaml`
+7. `docs/ops/execution-sequence-v1.md`
+8. `docs/architecture/privacy-and-data-boundary-v1.md`
+9. `docs/legal/legal-information-boundary-v1.md`
+10. `project-tracking/open-work-ledger.md`
 
 The canonical framework reference is `Vado42-chris/xi-io.net`. Chat history is context, not project truth.
 
@@ -20,7 +23,20 @@ This project converts official, versioned Saskatchewan family-law self-help mate
 
 ## Product invariant
 
-The workflow definition and verified user facts are the source of truth. AI-generated prose and exported court forms are derived artifacts.
+The immutable source snapshot, approved normalized line-item catalog, deterministic workflow definition, and verified user facts are the source of truth. AI-generated prose, UI prompts, previews, and exported court forms are derived artifacts.
+
+## Source-of-truth rules
+
+1. Never implement a question, checkbox, deadline, attachment rule, recipient, filing route, or form output from chat memory or AI recollection.
+2. Every runtime form field must resolve to a stable line-item ID in an approved dated source snapshot.
+3. Every workflow must identify the exact `snapshot_id` that governs it.
+4. Preserve the source date, capture timestamp, artifact hash, authority state, freshness state, discrepancies, and supersession history.
+5. A later source creates a new snapshot. It must not overwrite an older snapshot or silently migrate an existing matter.
+6. Forms referenced but absent from the current snapshot remain explicit blockers. Do not reconstruct them from memory.
+7. A structurally passing catalog is not proof of legal correctness or currentness. Human source review remains required.
+8. The exact source binary must be archived and hash-verified before the source gate can be approved.
+9. User-facing workflow, form, preview, and package screens must display source date, capture date, freshness state, last official verification date, and an unverified or stale warning where applicable.
+10. Unknown, stale, changed, unavailable, or materially disputed source state blocks final-ready filing, service, or transmission output.
 
 ## Non-negotiable rules
 
@@ -43,12 +59,13 @@ This public repository may contain blank workflow definitions, public source rec
 
 ## Development posture
 
-Use small, reviewable slices. Prefer contracts, schemas, and threat analysis before implementing sensitive capabilities. Do not add AI, OCR, storage, analytics, email, authentication, document-signing, or court integrations without documenting data sent, purpose, retention, training or reuse, fallback, disable plan, and approval class.
+Use small, reviewable slices. Prefer contracts, schemas, source review, and threat analysis before implementing sensitive capabilities. Do not add AI, OCR, storage, analytics, email, authentication, document-signing, or court integrations without documenting data sent, purpose, retention, training or reuse, fallback, disable plan, and approval class.
 
-## Safe command
+## Safe commands
 
 ```bash
 npm run check
+npm run check:source-catalog
 ```
 
 ## Required report shape
@@ -57,4 +74,4 @@ Every agent session must record branch, base commit, head commit, files changed,
 
 ## Current implementation gate
 
-`SFL-BOOTSTRAP-001` is open for review. Runtime implementation is blocked until the bootstrap is approved and the first reference slice has an explicit data contract, privacy review, acceptance criteria, and synthetic test plan.
+`SFL-SOURCE-REVIEW-002` is the next required source gate after bootstrap review. Runtime implementation remains blocked until all 267 captured line items are independently compared against rendered source pages, the exact source binary is archived and hash-verified, companion-form gaps are resolved or explicitly excluded, and the source review receives human approval.

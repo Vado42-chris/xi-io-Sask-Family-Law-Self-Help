@@ -12,6 +12,16 @@ Status: append-only
 | SFL-WORK-006 | SFL-PRIVATE-001 | Design private matter workspace | blocked | secrets_auth, legal_sensitive | threat model, retention, deletion, recovery evidence | Separate architecture pass |
 | SFL-WORK-007 | SFL-AI-001 | Design optional AI adapter and consent contract | blocked | secrets_auth, legal_sensitive | provider, privacy, fallback, grounding tests | Wait for private workspace |
 | SFL-WORK-008 | SFL-TRANSMIT-001 | Verify and design filing, service, and email adapters | blocked | deployment_live, legal_sensitive | receiving-process and delivery receipts | Do not implement yet |
+| SFL-WORK-009 | SFL-SOURCE-CAPTURE-001 | Capture dated Kit #3J source identity and all line items from forms physically included in the supplied kit | completed_reported_only | legal_sensitive, data_model | source registry, hash receipt, six catalogs, structural validation | Run CI and obtain human review |
+| SFL-WORK-010 | SFL-SOURCE-REVIEW-002 | Independently compare 267 captured line items against rendered pages | blocked | legal_sensitive, data_model | two-pass review findings and disposition receipt | Begin after source-capture PR validation |
+| SFL-WORK-011 | SFL-SOURCE-REVIEW-002 | Archive the exact supplied Kit #3J binary and verify SHA-256 | blocked | provenance, legal_sensitive | committed binary and matching hash receipt | Perform local-git binary archive pass |
+| SFL-WORK-012 | SFL-SOURCE-REVIEW-002 | Capture official companion forms FAM-PD #7-1, #7-3, #7-4, Form 15-8A, Form 15-47, and Form 15-49 | blocked | legal_sensitive, data_model | official source snapshots and line-item catalogs | Retrieve from official sources and review scope |
+| SFL-WORK-013 | SFL-SOURCE-REVIEW-002 | Resolve source discrepancies for Form 12-3 naming and email-service proof requirements | blocked | legal_sensitive | official procedural source or qualified review | Preserve both statements until resolved |
+| SFL-WORK-014 | SFL-SOURCE-REVIEW-002 | Approve user-facing source date, capture date, verification date, and stale-warning behavior | ready_for_review | ui_component, legal_sensitive | UX review and source standard approval | Review required disclosure language |
+
+## Supersession note, 2026-07-22
+
+`SFL-WORK-002` is superseded in scope by `SFL-WORK-009` through `SFL-WORK-014`. The original row remains preserved because this ledger is append-only.
 
 ## Rule
 

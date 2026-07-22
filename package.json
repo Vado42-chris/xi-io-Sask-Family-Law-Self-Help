@@ -5,7 +5,8 @@
   "description": "Governance-first bootstrap for a Saskatchewan family-law self-help workflow assistant.",
   "type": "module",
   "scripts": {
-    "check": "node scripts/check-foundation.mjs",
-    "check:foundation": "node scripts/check-foundation.mjs"
+    "check": "npm run check:foundation && npm run check:source-catalog",
+    "check:foundation": "node scripts/check-foundation.mjs",
+    "check:source-catalog": "node scripts/check-source-catalog.mjs"
   }
 }

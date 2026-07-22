@@ -1,13 +1,13 @@
 # xi-io: Saskatchewan Family Law Self-Help
 
-Status: `active managed project, governance bootstrap`  
+Status: `active managed project, governance and source-capture bootstrap`  
 Project ID: `sask_family_law_self_help`  
 Repo: `Vado42-chris/xi-io-Sask-Family-Law-Self-Help`  
 Default branch: `main`
 
 ## Current status
 
-This repository contains the framework-aligned startup spine for a public-facing Saskatchewan family-law workflow assistant. The governance, product, privacy, workflow, lexicon, capability, and evidence records are present. Runtime application code has not started and has not been verified.
+This repository contains the framework-aligned startup spine and the first dated legal-source snapshot for a public-facing Saskatchewan family-law workflow assistant. Runtime application code has not started and has not been verified.
 
 | Area | State |
 |---|---|
@@ -20,12 +20,45 @@ This repository contains the framework-aligned startup spine for a public-facing
 | AI integration | `not_configured` |
 | Court or email transmission | `forbidden_not_implemented` |
 | Security review | `required_not_started` |
+| Current source snapshot | `jcc-kit-3j-2026-03-30` |
+| Source freshness | `captured_unverified_current` |
+| Included forms indexed | `6` |
+| Captured line items | `267` |
 
 ## What this repo is
 
 This project is intended to turn versioned Saskatchewan court self-help kits into deterministic, progressive-disclosure workflows. A user describes the result they need, the system identifies a candidate workflow and required forms, gathers reusable facts, drafts user-reviewable text, identifies missing records, prepares form packages, and tracks service, filing, and follow-up tasks.
 
-The first reference workflow is Saskatchewan Court of King's Bench Kit #3J, Request for a Judicial Case Conference Order, version dated 2026-03-30.
+The first reference workflow is Saskatchewan Court of King's Bench Kit #3J, Request for a Judicial Case Conference Order, source version dated March 30, 2026 and captured by this project on July 22, 2026.
+
+## Canonical source snapshot
+
+The source registry lives at [`sources/source-registry.json`](sources/source-registry.json). The first snapshot contains complete line-item catalogs for the six forms physically included in the supplied 45-page kit:
+
+- FAM-PD #7-2, Request for a Judicial Case Conference
+- Form 10-3, Draft Order
+- Form 10-3, Draft Child Support Order
+- Form 15-8B, Affidavit of Service by Alternate Mode
+- Form 12-3, Acknowledgment of Service
+- FAM-PD #7-5, Judicial Case Conference Appearance Memo
+
+The catalogs contain 267 stable line items, including inputs, choices, conditional follow-ups, repeatable groups, attachment requirements, signatures, commissioner fields, material static clauses, and court-only fields.
+
+This does not yet establish complete JCC coverage. FAM-PD #7-1, FAM-PD #7-3, court-generated FAM-PD #7-4, Form 15-8A, Form 15-47, and Form 15-49 remain explicit source gaps.
+
+## Required freshness disclosure
+
+Every workflow start screen, form workspace, preview, and final package screen must visibly show:
+
+- form source date,
+- date captured by this application,
+- freshness state,
+- last official verification date or `Not yet verified`,
+- a warning whenever the snapshot is not independently verified as current.
+
+Current required wording is based on this state:
+
+> This workflow was captured from Kit #3J dated March 30, 2026, on July 22, 2026. It has not yet been independently verified against the current official court download. Review current court requirements before filing or serving documents.
 
 ## What this repo is not
 
@@ -34,7 +67,7 @@ The first reference workflow is Saskatchewan Court of King's Bench Kit #3J, Requ
 - It does not yet transmit documents to a court, opposing party, lawyer, or service provider.
 - It does not store real case files in this public repository.
 - It does not make AI mandatory for core use.
-- It does not treat a generated draft as a verified legal document.
+- It does not treat a generated draft or a structurally valid catalog as verified legal content.
 
 ## Human-only path
 
@@ -60,9 +93,10 @@ The public repo contains only code, blank workflow definitions, public source re
 
 ```bash
 npm run check
+npm run check:source-catalog
 ```
 
-No dependency installation is required for the current documentation foundation check.
+No dependency installation is required for the current documentation and source-catalog checks.
 
 ## Blocked commands
 
@@ -86,6 +120,10 @@ production storage or authentication changes
 Start with [`docs/INDEX.md`](docs/INDEX.md). Primary control files are:
 
 - [`AGENTS.md`](AGENTS.md)
+- [`sources/source-registry.json`](sources/source-registry.json)
+- [`sources/jcc-kit-3j/2026-03-30/forms-index.json`](sources/jcc-kit-3j/2026-03-30/forms-index.json)
+- [`docs/source-materials/source-capture-and-freshness-standard-v1.md`](docs/source-materials/source-capture-and-freshness-standard-v1.md)
+- [`docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md`](docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md)
 - [`xi/managed-project.manifest.yaml`](xi/managed-project.manifest.yaml)
 - [`xi/feature-index.yaml`](xi/feature-index.yaml)
 - [`docs/ops/execution-sequence-v1.md`](docs/ops/execution-sequence-v1.md)
@@ -100,6 +138,9 @@ This bootstrap follows the xi-io repository governance quickstart, project start
 
 ## Known gaps
 
+- The exact original Kit #3J binary is hash-identified but not yet archived in the repository.
+- The 267 line items require independent rendered-page review before approval.
+- Six named companion forms remain uncaptured.
 - No runtime stack or dependency versions have been selected.
 - No executable workflow engine exists.
 - No form rendering or PDF insertion engine exists.
@@ -107,12 +148,12 @@ This bootstrap follows the xi-io repository governance quickstart, project start
 - No authentication, encryption, retention, deletion, backup, or recovery implementation exists.
 - No official court filing integration has been verified.
 - No lawyer or court administrator has reviewed the product rules.
-- Kit version monitoring and legal-content update governance are not implemented.
+- Automated kit freshness monitoring is not implemented.
 - Accessibility requirements are documented but not runtime tested.
 
 ## Next action
 
-Review and approve the governance bootstrap, then implement one thin, local-only reference slice: eligibility triage and task-plan generation for Kit #3J using synthetic data only.
+Complete `SFL-SOURCE-REVIEW-002`: compare all 267 line items against the rendered source pages, archive the exact source binary, obtain the six absent companion forms from official sources, and issue an approved or changes-requested source review receipt. Runtime implementation remains blocked until that source gate is explicit.
 
 ## Maintenance rule
 

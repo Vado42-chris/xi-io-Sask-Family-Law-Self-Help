@@ -1,0 +1,35 @@
+{
+  "registry_version": 1,
+  "generated_at": "2026-07-22T20:52:59Z",
+  "current_snapshot_id": "jcc-kit-3j-2026-03-30",
+  "display_rule": "Every user-facing workflow and form preview must display source_date, captured_at, freshness_state, and a stale warning when current verification is absent.",
+  "snapshots": [
+    {
+      "snapshot_id": "jcc-kit-3j-2026-03-30",
+      "source_title": "Kit #3J, Request for a Judicial Case Conference Order",
+      "source_file_name": "K03j - JCC Kit - VI - 2026.03.30.docx",
+      "source_date": "2026-03-30",
+      "captured_at": "2026-07-22T20:52:59Z",
+      "capture_date": "2026-07-22",
+      "jurisdiction": "Court of King's Bench for Saskatchewan, Family Law Division",
+      "source_class": "user_supplied_public_legal_information",
+      "authority_state": "official_looking_source_supplied_by_project_owner_not_independently_download_verified",
+      "sha256": "5ff0d5379115aa0a75837f10fc40ae945cdcff83d6a53a83580f18db535e94ab",
+      "size_bytes": 141225,
+      "page_count_reported": 45,
+      "freshness_state": "captured_unverified_current",
+      "freshness_checked_at": "2026-07-22T20:52:59Z",
+      "official_source_url_in_document": "https://sasklawcourts.ca/kings-bench/rules-practice-directives/",
+      "official_companion_directive_url_verified_at_capture": "https://sasklawcourts.ca/wp-content/uploads/2024/01/KB_FAMILY_PD7-_Revised2024.pdf",
+      "official_companion_directive_state": "url_verified_content_static_reviewed_not_archived_in_repo",
+      "dependent_catalogs": [
+        "sources/jcc-kit-3j/2026-03-30/forms-index.json",
+        "sources/jcc-kit-3j/2026-03-30/forms/"
+      ],
+      "supersedes_snapshot_id": null,
+      "superseded_by_snapshot_id": null,
+      "original_artifact_state": "hash_recorded_not_archived_in_repo",
+      "original_artifact_archive_blocker": "Current GitHub connector cannot upload the local binary source file directly; add exact bytes in a later local-git pass and verify the recorded SHA-256."
+    }
+  ]
+}
