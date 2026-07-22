@@ -106,3 +106,12 @@ Date: 2026-07-22
 Decision: Preserve incoming court and party correspondence as immutable ingress events linked to the matter. Incoming documents may generate tasks and new revisions but must never modify a previously finalized submission snapshot.  
 Reason: The product must support continuing legal matters while preserving exactly what was filed or served at each event.  
 State: proposed architecture.
+
+## SFL-DEC-016, owner locks product and architecture direction
+
+Date: 2026-07-22  
+Decision: Accept and lock the canonical product vision, Inbox-derived legal workbench interaction model, Ibal typed-proposal boundary, PostgreSQL plus encrypted object-vault direction, progress and motivation requirements, ongoing correspondence ingress, and one-package-per-egress-event model.  
+Reason: The owner explicitly approved the architecture as substantially more organized than the initial concept and directed that it be made durable in the repository and advanced.  
+Supersedes state only: SFL-DEC-010 through SFL-DEC-015 are now accepted architecture direction. Their original entries remain unchanged for audit history.  
+Evidence: `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`; `docs/product/product-vision-locked-v1.md`.  
+State: owner-approved locked direction; implementation remains gated by `SFL-SOURCE-REVIEW-002`.
