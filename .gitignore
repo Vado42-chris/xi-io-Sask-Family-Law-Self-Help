@@ -1,0 +1,22 @@
+# Dependencies and generated output
+node_modules/
+dist/
+coverage/
+*.log
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Private legal-workspace data must never be committed
+data/private/
+uploads/
+exports/
+tmp/
+
+# Editor and operating-system files
+.DS_Store
+.idea/
+.vscode/
