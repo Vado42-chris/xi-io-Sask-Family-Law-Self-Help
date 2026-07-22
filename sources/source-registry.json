@@ -29,8 +29,7 @@
       "supersedes_snapshot_id": null,
       "superseded_by_snapshot_id": null,
       "original_artifact_state": "hash_recorded_not_archived_in_repo",
-      "original_artifact_archive_blocker": "Current GitHub connector cannot upload the local binary source file directly; add exact bytes in a later local-git pass and verify the recorded SHA-256.",
-      "derived_text_path": "sources/jcc-kit-3j/2026-03-30/extracted/source-text.txt"
+      "original_artifact_archive_blocker": "Current GitHub connector cannot upload the local binary source file directly; add exact bytes in a later local-git pass and verify the recorded SHA-256."
     }
   ]
 }
