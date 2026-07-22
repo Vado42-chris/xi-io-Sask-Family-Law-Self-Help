@@ -1,4 +1,5 @@
-const ALWAYS_RULES = new Set(["always", "optional", "display_only"]);
+const APPLICABLE_RULES = new Set(["always", "optional", "display_only", "court_only"]);
+const NON_ANSWERABLE_RULES = new Set(["display_only", "court_only"]);
 
 export function normalizeScalar(value) {
   if (typeof value === "boolean") return value;
@@ -69,7 +70,7 @@ export function evaluateCondition(expression, context = {}) {
 export function evaluateRequiredRule(requiredRule, context = {}) {
   const rule = String(requiredRule || "always").trim();
 
-  if (ALWAYS_RULES.has(rule)) {
+  if (APPLICABLE_RULES.has(rule)) {
     return {
       applicable: true,
       supported: true,
@@ -99,12 +100,14 @@ export function evaluateRequiredRule(requiredRule, context = {}) {
 }
 
 export function evaluateLineItem(lineItem, context = {}) {
-  const evaluation = evaluateRequiredRule(lineItem?.required_rule, context);
+  const requiredRule = lineItem?.required_rule || "always";
+  const evaluation = evaluateRequiredRule(requiredRule, context);
   return {
     line_item_id: lineItem?.line_item_id,
     kind: lineItem?.kind,
-    required_rule: lineItem?.required_rule,
-    answerable: lineItem?.required_rule !== "display_only",
+    required_rule: requiredRule,
+    answerable: !NON_ANSWERABLE_RULES.has(requiredRule),
+    authority: requiredRule === "court_only" ? "court" : "user_or_static",
     ...evaluation
   };
 }
@@ -121,6 +124,7 @@ export function evaluateFormCatalog(form, { answers = {}, derivedFacts = {} } = 
     total_line_items: items.length,
     applicable_line_items: applicable.length,
     applicable_answerable_items: answerable.length,
+    court_only_items: applicable.filter((item) => item.authority === "court").length,
     unsupported_rule_count: unsupported.length,
     unsupported_rules: unsupported.map((item) => ({
       line_item_id: item.line_item_id,
