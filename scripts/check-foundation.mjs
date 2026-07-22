@@ -9,6 +9,7 @@ const requiredFiles = [
   'docs/INDEX.md',
   'docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-07-22.md',
   'docs/ops/execution-sequence-v1.md',
+  'docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md',
   'docs/product/product-brief-v1.md',
   'docs/product/first-reference-slice-v1.md',
   'docs/architecture/system-architecture-v1.md',
@@ -18,9 +19,19 @@ const requiredFiles = [
   'docs/ux/accessibility-and-cognitive-load-v1.md',
   'docs/legal/legal-information-boundary-v1.md',
   'docs/source-materials/jcc-kit-3j-source-record-v1.md',
+  'docs/source-materials/source-capture-and-freshness-standard-v1.md',
   'docs/schemas/matter-record-schema-v1.md',
   'docs/schemas/workflow-definition-schema-v1.md',
   'docs/reviews/local-review-packet-sask_family_law_self_help-001.md',
+  'sources/source-registry.json',
+  'sources/jcc-kit-3j/2026-03-30/forms-index.json',
+  'sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-2.json',
+  'sources/jcc-kit-3j/2026-03-30/forms/form-10-3-draft-order.json',
+  'sources/jcc-kit-3j/2026-03-30/forms/form-10-3-child-support-order.json',
+  'sources/jcc-kit-3j/2026-03-30/forms/form-15-8b.json',
+  'sources/jcc-kit-3j/2026-03-30/forms/form-12-3.json',
+  'sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-5.json',
+  'scripts/check-source-catalog.mjs',
   'xi/managed-project.manifest.yaml',
   'xi/project-lexicon.yaml',
   'xi/feature-index.yaml',
@@ -63,6 +74,8 @@ const readme = fs.readFileSync('README.md', 'utf8');
 for (const heading of [
   '## Current status',
   '## What this repo is',
+  '## Canonical source snapshot',
+  '## Required freshness disclosure',
   '## What this repo is not',
   '## Human-only path',
   '## AI-assisted path',
@@ -92,6 +105,14 @@ for (const field of [
 ]) {
   if (!manifest.includes(field)) {
     console.error(`Foundation check failed. Manifest field missing: ${field}`);
+    process.exit(1);
+  }
+}
+
+const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+for (const scriptName of ['check', 'check:foundation', 'check:source-catalog']) {
+  if (!packageJson.scripts?.[scriptName]) {
+    console.error(`Foundation check failed. Missing package script: ${scriptName}`);
     process.exit(1);
   }
 }
