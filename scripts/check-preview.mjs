@@ -54,7 +54,7 @@ if (!failures.length) {
     "form-15-8b",
     "form-12-3",
     "fam-pd-7-5",
-    "typed patch",
+    "Affected ID",
     "localStorage",
     "No mutation in preview"
   ]);
