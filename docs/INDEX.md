@@ -1,6 +1,6 @@
 # Documentation Index v1
 
-Status: `active bootstrap index`  
+Status: `active bootstrap and source-capture index`  
 Project: `sask_family_law_self_help`
 
 ## Start here
@@ -12,6 +12,7 @@ Project: `sask_family_law_self_help`
 | Managed project contract | `xi/managed-project.manifest.yaml` | created, runtime not checked |
 | Current gate sequence | `docs/ops/execution-sequence-v1.md` | created |
 | Open work | `project-tracking/open-work-ledger.md` | created |
+| Canonical source registry | `sources/source-registry.json` | first snapshot captured |
 
 ## Product
 
@@ -38,13 +39,36 @@ Project: `sask_family_law_self_help`
 | Accessibility and cognitive load | `docs/ux/accessibility-and-cognitive-load-v1.md` |
 | Legal-information boundary | `docs/legal/legal-information-boundary-v1.md` |
 
-## Source material
+## Canonical source snapshots
 
-| Record | Path | Source state |
+| Artifact | Path | Source state |
 |---|---|---|
-| Kit #3J source record | `docs/source-materials/jcc-kit-3j-source-record-v1.md` | user-supplied public kit, static reviewed |
+| Source registry | `sources/source-registry.json` | current snapshot pointer created |
+| Kit #3J source record | `docs/source-materials/jcc-kit-3j-source-record-v1.md` | captured, unverified current |
+| Source capture and freshness standard | `docs/source-materials/source-capture-and-freshness-standard-v1.md` | active project standard |
+| Kit #3J form index | `sources/jcc-kit-3j/2026-03-30/forms-index.json` | six included forms indexed |
+| FAM-PD #7-2 line items | `sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-2.json` | 71 line items, review pending |
+| Form 10-3 Draft Order line items | `sources/jcc-kit-3j/2026-03-30/forms/form-10-3-draft-order.json` | 24 line items, review pending |
+| Form 10-3 Child Support line items | `sources/jcc-kit-3j/2026-03-30/forms/form-10-3-child-support-order.json` | 51 line items, review pending |
+| Form 15-8B line items | `sources/jcc-kit-3j/2026-03-30/forms/form-15-8b.json` | 54 line items, review pending |
+| Form 12-3 line items | `sources/jcc-kit-3j/2026-03-30/forms/form-12-3.json` | 27 line items, review pending |
+| FAM-PD #7-5 line items | `sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-5.json` | 40 line items, review pending |
+| Capture receipt | `docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md` | author complete, human source review pending |
 
 No completed user forms or private case evidence belong in this repository.
+
+## Companion source gaps
+
+The Kit #3J snapshot names or depends on the following forms that are not physically included and therefore are not yet canonical source snapshots:
+
+- FAM-PD #7-1
+- FAM-PD #7-3
+- FAM-PD #7-4, court generated
+- Form 15-8A
+- Form 15-47
+- Form 15-49
+
+The application must not claim complete JCC coverage until these sources are captured and reviewed.
 
 ## xi project profiles
 
@@ -74,6 +98,16 @@ Ledgers are append-only. Corrections require a new entry that identifies the cor
 |---|---|---|
 | Bootstrap review packet | `docs/reviews/local-review-packet-sask_family_law_self_help-001.md` | author complete, peer review pending |
 | Startup packet | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-07-22.md` | created |
+| JCC source capture receipt | `docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md` | source transcription complete, review pending |
+
+## Validation
+
+| Command | Purpose |
+|---|---|
+| `npm run check` | Run foundation and source-catalog checks |
+| `npm run check:source-catalog` | Verify snapshot identity, six forms, 267 unique line items, explicit gaps, and freshness disclosure requirements |
+
+A passing source-catalog check proves structural consistency only. It does not prove legal correctness or currentness.
 
 ## Framework references
 
@@ -91,4 +125,7 @@ Framework documents used:
 
 ## Current gaps
 
-Runtime, private workspace, executable schemas, forms engine, AI adapter, document export, service, filing, email, authentication, encryption, and source monitoring remain missing.
+- Exact original Kit #3J binary is hash-identified but not yet archived in the repo.
+- The 267 source line items require independent rendered-page review.
+- Six named companion forms remain uncaptured.
+- Runtime, private workspace, executable schemas, forms engine, AI adapter, document export, service, filing, email, authentication, encryption, and automated source monitoring remain missing.
