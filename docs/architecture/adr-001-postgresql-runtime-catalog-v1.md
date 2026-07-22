@@ -1,6 +1,7 @@
 # ADR-001: PostgreSQL Runtime Catalog with External Object Storage
 
-Status: `proposed, no database configured, no migration approved`  
+Status: `OWNER-ACCEPTED ARCHITECTURE DIRECTION; no database configured; implementation remains gated`  
+Decision token: `SFL_PRODUCT_ARCHITECTURE_LOCK_001_ACCEPTED`  
 Date: `2026-07-22`
 
 ## Context
@@ -285,7 +286,9 @@ Costs:
 - object storage and backup must be designed as part of the system,
 - PostgreSQL does not itself make the system secure.
 
-## Gate
+## Approval and implementation gate
+
+This architecture direction is owner-approved through `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`.
 
 This ADR does not authorize database provisioning, credentials, migrations or private data ingestion.
 
