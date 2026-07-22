@@ -194,3 +194,86 @@ next_action: Open stacked source-capture PR, run npm checks in CI, then perform 
 created_at: 2026-07-22T20:52:59Z
 updated_at: 2026-07-22T21:00:00Z
 ```
+
+## SFL-AGENT-003
+
+```yaml
+agent_run_id: SFL-AGENT-003
+project_id: sask_family_law_self_help
+repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
+branch: docs/inbox-pattern-adoption-2026-07-22
+base_ref: 36abb51f20012ef30674abcf6e71e37052f9a1ce
+operator_type: ai_assistant
+operator_name: ChatGPT
+provider_family: openai_compatible
+model_or_tool_ref: GPT-5.6 Thinking with GitHub connector and official PostgreSQL documentation
+user_requested_goal: Determine whether and how the mature xi-io Inbox UI, Ibal, task, calendar, security and egress patterns can be adapted into the family-law product without touching Inbox, and assess PostgreSQL for the backend.
+allowed_scope:
+  - read-only inspection of xi-io Inbox
+  - read-only inspection of xi-io.net standards
+  - official PostgreSQL documentation review
+  - target-repo architecture, source map, ADR, decisions, risks, evidence and work ledgers
+  - stacked documentation pull request
+blocked_scope:
+  - modification of Vado42-chris/xi-io-Inbox
+  - runtime code import
+  - application implementation
+  - database provisioning or migrations
+  - secrets or credentials
+  - real matter data
+  - court, service or email transmission
+  - merge or deploy
+input_context_refs:
+  - Vado42-chris/xi-io-Inbox@500f1ae5b6dade15bf113b696cea9dfd93ab1cc6
+  - Vado42-chris/xi-io.net@c29afb513d6e44511ecb00bec7514df3229f7d0c
+  - PostgreSQL current documentation reviewed 2026-07-22
+output_artifact_refs:
+  - docs/architecture/inbox-pattern-adoption-and-legal-workbench-v1.md
+  - docs/architecture/adr-001-postgresql-runtime-catalog-v1.md
+  - docs/source-materials/inbox-pattern-source-map-v1.md
+  - docs/INDEX.md
+  - project-tracking/decision-ledger.md
+  - project-tracking/open-work-ledger.md
+  - project-tracking/risk-register.md
+  - project-tracking/evidence-ledger.md
+files_changed:
+  - documentation and append-only project control records only
+commands_run:
+  - command_id: SFL-CMD-004
+    command_text_redacted: GitHub read-only inspection of Inbox and xi-io.net
+    command_class: read_only
+    allowed_by_policy: true
+    result_state: passed
+  - command_id: SFL-CMD-005
+    command_text_redacted: Official PostgreSQL documentation search
+    command_class: read_only
+    allowed_by_policy: true
+    result_state: passed
+  - command_id: SFL-CMD-006
+    command_text_redacted: npm run check
+    command_class: test
+    allowed_by_policy: true
+    result_state: pending_ci
+validation_results:
+  - validation_id: SFL-VAL-004
+    validation_type: structural_ci
+    result_state: pending
+    evidence_ref: stacked architecture pull request
+  - validation_id: SFL-VAL-005
+    validation_type: owner_architecture_review
+    result_state: not_run
+    evidence_ref: architecture PR review
+peer_review_status: required_not_started
+outcome_state: architecture_proposal_ready_for_review
+risk_level: legal_sensitive_cross_repo_data_model
+merge_state: ready_for_review
+deploy_state: blocked
+known_blockers:
+  - source catalog and companion forms remain unapproved
+  - Inbox source candidates have not undergone file-level license/privacy/code review
+  - no target runtime shell exists
+  - PostgreSQL threat model, schema and operations review not started
+next_action: Review the stacked architecture PR, then complete source review before any target-owned shell implementation.
+created_at: 2026-07-22T22:15:00Z
+updated_at: 2026-07-22T22:15:00Z
+```
