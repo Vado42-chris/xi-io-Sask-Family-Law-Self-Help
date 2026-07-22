@@ -34,7 +34,7 @@ if (!failures.length) {
     "Page preview",
     "Package preview",
     "Ask Ibal",
-    "Synthetic preview only"
+    "Synthetic preview"
   ]);
 
   const css = expectText("public/styles/legal-workbench.css", [
