@@ -74,6 +74,7 @@ export function evaluateRequiredRule(requiredRule, context = {}) {
     return {
       applicable: true,
       supported: true,
+      obligation_resolved: true,
       rule,
       reason: rule
     };
@@ -85,15 +86,28 @@ export function evaluateRequiredRule(requiredRule, context = {}) {
     return {
       applicable: result.supported && result.matched,
       supported: result.supported,
+      obligation_resolved: result.supported,
       rule,
       reason: result.supported ? (result.matched ? "condition_matched" : "condition_not_matched") : result.reason,
       condition: result
     };
   }
 
+  if (rule.startsWith("conditional_or_optional:")) {
+    return {
+      applicable: true,
+      supported: true,
+      obligation_resolved: false,
+      rule,
+      reason: "conditional_or_optional_requires_review",
+      review_note: rule.slice("conditional_or_optional:".length).trim()
+    };
+  }
+
   return {
     applicable: false,
     supported: false,
+    obligation_resolved: false,
     rule,
     reason: "unsupported_required_rule"
   };
@@ -125,6 +139,7 @@ export function evaluateFormCatalog(form, { answers = {}, derivedFacts = {} } = 
     applicable_line_items: applicable.length,
     applicable_answerable_items: answerable.length,
     court_only_items: applicable.filter((item) => item.authority === "court").length,
+    unresolved_obligation_items: applicable.filter((item) => !item.obligation_resolved).length,
     unsupported_rule_count: unsupported.length,
     unsupported_rules: unsupported.map((item) => ({
       line_item_id: item.line_item_id,
