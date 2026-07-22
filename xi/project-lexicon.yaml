@@ -1,0 +1,73 @@
+lexicon_version: 1
+project_lexicon_id: sfl.project
+project_id: sask_family_law_self_help
+status: bootstrap
+
+terms:
+  - term: matter
+    namespace: sfl.project.matter
+    user_facing: true
+    definition: A private workspace for one user's legal proceeding and related tasks.
+    framework_mapping: xi.framework.private_workspace
+  - term: workflow
+    namespace: sfl.project.workflow
+    user_facing: true
+    definition: A versioned deterministic procedure derived from an approved source kit.
+    framework_mapping: xi.framework.managed_workflow
+  - term: source_record
+    namespace: sfl.project.source_record
+    user_facing: false
+    definition: Version, provenance, checksum, links, and review state for an official source.
+    framework_mapping: xi.framework.source_evidence
+  - term: candidate_workflow
+    namespace: sfl.project.candidate_workflow
+    user_facing: true
+    definition: A workflow that appears applicable but still requires user confirmation and unresolved checks.
+    framework_mapping: xi.framework.proposed_route
+  - term: relief
+    namespace: sfl.project.relief
+    user_facing: true
+    definition: The precise order or remedy the user intends to ask the court to make.
+    framework_mapping: xi.framework.requested_outcome
+  - term: homework_task
+    namespace: sfl.project.homework_task
+    user_facing: true
+    definition: A fact, record, external action, or awaited item needed before a workflow can progress.
+    framework_mapping: xi.framework.task
+  - term: external_awaited_input
+    namespace: sfl.project.external_awaited_input
+    user_facing: true
+    definition: A document or decision produced by the court, another party, counsel, or another institution.
+    framework_mapping: xi.framework.external_dependency
+  - term: draft_block
+    namespace: sfl.project.draft_block
+    user_facing: false
+    definition: Editable text with source facts, source rules, generator class, and approval state.
+    framework_mapping: xi.framework.semantic_writing_block
+  - term: final_ready
+    namespace: sfl.project.final_ready
+    user_facing: true
+    definition: All declared workflow gates passed for review or export, not a guarantee of legal correctness or court acceptance.
+    framework_mapping: xi.framework.review_gate_passed
+
+forbidden_ambiguous_terms:
+  - complete
+  - guaranteed
+  - legally_valid
+  - filed
+  - served
+  - accepted
+  - lawyer_reviewed
+  - court_approved
+
+promotion_candidates:
+  - external_awaited_input
+  - source_version_gate
+  - generated_legal_text_provenance
+
+must_not_become_framework_invariants_without_review:
+  - judicial_case_conference
+  - petitioner
+  - respondent
+  - relief
+  - pleadings_closed

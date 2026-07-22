@@ -1,0 +1,264 @@
+manifest_version: 1
+project_id: sask_family_law_self_help
+project_name: "xi-io: Saskatchewan Family Law Self-Help"
+project_kind: active_product
+repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
+repo_default_branch: main
+repo_visibility: public
+project_status: active
+completion_class: C2_scaffold_only
+evidence_tier: E2_static_review
+
+human_only_path:
+  supported: true
+  core_user_value_without_ai:
+    - deterministic eligibility triage
+    - guided manual data entry
+    - transparent form and task planning
+    - manual narrative editing
+    - package review and export
+  known_limitations:
+    - runtime_not_started
+
+ai_optional_path:
+  supported: true
+  ai_required_for_core_use: false
+  allowed_value:
+    - intent interpretation
+    - bounded follow-up questions
+    - drafting suggestions from approved facts
+    - consistency and completeness checks
+  provider_lock_in_allowed: false
+  current_state: not_configured
+
+local_first_status:
+  state: planned_local_first_private_workspace
+  public_repo_data: definitions_and_synthetic_fixtures_only
+  user_controlled_storage: required_not_implemented
+  offline_capability: planned
+  external_service_dependencies: []
+
+privacy_profile:
+  profile_id: strict_legal_privacy_v1
+  sensitive_classes:
+    - legal
+    - identity
+    - financial
+    - family
+    - child
+    - health_adjacent
+  real_matter_data_in_public_repo: forbidden
+  ai_egress_default: forbidden
+  analytics_matter_data: forbidden
+
+public_safety_profile:
+  legal_advice_claims: forbidden
+  outcome_prediction: forbidden
+  court_document_impersonation: forbidden
+  source_version_required: true
+  escalation_required_for:
+    - family_or_interpersonal_violence
+    - immediate_danger
+    - child_safety
+    - criminal_proceedings
+    - child_and_family_services
+    - protection_orders
+    - unsafe_service
+    - imminent_deadline
+
+security_profile:
+  state: docs_only
+  allowed_read_paths:
+    - public_source_records
+    - blank_workflow_definitions
+    - synthetic_fixtures
+  allowed_write_paths:
+    - repo_governance_files_with_review
+  blocked_paths:
+    - real_matter_data
+    - secrets
+    - completed_forms
+  secret_handling: no_secrets_in_repo
+  redaction_policy: required_not_implemented
+  local_only_requirement: real_matter_data
+  remote_execution_allowed: false
+  deploy_action_allowed: false
+  human_approval_required: true
+  audit_receipt_required: true
+  rollback_or_disable_plan: block_and_revert_change
+
+logging_profile:
+  state: docs_only
+  event_namespace: sfl
+  required_event_types:
+    - workflow_selected
+    - answer_changed
+    - fact_approved
+    - draft_proposed
+    - draft_approved
+    - source_stale
+    - blocker_opened
+    - package_exported
+    - transmission_proposed
+  no_silent_failure_required: true
+  no_silent_green_required: true
+  privacy_redaction_policy: no_matter_content_in_operational_logs
+
+control_plane_profile:
+  profile_id: sfl_control_plane_v1
+  control_plane_supported: planned
+  default_control_plane_stage: review
+  allowed_control_plane_stages:
+    - precheck
+    - review
+    - approval
+    - verification
+    - receipt
+    - blocked
+  default_approval_class: approval_required_before_write
+  human_approval_required_for_write: true
+  human_approval_required_for_publish: true
+  human_approval_required_for_merge: true
+  human_approval_required_for_mcp_mutation: true
+  no_silent_green_required: true
+
+provider_runtime_profile:
+  profile_id: sfl_provider_runtime_v1
+  ai_provider_available: not_configured
+  local_model_available: not_configured
+  mcp_server_available: not_configured
+  api_adapter_available: not_configured
+  github_read_available: available
+  github_write_available: approval_gated
+  local_preview_available: unavailable
+  offline_mode_supported: planned
+  provider_health_state: unknown
+  runtime_capability_state: not_started
+  visible_degradation_required: true
+
+project_lexicon_id: sfl.project
+framework_mapping_version: rosetta_framework_map_v1
+project_terms:
+  - workflow
+  - matter
+  - relief
+  - source_record
+  - homework_task
+  - external_awaited_input
+framework_mappings:
+  - project_term: sfl.project.workflow
+    framework_term: xi.framework.managed_workflow
+  - project_term: sfl.project.matter
+    framework_term: xi.framework.private_workspace
+  - project_term: sfl.project.homework_task
+    framework_term: xi.framework.task
+
+rosetta_registry_pointer:
+  registry_kind: project_registry
+  registry_path: xi/project-lexicon.yaml
+  registry_state: bootstrap
+  last_registry_scan: missing
+  drift_state: unknown
+
+project_feature_index_pointer:
+  feature_index_path: xi/feature-index.yaml
+  feature_index_state: bootstrap
+  feature_count: 8
+  last_feature_review_commit: missing
+
+automation_profile_pointer:
+  automation_profile_path: none
+  automation_count: 0
+  human_approval_required: true
+  stop_disable_supported: required
+  rollback_supported: required
+  receipt_required: true
+
+human_use_docs_pointer:
+  path: README.md
+  state: bootstrap
+
+safe_commands:
+  - npm run check
+
+blocked_commands:
+  - destructive_git
+  - force_push
+  - merge_without_approval
+  - deploy_or_publish
+  - secret_or_env_display
+  - schema_migration
+  - real_matter_data_ingress
+  - ai_egress_with_real_matter_data
+  - court_or_party_transmission
+  - cross_repo_mutation_without_approval
+
+provider_adapter_permissions:
+  read_only: []
+  proposal_only: []
+  mutation: []
+  forbidden:
+    - unconsented_legal_data_processing
+
+mcp_tool_permissions:
+  read_only: []
+  proposal_only: []
+  mutation: []
+  forbidden:
+    - arbitrary_tool_execution
+
+api_adapter_permissions:
+  read_only: []
+  proposal_only: []
+  mutation: []
+  forbidden:
+    - court_filing
+    - service_claim
+    - email_send
+
+preview_profile:
+  state: not_started
+  synthetic_data_only: true
+  public_preview_allowed: false
+
+validation_profile:
+  state: foundation_only
+  commands:
+    - npm run check
+  runtime_validation: not_started
+  accessibility_validation: not_started
+  legal_content_review: not_started
+  privacy_review: not_started
+
+egress_profile:
+  package_export: planned
+  direct_transmission: forbidden_not_implemented
+  recipient_verification_required: true
+  explicit_final_confirmation_required: true
+  receipt_required: true
+
+evidence_profile:
+  source_records_required: true
+  user_fact_provenance_required: true
+  generated_text_provenance_required: true
+  human_approval_required: true
+  professional_review_optional_but_visible: true
+  court_issued_label_required: true
+
+last_verified_commit: missing
+last_manifest_review_commit: missing
+last_lexicon_review_commit: missing
+last_security_review_commit: missing
+last_runtime_check: runtime_not_checked
+
+known_blockers:
+  - bootstrap_review_pending
+  - official_source_verification_missing
+  - runtime_stack_not_selected
+  - executable_schemas_missing
+  - private_workspace_missing
+  - security_and_privacy_review_missing
+  - legal_content_review_missing
+  - court_transmission_contract_missing
+
+next_action: review_and_approve_SFL_BOOTSTRAP_001

@@ -1,0 +1,89 @@
+ui_profile_version: 1
+project_id: sask_family_law_self_help
+status: docs_only
+
+token_profile:
+  source: xi_io_framework_candidate
+  state: not_adopted
+  requirements:
+    - readable_default_type
+    - high_contrast_focus
+    - reduced_motion
+    - print_support
+    - narrow_and_wide_layouts
+
+adopted_atomic_components:
+  - status_badge
+  - notice
+  - button
+  - page_header
+  - progress_indicator
+  - disclosure_panel
+
+candidate_domain_components:
+  - triage_question_card
+  - workflow_decision_preview
+  - homework_task_card
+  - external_awaited_input_card
+  - fact_provenance_card
+  - draft_block_editor
+  - form_field_source_inspector
+  - package_blocker_summary
+  - recipient_confirmation_gate
+
+page_recipes:
+  - route: /
+    purpose: product boundary and start
+  - route: /triage
+    purpose: minimum eligibility interview
+  - route: /matter/:matterId
+    purpose: plan, status, forms, homework, and blockers
+  - route: /matter/:matterId/interview/:sectionId
+    purpose: progressive disclosure question flow
+  - route: /matter/:matterId/review
+    purpose: facts, drafts, forms, and inconsistencies
+  - route: /matter/:matterId/package
+    purpose: package manifest and export gate
+  - route: /sources
+    purpose: source versions and stale-state explanation
+
+accessibility_requirements:
+  target: WCAG_2_2_AA
+  keyboard_complete: true
+  screen_reader_status_updates: true
+  colour_only_forbidden: true
+  reduced_motion: true
+  reflow_and_zoom: required
+  print_task_plan: required
+  low_density_mode: required
+
+provenance_labels:
+  - official_source
+  - workflow_rule
+  - user_fact
+  - evidence_reference
+  - ai_suggestion
+  - human_approved
+  - professional_reviewed
+  - court_issued
+  - unknown
+
+no_silent_failure_behavior:
+  required: true
+  visible_states:
+    - not_started
+    - in_progress
+    - awaiting_user
+    - awaiting_other_party
+    - awaiting_court
+    - blocked
+    - stale_source
+    - review_required
+    - export_ready
+    - failed
+
+component_gaps:
+  - no_runtime_components_exist
+  - framework_token_adoption_not_reviewed
+  - donor_source_maps_missing
+  - browser_and_accessibility_QA_missing
