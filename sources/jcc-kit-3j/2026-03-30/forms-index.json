@@ -1,0 +1,128 @@
+{
+  "index_version": 1,
+  "snapshot_id": "jcc-kit-3j-2026-03-30",
+  "source_date": "2026-03-30",
+  "captured_at": "2026-07-22T20:52:59Z",
+  "source_sha256": "5ff0d5379115aa0a75837f10fc40ae945cdcff83d6a53a83580f18db535e94ab",
+  "completeness_claim": "complete_for_forms_physically_included_in_the_supplied_45_page_kit_only",
+  "forms_included": [
+    {
+      "form_id": "fam-pd-7-2",
+      "official_number": "FAM-PD #7-2",
+      "title": "Request for a Judicial Case Conference",
+      "printed_pages": [18, 24],
+      "source_status": "included",
+      "catalog_status": "line_items_captured",
+      "notes": ["Includes Notice to Respondent on printed page 24."]
+    },
+    {
+      "form_id": "form-10-3-draft-order",
+      "official_number": "Form 10-3",
+      "title": "Draft Order",
+      "printed_pages": [25, 26],
+      "source_status": "included",
+      "catalog_status": "line_items_captured",
+      "notes": ["Kit instructions direct the user to leave court-completed fields blank."]
+    },
+    {
+      "form_id": "form-10-3-child-support-order",
+      "official_number": "Form 10-3",
+      "title": "Draft Child Support Order",
+      "printed_pages": [28, 32],
+      "source_status": "included",
+      "catalog_status": "line_items_captured",
+      "notes": ["Printed page 27 is blank. Child support is kept separate from other orders."]
+    },
+    {
+      "form_id": "form-15-8b",
+      "official_number": "Form 15-8B",
+      "title": "Affidavit of Service by Alternate Mode",
+      "printed_pages": [33, 39],
+      "source_status": "included",
+      "catalog_status": "line_items_captured",
+      "notes": ["Only the first page plus the page for the chosen service mode is completed. Printed page 36 is blank."]
+    },
+    {
+      "form_id": "form-12-3",
+      "official_number": "Form 12-3",
+      "title": "Acknowledgment of Service",
+      "printed_pages": [40, 42],
+      "source_status": "included",
+      "catalog_status": "line_items_captured",
+      "notes": [
+        "The form shares printed page 42 with the start of FAM-PD #7-5.",
+        "The checklist twice calls this Form 12-13; the embedded form and instructions identify it as Form 12-3."
+      ]
+    },
+    {
+      "form_id": "fam-pd-7-5",
+      "official_number": "FAM-PD #7-5",
+      "title": "Judicial Case Conference Appearance Memo",
+      "printed_pages": [42, 45],
+      "source_status": "included",
+      "catalog_status": "line_items_captured",
+      "notes": ["Begins part way through printed page 42."]
+    }
+  ],
+  "referenced_not_included": [
+    {
+      "form_id": "fam-pd-7-1",
+      "official_number": "FAM-PD #7-1",
+      "title": "Certificate of Compliance with Practice Directive #7",
+      "status": "not_in_supplied_kit",
+      "reason": "Referenced by the official companion practice directive for later applications, not provided in this kit."
+    },
+    {
+      "form_id": "fam-pd-7-3",
+      "official_number": "FAM-PD #7-3",
+      "title": "Joint Request for Judicial Case Conference",
+      "status": "not_in_supplied_kit",
+      "reason": "The kit says a different joint-request form exists but is not included."
+    },
+    {
+      "form_id": "fam-pd-7-4",
+      "official_number": "FAM-PD #7-4",
+      "title": "Notice of Judicial Case Conference",
+      "status": "court_generated_not_in_supplied_kit",
+      "reason": "The court provides it after scheduling."
+    },
+    {
+      "form_id": "form-15-8a",
+      "official_number": "Form 15-8A",
+      "title": "Affidavit of Personal Service",
+      "status": "referenced_not_in_supplied_kit",
+      "reason": "Listed as a proof-of-service option but not included."
+    },
+    {
+      "form_id": "form-15-47",
+      "official_number": "Form 15-47",
+      "title": "Financial Statement",
+      "status": "referenced_not_in_supplied_kit",
+      "reason": "Required in applicable child or spousal support matters; the request asks whether it has been filed."
+    },
+    {
+      "form_id": "form-15-49",
+      "official_number": "Form 15-49",
+      "title": "Property Statement",
+      "status": "referenced_not_in_supplied_kit",
+      "reason": "Required in applicable property matters; the request asks whether it has been filed."
+    }
+  ],
+  "source_discrepancies": [
+    {
+      "discrepancy_id": "jcc-3j-disc-001",
+      "location": "Checklist, printed pages 14 and 16",
+      "observed": "Acknowledgment of Service is labelled Form 12-13.",
+      "canonical_for_snapshot": "Form 12-3",
+      "basis": "The embedded form heading and detailed instructions identify Form 12-3.",
+      "resolution_state": "recorded_not_silently_corrected"
+    },
+    {
+      "discrepancy_id": "jcc-3j-disc-002",
+      "location": "Service-by-email instructions and Form 15-8B email page",
+      "observed": "Instructions say to print the sent email; the form asks for a hard copy of an electronically transmitted acknowledgment of receipt.",
+      "canonical_for_snapshot": "both_source_statements_preserved",
+      "resolution_state": "requires_procedural_review_before_runtime_rule"
+    }
+  ]
+}
