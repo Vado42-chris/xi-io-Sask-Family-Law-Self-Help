@@ -98,3 +98,5 @@ The check fails unless:
 ## Remaining review gate
 
 The workbook creates the review surface, not the review result. An independent reviewer must still compare each entry to the rendered official source page and record a disposition. Companion forms outside the current 267-item snapshot remain a separate capture obligation.
+
+Disposition integrity for saved or in-progress workbooks is enforced by `SFL-SOURCE-REVIEW-COMPLETED-VALIDATOR-001F` (`npm run check:source-review-completed`). A `verified` claim cannot pass without reviewer identity, review date, rendered-source confirmation, transcription confirmation, and evidence reference.

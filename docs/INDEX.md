@@ -125,6 +125,8 @@ Ledgers are append-only. Corrections require a new entry that identifies the cor
 | JCC source capture receipt | `docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md` | source transcription complete, review pending |
 | JCC source capture review packet | `docs/reviews/local-review-packet-jcc-source-capture-001.md` | author complete, independent source review pending |
 | Court-faithful litmus track | `docs/ops/SFL-COURT-FAITHFUL-LITMUS-001.md` | active; case-relevant forms first |
+| Source review workbook | `docs/ops/SFL-SOURCE-REVIEW-WORKBOOK-001E.md` | implemented; 267 pending entries |
+| Completed workbook disposition validator | `docs/ops/SFL-SOURCE-REVIEW-COMPLETED-VALIDATOR-001F.md` | implemented; verified gates enforced |
 
 ## Validation
 
