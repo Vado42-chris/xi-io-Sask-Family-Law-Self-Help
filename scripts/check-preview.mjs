@@ -5,7 +5,9 @@ import process from "node:process";
 const requiredFiles = [
   "public/index.html",
   "public/styles/legal-workbench.css",
+  "public/styles/user-mode.css",
   "public/src/legal-workbench.js",
+  "public/src/user-language-layer.js",
   "public/src/applicability-engine.js",
   "public/src/wizard-state.js",
   "public/data/synthetic-matter.json",
@@ -27,18 +29,20 @@ function expectText(path, fragments) {
 
 if (!failures.length) {
   const html = expectText("public/index.html", [
-    "Family Law Workbench",
-    "Source review pending",
-    "No transmission",
-    "Guided questions",
-    "Section review",
-    "Page preview",
-    "Package preview",
+    "Family Law Assistant",
+    "Your next steps",
+    "Preparing for your JCC",
+    "Questions",
+    "Review answers",
+    "View form",
+    "Prepare package",
     "Ask Ibal",
-    "Synthetic preview",
+    "Practice preview",
     "data-queue-view=\"today\"",
     "Continue where you left off",
-    "private-lock-banner"
+    "private-lock-banner",
+    "user-mode.css",
+    "user-language-layer.js"
   ]);
 
   const css = expectText("public/styles/legal-workbench.css", [
@@ -50,6 +54,14 @@ if (!failures.length) {
     ".today-card",
     ".private-lock-banner",
     "prefers-reduced-motion"
+  ]);
+
+  const userCss = expectText("public/styles/user-mode.css", [
+    ".user-mode .trust-cluster",
+    ".user-mode #form-source-summary",
+    ".user-mode .question-kind",
+    ".user-mode .question-rule",
+    ".user-mode .mode-actions"
   ]);
 
   const js = expectText("public/src/legal-workbench.js", [
@@ -74,6 +86,13 @@ if (!failures.length) {
     "fam-pd-7-5"
   ]);
 
+  const userLayer = expectText("public/src/user-language-layer.js", [
+    "MutationObserver",
+    "Private on this computer",
+    "Official form details",
+    "Are you asking the court to make a temporary decision"
+  ]);
+
   const server = expectText("scripts/serve-preview.mjs", [
     "/api/local/matter",
     "static_private_paths_disabled",
@@ -85,8 +104,12 @@ if (!failures.length) {
     failures.push("serve-preview must not statically expose private matter.json");
   }
   if (/https?:\/\//i.test(js)) failures.push("Preview JavaScript must not call a remote URL.");
+  if (/fetch\(|localStorage|sessionStorage|\/api\/local\/matter|\/data\/private\//.test(userLayer)) {
+    failures.push("User-language presentation layer must not access network, storage, or private matter paths.");
+  }
   if (html.includes("contenteditable")) failures.push("First preview must not use arbitrary contenteditable HTML as canonical form state.");
   if (css.length < 5000) failures.push("Preview CSS appears unexpectedly small for the required four-surface workbench.");
+  if (userCss.length < 1000) failures.push("User-mode CSS appears unexpectedly small for the progressive-disclosure contract.");
   if (js.includes("form.line_items[state.currentQuestionIndex]")) failures.push("Visible wizard must not navigate the raw catalog index.");
   if (js.includes("form.line_items.length}`")) failures.push("Visible question position must use applicable wizard navigation length.");
 
@@ -102,9 +125,11 @@ if (!failures.length) {
 
   const syntaxChecks = [
     "public/src/legal-workbench.js",
+    "public/src/user-language-layer.js",
     "public/src/applicability-engine.js",
     "public/src/wizard-state.js",
-    "scripts/serve-preview.mjs"
+    "scripts/serve-preview.mjs",
+    "scripts/check-user-language.mjs"
   ];
   for (const path of syntaxChecks) {
     const result = spawnSync(process.execPath, ["--check", path], { encoding: "utf8" });
@@ -143,11 +168,11 @@ if (!failures.length) {
 }
 
 if (failures.length) {
-  console.error("Synthetic preview check failed:");
+  console.error("Legal workbench preview check failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Synthetic legal workbench preview check passed.");
-console.log("Visible guided navigation, progress, validation, package blockers, and inspector reasoning are bound to deterministic wizard state.");
+console.log("Plain-language legal workbench preview check passed.");
+console.log("Guided navigation, progress, validation, package blockers, and inspector reasoning remain bound to deterministic wizard state.");
 console.log("This proves structural preview integrity only, not browser quality, security, accessibility, legal accuracy, or runtime readiness.");
