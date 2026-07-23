@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "description": "Matter assertions are versioned claims, not established truth.",
+  "required_fields": [
+    "assertion_id",
+    "fact_definition_id",
+    "value",
+    "asserted_by",
+    "asserted_at",
+    "status",
+    "confidence",
+    "evidence_links",
+    "source_type",
+    "conflict_state"
+  ],
+  "status_values": [
+    "asserted",
+    "contested",
+    "agreed",
+    "court_found",
+    "unknown",
+    "withdrawn"
+  ],
+  "confidence_values": [
+    "user_confirmed",
+    "evidence_supported",
+    "calculated",
+    "unverified"
+  ],
+  "source_type_values": [
+    "user_statement",
+    "email",
+    "tax_return",
+    "court_order",
+    "system_calculation",
+    "opposing_party"
+  ]
+}

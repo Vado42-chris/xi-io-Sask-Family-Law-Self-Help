@@ -151,9 +151,25 @@ This bootstrap follows the xi-io repository governance quickstart, project start
 - Automated kit freshness monitoring is not implemented.
 - Accessibility requirements are documented but not runtime tested.
 
+## Local preview (architecture proof)
+
+```bash
+npm run check
+npm run preview
+```
+
+Open:
+
+- User Continue-first shell: `http://127.0.0.1:4173/app`
+- Source review: `http://127.0.0.1:4173/source-review`
+- Developer diagnostics: `http://127.0.0.1:4173/dev`
+- Legacy workbench: `http://127.0.0.1:4173/legacy`
+
+Private matter never auto-loads. Court readiness remains blocked. See `docs/ops/SFL-INTERACTION-ARCHITECTURE-001I.md`.
+
 ## Next action
 
-Complete `SFL-SOURCE-REVIEW-002`: compare all 267 line items against the rendered source pages, archive the exact source binary, obtain the six absent companion forms from official sources, and issue an approved or changes-requested source review receipt. Runtime implementation remains blocked until that source gate is explicit.
+Keep `SFL-SOURCE-REVIEW-002` open for the 267-item page review. Peer-review the interaction-architecture proof on FAM-PD #7-5, complete Track A human PDF compare for the private litmus, and do not expand presentation generation to all forms yet.
 
 ## Maintenance rule
 

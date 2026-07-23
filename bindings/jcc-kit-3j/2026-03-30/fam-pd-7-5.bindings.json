@@ -1,0 +1,546 @@
+{
+  "form_id": "fam-pd-7-5",
+  "snapshot_id": "jcc-kit-3j-2026-03-30",
+  "bindings": [
+    {
+      "binding_id": "binding.fam-pd-7-5.header_court_file_number",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.caption.court_file_number",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "header.court_file_number",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "f0173ec2d1f83c39"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.header_judicial_centre",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.caption.judicial_centre",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "header.judicial_centre",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "71711b9892a0ca66"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.header_petitioner",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.caption.petitioner_name",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "header.petitioner",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "c796261af5d9e08d"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.header_respondent",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.caption.respondent_name",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "header.respondent",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "2f3d104df1317f74"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.schedule_date",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.jcc.scheduled_date",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "schedule.date",
+          "direction": "fact_to_form",
+          "transform": "date_long_en_ca"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "4af1d8d9e6bef95b"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.schedule_time_and_location",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.jcc.time_and_location",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "schedule.time_and_location",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "7928695114b71b0b"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p1a_filed_on_behalf_of",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.party.filing_as",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p1a.filed_on_behalf_of",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "f14a3067eeeee615"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p1b_other_parties_and_counsel",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.party.other_parties_counsel",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p1b.other_parties_and_counsel",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "2284f7ebbfa8ff3d"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p2_party_role",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.party.role",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p2.party_role",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "3e0dd41a08995c42"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p2_request_date",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.jcc.request_date",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p2.request_date",
+          "direction": "fact_to_form",
+          "transform": "date_long_en_ca"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "bc1bfc0b3eecc64a"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p2_draft_order_filed_date",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.jcc.draft_order_filed_date",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p2.draft_order_filed_date",
+          "direction": "fact_to_form",
+          "transform": "date_long_en_ca"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "e2dcad5db77cb2f0"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p3_readiness_position",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.jcc.readiness_position",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p3.readiness_position",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "e863382cbb26b5c7"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p4_legal_position_summary",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.jcc.legal_position_summary",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p4.legal_position_summary",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "84464419a365cb38"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p5_consented_unopposed_relief",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.jcc.consented_relief",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p5.consented_unopposed_relief",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "e8babf429e8400b6"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p6a_i_case_conferences_state",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.procedure.other_case_conferences",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p6a.i.case_conferences_state",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "2b106b4cfae30405"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p6a_ii_chambers_state",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.procedure.chambers_state",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p6a.ii.chambers_state",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "b1c967209780fcc6"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p6a_iii_pretrial_state",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.procedure.pretrial_state",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p6a.iii.pretrial_state",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "5d90a980d87e2bc5"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p6a_iv_trial_state",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.procedure.trial_state",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p6a.iv.trial_state",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "5ebf2d23138d7271"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p6b_related_proceedings",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.procedure.related_proceedings",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p6b.related_proceedings",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "50fecf79807aa16b"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p7_memo_type",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.jcc.memo_type",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p7.memo_type",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "bdffcadd2029f2b7"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.execution_city",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.execution.city",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "execution.city",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "4bfb6640cf5e656a"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.execution_day",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.execution.day",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "execution.day",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "54033b091db2213e"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.execution_month",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.execution.month",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "execution.month",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "82f4c29b0fe20f48"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.execution_year",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.execution.year",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "execution.year",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "5f412c446e064439"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.execution_name",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.contact.name",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "execution.name",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "0be30c88b0aa347a"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.contact_name",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.contact.name",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "contact.name",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "a039a3eb826caeff"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.contact_address",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.contact.address",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "contact.address",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "dc082343f88ac84a"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.contact_telephone",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.contact.telephone",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "contact.telephone",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "ff5334fce5ab8051"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.contact_fax",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.contact.fax",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "contact.fax",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "b841900a7a379b9a"
+      ]
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.contact_email",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.contact.email",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "contact.email",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "0395a6f1143c2f08"
+      ]
+    }
+  ]
+}

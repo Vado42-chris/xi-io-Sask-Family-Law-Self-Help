@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "jcc-kit-3j-2026-03-30",
+  "workflow_id": "jcc-appearance-memo-live-track",
+  "stages": [
+    {
+      "stage_id": "archive_notice",
+      "title": "Archive the official Notice of JCC",
+      "blocks_next_if_incomplete": true
+    },
+    {
+      "stage_id": "confirm_deadline",
+      "title": "Confirm Appearance Memo filing/service deadline",
+      "blocks_next_if_incomplete": true
+    },
+    {
+      "stage_id": "prepare_appearance_memo",
+      "title": "Prepare Appearance Memo answers",
+      "form_id": "fam-pd-7-5",
+      "blocks_next_if_incomplete": true
+    },
+    {
+      "stage_id": "review_answers",
+      "title": "Review answers and unknowns",
+      "blocks_next_if_incomplete": true
+    },
+    {
+      "stage_id": "generate_document",
+      "title": "Generate court-faithful draft PDF",
+      "blocks_next_if_incomplete": true
+    },
+    {
+      "stage_id": "sign",
+      "title": "Sign (wet ink)",
+      "blocks_next_if_incomplete": true
+    },
+    {
+      "stage_id": "serve",
+      "title": "Serve required parties",
+      "blocks_next_if_incomplete": true
+    },
+    {
+      "stage_id": "file",
+      "title": "File with the court",
+      "blocks_next_if_incomplete": true
+    },
+    {
+      "stage_id": "record_delivery",
+      "title": "Record delivery and court acceptance",
+      "blocks_next_if_incomplete": false
+    },
+    {
+      "stage_id": "prepare_for_conference",
+      "title": "Prepare for the conference",
+      "blocks_next_if_incomplete": false
+    }
+  ]
+}

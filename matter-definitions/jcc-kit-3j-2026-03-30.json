@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "jcc-kit-3j-2026-03-30",
+  "definitions": [
+    {
+      "fact_definition_id": "matter.caption.court_file_number",
+      "label": "Court file number",
+      "value_type": "text",
+      "sensitivity": "case_identifier"
+    },
+    {
+      "fact_definition_id": "matter.caption.judicial_centre",
+      "label": "Judicial centre",
+      "value_type": "text",
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.caption.petitioner_name",
+      "label": "Petitioner name",
+      "value_type": "person_name",
+      "sensitivity": "party_identity"
+    },
+    {
+      "fact_definition_id": "matter.caption.respondent_name",
+      "label": "Respondent name",
+      "value_type": "person_name",
+      "sensitivity": "party_identity"
+    },
+    {
+      "fact_definition_id": "matter.jcc.scheduled_date",
+      "label": "JCC scheduled date",
+      "value_type": "date",
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.jcc.time_and_location",
+      "label": "JCC time and location",
+      "value_type": "text",
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.party.filing_as",
+      "label": "Party filing this memo",
+      "value_type": "text",
+      "sensitivity": "party_identity"
+    },
+    {
+      "fact_definition_id": "matter.party.other_parties_counsel",
+      "label": "Other parties and counsel",
+      "value_type": "repeatable_text",
+      "sensitivity": "party_identity"
+    },
+    {
+      "fact_definition_id": "matter.party.role",
+      "label": "Role of party seeking relief",
+      "value_type": "enum",
+      "options": [
+        "petitioner",
+        "respondent"
+      ],
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.jcc.request_date",
+      "label": "Request for JCC date",
+      "value_type": "date",
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.jcc.draft_order_filed_date",
+      "label": "Draft order filed date",
+      "value_type": "date",
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.jcc.readiness_position",
+      "label": "Readiness position",
+      "value_type": "long_text",
+      "sensitivity": "case_content"
+    },
+    {
+      "fact_definition_id": "matter.jcc.legal_position_summary",
+      "label": "Legal position summary",
+      "value_type": "long_text",
+      "sensitivity": "case_content"
+    },
+    {
+      "fact_definition_id": "matter.jcc.consented_relief",
+      "label": "Consented or unopposed relief",
+      "value_type": "repeatable_long_text",
+      "sensitivity": "case_content"
+    },
+    {
+      "fact_definition_id": "matter.procedure.other_case_conferences",
+      "label": "Other case conferences pending",
+      "value_type": "enum",
+      "options": [
+        "none",
+        "returnable on"
+      ],
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.procedure.chambers_state",
+      "label": "Chambers applications pending",
+      "value_type": "enum",
+      "options": [
+        "none",
+        "returnable on",
+        "reserved"
+      ],
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.procedure.pretrial_state",
+      "label": "Pre-trial scheduling state",
+      "value_type": "enum",
+      "options": [
+        "Not scheduled",
+        "Scheduled"
+      ],
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.procedure.trial_state",
+      "label": "Trial scheduling state",
+      "value_type": "enum",
+      "options": [
+        "Not scheduled",
+        "Scheduled"
+      ],
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.procedure.related_proceedings",
+      "label": "Related proceedings summary",
+      "value_type": "long_text",
+      "sensitivity": "case_content"
+    },
+    {
+      "fact_definition_id": "matter.jcc.memo_type",
+      "label": "Appearance memo type",
+      "value_type": "enum",
+      "options": [
+        "First Memo filed respecting this Request",
+        "Updated Memo"
+      ],
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.execution.city",
+      "label": "Dated-at city",
+      "value_type": "text",
+      "sensitivity": "party_identity"
+    },
+    {
+      "fact_definition_id": "matter.execution.day",
+      "label": "Execution day",
+      "value_type": "integer",
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.execution.month",
+      "label": "Execution month",
+      "value_type": "text",
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.execution.year",
+      "label": "Execution year",
+      "value_type": "integer",
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.contact.name",
+      "label": "Name for service",
+      "value_type": "person_name",
+      "sensitivity": "party_identity"
+    },
+    {
+      "fact_definition_id": "matter.contact.address",
+      "label": "Address for service",
+      "value_type": "address",
+      "sensitivity": "party_identity"
+    },
+    {
+      "fact_definition_id": "matter.contact.telephone",
+      "label": "Telephone",
+      "value_type": "telephone",
+      "sensitivity": "party_identity"
+    },
+    {
+      "fact_definition_id": "matter.contact.fax",
+      "label": "Fax",
+      "value_type": "fax",
+      "sensitivity": "party_identity"
+    },
+    {
+      "fact_definition_id": "matter.contact.email",
+      "label": "Email",
+      "value_type": "email",
+      "sensitivity": "party_identity"
+    }
+  ]
+}

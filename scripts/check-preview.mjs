@@ -95,11 +95,17 @@ if (!failures.length) {
 
   const server = expectText("scripts/serve-preview.mjs", [
     "/api/local/matter",
+    "/api/local/unlock",
+    "acknowledge_privacy_boundary",
     "static_private_paths_disabled",
     "private_matter_requires_loopback",
+    "private_unlock_required",
     "Refusing to start",
     "Static /data/private/* routes are disabled"
   ]);
+  if (!js.includes("private_matter_present && !status.unlocked")) {
+    failures.push("Legacy workbench must not auto-load private matter without unlock.");
+  }
   if (server.includes('paths.push(requested)') && server.includes('/data/private/matter.json')) {
     failures.push("serve-preview must not statically expose private matter.json");
   }

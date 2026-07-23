@@ -1,0 +1,573 @@
+{
+  "form_id": "fam-pd-7-5",
+  "snapshot_id": "jcc-kit-3j-2026-03-30",
+  "presentations": [
+    {
+      "presentation_id": "pres.jcc.appearance.conference_when_where.v1",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "interaction_step_id": "jcc.appearance.conference_when_where",
+      "fact_definition_ids": [
+        "matter.jcc.scheduled_date",
+        "matter.jcc.time_and_location"
+      ],
+      "line_item_ids": [
+        "schedule.date",
+        "schedule.time_and_location"
+      ],
+      "locale": "en-CA",
+      "reading_level_target": "plain_en_ca",
+      "plain_language_prompt": "When and where is your Judicial Case Conference scheduled?",
+      "short_explanation": "Use the date, time, and place shown on the Notice from the court.",
+      "answer_guidance": "Copy the date and location exactly as they appear on the Notice. If the Notice is missing, mark this as unknown.",
+      "official_terms_preserved": [
+        "Judicial Case Conference"
+      ],
+      "presentation_strategy": "custom_prompt",
+      "source_line_item_hashes": [
+        "4af1d8d9e6bef95b",
+        "7928695114b71b0b"
+      ],
+      "binding_semantic_hash": "29cce57f090008bc",
+      "presentation_schema_version": 1,
+      "draft_state": "active",
+      "authorship": {
+        "method": "human_authored",
+        "created_at": "2026-07-23T05:00:00Z",
+        "reviewed_by": "local-architect-pass"
+      },
+      "approvals": {
+        "legal": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.conference_when_where.v1.legal"
+        },
+        "ux": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.conference_when_where.v1.ux"
+        },
+        "accessibility": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.conference_when_where.v1.a11y"
+        },
+        "source_binding": {
+          "state": "current",
+          "checked_at": "2026-07-23",
+          "binding_hash": "29cce57f090008bc"
+        }
+      },
+      "supersedes": null,
+      "superseded_by": null
+    },
+    {
+      "presentation_id": "pres.jcc.appearance.who_files.v1",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "interaction_step_id": "jcc.appearance.who_files",
+      "fact_definition_ids": [
+        "matter.party.filing_as",
+        "matter.party.other_parties_counsel",
+        "matter.party.role"
+      ],
+      "line_item_ids": [
+        "p1a.filed_on_behalf_of",
+        "p1b.other_parties_and_counsel",
+        "p2.party_role"
+      ],
+      "locale": "en-CA",
+      "reading_level_target": "plain_en_ca",
+      "plain_language_prompt": "Who is this Appearance Memo for, and who is on the other side?",
+      "short_explanation": "Identify yourself (or your lawyer) and the other party and their counsel.",
+      "answer_guidance": "Use full legal names as they appear on the court file. Do not invent counsel details.",
+      "official_terms_preserved": [
+        "Judicial Case Conference"
+      ],
+      "presentation_strategy": "custom_prompt",
+      "source_line_item_hashes": [
+        "f14a3067eeeee615",
+        "2284f7ebbfa8ff3d",
+        "3e0dd41a08995c42"
+      ],
+      "binding_semantic_hash": "3208b8f0effa079d",
+      "presentation_schema_version": 1,
+      "draft_state": "active",
+      "authorship": {
+        "method": "human_authored",
+        "created_at": "2026-07-23T05:00:00Z",
+        "reviewed_by": "local-architect-pass"
+      },
+      "approvals": {
+        "legal": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.who_files.v1.legal"
+        },
+        "ux": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.who_files.v1.ux"
+        },
+        "accessibility": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.who_files.v1.a11y"
+        },
+        "source_binding": {
+          "state": "current",
+          "checked_at": "2026-07-23",
+          "binding_hash": "3208b8f0effa079d"
+        }
+      },
+      "supersedes": null,
+      "superseded_by": null
+    },
+    {
+      "presentation_id": "pres.jcc.appearance.request_and_draft_dates.v1",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "interaction_step_id": "jcc.appearance.request_and_draft_dates",
+      "fact_definition_ids": [
+        "matter.jcc.request_date",
+        "matter.jcc.draft_order_filed_date"
+      ],
+      "line_item_ids": [
+        "p2.request_date",
+        "p2.draft_order_filed_date"
+      ],
+      "locale": "en-CA",
+      "reading_level_target": "plain_en_ca",
+      "plain_language_prompt": "What are the dates of the Request for Judicial Case Conference and the draft order?",
+      "short_explanation": "These dates come from documents already filed or served in your matter.",
+      "answer_guidance": "If you do not have the filing dates, mark unknown. Do not guess.",
+      "official_terms_preserved": [
+        "Judicial Case Conference"
+      ],
+      "presentation_strategy": "custom_prompt",
+      "source_line_item_hashes": [
+        "bc1bfc0b3eecc64a",
+        "e2dcad5db77cb2f0"
+      ],
+      "binding_semantic_hash": "e4654f1eb4aaa312",
+      "presentation_schema_version": 1,
+      "draft_state": "active",
+      "authorship": {
+        "method": "human_authored",
+        "created_at": "2026-07-23T05:00:00Z",
+        "reviewed_by": "local-architect-pass"
+      },
+      "approvals": {
+        "legal": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.request_and_draft_dates.v1.legal"
+        },
+        "ux": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.request_and_draft_dates.v1.ux"
+        },
+        "accessibility": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.request_and_draft_dates.v1.a11y"
+        },
+        "source_binding": {
+          "state": "current",
+          "checked_at": "2026-07-23",
+          "binding_hash": "e4654f1eb4aaa312"
+        }
+      },
+      "supersedes": null,
+      "superseded_by": null
+    },
+    {
+      "presentation_id": "pres.jcc.appearance.readiness.v1",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "interaction_step_id": "jcc.appearance.readiness",
+      "fact_definition_ids": [
+        "matter.jcc.readiness_position"
+      ],
+      "line_item_ids": [
+        "p3.readiness_position"
+      ],
+      "locale": "en-CA",
+      "reading_level_target": "plain_en_ca",
+      "plain_language_prompt": "Are you ready to proceed with the conference, or do you need more time or materials?",
+      "short_explanation": "Tell the court whether you seek an adjournment, leave to file more materials, or to proceed.",
+      "answer_guidance": "Describe only your readiness and next-step request. Keep it concise.",
+      "official_terms_preserved": [
+        "Judicial Case Conference"
+      ],
+      "presentation_strategy": "custom_prompt",
+      "source_line_item_hashes": [
+        "e863382cbb26b5c7"
+      ],
+      "binding_semantic_hash": "29e00336420c4c91",
+      "presentation_schema_version": 1,
+      "draft_state": "active",
+      "authorship": {
+        "method": "human_authored",
+        "created_at": "2026-07-23T05:00:00Z",
+        "reviewed_by": "local-architect-pass"
+      },
+      "approvals": {
+        "legal": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.readiness.v1.legal"
+        },
+        "ux": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.readiness.v1.ux"
+        },
+        "accessibility": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.readiness.v1.a11y"
+        },
+        "source_binding": {
+          "state": "current",
+          "checked_at": "2026-07-23",
+          "binding_hash": "29e00336420c4c91"
+        }
+      },
+      "supersedes": null,
+      "superseded_by": null
+    },
+    {
+      "presentation_id": "pres.jcc.appearance.legal_summary.v1",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "interaction_step_id": "jcc.appearance.legal_summary",
+      "fact_definition_ids": [
+        "matter.jcc.legal_position_summary"
+      ],
+      "line_item_ids": [
+        "p4.legal_position_summary"
+      ],
+      "locale": "en-CA",
+      "reading_level_target": "plain_en_ca",
+      "plain_language_prompt": "In a few sentences, what are you asking the court to focus on?",
+      "short_explanation": "Summarize the legal aspects of your position for the conference.",
+      "answer_guidance": "Describe what happened, when, who was involved, and how it relates to the orders you seek. Do not invent dates or amounts.",
+      "official_terms_preserved": [
+        "Judicial Case Conference"
+      ],
+      "presentation_strategy": "custom_prompt",
+      "source_line_item_hashes": [
+        "84464419a365cb38"
+      ],
+      "binding_semantic_hash": "b81611b9d5d2efb1",
+      "presentation_schema_version": 1,
+      "draft_state": "active",
+      "authorship": {
+        "method": "human_authored",
+        "created_at": "2026-07-23T05:00:00Z",
+        "reviewed_by": "local-architect-pass"
+      },
+      "approvals": {
+        "legal": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.legal_summary.v1.legal"
+        },
+        "ux": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.legal_summary.v1.ux"
+        },
+        "accessibility": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.legal_summary.v1.a11y"
+        },
+        "source_binding": {
+          "state": "current",
+          "checked_at": "2026-07-23",
+          "binding_hash": "b81611b9d5d2efb1"
+        }
+      },
+      "supersedes": null,
+      "superseded_by": null
+    },
+    {
+      "presentation_id": "pres.jcc.appearance.consent.v1",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "interaction_step_id": "jcc.appearance.consent",
+      "fact_definition_ids": [
+        "matter.jcc.consented_relief"
+      ],
+      "line_item_ids": [
+        "p5.consented_unopposed_relief"
+      ],
+      "locale": "en-CA",
+      "reading_level_target": "plain_en_ca",
+      "plain_language_prompt": "Is any relief already consented to or unopposed?",
+      "short_explanation": "Only list relief you are sure is agreed or unopposed.",
+      "answer_guidance": "If nothing is agreed, say so clearly. Do not invent consent.",
+      "official_terms_preserved": [
+        "Judicial Case Conference"
+      ],
+      "presentation_strategy": "custom_prompt",
+      "source_line_item_hashes": [
+        "e8babf429e8400b6"
+      ],
+      "binding_semantic_hash": "9051378fa085e860",
+      "presentation_schema_version": 1,
+      "draft_state": "active",
+      "authorship": {
+        "method": "human_authored",
+        "created_at": "2026-07-23T05:00:00Z",
+        "reviewed_by": "local-architect-pass"
+      },
+      "approvals": {
+        "legal": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.consent.v1.legal"
+        },
+        "ux": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.consent.v1.ux"
+        },
+        "accessibility": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.consent.v1.a11y"
+        },
+        "source_binding": {
+          "state": "current",
+          "checked_at": "2026-07-23",
+          "binding_hash": "9051378fa085e860"
+        }
+      },
+      "supersedes": null,
+      "superseded_by": null
+    },
+    {
+      "presentation_id": "pres.jcc.appearance.other_proceedings.v1",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "interaction_step_id": "jcc.appearance.other_proceedings",
+      "fact_definition_ids": [
+        "matter.procedure.other_case_conferences",
+        "matter.procedure.chambers_state",
+        "matter.procedure.pretrial_state",
+        "matter.procedure.trial_state",
+        "matter.procedure.related_proceedings"
+      ],
+      "line_item_ids": [
+        "p6a.i.case_conferences_state",
+        "p6a.ii.chambers_state",
+        "p6a.iii.pretrial_state",
+        "p6a.iv.trial_state",
+        "p6b.related_proceedings"
+      ],
+      "locale": "en-CA",
+      "reading_level_target": "plain_en_ca",
+      "plain_language_prompt": "Are there other case conferences, chambers dates, trials, or related proceedings?",
+      "short_explanation": "The court needs a short picture of other pending steps and related matters.",
+      "answer_guidance": "If none, choose none / not scheduled. For related proceedings, include only verified matters.",
+      "official_terms_preserved": [
+        "Judicial Case Conference"
+      ],
+      "presentation_strategy": "custom_prompt",
+      "source_line_item_hashes": [
+        "2b106b4cfae30405",
+        "b1c967209780fcc6",
+        "5d90a980d87e2bc5",
+        "5ebf2d23138d7271",
+        "50fecf79807aa16b"
+      ],
+      "binding_semantic_hash": "e8e921da736aff60",
+      "presentation_schema_version": 1,
+      "draft_state": "active",
+      "authorship": {
+        "method": "human_authored",
+        "created_at": "2026-07-23T05:00:00Z",
+        "reviewed_by": "local-architect-pass"
+      },
+      "approvals": {
+        "legal": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.other_proceedings.v1.legal"
+        },
+        "ux": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.other_proceedings.v1.ux"
+        },
+        "accessibility": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.other_proceedings.v1.a11y"
+        },
+        "source_binding": {
+          "state": "current",
+          "checked_at": "2026-07-23",
+          "binding_hash": "e8e921da736aff60"
+        }
+      },
+      "supersedes": null,
+      "superseded_by": null
+    },
+    {
+      "presentation_id": "pres.jcc.appearance.memo_type.v1",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "interaction_step_id": "jcc.appearance.memo_type",
+      "fact_definition_ids": [
+        "matter.jcc.memo_type"
+      ],
+      "line_item_ids": [
+        "p7.memo_type"
+      ],
+      "locale": "en-CA",
+      "reading_level_target": "plain_en_ca",
+      "plain_language_prompt": "Is this your first Appearance Memo for this request, or an updated one?",
+      "short_explanation": "Choose first memo unless you already filed one for this same request.",
+      "answer_guidance": "If updated, you will later describe what changed. If first, leave update fields blank.",
+      "official_terms_preserved": [
+        "Judicial Case Conference"
+      ],
+      "presentation_strategy": "custom_prompt",
+      "source_line_item_hashes": [
+        "bdffcadd2029f2b7"
+      ],
+      "binding_semantic_hash": "bb3742c6cef4956d",
+      "presentation_schema_version": 1,
+      "draft_state": "active",
+      "authorship": {
+        "method": "human_authored",
+        "created_at": "2026-07-23T05:00:00Z",
+        "reviewed_by": "local-architect-pass"
+      },
+      "approvals": {
+        "legal": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.memo_type.v1.legal"
+        },
+        "ux": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.memo_type.v1.ux"
+        },
+        "accessibility": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.memo_type.v1.a11y"
+        },
+        "source_binding": {
+          "state": "current",
+          "checked_at": "2026-07-23",
+          "binding_hash": "bb3742c6cef4956d"
+        }
+      },
+      "supersedes": null,
+      "superseded_by": null
+    },
+    {
+      "presentation_id": "pres.jcc.appearance.contact_and_date.v1",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "interaction_step_id": "jcc.appearance.contact_and_date",
+      "fact_definition_ids": [
+        "matter.execution.city",
+        "matter.execution.day",
+        "matter.execution.month",
+        "matter.execution.year",
+        "matter.contact.name",
+        "matter.contact.address",
+        "matter.contact.telephone",
+        "matter.contact.email"
+      ],
+      "line_item_ids": [
+        "execution.city",
+        "execution.day",
+        "execution.month",
+        "execution.year",
+        "contact.name",
+        "contact.address",
+        "contact.telephone",
+        "contact.email"
+      ],
+      "locale": "en-CA",
+      "reading_level_target": "plain_en_ca",
+      "plain_language_prompt": "Where are you dating this memo, and how can the other party contact you?",
+      "short_explanation": "Provide dating details and your address for service.",
+      "answer_guidance": "Leave signature blank for wet-ink signing. Do not invent an address or phone number.",
+      "official_terms_preserved": [
+        "Judicial Case Conference"
+      ],
+      "presentation_strategy": "custom_prompt",
+      "source_line_item_hashes": [
+        "4bfb6640cf5e656a",
+        "54033b091db2213e",
+        "82f4c29b0fe20f48",
+        "5f412c446e064439",
+        "a039a3eb826caeff",
+        "dc082343f88ac84a",
+        "ff5334fce5ab8051",
+        "0395a6f1143c2f08"
+      ],
+      "binding_semantic_hash": "6b2cf016c6f608f4",
+      "presentation_schema_version": 1,
+      "draft_state": "active",
+      "authorship": {
+        "method": "human_authored",
+        "created_at": "2026-07-23T05:00:00Z",
+        "reviewed_by": "local-architect-pass"
+      },
+      "approvals": {
+        "legal": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.contact_and_date.v1.legal"
+        },
+        "ux": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.contact_and_date.v1.ux"
+        },
+        "accessibility": {
+          "state": "approved",
+          "reviewer": "owner-pending-second-pass",
+          "reviewed_at": "2026-07-23",
+          "receipt_id": "receipt.pres.jcc.appearance.contact_and_date.v1.a11y"
+        },
+        "source_binding": {
+          "state": "current",
+          "checked_at": "2026-07-23",
+          "binding_hash": "6b2cf016c6f608f4"
+        }
+      },
+      "supersedes": null,
+      "superseded_by": null
+    }
+  ]
+}

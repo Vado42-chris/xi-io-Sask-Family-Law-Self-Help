@@ -893,17 +893,33 @@ async function fetchJson(path) {
 }
 
 async function loadMatterFixture() {
+  // Presence of a private matter file must never auto-load answers.
+  // Explicit unlock (cookie / x-private-unlock) is required on loopback.
   try {
-    const response = await fetch("/api/local/matter", { cache: "no-store" });
-    if (response.ok) {
-      const privateMatter = await response.json();
-      if (privateMatter?.privacy?.classification) {
-        activatePrivateLock(privateMatter);
-        return privateMatter;
+    const session = await fetch("/api/local/session", { cache: "no-store" });
+    if (session.ok) {
+      const status = await session.json();
+      if (status.private_matter_present && !status.unlocked) {
+        if (elements.privateLockBanner) {
+          elements.privateLockBanner.classList.remove("is-hidden");
+          elements.privateLockBanner.innerHTML = `<strong>Private matter available</strong><span>Not loaded. Open <a href="/app">/app</a> and unlock explicitly, or continue with practice data here.</span>`;
+        }
+        showToast("Private matter is present but locked. Using practice data until you unlock.", "warning");
+        return fetchJson("./data/synthetic-matter.json");
+      }
+      if (status.unlocked) {
+        const response = await fetch("/api/local/matter", { cache: "no-store" });
+        if (response.ok) {
+          const privateMatter = await response.json();
+          if (privateMatter?.privacy?.classification) {
+            activatePrivateLock(privateMatter);
+            return privateMatter;
+          }
+        }
       }
     }
   } catch {
-    // Private sidecar API is optional.
+    // Session / private API is optional for synthetic preview.
   }
   return fetchJson("./data/synthetic-matter.json");
 }

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Continue your Judicial Case Conference work</title>
+  <link rel="stylesheet" href="/styles/user-app.css">
+</head>
+<body>
+  <a class="skip-link" href="#current-work">Skip to current work</a>
+
+  <div id="unlock-gate" class="unlock-gate" hidden>
+    <section class="unlock-card" aria-labelledby="unlock-title">
+      <p class="eyebrow">Local preview</p>
+      <h1 id="unlock-title">Choose how to work</h1>
+      <p>A private matter file is available on this computer. It will not load until you unlock it.</p>
+      <ul class="boundary-list">
+        <li>Private answers stay on this computer.</li>
+        <li>Nothing is filed, served, emailed, or transmitted from this preview.</li>
+        <li>Do not commit or publish real case information.</li>
+      </ul>
+      <div class="unlock-actions">
+        <button type="button" id="use-practice" class="button button-primary">Use practice matter</button>
+        <button type="button" id="unlock-private" class="button">Unlock private case</button>
+      </div>
+      <p id="unlock-error" class="error" role="alert" hidden></p>
+    </section>
+  </div>
+
+  <div id="app-shell" class="app-shell" hidden>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow" id="matter-label">Practice matter</p>
+        <h1>Family Law Assistant</h1>
+      </div>
+      <p class="privacy-chip" id="privacy-chip">Nothing can be sent</p>
+    </header>
+
+    <div class="layout">
+      <aside class="work-plan" aria-labelledby="plan-title">
+        <p class="eyebrow">Continue where you left off</p>
+        <h2 id="plan-title">Your next step</h2>
+        <div id="next-step-card" class="next-step-card"></div>
+        <div id="waiting-list" class="waiting-list" aria-live="polite"></div>
+        <button type="button" id="toggle-full-plan" class="text-button">View full work plan</button>
+        <ol id="full-plan" class="full-plan" hidden></ol>
+        <ol id="workflow-stages" class="workflow-stages" aria-label="Procedural stages"></ol>
+      </aside>
+
+      <main id="current-work" class="current-work" tabindex="-1">
+        <div class="answer-review-banner" role="status">
+          <strong>Answer review</strong>
+          <span>This is not the document you will file.</span>
+        </div>
+
+        <section id="step-panel" class="step-panel" aria-labelledby="step-heading">
+          <p class="eyebrow" id="step-progress">Step</p>
+          <h2 id="step-heading">Loading…</h2>
+          <p id="step-explanation"></p>
+          <p id="step-guidance" class="guidance"></p>
+          <div id="blocked-panel" class="blocked-panel" hidden>
+            <p id="blocked-message"></p>
+            <ul>
+              <li>Save your progress</li>
+              <li>View the exact court wording</li>
+              <li>Ask an authorized reviewer to complete this step</li>
+            </ul>
+            <button type="button" id="open-court-wording" class="button">View exact court wording</button>
+          </div>
+          <div id="answer-panel" class="answer-panel">
+            <label for="answer-input">Your answer</label>
+            <textarea id="answer-input" rows="8" autocomplete="off"></textarea>
+            <div class="step-actions">
+              <button type="button" id="mark-unknown" class="button">Mark unknown</button>
+              <button type="button" id="save-continue" class="button button-primary">Continue</button>
+              <button type="button" id="help-answer" class="button button-quiet">Help me answer this</button>
+            </div>
+          </div>
+        </section>
+
+        <aside id="help-drawer" class="help-drawer" hidden>
+          <h3>Help</h3>
+          <p id="help-body">Optional help stays off the main path. It cannot invent legal facts or override your answers.</p>
+          <button type="button" id="close-help" class="button">Close help</button>
+        </aside>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="court-wording-dialog" aria-labelledby="court-wording-title">
+    <h2 id="court-wording-title">Exact court wording</h2>
+    <pre id="court-wording-body"></pre>
+    <form method="dialog">
+      <button class="button">Close</button>
+    </form>
+  </dialog>
+
+  <script type="module" src="/src/user-app.js"></script>
+</body>
+</html>

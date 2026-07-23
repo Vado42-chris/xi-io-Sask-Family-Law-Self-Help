@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xi-io.local/schemas/interview-step-schema-v1.json",
+  "title": "Interview steps and dispositions",
+  "type": "object",
+  "required": [
+    "form_id",
+    "snapshot_id",
+    "line_item_dispositions",
+    "steps"
+  ],
+  "properties": {
+    "form_id": {
+      "type": "string"
+    },
+    "snapshot_id": {
+      "type": "string"
+    },
+    "line_item_dispositions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "form_id",
+          "line_item_id",
+          "disposition"
+        ],
+        "properties": {
+          "disposition": {
+            "enum": [
+              "asked_directly",
+              "grouped_into_step",
+              "derived_from_fact",
+              "copied_from_existing_fact",
+              "display_only",
+              "court_only",
+              "signature_workflow",
+              "attachment_workflow",
+              "not_applicable",
+              "blocked_pending_review"
+            ]
+          }
+        }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "interaction_step_id",
+          "title",
+          "order",
+          "fact_definition_ids",
+          "line_item_ids",
+          "presentation_id"
+        ],
+        "properties": {
+          "fact_definition_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "line_item_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "input_bindings": {
+            "type": "array"
+          },
+          "output_bindings": {
+            "type": "array"
+          }
+        }
+      }
+    }
+  }
+}

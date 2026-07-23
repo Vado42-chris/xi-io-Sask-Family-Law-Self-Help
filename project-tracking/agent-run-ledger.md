@@ -592,3 +592,88 @@ next_action: ChatGPT re-review of required corrections; continue progressive dis
 created_at: 2026-07-23T03:50:00Z
 updated_at: 2026-07-23T03:50:00Z
 ```
+
+## SFL-AGENT-INTERACTION-ARCHITECTURE-001I
+
+```yaml
+agent_run_id: SFL-AGENT-INTERACTION-ARCHITECTURE-001I
+project_id: sask_family_law_self_help
+repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
+branch: feat/synthetic-legal-workbench-001
+base_ref: deb44253630dff14e3130ec7bc2835ab8882006b
+head_ref: pending_commit
+operator_type: ai_assistant
+operator_name: Auto
+provider_family: cursor
+model_or_tool_ref: Composer
+user_requested_goal: Implement dual-track interaction architecture (binding layer + private litmus) per approved plan.
+allowed_scope:
+  - ADR and schemas for layered interaction model
+  - #7-5 bindings/interview/presentation/workflow seeds outside sources/
+  - capability routes with explicit private unlock
+  - Continue-first /app shell and geometry/a11y contracts
+  - Track A litmus receipt; integrity checks; push for peer review
+blocked_scope:
+  - closing SFL-SOURCE-REVIEW-002 for all 267 items
+  - auto-approving presentation with AI
+  - production auth/vault/matter-review authorization
+  - automated filing/service/email
+  - committing private matter or filled PDFs
+  - court readiness claims
+files_changed:
+  - docs/architecture/adr-002-interaction-architecture-layers-v1.md
+  - docs/ops/SFL-INTERACTION-ARCHITECTURE-001I.md
+  - docs/ops/SFL-TRACK-A-PRIVATE-LITMUS-001J.md
+  - docs/schemas/*-schema-v1.json
+  - matter-definitions/
+  - bindings/jcc-kit-3j/2026-03-30/
+  - interview/jcc-kit-3j/2026-03-30/
+  - presentation/jcc-kit-3j/2026-03-30/
+  - workflows/jcc-kit-3j/2026-03-30/
+  - public/app/
+  - public/source-review/
+  - public/dev/
+  - public/matter-review/
+  - public/src/user-app.js
+  - public/styles/user-app.css
+  - public/src/legal-workbench.js
+  - scripts/serve-preview.mjs
+  - scripts/check-interaction-architecture.mjs
+  - scripts/check-user-geometry.mjs
+  - package.json
+commands_run:
+  - command_id: SFL-CMD-IA-001
+    command_text_redacted: npm run check
+    command_class: test
+    allowed_by_policy: true
+    result_state: passed
+  - command_id: SFL-CMD-IA-002
+    command_text_redacted: local preview unlock smoke on loopback
+    command_class: test
+    allowed_by_policy: true
+    result_state: passed
+validation_results:
+  - validation_id: SFL-VAL-IA-001
+    validation_type: integrity_checks
+    result_state: passed
+    evidence_ref: check:interaction-architecture + check:user-geometry
+  - validation_id: SFL-VAL-IA-002
+    validation_type: private_unlock_smoke
+    result_state: passed
+    evidence_ref: /api/local/matter 401 until unlock; 200 after acknowledge_privacy_boundary
+evidence_inspected:
+  - sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-5.json
+  - forms/fill-maps/fam-pd-7-5.fill-map.json
+  - forms/fill-maps/fam-pd-7-2.fill-map.json
+  - forms/fill-maps/form-10-3-draft-order.fill-map.json
+blockers:
+  - SFL-SOURCE-REVIEW-002 still open for 267 line items
+  - Track A human PDF compare and final review still required
+  - court readiness blocked
+risk_level: legal_sensitive_ui_architecture
+merge_state: pending_push
+deploy_state: blocked
+next_action: Peer review on PR; owner PDF compare for Track A; do not expand presentation to all forms yet.
+created_at: 2026-07-23T05:10:00Z
+updated_at: 2026-07-23T05:10:00Z
+```

@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xi-io.local/schemas/matter-assertion-schema-v1.json",
+  "title": "Matter assertion",
+  "type": "object",
+  "required": [
+    "assertion_id",
+    "fact_definition_id",
+    "value",
+    "asserted_by",
+    "asserted_at",
+    "status",
+    "confidence",
+    "evidence_links",
+    "source_type",
+    "conflict_state"
+  ],
+  "properties": {
+    "assertion_id": {
+      "type": "string"
+    },
+    "fact_definition_id": {
+      "type": "string"
+    },
+    "value": {},
+    "asserted_by": {
+      "type": "string"
+    },
+    "asserted_at": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "asserted",
+        "contested",
+        "agreed",
+        "court_found",
+        "unknown",
+        "withdrawn"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "user_confirmed",
+        "evidence_supported",
+        "calculated",
+        "unverified"
+      ]
+    },
+    "evidence_links": {
+      "type": "array"
+    },
+    "source_type": {
+      "enum": [
+        "user_statement",
+        "email",
+        "tax_return",
+        "court_order",
+        "system_calculation",
+        "opposing_party"
+      ]
+    },
+    "source_date": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ingress_receipt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "extraction_method": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "human_confirmation": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "conflict_state": {
+      "enum": [
+        "none",
+        "unresolved",
+        "resolved"
+      ]
+    }
+  }
+}

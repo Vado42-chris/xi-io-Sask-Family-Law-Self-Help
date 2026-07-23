@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xi-io.local/schemas/presentation-registry-schema-v1.json",
+  "title": "Presentation registry",
+  "type": "object",
+  "required": [
+    "form_id",
+    "snapshot_id",
+    "presentations"
+  ],
+  "properties": {
+    "presentations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "presentation_id",
+          "source_snapshot_id",
+          "interaction_step_id",
+          "fact_definition_ids",
+          "line_item_ids",
+          "locale",
+          "plain_language_prompt",
+          "answer_guidance",
+          "approvals",
+          "source_line_item_hashes",
+          "binding_semantic_hash"
+        ],
+        "properties": {
+          "example_answer": {
+            "not": {}
+          },
+          "approvals": {
+            "type": "object",
+            "required": [
+              "legal",
+              "ux",
+              "accessibility",
+              "source_binding"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

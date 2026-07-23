@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xi-io.local/schemas/capability-projection-schema-v1.json",
+  "title": "Capability projection descriptor",
+  "type": "object",
+  "required": [
+    "route",
+    "may_receive",
+    "private_unlock_required"
+  ],
+  "properties": {
+    "route": {
+      "enum": [
+        "/app",
+        "/source-review",
+        "/dev",
+        "/matter-review"
+      ]
+    },
+    "may_receive": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "private_unlock_required": {
+      "type": "boolean"
+    },
+    "production_enabled": {
+      "type": "boolean"
+    }
+  }
+}

@@ -32,8 +32,10 @@ Project: `sask_family_law_self_help`
 | Privacy and data boundary | `docs/architecture/privacy-and-data-boundary-v1.md` | bootstrap draft |
 | Inbox pattern adoption and legal workbench | `docs/architecture/inbox-pattern-adoption-and-legal-workbench-v1.md` | owner-approved locked direction, no Inbox mutation |
 | ADR-001 PostgreSQL runtime catalog | `docs/architecture/adr-001-postgresql-runtime-catalog-v1.md` | owner-accepted direction, no database configured |
+| ADR-002 Interaction architecture layers | `docs/architecture/adr-002-interaction-architecture-layers-v1.md` | accepted for implementation |
 | Matter record schema | `docs/schemas/matter-record-schema-v1.md` | conceptual |
 | Workflow definition schema | `docs/schemas/workflow-definition-schema-v1.md` | conceptual |
+| Fact / assertion / binding / interview / presentation schemas | `docs/schemas/*-schema-v1.json` | executable contracts for #7-5 proof |
 
 ## Workflow and UX
 
@@ -42,6 +44,8 @@ Project: `sask_family_law_self_help`
 | Kit #3J workflow | `docs/workflows/jcc-kit-3j-workflow-v1.md` |
 | Progressive disclosure interview | `docs/ux/progressive-disclosure-interview-v1.md` |
 | Accessibility and cognitive load | `docs/ux/accessibility-and-cognitive-load-v1.md` |
+| Interaction architecture receipt | `docs/ops/SFL-INTERACTION-ARCHITECTURE-001I.md` |
+| Track A private litmus receipt | `docs/ops/SFL-TRACK-A-PRIVATE-LITMUS-001J.md` |
 | Legal-information boundary | `docs/legal/legal-information-boundary-v1.md` |
 
 ## Canonical source snapshots

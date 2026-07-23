@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xi-io.local/schemas/workflow-graph-schema-v1.json",
+  "title": "Procedural workflow graph",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "workflow_id",
+    "stages"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer"
+    },
+    "snapshot_id": {
+      "type": "string"
+    },
+    "workflow_id": {
+      "type": "string"
+    },
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "stage_id",
+          "title",
+          "blocks_next_if_incomplete"
+        ],
+        "properties": {
+          "stage_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "blocks_next_if_incomplete": {
+            "type": "boolean"
+          },
+          "form_id": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

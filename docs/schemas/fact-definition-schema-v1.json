@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xi-io.local/schemas/fact-definition-schema-v1.json",
+  "title": "Matter fact definitions",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "definitions"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "definitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "fact_definition_id",
+          "label",
+          "value_type",
+          "sensitivity"
+        ],
+        "properties": {
+          "fact_definition_id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "value_type": {
+            "type": "string"
+          },
+          "sensitivity": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -31,6 +31,8 @@ Status: append-only
 | SFL-WORK-025 | SFL-COURT-FAITHFUL-LITMUS-001 | Case-relevant official-blank fill litmus (#7-5 → 10-3 → #7-2 → service forms) | active | legal_sensitive, provenance | archived blanks, fill maps, private draft PDFs, overflow/unknown receipts | Close Appearance Memo unknowns from July 16 Notice; then service-form blanks |
 | SFL-WORK-026 | SFL-SOURCE-REVIEW-002 | Source-review workbook generator for all 267 line items | completed_reported_only | legal_sensitive, data_model | workbook script, 001E receipt, check wiring | Independent rendered-page review still required |
 | SFL-WORK-027 | SFL-SOURCE-REVIEW-002 | Deterministic disposition validator blocking invalid verified claims | active | legal_sensitive, data_model | fixture audit, completed-validator receipt, check wiring | Begin independent page review into workbook entries |
+| SFL-WORK-028 | SFL-INTERACTION-ARCHITECTURE-001I | Layered interaction architecture + capability surfaces + #7-5 proof seed | ready_for_review | ui_component, data_model, legal_sensitive | ADR-002, schemas, registries, `/app` unlock, integrity checks | Peer review; keep court readiness blocked |
+| SFL-WORK-029 | SFL-TRACK-A-PRIVATE-LITMUS-001J | Private litmus for #7-5 / 10-3 / #7-2 with human PDF compare | active | legal_sensitive, provenance | fill maps, private drafts, owner review checklist | Close Appearance Memo unknowns; human final review |
 
 ## Supersession notes, 2026-07-22
 
