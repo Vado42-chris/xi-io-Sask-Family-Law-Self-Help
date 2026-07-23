@@ -10,11 +10,10 @@ function unknownSet(unknownAnswers, formId) {
   return new Set(Array.isArray(unknownAnswers?.[formId]) ? unknownAnswers[formId] : []);
 }
 
-export function buildWizardState(form, {
-  answers = {},
-  unknownAnswers = {},
-  derivedFacts = deriveMatterFacts(answers)
-} = {}) {
+export function buildWizardState(form, options = {}) {
+  const answers = options.answers || {};
+  const unknownAnswers = options.unknownAnswers || options.unknown_answers || {};
+  const derivedFacts = options.derivedFacts || deriveMatterFacts(answers);
   const evaluation = evaluateFormCatalog(form, { answers, derivedFacts });
   const byId = new Map((form?.line_items || []).map((item) => [item.line_item_id, item]));
   const formAnswers = answers?.[form?.form_id] || {};
