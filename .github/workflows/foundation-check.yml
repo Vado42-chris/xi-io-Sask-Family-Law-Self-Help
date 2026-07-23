@@ -12,9 +12,14 @@ permissions:
 jobs:
   foundation:
     runs-on: ubuntu-latest
+    env:
+      # pull_request jobs check out a merge commit; validate proof against the PR head.
+      SFL_PROOF_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -28,9 +33,14 @@ jobs:
   browser-proof:
     runs-on: ubuntu-latest
     needs: foundation
+    env:
+      SFL_PROOF_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Set up Node
         uses: actions/setup-node@v4
         with:

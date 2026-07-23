@@ -16,7 +16,9 @@ const PORT = 4191;
 const BASE = `http://127.0.0.1:${PORT}`;
 const outDir = path.join(ROOT, "test-results", "screenshots");
 const failures = [];
-const commit = spawnSync("git", ["rev-parse", "HEAD"], { cwd: ROOT, encoding: "utf8" }).stdout.trim();
+const commit =
+  process.env.SFL_PROOF_HEAD ||
+  spawnSync("git", ["rev-parse", "HEAD"], { cwd: ROOT, encoding: "utf8" }).stdout.trim();
 mkdirSync(outDir, { recursive: true });
 
 const viewports = [

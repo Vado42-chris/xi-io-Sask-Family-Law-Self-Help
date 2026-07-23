@@ -27,7 +27,9 @@ function git(args) {
   return result.stdout.trim();
 }
 
-const head = git(["rev-parse", "HEAD"]);
+// On pull_request workflows, GITHUB_SHA is a merge commit. Prefer explicit SFL_PROOF_HEAD
+// (PR head SHA) so committed screenshot proof can be validated against the branch tip.
+const head = process.env.SFL_PROOF_HEAD || git(["rev-parse", "HEAD"]);
 
 if (!existsSync(proofPath)) {
   console.error("ERROR (app-proof-head): missing test-results/screenshots/app-proof.json");
