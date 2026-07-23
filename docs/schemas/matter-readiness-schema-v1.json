@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xi-io.local/schemas/matter-readiness-schema-v1.json",
+  "title": "Matter readiness projection v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "diagnosis_id",
+    "procedural_stage",
+    "package_ready",
+    "checklist",
+    "document_states"
+  ],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 1 },
+    "snapshot_id": { "type": "string" },
+    "diagnosis_id": { "type": "string" },
+    "procedural_stage": { "type": "string" },
+    "procedural_stage_label": { "type": "string" },
+    "requirement_review_complete": { "type": "boolean" },
+    "identified_required_count": { "type": "integer", "minimum": 0 },
+    "package_ready": { "type": "boolean" },
+    "package_blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "checklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["item_id", "label", "state"],
+        "properties": {
+          "item_id": { "type": "string" },
+          "label": { "type": "string" },
+          "category": { "type": "string" },
+          "state": {
+            "type": "string",
+            "enum": ["not_ready", "ready", "blocked", "not_applicable"]
+          },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "document_states": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "document_id",
+          "progress_state",
+          "package_blockers"
+        ],
+        "properties": {
+          "document_id": { "type": "string" },
+          "progress_state": {
+            "type": "string",
+            "enum": ["not_started", "in_progress", "needs_review", "complete"]
+          },
+          "work_blockers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "none",
+                "source_missing",
+                "information_missing",
+                "evidence_missing",
+                "signature_required",
+                "commissioning_required",
+                "external_document_pending"
+              ]
+            }
+          },
+          "package_blockers": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "answered": { "type": "integer" },
+          "total": { "type": "integer" },
+          "percent": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

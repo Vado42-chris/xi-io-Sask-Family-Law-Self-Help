@@ -6,7 +6,7 @@
     "safe_title": "JCC preparation demo",
     "court_file_number": "FL-00000-000",
     "judicial_centre": "Saskatoon",
-    "stage": "Preparing initial JCC request",
+    "stage": "Preparing Appearance Memo (practice)",
     "source_snapshot_id": "jcc-kit-3j-2026-03-30",
     "next_deadline": null,
     "last_progress_event": "Demo workspace initialized"
@@ -104,5 +104,28 @@
       "at": "2026-07-22T16:01:00-06:00",
       "receipt_state": "demo_only"
     }
-  ]
+  ],
+  "ingress_reconciliation": {
+    "imported_from": "public/data/synthetic-matter.json",
+    "imported_at": "fixture_version_1",
+    "mapped_assertions": [
+      {
+        "form_id": "fam-pd-7-2",
+        "filled_field_count": 24,
+        "unknown_field_count": 1,
+        "source": "synthetic_fixture",
+        "supports": "form_line_item_answers"
+      }
+    ],
+    "disputed": [],
+    "incomplete": [
+      {
+        "form_id": "fam-pd-7-2",
+        "reason": "unknown_or_incomplete_fields",
+        "fields": ["p6.legal_grounds"]
+      }
+    ],
+    "unmapped": [],
+    "note": "Synthetic reconciliation only. Private unlock replaces this with the sidecar projection."
+  }
 }

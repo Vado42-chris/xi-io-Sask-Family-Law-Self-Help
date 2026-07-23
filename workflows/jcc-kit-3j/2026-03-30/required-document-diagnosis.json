@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "jcc-kit-3j-2026-03-30",
+  "diagnosis_id": "jcc-appearance-memo-live-track-provisional-v1",
+  "verification_state": "provisional_pending_source_review",
+  "note": "Provisional Kit #3J live-track diagnosis. Counts are identified requirements, not court-certified obligations. Subject to SFL-SOURCE-REVIEW-002.",
+  "procedural_stages": [
+    {
+      "stage_id": "requesting_jcc",
+      "label": "Requesting a JCC",
+      "description": "Preparing or filing an initiating request for a Judicial Case Conference."
+    },
+    {
+      "stage_id": "jcc_scheduled",
+      "label": "JCC scheduled",
+      "description": "Court has issued a Notice of Judicial Case Conference."
+    },
+    {
+      "stage_id": "preparing_appearance_memo",
+      "label": "Preparing Appearance Memo",
+      "description": "Completing FAM-PD #7-5 and supporting package materials for the scheduled conference."
+    },
+    {
+      "stage_id": "serving_conference_materials",
+      "label": "Serving conference materials",
+      "description": "Serving the Appearance Memo package and recording service proof."
+    },
+    {
+      "stage_id": "ready_for_conference",
+      "label": "Ready for conference",
+      "description": "Package reviewed, served, and ready for the scheduled JCC."
+    },
+    {
+      "stage_id": "post_conference_follow_up",
+      "label": "Post-conference follow-up",
+      "description": "Actions directed after the conference."
+    }
+  ],
+  "documents": [
+    {
+      "document_id": "fam-pd-7-5",
+      "form_id": "fam-pd-7-5",
+      "official_number": "FAM-PD #7-5",
+      "title": "Judicial Case Conference Appearance Memo",
+      "kind": "form_you_complete",
+      "requirement_class": "required_now",
+      "reason_required": "Required for a scheduled Judicial Case Conference under Kit #3J Appearance Memo live track.",
+      "procedural_stage": "preparing_appearance_memo",
+      "who_for": "Party preparing for the scheduled JCC",
+      "when_needed": "Before the Appearance Memo filing/service deadline on the Notice",
+      "governing_source": {
+        "type": "workflow_stage",
+        "citation": "workflows/jcc-kit-3j/2026-03-30/jcc-appearance-memo-live-track.json → prepare_appearance_memo",
+        "source_date": "2026-03-30",
+        "snapshot_id": "jcc-kit-3j-2026-03-30",
+        "artifact_ref": "sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-5.json"
+      },
+      "verification_state": "provisional",
+      "no_longer_required_when": "Court directions change the Appearance Memo obligation, or the conference is cancelled/adjourned without requiring this memo.",
+      "depends_on": ["notice-of-jcc"],
+      "supports": ["jcc_conference_package"]
+    },
+    {
+      "document_id": "form-10-3-draft-order",
+      "form_id": "form-10-3-draft-order",
+      "official_number": "Form 10-3",
+      "title": "Draft Order",
+      "kind": "form_you_complete",
+      "requirement_class": "required_later",
+      "reason_required": "Paired draft order for interim relief discussed at or prepared for the JCC package.",
+      "procedural_stage": "preparing_appearance_memo",
+      "who_for": "Party requesting interim relief",
+      "when_needed": "After relief selections are clear; before package review",
+      "governing_source": {
+        "type": "kit_form",
+        "citation": "Kit #3J Form 10-3 draft-order catalog in snapshot jcc-kit-3j-2026-03-30",
+        "source_date": "2026-03-30",
+        "snapshot_id": "jcc-kit-3j-2026-03-30",
+        "artifact_ref": "sources/jcc-kit-3j/2026-03-30/forms/form-10-3-draft-order.json"
+      },
+      "verification_state": "provisional",
+      "no_longer_required_when": "No interim relief is sought, or court directions remove the draft-order requirement.",
+      "depends_on": ["fam-pd-7-5"],
+      "supports": ["jcc_conference_package"]
+    },
+    {
+      "document_id": "fam-pd-7-2",
+      "form_id": "fam-pd-7-2",
+      "official_number": "FAM-PD #7-2",
+      "title": "Request for a Judicial Case Conference",
+      "kind": "form_you_complete",
+      "requirement_class": "needs_human_confirmation",
+      "reason_required": "Included in Kit #3J for requesting a JCC. If a conference is already scheduled by Notice, confirm whether this request remains applicable.",
+      "procedural_stage": "requesting_jcc",
+      "who_for": "Requesting party",
+      "when_needed": "Only if an initiating or renewed request is still required",
+      "governing_source": {
+        "type": "kit_form",
+        "citation": "Kit #3J FAM-PD #7-2 catalog in snapshot jcc-kit-3j-2026-03-30",
+        "source_date": "2026-03-30",
+        "snapshot_id": "jcc-kit-3j-2026-03-30",
+        "artifact_ref": "sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-2.json"
+      },
+      "verification_state": "provisional",
+      "no_longer_required_when": "A court Notice already schedules the JCC and no renewed request is required.",
+      "depends_on": [],
+      "supports": ["jcc_request"]
+    },
+    {
+      "document_id": "form-10-3-child-support-order",
+      "form_id": "form-10-3-child-support-order",
+      "official_number": "Form 10-3",
+      "title": "Child Support Order variant",
+      "kind": "form_you_complete",
+      "requirement_class": "conditional",
+      "reason_required": "Use only if child-support order wording is confirmed needed.",
+      "procedural_stage": "preparing_appearance_memo",
+      "who_for": "Party seeking child-support order wording",
+      "when_needed": "Only after support relief is confirmed",
+      "governing_source": {
+        "type": "kit_form",
+        "citation": "Kit #3J Form 10-3 child-support variant catalog",
+        "source_date": "2026-03-30",
+        "snapshot_id": "jcc-kit-3j-2026-03-30",
+        "artifact_ref": "sources/jcc-kit-3j/2026-03-30/forms/form-10-3-child-support-order.json"
+      },
+      "verification_state": "provisional",
+      "no_longer_required_when": "Child-support order wording is not sought.",
+      "depends_on": [],
+      "supports": ["support_relief"]
+    },
+    {
+      "document_id": "form-15-8b",
+      "form_id": "form-15-8b",
+      "official_number": "Form 15-8B",
+      "title": "Affidavit of Personal Service",
+      "kind": "proof_and_service",
+      "requirement_class": "required_later",
+      "reason_required": "Service proof when personally serving package materials.",
+      "procedural_stage": "serving_conference_materials",
+      "who_for": "Serving party / process server path",
+      "when_needed": "When personal service is used",
+      "governing_source": {
+        "type": "kit_form",
+        "citation": "Kit #3J Form 15-8B catalog",
+        "source_date": "2026-03-30",
+        "snapshot_id": "jcc-kit-3j-2026-03-30",
+        "artifact_ref": "sources/jcc-kit-3j/2026-03-30/forms/form-15-8b.json"
+      },
+      "verification_state": "provisional",
+      "no_longer_required_when": "A different authorized service/proof path is used and accepted.",
+      "depends_on": ["fam-pd-7-5"],
+      "supports": ["service_proof"]
+    },
+    {
+      "document_id": "form-12-3",
+      "form_id": "form-12-3",
+      "official_number": "Form 12-3",
+      "title": "Acknowledgment of Service",
+      "kind": "proof_and_service",
+      "requirement_class": "conditional",
+      "reason_required": "Service companion when acknowledgment of service is the applicable proof path.",
+      "procedural_stage": "serving_conference_materials",
+      "who_for": "Recipient acknowledgment path",
+      "when_needed": "When acknowledgment of service is used",
+      "governing_source": {
+        "type": "kit_form",
+        "citation": "Kit #3J Form 12-3 catalog",
+        "source_date": "2026-03-30",
+        "snapshot_id": "jcc-kit-3j-2026-03-30",
+        "artifact_ref": "sources/jcc-kit-3j/2026-03-30/forms/form-12-3.json"
+      },
+      "verification_state": "provisional",
+      "no_longer_required_when": "Acknowledgment of service is not the chosen proof path.",
+      "depends_on": [],
+      "supports": ["service_proof"]
+    },
+    {
+      "document_id": "notice-of-jcc",
+      "form_id": null,
+      "official_number": "FAM-PD #7-4",
+      "title": "Notice of Judicial Case Conference",
+      "kind": "court_issued",
+      "requirement_class": "court_issued",
+      "reason_required": "Court-issued Notice establishes the scheduled conference and Appearance Memo timing.",
+      "procedural_stage": "jcc_scheduled",
+      "who_for": "Court issues; party archives and confirms",
+      "when_needed": "When the court schedules the JCC",
+      "governing_source": {
+        "type": "companion_form_gap",
+        "citation": "Companion form FAM-PD #7-4 referenced by Kit #3J; exact binary not in current snapshot",
+        "source_date": "2026-03-30",
+        "snapshot_id": "jcc-kit-3j-2026-03-30",
+        "artifact_ref": null
+      },
+      "verification_state": "blocked",
+      "no_longer_required_when": "Conference cancelled without a Notice obligation.",
+      "depends_on": [],
+      "supports": ["deadline_confirmation", "fam-pd-7-5"]
+    },
+    {
+      "document_id": "form-15-47",
+      "form_id": null,
+      "official_number": "Form 15-47",
+      "title": "Financial Statement",
+      "kind": "form_you_complete",
+      "requirement_class": "source_missing",
+      "reason_required": "May be required for support-related relief. Official blank is a companion-form gap in the current snapshot.",
+      "procedural_stage": "preparing_appearance_memo",
+      "who_for": "Party with support/financial disclosure obligations",
+      "when_needed": "When financial disclosure is required for the relief sought",
+      "governing_source": {
+        "type": "companion_form_gap",
+        "citation": "Companion Form 15-47 referenced; not captured in snapshot jcc-kit-3j-2026-03-30",
+        "source_date": "2026-03-30",
+        "snapshot_id": "jcc-kit-3j-2026-03-30",
+        "artifact_ref": null
+      },
+      "verification_state": "blocked",
+      "no_longer_required_when": "Support/financial disclosure is confirmed not required for this stage.",
+      "depends_on": [],
+      "supports": ["support_relief"]
+    }
+  ],
+  "readiness_checklist": [
+    {
+      "item_id": "appearance-memo-complete",
+      "label": "Appearance Memo completed",
+      "category": "form",
+      "document_id": "fam-pd-7-5",
+      "required_for_package": true
+    },
+    {
+      "item_id": "draft-order-complete",
+      "label": "Draft Order completed",
+      "category": "form",
+      "document_id": "form-10-3-draft-order",
+      "required_for_package": true
+    },
+    {
+      "item_id": "financial-statement-confirmed",
+      "label": "Financial Statement requirement confirmed",
+      "category": "external",
+      "document_id": "form-15-47",
+      "required_for_package": true
+    },
+    {
+      "item_id": "supporting-documents-attached",
+      "label": "Supporting documents attached",
+      "category": "supporting",
+      "document_id": null,
+      "required_for_package": true
+    },
+    {
+      "item_id": "source-versions-confirmed",
+      "label": "Source versions confirmed",
+      "category": "source",
+      "document_id": null,
+      "required_for_package": true
+    },
+    {
+      "item_id": "final-answers-reviewed",
+      "label": "Final answers reviewed",
+      "category": "review",
+      "document_id": null,
+      "required_for_package": true
+    },
+    {
+      "item_id": "signing-requirements-completed",
+      "label": "Signing requirements completed",
+      "category": "signature",
+      "document_id": null,
+      "required_for_package": true
+    },
+    {
+      "item_id": "service-proof-complete",
+      "label": "Service proof complete",
+      "category": "service",
+      "document_id": null,
+      "required_for_package": true
+    },
+    {
+      "item_id": "filing-acceptance-confirmed",
+      "label": "Filing / acceptance confirmed",
+      "category": "filing",
+      "document_id": null,
+      "required_for_package": true
+    }
+  ]
+}

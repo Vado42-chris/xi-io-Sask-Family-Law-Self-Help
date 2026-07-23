@@ -35,6 +35,18 @@ Status: append-only
 | SFL-WORK-029 | SFL-TRACK-A-PRIVATE-LITMUS-001J | Private litmus for #7-5 / 10-3 / #7-2 with human PDF compare | active | legal_sensitive, provenance | fill maps, private drafts, owner review checklist | Close Appearance Memo unknowns; human final review |
 | SFL-WORK-030 | SFL-PEER-REVIEW-CORRECTIONS-001K | Revoke fabricated approvals; private memory-only; opaque /app; runtime bindings; browser geometry | ready_for_review | secrets_auth, ui_component, legal_sensitive | 001K receipt, Playwright screenshots, AJV checks | Owner re-review; do not merge; no court readiness |
 | SFL-WORK-031 | SFL-PREVIEW-STARTUP-FIX-001L | Fix HOST/CI/lockfile/stale screenshot proof so owner can open /app | ready_for_review | deployment_live, ui_component | 001L receipt, npm ci CI, SFL_HOST smoke | Keep draft; verify CI green |
+| SFL-WORK-032 | SFL-OWNER-CORRECTION-001M | Restore Inbox-derived workbench as canonical /app; demote wizard to /interview-proof; hydrate private unlock + ingress | active | ui_component, legal_sensitive | 001M receipt, form inventory, unlock-in-place, owner visual proof | Owner verify private matter + forms in workbench; no merge until confirmed |
+| SFL-WORK-033 | SFL-WORKBENCH-CLARITY-P0-001N | Case plan, diagnosis/readiness P0, mode banner, progress≠blockers, private unlock proof | active_not_accepted | ui_component, legal_sensitive | 001N receipt on GitHub PR head; owner private unlock of five clarity questions | Push local clarity+diagnosis pass; owner unlock private matter; keep PR #5 draft |
+
+## Supersession notes, 2026-07-23 (clarity P0 not accepted)
+
+- Owner accepted the Inbox-derived shell direction and forbade another UI replacement.
+- Owner rejected claiming P0 pass: diagnosis + matter readiness are P0 core, not P1 polish.
+- Competing practice/private banners must collapse to one.
+- “3 required documents” without provenance is forbidden; use provisional identified-count language.
+- Progress and blockers are separate dimensions.
+- PR #5 must carry the local clarity/diagnosis commits; prior GitHub head `faf648a` is stale relative to this work.
+- Private unlock end-to-end remains required before any acceptance or merge claim.
 
 ## Supersession notes, 2026-07-22
 

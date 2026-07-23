@@ -47,6 +47,8 @@ Project: `sask_family_law_self_help`
 | Interaction architecture receipt | `docs/ops/SFL-INTERACTION-ARCHITECTURE-001I.md` |
 | Peer-review corrections | `docs/ops/SFL-PEER-REVIEW-CORRECTIONS-001K.md` |
 | Preview startup fix | `docs/ops/SFL-PREVIEW-STARTUP-FIX-001L.md` |
+| Owner correction: restore Inbox workbench | `docs/ops/SFL-OWNER-CORRECTION-WORKBENCH-RECOVERY-001M.md` |
+| Workbench clarity P0 corrections | `docs/ops/SFL-WORKBENCH-CLARITY-P0-001N.md` |
 | Track A private litmus receipt | `docs/ops/SFL-TRACK-A-PRIVATE-LITMUS-001J.md` |
 | Legal-information boundary | `docs/legal/legal-information-boundary-v1.md` |
 

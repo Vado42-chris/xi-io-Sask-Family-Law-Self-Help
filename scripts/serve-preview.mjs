@@ -49,7 +49,15 @@ const privateRuntimes = new Map();
 const CAPABILITY_PROJECTIONS = {
   "/app": {
     route: "/app",
+    shell: "inbox_derived_legal_workbench",
     may_receive: [
+      "matter_rail",
+      "progressive_work_queue",
+      "form_document_workspace",
+      "contextual_ibal",
+      "form_inventory",
+      "evidence_tasks_correspondence",
+      "ingress_reconciliation",
       "user_safe_questions",
       "answers_after_unlock_choice",
       "progress",
@@ -59,6 +67,20 @@ const CAPABILITY_PROJECTIONS = {
     ],
     private_unlock_required: true,
     production_enabled: true
+  },
+  "/interview-proof": {
+    route: "/interview-proof",
+    shell: "architecture_proof_only",
+    may_receive: [
+      "user_safe_questions",
+      "answers_after_unlock_choice",
+      "progress",
+      "help",
+      "approved_presentation_only",
+      "opaque_step_tokens"
+    ],
+    private_unlock_required: true,
+    production_enabled: false
   },
   "/source-review": {
     route: "/source-review",
@@ -157,9 +179,12 @@ function loadArchitecture() {
 
 function candidatePaths(urlPath) {
   const decoded = decodeURIComponent((urlPath || "/").split("?")[0]);
-  let requested = decoded === "/" ? "/public/app/index.html" : decoded;
+  let requested = decoded === "/" ? "/public/index.html" : decoded;
 
-  if (requested === "/app" || requested === "/app/") requested = "/public/app/index.html";
+  if (requested === "/app" || requested === "/app/") requested = "/public/index.html";
+  if (requested === "/interview-proof" || requested === "/interview-proof/") {
+    requested = "/public/interview-proof/index.html";
+  }
   if (requested === "/source-review" || requested === "/source-review/") {
     requested = "/public/source-review/index.html";
   }
@@ -167,8 +192,11 @@ function candidatePaths(urlPath) {
   if (requested === "/matter-review" || requested === "/matter-review/") {
     requested = "/public/matter-review/index.html";
   }
+  // Keep alias for older links; workbench is canonical again.
   if (requested === "/legacy" || requested === "/legacy/") requested = "/public/index.html";
-
+  if (requested === "/wizard" || requested === "/wizard/") {
+    requested = "/public/interview-proof/index.html";
+  }
   if (requested === "/data/private" || requested.startsWith("/data/private/")) return [];
 
   const paths = [requested];
@@ -236,6 +264,7 @@ function projectPrivateMatter(raw) {
   if (!raw?.privacy?.classification || !raw.answers || typeof raw.answers !== "object") {
     throw new Error("Private matter requires privacy.classification and answers.");
   }
+  const matter = raw.matter && typeof raw.matter === "object" ? raw.matter : {};
   return {
     fixture_version: raw.fixture_version ?? null,
     fixture_notice: raw.fixture_notice ?? "Private local matter projection.",
@@ -247,14 +276,70 @@ function projectPrivateMatter(raw) {
       served_via: "/api/local/matter",
       unlock_required: true,
       browser_persistence_forbidden: true,
-      static_private_paths_disabled: true
+      static_private_paths_disabled: true,
+      source_repo: raw.privacy.source_repo || null
     },
-    matter: raw.matter && typeof raw.matter === "object" ? { caption: raw.matter.caption || null } : {},
+    // Full matter context for the Inbox-derived workbench after explicit unlock.
+    matter: {
+      matter_id: matter.matter_id || null,
+      caption: matter.caption || matter.safe_title || null,
+      safe_title: matter.safe_title || matter.caption || null,
+      court: matter.court || null,
+      court_file_number: matter.court_file_number || null,
+      judicial_centre: matter.judicial_centre || null,
+      petitioner: matter.petitioner || null,
+      respondent: matter.respondent || null,
+      stage: matter.stage || null,
+      next_deadline: matter.next_deadline || null,
+      next_deadline_label: matter.next_deadline_label || null,
+      deadline_note: matter.deadline_note || null,
+      source_snapshot_id: matter.source_snapshot_id || null,
+      last_progress_event: matter.last_progress_event || null
+    },
     answers: raw.answers,
     unknown_answers: raw.unknown_answers && typeof raw.unknown_answers === "object" ? raw.unknown_answers : {},
     tasks: Array.isArray(raw.tasks) ? raw.tasks : [],
-    correspondence: [],
-    activity: []
+    correspondence: Array.isArray(raw.correspondence) ? raw.correspondence : [],
+    activity: Array.isArray(raw.activity) ? raw.activity : [],
+    ingress_reconciliation: buildIngressReconciliation(raw)
+  };
+}
+
+function buildIngressReconciliation(raw) {
+  const answers = raw.answers || {};
+  const unknowns = raw.unknown_answers || {};
+  const forms = Object.keys(answers);
+  const mapped = [];
+  const incomplete = [];
+  for (const formId of forms) {
+    const fields = answers[formId] || {};
+    const unknownFields = unknowns[formId] || {};
+    const filled = Object.entries(fields).filter(([, value]) => value !== null && value !== undefined && value !== "");
+    mapped.push({
+      form_id: formId,
+      filled_field_count: filled.length,
+      unknown_field_count: Array.isArray(unknownFields)
+        ? unknownFields.length
+        : Object.keys(unknownFields || {}).length,
+      source: "private_matter_sidecar",
+      supports: "form_line_item_answers"
+    });
+    if ((Array.isArray(unknownFields) ? unknownFields.length : Object.keys(unknownFields || {}).length) > 0) {
+      incomplete.push({
+        form_id: formId,
+        reason: "unknown_or_incomplete_fields",
+        fields: Array.isArray(unknownFields) ? unknownFields : Object.keys(unknownFields)
+      });
+    }
+  }
+  return {
+    imported_from: raw.privacy?.source_repo || "data/private/matter.json",
+    imported_at: raw.fixture_version || null,
+    mapped_assertions: mapped,
+    disputed: [],
+    incomplete,
+    unmapped: [],
+    note: "Reconciliation is derived from the unlocked private sidecar. It does not invent facts."
   };
 }
 
@@ -646,6 +731,7 @@ server.on("error", (error) => {
 
 server.listen(port, requestedHost, () => {
   console.log(`Family law workbench preview: http://${requestedHost}:${port}/app`);
+  console.log(`Interview architecture proof (secondary): http://${requestedHost}:${port}/interview-proof`);
   console.log(`Source review: http://${requestedHost}:${port}/source-review`);
   console.log(`Developer diagnostics: http://${requestedHost}:${port}/dev`);
   console.log(`Bind: SFL_HOST=${requestedHost} PORT=${port} (ambient HOST is ignored)`);

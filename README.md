@@ -151,7 +151,7 @@ This bootstrap follows the xi-io repository governance quickstart, project start
 - Automated kit freshness monitoring is not implemented.
 - Accessibility requirements are documented but not runtime tested.
 
-## Local preview (architecture proof)
+## Local preview (Inbox-derived workbench)
 
 ```bash
 npm ci
@@ -167,10 +167,10 @@ SFL_HOST=127.0.0.1 PORT=4174 npm run preview
 
 Open:
 
-- User Continue-first shell: `http://127.0.0.1:4173/app`
+- Canonical product shell: `http://127.0.0.1:4173/app` (Inbox-derived legal workbench)
+- Interview architecture proof (secondary): `http://127.0.0.1:4173/interview-proof`
 - Source review: `http://127.0.0.1:4173/source-review`
 - Developer diagnostics: `http://127.0.0.1:4173/dev`
-- Legacy workbench: `http://127.0.0.1:4173/legacy`
 
 Browser screenshot proof (separate from ordinary checks):
 
@@ -179,11 +179,11 @@ npm run playwright:install
 npm run check:browser-proof
 ```
 
-Private matter never auto-loads. Guided wording remains blocked until owner ledger approvals exist. Court readiness remains blocked. See `docs/ops/SFL-INTERACTION-ARCHITECTURE-001I.md` and `docs/ops/SFL-PEER-REVIEW-CORRECTIONS-001K.md`.
+Private matter never auto-loads. Unlock inside `/app` to hydrate form inventory, answers, correspondence, tasks, and ingress reconciliation. Assertion/binding/presentation layers remain backend under the workbench. Court readiness remains blocked. See `docs/ops/SFL-OWNER-CORRECTION-WORKBENCH-RECOVERY-001M.md`.
 
 ## Next action
 
-Keep `SFL-SOURCE-REVIEW-002` open for the 267-item page review. Peer-review the interaction-architecture proof on FAM-PD #7-5, complete Track A human PDF compare for the private litmus, and do not expand presentation generation to all forms yet.
+Keep `SFL-SOURCE-REVIEW-002` open for the 267-item page review. Restore and verify the Inbox-derived workbench against private matter unlock before any merge claim. Do not treat the FAM-PD #7-5 interview proof as the product shell.
 
 ## Maintenance rule
 

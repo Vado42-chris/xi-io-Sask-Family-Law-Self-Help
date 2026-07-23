@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <title>xi-io: Family Law Assistant</title>
-  <link rel="stylesheet" href="./styles/legal-workbench.css">
-  <link rel="stylesheet" href="./styles/user-mode.css">
+  <link rel="stylesheet" href="/styles/legal-workbench.css">
+  <link rel="stylesheet" href="/styles/user-mode.css">
 </head>
 <body class="user-mode">
   <a class="skip-link" href="#document-workspace">Skip to your form</a>
@@ -38,6 +38,7 @@
         <span class="status-token status-token--warning">Form version needs checking</span>
         <span class="status-token">Private local preview</span>
         <span class="status-token">Nothing can be sent</span>
+        <button class="secondary-button is-hidden" id="lock-now" type="button">Lock now</button>
       </div>
 
       <button class="ibal-trigger" id="ibal-trigger" type="button" aria-haspopup="dialog" aria-controls="ibal-drawer">
@@ -50,7 +51,31 @@
       <button class="scope-item is-active" type="button" data-route="matter" aria-current="page">
         <span aria-hidden="true">⌂</span><span>My case</span>
       </button>
-      <a class="scope-item" href="/app">Continue in guided app</a>
+      <button class="scope-item" type="button" data-route="forms">
+        <span aria-hidden="true">▤</span><span>Forms</span>
+      </button>
+      <button class="scope-item" type="button" data-route="evidence">
+        <span aria-hidden="true">📎</span><span>Evidence</span>
+      </button>
+      <button class="scope-item" type="button" data-route="correspondence">
+        <span aria-hidden="true">✉</span><span>Messages</span>
+      </button>
+      <button class="scope-item" type="button" data-route="tasks">
+        <span aria-hidden="true">✓</span><span>Tasks</span>
+      </button>
+      <button class="scope-item" type="button" data-route="activity">
+        <span aria-hidden="true">↺</span><span>Activity</span>
+      </button>
+      <button class="scope-item" type="button" data-route="ingress">
+        <span aria-hidden="true">⇩</span><span>Ingress</span>
+      </button>
+      <div class="scope-rail__spacer"></div>
+      <button class="scope-item" type="button" data-route="review">
+        <span aria-hidden="true">⊙</span><span>Review</span>
+      </button>
+      <button class="scope-item" type="button" data-route="packages">
+        <span aria-hidden="true">▣</span><span>Packages</span>
+      </button>
     </nav>
 
     <aside class="work-queue" aria-labelledby="queue-title">
@@ -62,9 +87,12 @@
         <button class="icon-button" id="queue-filter-button" type="button" aria-label="Filter your work">≡</button>
       </div>
 
+      <div id="matter-mode-banner" class="matter-mode-banner matter-mode-banner--practice" role="status" aria-live="polite"></div>
       <div id="private-lock-banner" class="private-lock-banner is-hidden" role="status"></div>
 
-      <section class="matter-progress" aria-labelledby="matter-progress-title">
+      <article id="case-plan-card" class="case-plan-card" aria-labelledby="case-plan-title"></article>
+
+      <section class="matter-progress is-hidden" aria-labelledby="matter-progress-title" hidden>
         <div class="progress-heading">
           <h3 id="matter-progress-title">Preparing for your JCC</h3>
           <strong id="matter-progress-percent">0%</strong>
@@ -73,18 +101,21 @@
         <p id="matter-progress-copy">Loading your case plan…</p>
       </section>
 
-      <div class="queue-tabs" role="tablist" aria-label="Ways to view your work">
+      <div class="queue-tabs" role="tablist" aria-label="Queue filters">
         <button class="queue-tab is-active" type="button" role="tab" aria-selected="true" data-queue-view="today">Today</button>
-        <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="forms">Forms</button>
+        <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="required">Required</button>
+        <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="later">Later</button>
         <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="evidence">Evidence</button>
         <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="correspondence">Messages</button>
-        <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="all">All work</button>
+        <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="all">All</button>
       </div>
 
-      <article id="today-card" class="today-card" aria-label="Continue where you left off"></article>
+      <article id="today-card" class="today-card is-hidden" aria-label="Continue where you left off"></article>
 
       <div class="queue-list" id="queue-list" aria-live="polite"></div>
     </aside>
+
+    <div class="pane-resizer" id="queue-resizer" role="separator" aria-orientation="vertical" aria-label="Resize work queue" tabindex="0"></div>
 
     <main class="document-workspace" id="document-workspace" tabindex="-1">
       <section class="workspace-empty" id="workspace-empty">
@@ -100,6 +131,7 @@
             <p class="eyebrow" id="form-number">Form</p>
             <h2 id="form-title">Form title</h2>
             <p id="form-source-summary">Form details</p>
+            <p id="form-readiness-line" class="form-readiness-line"></p>
           </div>
 
           <div class="form-control-header__stats" aria-label="Form progress">
@@ -170,13 +202,15 @@
       </section>
     </main>
 
+    <div class="pane-resizer" id="inspector-resizer" role="separator" aria-orientation="vertical" aria-label="Resize help panel" tabindex="0"></div>
+
     <aside class="context-inspector" aria-labelledby="inspector-title">
       <div class="inspector-header">
         <div>
           <p class="eyebrow">Help</p>
           <h2 id="inspector-title">Why this matters</h2>
         </div>
-        <span class="status-dot" title="Help follows your selection"></span>
+        <button class="icon-button" id="toggle-inspector" type="button" aria-label="Collapse help panel" title="Collapse help">⟩</button>
       </div>
 
       <div class="inspector-content" id="inspector-content">
@@ -238,7 +272,7 @@
     </article>
   </template>
 
-  <script type="module" src="./src/legal-workbench.js"></script>
-  <script type="module" src="./src/user-language-layer.js"></script>
+  <script type="module" src="/src/legal-workbench.js"></script>
+  <script type="module" src="/src/user-language-layer.js"></script>
 </body>
 </html>

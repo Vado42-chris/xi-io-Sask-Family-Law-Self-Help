@@ -20,8 +20,12 @@ function forbidText(source, text, label) {
 }
 
 requireText(index, '<body class="user-mode">', "user-mode body");
-requireText(index, 'href="./styles/user-mode.css"', "user-mode stylesheet");
-requireText(index, 'src="./src/user-language-layer.js"', "user-language module");
+if (!index.includes('href="./styles/user-mode.css"') && !index.includes('href="/styles/user-mode.css"')) {
+  failures.push("user-mode stylesheet is missing: href=\"./styles/user-mode.css\" or href=\"/styles/user-mode.css\"");
+}
+if (!index.includes('src="./src/user-language-layer.js"') && !index.includes('src="/src/user-language-layer.js"')) {
+  failures.push("user-language module is missing: src=\"./src/user-language-layer.js\" or src=\"/src/user-language-layer.js\"");
+}
 requireText(index, "Your next steps", "next-step heading");
 requireText(index, "Preparing for your JCC", "human progress heading");
 requireText(index, "Check my work", "human validation action");

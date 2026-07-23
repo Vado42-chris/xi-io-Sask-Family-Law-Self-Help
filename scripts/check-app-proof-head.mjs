@@ -81,6 +81,11 @@ if (!String(proof.href || "").includes("/app")) {
   process.exit(1);
 }
 
+if (proof.product_shell && proof.product_shell !== "inbox_derived_legal_workbench") {
+  console.error("ERROR (app-proof-head): product_shell must be inbox_derived_legal_workbench");
+  process.exit(1);
+}
+
 console.log(
   JSON.stringify(
     {

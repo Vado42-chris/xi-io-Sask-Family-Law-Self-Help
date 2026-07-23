@@ -80,11 +80,13 @@ function updateText(element) {
 }
 
 function simplifyPrivateBanner() {
+  // Mode copy is owned by #matter-mode-banner. Never inject a second
+  // "Private on this computer" banner that competes with locked/practice state.
   const banner = document.querySelector("#private-lock-banner");
-  if (!banner || banner.classList.contains("is-hidden")) return;
-  if (banner.dataset.userCopyApplied === "true") return;
-  banner.innerHTML = "<strong>Private on this computer</strong><span>Your case information stays in this local session. The screen locks after 30 minutes without activity.</span>";
-  banner.dataset.userCopyApplied = "true";
+  if (!banner) return;
+  banner.classList.add("is-hidden");
+  banner.innerHTML = "";
+  delete banner.dataset.userCopyApplied;
 }
 
 function simplifyPlaceholders() {

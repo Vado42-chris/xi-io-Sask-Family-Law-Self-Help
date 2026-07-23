@@ -729,3 +729,138 @@ deploy_state: blocked
 next_action: Confirm CI green on PR #5; keep draft; no owner acceptance claim.
 created_at: 2026-07-23T05:52:00Z
 ```
+
+## SFL-AGENT-OWNER-CORRECTION-WORKBENCH-RECOVERY-001M
+
+```yaml
+agent_run_id: SFL-AGENT-OWNER-CORRECTION-WORKBENCH-RECOVERY-001M
+project_id: sask_family_law_self_help
+repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
+branch: feat/synthetic-legal-workbench-001
+base_ref: faf648a7273f16bc14f2c2995163c04b1b73ef33
+head_ref: pending_commit
+operator_type: ai_assistant
+operator_name: Auto
+user_requested_goal: Accept owner correction that /app must restore Inbox-derived workbench; keep security/assertion layers as backend; hydrate private matter.
+allowed_scope:
+  - restore /app workbench shell
+  - demote wizard to /interview-proof
+  - unlock-in-place hydration
+  - ingress reconciliation view
+  - checks/README/receipts
+blocked_scope:
+  - merge
+  - fabricated approvals
+  - court transmission
+  - deleting private matter
+commands_run:
+  - npm run check:preview
+  - npm run check:interaction-architecture
+  - npm run check:browser-proof / node scripts/check-user-geometry.mjs
+  - npm run check
+validation_results:
+  - check:preview passed
+  - check:interaction-architecture passed
+  - browser geometry proof regenerated for inbox_derived_legal_workbench
+evidence_inspected:
+  - PR #5 owner correction comment
+  - public/index.html scope rail
+  - scripts/serve-preview.mjs routing and projectPrivateMatter
+  - data/private presence via unlock API only
+files_changed:
+  - public/index.html
+  - public/src/legal-workbench.js
+  - public/styles/legal-workbench.css
+  - public/interview-proof/
+  - public/data/synthetic-matter.json
+  - scripts/serve-preview.mjs
+  - scripts/check-preview.mjs
+  - scripts/check-user-geometry.mjs
+  - scripts/check-interaction-architecture.mjs
+  - scripts/check-app-proof-head.mjs
+  - README.md
+  - docs/INDEX.md
+  - docs/ops/SFL-OWNER-CORRECTION-WORKBENCH-RECOVERY-001M.md
+  - project-tracking/open-work-ledger.md
+  - test-results/screenshots/
+blockers:
+  - Owner visual confirmation of private unlock + form inventory still required
+  - SFL-SOURCE-REVIEW-002 open
+  - empty approval ledger
+risk_level: medium
+merge_state: draft_only_do_not_merge
+deploy_state: blocked
+next_action: Owner open loopback /app, unlock private matter, confirm Forms + Ingress show real inventory; then decide commit/push.
+created_at: 2026-07-23T06:15:00Z
+```
+
+## SFL-AGENT-001N
+
+```yaml
+agent_run_id: SFL-AGENT-001N
+project_id: sask_family_law_self_help
+repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
+branch: feat/synthetic-legal-workbench-001
+base_ref: faf648a7273f16bc14f2c2995163c04b1b73ef33
+head_ref: pending_commit
+operator_type: ai_assistant
+operator_name: Auto
+user_requested_goal: Preserve Inbox shell; push local clarity work; promote diagnosis/readiness to P0; fix five clarity failures; keep PR #5 draft.
+allowed_scope:
+  - single mode banner
+  - required-document diagnosis artifact + schemas
+  - matter readiness checklist
+  - progress vs blocker separation
+  - question-specific inspector hints
+  - stage correction for Appearance Memo track
+  - resize grip/hit-target polish
+  - commit and push to draft PR #5
+blocked_scope:
+  - merge
+  - owner acceptance claim
+  - court transmission
+  - committing private matter PII
+  - UI shell replacement
+commands_run:
+  - node --check public/src/legal-workbench.js
+  - node --check public/src/document-diagnosis.js
+  - npm run check
+  - curl unlock + matter structural probe (no PII logged)
+validation_results:
+  - npm run check passed
+  - diagnosis JSON served at /workflows/.../required-document-diagnosis.json
+  - private unlock structural probe: privacy classification present; Appearance Memo stage; answers for fam-pd-7-5/10-3/7-2; ingress present
+evidence_inspected:
+  - owner clarity rejection message (five tests + P0 promotion)
+  - workflows/jcc-kit-3j/2026-03-30/required-document-diagnosis.json
+  - public/src/document-diagnosis.js
+  - public/src/legal-workbench.js case plan / banner / inspector
+  - local private matter via unlock API only
+files_changed:
+  - public/src/legal-workbench.js
+  - public/src/document-diagnosis.js
+  - public/src/user-language-layer.js
+  - public/styles/legal-workbench.css
+  - public/index.html
+  - public/interview-proof/
+  - public/data/synthetic-matter.json
+  - workflows/jcc-kit-3j/2026-03-30/required-document-diagnosis.json
+  - docs/schemas/required-document-diagnosis-schema-v1.json
+  - docs/schemas/matter-readiness-schema-v1.json
+  - docs/ops/SFL-WORKBENCH-CLARITY-P0-001N.md
+  - docs/ops/SFL-OWNER-CORRECTION-WORKBENCH-RECOVERY-001M.md
+  - scripts/check-preview.mjs
+  - scripts/check-user-language.mjs
+  - project-tracking/*
+  - test-results/screenshots/
+blockers:
+  - Owner visual acceptance of five clarity questions still required
+  - P0 not accepted until private unlock proves orientation on real matter UI
+  - SFL-SOURCE-REVIEW-002 open
+  - diagnosis remains provisional_pending_source_review
+risk_level: medium
+merge_state: draft_only_do_not_merge
+deploy_state: blocked
+next_action: Commit and push to PR #5; regenerate browser proof against new HEAD; owner unlock private matter on /app for acceptance.
+created_at: 2026-07-23T07:30:00Z
+```

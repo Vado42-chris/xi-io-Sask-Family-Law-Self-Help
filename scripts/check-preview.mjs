@@ -7,10 +7,15 @@ const requiredFiles = [
   "public/styles/legal-workbench.css",
   "public/styles/user-mode.css",
   "public/src/legal-workbench.js",
+  "public/src/document-diagnosis.js",
   "public/src/user-language-layer.js",
   "public/src/applicability-engine.js",
   "public/src/wizard-state.js",
   "public/data/synthetic-matter.json",
+  "workflows/jcc-kit-3j/2026-03-30/required-document-diagnosis.json",
+  "docs/schemas/required-document-diagnosis-schema-v1.json",
+  "docs/schemas/matter-readiness-schema-v1.json",
+  "docs/ops/SFL-WORKBENCH-CLARITY-P0-001N.md",
   "scripts/serve-preview.mjs"
 ];
 
@@ -39,6 +44,9 @@ if (!failures.length) {
     "Ask Ibal",
     "Practice preview",
     "data-queue-view=\"today\"",
+    "data-queue-view=\"required\"",
+    "case-plan-card",
+    "matter-mode-banner",
     "Continue where you left off",
     "private-lock-banner",
     "user-mode.css",
@@ -78,6 +86,21 @@ if (!failures.length) {
     "/api/local/matter",
     "Source and audit details",
     "renderTodayCard",
+    "renderCasePlanCard",
+    "renderMatterModeBanner",
+    "unlockPrivateMatter",
+    "renderIngressReconciliation",
+    "ingress_reconciliation",
+    "why_needed",
+    "computeMatterPlan",
+    "readinessLabel",
+    "DIAGNOSIS_PATH",
+    "document-diagnosis.js",
+    "Requirement review is not complete",
+    "Continue Appearance Memo",
+    "progress_state",
+    "package_blockers",
+    "QUESTION_SOURCE_HINTS",
     "fam-pd-7-2",
     "form-10-3-draft-order",
     "form-10-3-child-support-order",
@@ -85,6 +108,28 @@ if (!failures.length) {
     "form-12-3",
     "fam-pd-7-5"
   ]);
+
+  expectText("public/src/document-diagnosis.js", [
+    "buildMatterReadiness",
+    "progressStateFromAnswers",
+    "workBlockersForDocument",
+    "resolveProceduralStage",
+    "preparing_appearance_memo",
+    "header.court_file_number"
+  ]);
+
+  expectText("workflows/jcc-kit-3j/2026-03-30/required-document-diagnosis.json", [
+    "requirement_class",
+    "governing_source",
+    "no_longer_required_when",
+    "readiness_checklist",
+    "provisional_pending_source_review"
+  ]);
+
+  const fixtureStage = JSON.parse(readFileSync("public/data/synthetic-matter.json", "utf8"));
+  if (!String(fixtureStage.matter?.stage || "").toLowerCase().includes("appearance memo")) {
+    failures.push("Synthetic practice stage must describe Appearance Memo track, not an unrelated initiating-request stage.");
+  }
 
   const userLayer = expectText("public/src/user-language-layer.js", [
     "MutationObserver",
@@ -104,7 +149,10 @@ if (!failures.length) {
     "EADDRINUSE",
     "ambient HOST is ignored",
     "Refusing to start",
-    "Static /data/private/* routes are disabled"
+    "Static /data/private/* routes are disabled",
+    "buildIngressReconciliation",
+    "interview-proof",
+    'requested = "/public/index.html"'
   ]);
   if (server.includes("process.env.HOST")) {
     failures.push("serve-preview must not read ambient process.env.HOST");
@@ -119,8 +167,16 @@ if (!failures.length) {
   if (/fetch\(|localStorage|sessionStorage|\/api\/local\/matter|\/data\/private\//.test(userLayer)) {
     failures.push("User-language presentation layer must not access network, storage, or private matter paths.");
   }
-  if (html.includes("data-route=\"calendar\"") || html.includes("data-route=\"tasks\"") || html.includes("data-route=\"activity\"")) {
-    failures.push("Legacy user shell must not expose empty Calendar/Tasks/History destinations.");
+  if (html.includes('href="/app"') && html.includes("Continue in guided app")) {
+    failures.push("Canonical /app workbench must not redirect users into a replacement guided-app shell.");
+  }
+  for (const route of ["forms", "evidence", "correspondence", "tasks", "activity", "ingress", "review", "packages"]) {
+    if (!html.includes(`data-route="${route}"`)) {
+      failures.push(`Inbox-derived workbench must expose data-route="${route}".`);
+    }
+  }
+  if (!js.includes("matterMode") || !js.includes("private_locked")) {
+    failures.push("Workbench must distinguish practice, locked, and private-loaded modes.");
   }
   if (css.length < 5000) failures.push("Preview CSS appears unexpectedly small for the required four-surface workbench.");
   if (userCss.length < 1000) failures.push("User-mode CSS appears unexpectedly small for the progressive-disclosure contract.");
@@ -139,6 +195,7 @@ if (!failures.length) {
 
   const syntaxChecks = [
     "public/src/legal-workbench.js",
+    "public/src/document-diagnosis.js",
     "public/src/user-language-layer.js",
     "public/src/applicability-engine.js",
     "public/src/wizard-state.js",

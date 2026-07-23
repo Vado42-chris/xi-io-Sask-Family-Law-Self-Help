@@ -265,13 +265,28 @@ if (/localStorage[\s\S]*private|mode !== \"practice\"[\s\S]*localStorage/.test(a
     failures.push("Private mode must not persist to localStorage");
   }
 }
-if (!appJs.includes("Lock now") && !readFileSync(path.join(ROOT, "public/app/index.html"), "utf8").includes("Lock now")) {
-  failures.push("Lock now control required");
+const interviewProofHtml = readFileSync(path.join(ROOT, "public/interview-proof/index.html"), "utf8");
+const workbenchHtml = readFileSync(path.join(ROOT, "public/index.html"), "utf8");
+const workbenchJs = readFileSync(path.join(ROOT, "public/src/legal-workbench.js"), "utf8");
+
+if (
+  !appJs.includes("Lock now") &&
+  !interviewProofHtml.includes("Lock now") &&
+  !workbenchHtml.includes("Lock now")
+) {
+  failures.push("Lock now control required on workbench or interview-proof");
 }
 
-const appHtml = readFileSync(path.join(ROOT, "public/app/index.html"), "utf8");
-if (!appHtml.includes("ANSWER REVIEW") || !appHtml.includes("THIS IS NOT THE DOCUMENT YOU WILL FILE")) {
-  failures.push("Non-filing banner must be impossible to miss");
+if (!interviewProofHtml.includes("ANSWER REVIEW") || !interviewProofHtml.includes("THIS IS NOT THE DOCUMENT YOU WILL FILE")) {
+  failures.push("Non-filing banner must remain on interview-proof architecture surface");
+}
+
+if (!workbenchHtml.includes('data-route="forms"') || !workbenchJs.includes("unlockPrivateMatter")) {
+  failures.push("Canonical /app workbench must expose Forms rail and in-place private unlock");
+}
+
+if (!serve.includes("interview-proof") || !serve.includes('requested = "/public/index.html"')) {
+  failures.push("serve-preview must map /app to Inbox workbench and keep interview-proof secondary");
 }
 
 if (failures.length) {

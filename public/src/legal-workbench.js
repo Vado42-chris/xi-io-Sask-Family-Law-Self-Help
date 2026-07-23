@@ -3,8 +3,16 @@ import {
   buildWizardState,
   reconcileWizardSelection
 } from "./wizard-state.js";
+import {
+  QUESTION_SOURCE_HINTS,
+  buildMatterReadiness,
+  identifiedRequiredDocuments,
+  progressStateFromAnswers,
+  workBlockersForDocument
+} from "./document-diagnosis.js";
 
 const FORM_CATALOG_ROOT = "/sources/jcc-kit-3j/2026-03-30";
+const DIAGNOSIS_PATH = "/workflows/jcc-kit-3j/2026-03-30/required-document-diagnosis.json";
 const FORM_FILES = {
   "fam-pd-7-2": "fam-pd-7-2.json",
   "form-10-3-draft-order": "form-10-3-draft-order.json",
@@ -14,9 +22,15 @@ const FORM_FILES = {
   "fam-pd-7-5": "fam-pd-7-5.json"
 };
 
+const PANE_STORAGE_KEY = "xiio-sfl-pane-widths-practice";
+const DEFAULT_QUEUE_W = 360;
+const DEFAULT_INSPECTOR_W = 330;
+
 const state = {
   manifest: null,
   fixture: null,
+  diagnosis: null,
+  matterReadiness: null,
   forms: new Map(),
   wizardStates: new Map(),
   matterWizardState: null,
@@ -35,8 +49,12 @@ const state = {
   route: "matter",
   lastSelectionReason: "initial",
   privateMode: false,
+  privateMatterPresent: false,
+  matterMode: "practice",
   privateLockAt: null,
   inspectorExpanded: false,
+  inspectorCollapsed: false,
+  readinessExpanded: true,
   disclosureLevel: "today"
 };
 
@@ -81,7 +99,14 @@ const elements = {
   ibalConversation: $("#ibal-conversation"),
   ibalPrompt: $("#ibal-prompt"),
   todayCard: $("#today-card"),
+  casePlanCard: $("#case-plan-card"),
+  matterModeBanner: $("#matter-mode-banner"),
   privateLockBanner: $("#private-lock-banner"),
+  lockNow: $("#lock-now"),
+  formReadinessLine: $("#form-readiness-line"),
+  queueResizer: $("#queue-resizer"),
+  inspectorResizer: $("#inspector-resizer"),
+  toggleInspector: $("#toggle-inspector"),
   inspectorShell: $(".context-inspector")
 };
 
@@ -178,29 +203,172 @@ function getFormProgress(form) {
   };
 }
 
+function diagnosisDocForForm(formId) {
+  return (state.diagnosis?.documents || []).find((doc) => doc.form_id === formId) || null;
+}
+
+function formWhyNeeded(formId) {
+  return diagnosisDocForForm(formId)?.reason_required || "Included in the Kit #3J diagnosis snapshot for this matter.";
+}
+
+function formPlanGroup(formId) {
+  return diagnosisDocForForm(formId)?.requirement_class || "conditional";
+}
+
+function progressLabel(progressState) {
+  return ({
+    not_started: "Not started",
+    in_progress: "In progress",
+    needs_review: "Needs review",
+    complete: "Complete"
+  })[progressState] || humanize(progressState);
+}
+
+function readinessLabel(readiness) {
+  return progressLabel(readiness);
+}
+
+function refreshMatterReadiness() {
+  if (!state.diagnosis) return;
+  const formProgressById = {};
+  for (const [formId, form] of state.forms.entries()) {
+    formProgressById[formId] = getFormProgress(form);
+  }
+  state.matterReadiness = buildMatterReadiness({
+    diagnosis: state.diagnosis,
+    fixture: state.fixture,
+    formProgressById
+  });
+}
+
 function buildWorkItems() {
+  refreshMatterReadiness();
   const forms = state.manifest.forms_included.map((entry) => {
     const form = state.forms.get(entry.form_id);
     const progress = getFormProgress(form);
+    const doc = diagnosisDocForForm(entry.form_id);
+    const readinessRow = state.matterReadiness?.document_states?.find((row) => row.form_id === entry.form_id);
+    const progress_state = readinessRow?.progress_state || progressStateFromAnswers(progress);
+    const work_blockers = readinessRow?.work_blockers || workBlockersForDocument(doc || { requirement_class: "conditional" }, progress);
+    const package_blockers = readinessRow?.package_blockers || [];
+    const missingParts = [];
+    if (progress.blockers) missingParts.push(`${progress.blockers} required unanswered`);
+    if (progress.unknown) missingParts.push(`${progress.unknown} marked unknown`);
+    if (progress.unresolved) missingParts.push(`${progress.unresolved} need source review`);
+    if (!missingParts.length && progress.percent < 100) missingParts.push("Remaining applicable questions");
+    if (!missingParts.length) missingParts.push("Ready for human review");
     return {
       work_id: `form:${entry.form_id}`,
       type: "form",
       form_id: entry.form_id,
+      document_id: doc?.document_id || entry.form_id,
       official_number: entry.official_number,
       title: entry.title,
+      plan_group: doc?.requirement_class || "conditional",
+      kind: doc?.kind || "form_you_complete",
+      who_for: doc?.who_for || "Party using this kit snapshot",
+      when_needed: doc?.when_needed || "Confirm from Notice and workflow stage",
+      why_needed: formWhyNeeded(entry.form_id),
+      governing_source: doc?.governing_source || null,
+      verification_state: doc?.verification_state || "provisional",
+      no_longer_required_when: doc?.no_longer_required_when || "",
+      procedural_stage: doc?.procedural_stage || "",
       summary: `${progress.answered} of ${progress.total} applicable questions completed`,
-      state: progress.percent === 100 && !progress.unresolved ? "ready_for_review" : progress.answered ? "in_progress" : "not_started",
-      due_label: entry.form_id === "fam-pd-7-5" ? "Before conference (confirm Notice)" : "Later stage",
+      missing: missingParts.join(" · "),
+      missing_parts: missingParts,
+      next_action: progress_state === "complete" ? "Review answers" : `Continue ${entry.official_number}`,
+      source_freshness: form?.status || "captured_unverified_current",
+      progress_state,
+      work_blockers,
+      package_blockers,
+      state: progress_state,
+      readiness: progress_state,
+      due_label: entry.form_id === "fam-pd-7-5"
+        ? (state.fixture?.matter?.next_deadline_label || "Before conference (confirm Notice)")
+        : doc?.when_needed || "Later stage",
       progress: progress.percent,
+      answered: progress.answered,
+      total: progress.total,
       blockers: progress.blockers + progress.unknown + progress.unresolved
     };
   });
-  state.workItems = [...forms, ...asArray(state.fixture.tasks), ...asArray(state.fixture.correspondence)];
+
+  const extraDocs = (state.diagnosis?.documents || [])
+    .filter((doc) => !doc.form_id)
+    .map((doc) => {
+      const readinessRow = state.matterReadiness?.document_states?.find((row) => row.document_id === doc.document_id);
+      return {
+        work_id: `doc:${doc.document_id}`,
+        type: "document",
+        document_id: doc.document_id,
+        form_id: null,
+        official_number: doc.official_number || "",
+        title: doc.title,
+        plan_group: doc.requirement_class,
+        kind: doc.kind,
+        who_for: doc.who_for,
+        when_needed: doc.when_needed,
+        why_needed: doc.reason_required,
+        governing_source: doc.governing_source,
+        verification_state: doc.verification_state,
+        no_longer_required_when: doc.no_longer_required_when,
+        procedural_stage: doc.procedural_stage,
+        summary: humanize(doc.requirement_class),
+        missing: readinessRow?.package_blockers?.join(" · ") || "Awaiting capture or confirmation",
+        next_action: doc.requirement_class === "source_missing"
+          ? "Capture official source before treating as complete"
+          : "Archive and confirm when received",
+        progress_state: "not_started",
+        work_blockers: readinessRow?.work_blockers || ["external_document_pending"],
+        package_blockers: readinessRow?.package_blockers || [],
+        state: doc.requirement_class,
+        readiness: "not_started",
+        due_label: doc.when_needed,
+        progress: 0,
+        answered: 0,
+        total: 0,
+        blockers: 1
+      };
+    });
+
+  state.workItems = [...forms, ...extraDocs, ...asArray(state.fixture.tasks), ...asArray(state.fixture.correspondence)];
 }
 
 function isCurrentStageForm(formId) {
-  // Appearance Memo is the live stage for the Aug conference track; other kit forms are later.
-  return formId === "fam-pd-7-5";
+  return formPlanGroup(formId) === "required_now";
+}
+
+function formItems() {
+  return state.workItems.filter((item) => item.type === "form");
+}
+
+function computeMatterPlan() {
+  const readiness = state.matterReadiness;
+  const forms = formItems();
+  const identified = identifiedRequiredDocuments(state.diagnosis || { documents: [] });
+  const requiredFormIds = new Set(identified.map((doc) => doc.form_id).filter(Boolean));
+  const tracked = forms.filter((item) => requiredFormIds.has(item.form_id));
+  const completed = tracked.filter((item) => item.progress_state === "complete");
+  const inProgress = tracked.filter((item) => item.progress_state === "in_progress" || item.progress_state === "needs_review");
+  const notStarted = tracked.filter((item) => item.progress_state === "not_started");
+  const next = forms.find((item) => item.plan_group === "required_now" && item.progress_state !== "complete") ||
+    forms.find((item) => requiredFormIds.has(item.form_id) && item.progress_state !== "complete") ||
+    forms.find((item) => item.progress_state !== "complete");
+  return {
+    stage: readiness?.procedural_stage_label || state.fixture?.matter?.stage || "Preparing Appearance Memo",
+    stage_id: readiness?.procedural_stage || "preparing_appearance_memo",
+    identified_required_count: readiness?.identified_required_count || identified.length,
+    requirement_review_complete: Boolean(readiness?.requirement_review_complete),
+    completed: completed.length,
+    in_progress: inProgress.length,
+    not_started: notStarted.length,
+    next,
+    deadline: state.fixture?.matter?.next_deadline_label || next?.due_label || "Confirm deadline from Notice",
+    package_ready: false,
+    package_blockers: readiness?.package_blockers || ["Requirement review is not complete"],
+    checklist: readiness?.checklist || [],
+    forms
+  };
 }
 
 function filteredWorkItems() {
@@ -208,13 +376,18 @@ function filteredWorkItems() {
     let viewMatches = false;
     if (state.queueView === "today") {
       viewMatches =
-        (item.type === "form" && isCurrentStageForm(item.form_id) && item.progress < 100) ||
+        (item.type === "form" && isCurrentStageForm(item.form_id) && item.progress_state !== "complete") ||
         (item.type === "task" && item.state !== "done" && item.state !== "completed") ||
-        (item.type === "correspondence" && item.state !== "archived");
-    } else if (state.queueView === "all") {
+        (item.type === "correspondence" && item.state !== "archived") ||
+        (item.type === "document" && ["court_issued", "source_missing"].includes(item.plan_group));
+    } else if (state.queueView === "all" || state.queueView === "matter") {
       viewMatches = true;
-    } else if (state.queueView === "forms") {
-      viewMatches = item.type === "form";
+    } else if (state.queueView === "required" || state.queueView === "forms") {
+      viewMatches = (item.type === "form" || item.type === "document") &&
+        ["required_now", "required_later", "needs_human_confirmation", "court_issued", "source_missing"].includes(item.plan_group);
+    } else if (state.queueView === "later") {
+      viewMatches = (item.type === "form" || item.type === "document") &&
+        ["required_later", "conditional"].includes(item.plan_group);
     } else if (state.queueView === "evidence" || state.queueView === "tasks") {
       viewMatches = item.type === "task";
     } else if (state.queueView === "correspondence") {
@@ -222,13 +395,13 @@ function filteredWorkItems() {
     }
     if (!viewMatches) return false;
     if (!state.searchTerm) return true;
-    return [item.title, item.summary, item.official_number, item.state, item.source_ref]
+    return [item.title, item.summary, item.official_number, item.state, item.source_ref, item.why_needed, item.missing]
       .filter(Boolean).join(" ").toLowerCase().includes(state.searchTerm);
   });
 }
 
 function rowIcon(item) {
-  if (item.type === "form") return "▤";
+  if (item.type === "form" || item.type === "document") return "▤";
   if (item.type === "task") return "✓";
   if (item.type === "correspondence") return "✉";
   return "•";
@@ -237,14 +410,23 @@ function rowIcon(item) {
 function rowGroup(item) {
   if (state.queueView === "today") {
     if (item.type === "form") return "Continue today";
-    if (item.type === "task") return "Also waiting on";
-    if (item.type === "correspondence") return "Also waiting on";
+    return "Also waiting on";
   }
-  if (item.type === "form") {
-    return isCurrentStageForm(item.form_id) ? "Current stage forms" : "Later";
+  if (item.type === "task") return "Evidence and supporting material";
+  if (item.type === "correspondence") return "Messages";
+  if (item.type === "form" || item.type === "document") {
+    if (item.kind === "court_issued") return "Court-issued documents";
+    if (item.kind === "proof_and_service") return "Proof and service documents";
+    if (item.kind === "evidence_and_supporting") return "Evidence and supporting material";
+    if (item.kind === "procedural_action") return "Procedural actions";
+    if (item.plan_group === "source_missing") return "Source missing";
+    if (item.plan_group === "needs_human_confirmation") return "Needs human confirmation";
+    if (item.plan_group === "required_now") return "Forms you complete · Required now";
+    if (item.plan_group === "required_later") return "Forms you complete · Required later";
+    if (item.plan_group === "conditional") return "Forms you complete · Conditional";
+    if (item.kind === "form_you_complete") return "Forms you complete";
+    return "Forms you complete";
   }
-  if (item.type === "task") return "Evidence and homework";
-  if (item.type === "correspondence") return "Correspondence";
   return "Other work";
 }
 
@@ -252,59 +434,136 @@ function estimateMinutes(unanswered) {
   return Math.max(3, Math.min(25, unanswered * 2));
 }
 
-function renderTodayCard() {
-  if (!elements.todayCard) return;
-  const focusForm = state.workItems.find((item) => item.type === "form" && isCurrentStageForm(item.form_id)) ||
-    state.workItems.find((item) => item.type === "form" && item.progress < 100);
-  const waitingTasks = state.workItems.filter((item) => item.type === "task" && item.state !== "done" && item.state !== "completed");
-  const waitingMail = state.workItems.filter((item) => item.type === "correspondence" && item.state !== "archived");
-  const remaining = focusForm ? Math.max(0, Math.round((100 - (focusForm.progress || 0)) / 100 * (getFormProgress(state.forms.get(focusForm.form_id)).total || 0))) : 0;
-  const answeredCopy = focusForm && focusForm.progress > 0
-    ? `You have already completed part of ${focusForm.official_number || "this form"}.`
-    : "Start with identity and scheduling, then move to the relief you are asking for.";
-
-  elements.todayCard.innerHTML = `
-    <p class="eyebrow">Continue where you left off</p>
-    <h3>Next step</h3>
-    <p class="today-card__action">${focusForm
-      ? `Continue your ${escapeHtml(focusForm.title)}`
-      : "Open the guided app to continue"}</p>
-    <dl class="today-card__meta">
-      <div><dt>Estimated time</dt><dd>About ${estimateMinutes(Math.min(remaining || 4, 4))} minutes</dd></div>
-      <div><dt>This section</dt><dd>A few short questions</dd></div>
-      <div><dt>Also waiting on</dt><dd>${waitingTasks.length + waitingMail.length} item${waitingTasks.length + waitingMail.length === 1 ? "" : "s"}</dd></div>
-    </dl>
-    <p class="today-card__progress">${escapeHtml(answeredCopy)}</p>
-    <div class="today-card__actions">
-      <a class="primary-button" href="/app">Continue in guided app</a>
-      <button class="secondary-button" type="button" id="today-continue">${focusForm ? "Open legacy form view" : "Open work plan"}</button>
-    </div>
-  `;
-  $("#today-continue", elements.todayCard)?.addEventListener("click", () => {
-    if (focusForm) selectWorkItem(focusForm.work_id);
-    else {
-      state.queueView = "forms";
-      $$(".queue-tab").forEach((button) => {
-        const active = button.dataset.queueView === "forms";
-        button.classList.toggle("is-active", active);
-        button.setAttribute("aria-selected", String(active));
-      });
-      renderQueue();
-    }
+function setQueueView(view) {
+  state.queueView = view;
+  $$(".queue-tab").forEach((button) => {
+    const active = button.dataset.queueView === view;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-selected", String(active));
   });
 }
 
+function renderMatterModeBanner() {
+  if (!elements.matterModeBanner) return;
+  if (elements.privateLockBanner) elements.privateLockBanner.classList.add("is-hidden");
+  elements.matterModeBanner.classList.remove(
+    "matter-mode-banner--practice",
+    "matter-mode-banner--locked",
+    "matter-mode-banner--private"
+  );
+  if (state.matterMode === "private_loaded") {
+    elements.matterModeBanner.classList.add("matter-mode-banner--private");
+    elements.matterModeBanner.innerHTML = `
+      <strong>Your private case is loaded on this computer.</strong>
+      <p>It will lock after 30 minutes without activity.</p>`;
+    return;
+  }
+  if (state.matterMode === "private_locked" || state.privateMatterPresent) {
+    elements.matterModeBanner.classList.add("matter-mode-banner--locked");
+    elements.matterModeBanner.innerHTML = `
+      <strong>Your private case is locked.</strong>
+      <p>This screen is showing practice information. Unlock your case to continue working with your real materials.</p>
+      <div class="matter-mode-banner__actions">
+        <button type="button" class="primary-button" id="mode-unlock-private">Unlock private case</button>
+      </div>
+      <p class="private-lock-banner__error is-hidden" id="unlock-private-error" role="alert"></p>`;
+    $("#mode-unlock-private", elements.matterModeBanner)?.addEventListener("click", unlockPrivateMatter);
+    return;
+  }
+  elements.matterModeBanner.classList.add("matter-mode-banner--practice");
+  elements.matterModeBanner.innerHTML = `
+    <strong>You are viewing practice data, not your real case.</strong>
+    <p>Your private matter is not loaded. No changes here affect your real legal materials.</p>`;
+}
+
+function renderCasePlanCard() {
+  if (!elements.casePlanCard) return;
+  const plan = computeMatterPlan();
+  const show = state.route === "matter" || state.queueView === "today" || state.queueView === "required";
+  elements.casePlanCard.classList.toggle("is-hidden", !show);
+  if (!show) return;
+  const nextActionLabel = plan.next
+    ? (plan.next.official_number?.includes("7-5")
+      ? "Continue Appearance Memo"
+      : `Continue ${plan.next.official_number || plan.next.title}`)
+    : "View required documents";
+  const nextTitle = plan.next
+    ? `${plan.next.official_number}: ${plan.next.title}`
+    : "Open your required documents list";
+  const why = plan.next?.why_needed || "Complete the documents identified for this stage.";
+  const countLine = plan.requirement_review_complete
+    ? `You need to complete <strong>${plan.identified_required_count}</strong> required documents for this stage.`
+    : `<strong>${plan.identified_required_count}</strong> documents currently identified for this stage. Requirement review is not complete.`;
+  const checklist = plan.checklist || [];
+  const checklistHtml = checklist.map((item) => `
+    <label class="readiness-check">
+      <input type="checkbox" disabled ${item.state === "ready" ? "checked" : ""}>
+      <span><strong>${item.state === "ready" ? "Ready" : item.state === "blocked" ? "Blocked" : "Not ready"}</strong> — ${escapeHtml(item.label)} <em>${escapeHtml(item.reason || "")}</em></span>
+    </label>`).join("");
+  elements.casePlanCard.innerHTML = `
+    <p class="eyebrow">Case plan</p>
+    <h3 id="case-plan-title">${escapeHtml(plan.stage)}</h3>
+    <p class="case-plan-card__lead">${countLine}</p>
+    <ul class="case-plan-card__status">
+      <li><strong>${plan.completed}</strong> complete</li>
+      <li><strong>${plan.in_progress}</strong> in progress</li>
+      <li><strong>${plan.not_started}</strong> not started</li>
+    </ul>
+    <dl class="case-plan-card__meta">
+      <div><dt>Next exact action</dt><dd>${escapeHtml(nextTitle)}</dd></div>
+      <div><dt>Nearest deadline</dt><dd>${escapeHtml(plan.deadline)}</dd></div>
+      <div><dt>Why this action matters</dt><dd>${escapeHtml(why)}</dd></div>
+      <div><dt>Package status</dt><dd>Not ready · ${escapeHtml(plan.package_blockers[0] || "work incomplete")}</dd></div>
+    </dl>
+    <details class="readiness-details" ${state.readinessExpanded ? "open" : ""}>
+      <summary>Before this stage is ready</summary>
+      <div class="readiness-checklist">${checklistHtml || "<p>No checklist rows recorded.</p>"}</div>
+    </details>
+    <div class="case-plan-card__actions">
+      <button class="primary-button" type="button" id="case-plan-continue">${escapeHtml(nextActionLabel)}</button>
+      <button class="secondary-button" type="button" id="case-plan-required">Required documents</button>
+    </div>`;
+  $(".readiness-details", elements.casePlanCard)?.addEventListener("toggle", (event) => {
+    state.readinessExpanded = event.target.open;
+  });
+  $("#case-plan-continue", elements.casePlanCard)?.addEventListener("click", () => {
+    if (plan.next) selectWorkItem(plan.next.work_id);
+    else {
+      setQueueView("required");
+      renderQueue();
+      selectDefaultForCurrentRoute();
+    }
+  });
+  $("#case-plan-required", elements.casePlanCard)?.addEventListener("click", () => {
+    renderRoute("forms");
+  });
+}
+
+function renderTodayCard() {
+  if (!elements.todayCard) return;
+  // Case plan card replaces the fragmented today card on My case / Today.
+  elements.todayCard.classList.add("is-hidden");
+  elements.todayCard.innerHTML = "";
+}
+
 function renderQueue() {
+  renderMatterModeBanner();
+  renderCasePlanCard();
   renderTodayCard();
   const items = filteredWorkItems();
   elements.queueList.innerHTML = "";
-  if (state.queueView === "today" && elements.todayCard) {
-    elements.todayCard.classList.remove("is-hidden");
-  } else if (elements.todayCard) {
-    elements.todayCard.classList.add("is-hidden");
+  const queueTitle = $("#queue-title");
+  if (queueTitle) {
+    queueTitle.textContent = state.route === "forms" || state.queueView === "required"
+      ? "Required documents"
+      : state.route === "evidence"
+        ? "Evidence and homework"
+        : state.route === "correspondence"
+          ? "Messages"
+          : "Your next steps";
   }
   if (!items.length) {
-    elements.queueList.innerHTML = '<div class="generic-card"><strong>No matching work.</strong><p>Change the queue view or search terms.</p></div>';
+    elements.queueList.innerHTML = '<div class="generic-card"><strong>No matching work.</strong><p>Change the queue filter or search terms.</p></div>';
     return;
   }
   let lastGroup = null;
@@ -319,29 +578,86 @@ function renderQueue() {
     }
     const row = document.createElement("button");
     row.type = "button";
-    row.className = `queue-row${state.selectedWorkId === item.work_id ? " is-selected" : ""}`;
-    row.innerHTML = `
-      <span class="queue-row__icon" aria-hidden="true">${rowIcon(item)}</span>
-      <span class="queue-row__body">
-        <span class="queue-row__top"><span class="queue-row__title">${escapeHtml(item.official_number ? `${item.official_number} · ${item.title}` : item.title)}</span><span class="queue-row__meta">${escapeHtml(item.due_label || "")}</span></span>
-        <span class="queue-row__summary">${escapeHtml(item.summary || "")}</span>
-        <span class="queue-row__chips"><span class="queue-chip">${escapeHtml(humanize(item.state))}</span></span>
-      </span>
-      <span class="queue-row__progress">${item.type === "form" ? `${item.progress}%` : ""}</span>`;
+    row.className = `queue-row queue-row--${item.type}${state.selectedWorkId === item.work_id ? " is-selected" : ""}`;
+    if (item.type === "form") {
+      const packageNote = (item.package_blockers || []).slice(0, 1).join(" · ") || item.missing || "—";
+      row.innerHTML = `
+        <span class="queue-row__body">
+          <span class="queue-row__top">
+            <span class="queue-row__title">${escapeHtml(`${item.official_number} · ${item.title}`)}</span>
+            <span class="queue-chip queue-chip--${escapeHtml(item.progress_state)}">${escapeHtml(progressLabel(item.progress_state))}</span>
+          </span>
+          <span class="queue-row__summary">${escapeHtml(item.why_needed || "")}</span>
+          <div class="queue-row__progress-bar" aria-hidden="true"><progress max="100" value="${Number(item.progress) || 0}"></progress></div>
+          <span class="queue-row__summary"><strong>${item.progress}%</strong> · ${escapeHtml(item.summary)}</span>
+          <span class="queue-row__summary">Package blocked: ${escapeHtml(packageNote)}</span>
+          <span class="queue-row__next">Next: ${escapeHtml(item.next_action || "")}</span>
+        </span>`;
+    } else if (item.type === "document") {
+      row.innerHTML = `
+        <span class="queue-row__body">
+          <span class="queue-row__top">
+            <span class="queue-row__title">${escapeHtml(`${item.official_number ? `${item.official_number} · ` : ""}${item.title}`)}</span>
+            <span class="queue-chip queue-chip--blocked">${escapeHtml(humanize(item.plan_group))}</span>
+          </span>
+          <span class="queue-row__summary">${escapeHtml(item.why_needed || "")}</span>
+          <span class="queue-row__summary">Work blockers: ${escapeHtml((item.work_blockers || []).join(", "))}</span>
+          <span class="queue-row__next">Next: ${escapeHtml(item.next_action || "")}</span>
+        </span>`;
+    } else {
+      row.innerHTML = `
+        <span class="queue-row__body">
+          <span class="queue-row__top">
+            <span class="queue-row__title">${escapeHtml(item.title)}</span>
+            <span class="queue-chip">${escapeHtml(humanize(item.state))}</span>
+          </span>
+          <span class="queue-row__summary">${escapeHtml(item.summary || "")}</span>
+          <span class="queue-row__next">Next: ${escapeHtml(item.next_action || "Review this item")}</span>
+        </span>`;
+    }
     row.addEventListener("click", () => selectWorkItem(item.work_id));
     elements.queueList.append(row);
   }
 }
 
 function calculateMatterProgress() {
-  const totals = state.matterWizardState || { applicable: 0, completed: 0, needsHelp: 0, blockers: 0, unresolvedObligations: 0, percent_complete: 0 };
-  elements.progressPercent.textContent = `${totals.percent_complete}%`;
-  elements.progressBar.style.width = `${totals.percent_complete}%`;
-  const next = state.workItems.find((item) => item.type === "form" && isCurrentStageForm(item.form_id)) ||
-    state.workItems.find((item) => item.type === "form" && item.progress < 100);
-  elements.progressCopy.textContent = next
-    ? `Next: continue ${next.official_number || next.title}. ${totals.completed} of ${totals.applicable} applicable questions done.`
-    : `${totals.completed} of ${totals.applicable} applicable questions completed.`;
+  const plan = computeMatterPlan();
+  if (elements.progressPercent) {
+    elements.progressPercent.textContent = `${plan.completed}/${plan.identified_required_count}`;
+  }
+  if (elements.progressBar) {
+    const pct = plan.identified_required_count ? Math.round((plan.completed / plan.identified_required_count) * 100) : 0;
+    elements.progressBar.style.width = `${pct}%`;
+  }
+  if (elements.progressCopy) {
+    elements.progressCopy.textContent = plan.next
+      ? `Next: ${plan.next.official_number}. ${plan.completed} of ${plan.identified_required_count} identified documents complete. Requirement review is not complete.`
+      : `${plan.completed} of ${plan.identified_required_count} identified documents complete.`;
+  }
+}
+
+function defaultWorkItemForRoute(route = state.route) {
+  if (route === "forms" || route === "matter") {
+    return formItems().find((item) => item.plan_group === "required_now" && item.progress < 100) ||
+      formItems().find((item) => item.progress < 100) ||
+      formItems()[0];
+  }
+  if (route === "evidence" || route === "tasks") {
+    return state.workItems.find((item) => item.type === "task" && item.state !== "done" && item.state !== "completed") ||
+      state.workItems.find((item) => item.type === "task");
+  }
+  if (route === "correspondence") {
+    return state.workItems.find((item) => item.type === "correspondence");
+  }
+  return null;
+}
+
+function selectDefaultForCurrentRoute() {
+  if (state.route === "ingress" || state.route === "activity" || state.route === "packages" || state.route === "review") {
+    return;
+  }
+  const item = defaultWorkItemForRoute(state.route);
+  if (item) selectWorkItem(item.work_id);
 }
 
 function selectWorkItem(workId) {
@@ -375,13 +691,20 @@ function showGenericWorkspace(item) {
   elements.workspaceEmpty.classList.add("is-hidden");
   elements.formWorkspace.classList.add("is-hidden");
   elements.genericWorkspace.classList.remove("is-hidden");
-  elements.genericEyebrow.textContent = item.type === "task" ? "Matter task" : "Correspondence ingress";
-  elements.genericTitle.textContent = item.title;
-  elements.genericSummary.textContent = item.summary || "";
-  elements.genericAction.textContent = item.type === "task" ? "Mark reviewed" : "Create intake proposal";
-  elements.genericAction.disabled = false;
+  elements.genericEyebrow.textContent = item.type === "task"
+    ? "Matter task"
+    : item.type === "document"
+      ? humanize(item.kind || "document")
+      : "Correspondence ingress";
+  elements.genericTitle.textContent = item.official_number ? `${item.official_number} · ${item.title}` : item.title;
+  elements.genericSummary.textContent = item.why_needed || item.summary || "";
+  elements.genericAction.textContent = item.type === "task" ? "Mark reviewed" : "Preview only";
+  elements.genericAction.disabled = item.type !== "task";
+  const source = item.governing_source;
   elements.genericContent.innerHTML = `
-    <article class="generic-card"><h3>Current state</h3><p>${escapeHtml(humanize(item.state))}. ${escapeHtml(item.due_label || "Timing not set yet.")}</p></article>
+    <article class="generic-card"><h3>Why this is in your plan</h3><p>${escapeHtml(item.why_needed || item.summary || "")}</p></article>
+    <article class="generic-card"><h3>Progress / blockers</h3><p>Progress: ${escapeHtml(progressLabel(item.progress_state || "not_started"))}. Work blockers: ${escapeHtml((item.work_blockers || ["none"]).join(", "))}</p><p>Package blockers: ${escapeHtml((item.package_blockers || []).join("; ") || "none listed")}</p></article>
+    ${source ? `<article class="generic-card"><h3>Governing source</h3><p>${escapeHtml(source.citation)}</p><p>Source date ${escapeHtml(source.source_date)} · verification ${escapeHtml(item.verification_state || "provisional")}</p><p>No longer required when: ${escapeHtml(item.no_longer_required_when || "Not recorded")}</p></article>` : ""}
     <article class="generic-card"><h3>Next safe action</h3><p>${escapeHtml(item.next_action || "Review this item")}</p></article>
     <article class="generic-card"><h3>Boundary</h3><p>Nothing is filed, served, emailed, or transmitted from this preview.</p></article>`;
 }
@@ -390,6 +713,8 @@ function renderFormHeader() {
   const form = currentForm();
   if (!form) return;
   const progress = getFormProgress(form);
+  const work = formItems().find((item) => item.form_id === form.form_id);
+  const plan = computeMatterPlan();
   elements.formNumber.textContent = form.official_number;
   elements.formTitle.textContent = form.title;
   elements.formSourceSummary.textContent = `Source pages ${form.source_pages?.join("–") || "not recorded"} · source ${form.source_date} · captured ${new Date(form.captured_at).toLocaleDateString()}`;
@@ -397,6 +722,12 @@ function renderFormHeader() {
   elements.formAnsweredCount.textContent = progress.answered;
   elements.formReviewCount.textContent = progress.unknown + progress.unresolved;
   elements.formRevision.textContent = `r${state.revision[form.form_id] || 1}`;
+  if (elements.formReadinessLine) {
+    const progressState = work?.progress_state || "not_started";
+    elements.formReadinessLine.innerHTML = `
+      <span class="queue-chip queue-chip--${escapeHtml(progressState)}">${escapeHtml(progressLabel(progressState))}</span>
+      <span class="status-token status-token--warning">Package blocked: ${(work?.package_blockers || plan.package_blockers).slice(0, 1).map(escapeHtml).join(" · ") || "incomplete"}</span>`;
+  }
 }
 
 function renderWorkspaceMode() {
@@ -633,25 +964,44 @@ function renderInspector() {
   const expanded = state.inspectorExpanded;
 
   if (form && question && evaluation) {
-    const condition = evaluation.condition;
-    const actual = condition?.actual === undefined ? "not answered" : condition.actual === true ? "Yes" : condition.actual === false ? "No" : condition.actual;
-    const expected = condition?.expected === true ? "Yes" : condition?.expected === false ? "No" : condition?.expected;
-    elements.inspectorTitle.textContent = "Why am I being asked this?";
+    const hint = QUESTION_SOURCE_HINTS[question.line_item_id];
+    const currentValue = answerFor(form.form_id, question.line_item_id);
+    const valueText = isUnknown(form.form_id, question.line_item_id)
+      ? "Marked unknown"
+      : hasValue(currentValue)
+        ? String(currentValue)
+        : "Not recorded";
+    elements.inspectorTitle.textContent = "Help for this question";
     elements.inspectorContent.innerHTML = `
       <section class="inspector-panel">
-        <h3>What this asks</h3>
-        <p>${escapeHtml(question.source_label)}. Answer only what you can confirm from your documents. Use “I do not know yet” if you need help.</p>
-        <div class="inspector-actions">
-          <button class="secondary-button" id="inspector-ask-ibal" type="button">Ask Ibal</button>
-          <button class="text-button" id="toggle-source-audit" type="button">${expanded ? "Hide source and audit details" : "Source and audit details"}</button>
-        </div>
+        <h3>1. Plain explanation</h3>
+        <p>${escapeHtml(humanQuestionPrompt(question))}</p>
+        <p>Answer only what you can confirm. Use “I do not know yet” if you need help.</p>
       </section>
       <section class="inspector-panel">
-        <h3>Official form wording</h3>
+        <h3>2. Official wording</h3>
         <div class="inspector-source-label">${escapeHtml(question.source_label)}</div>
+        <p>Form: ${escapeHtml(form.official_number)} · ${escapeHtml(form.title)}</p>
       </section>
-      ${expanded ? `<section class="inspector-panel inspector-panel--audit"><h3>Source and audit details</h3><dl><dt>Stable ID</dt><dd>${escapeHtml(question.line_item_id)}</dd><dt>Kind</dt><dd>${escapeHtml(humanize(question.kind))}</dd><dt>Rule</dt><dd>${escapeHtml(question.required_rule)}</dd><dt>Result</dt><dd>${escapeHtml(humanize(evaluation.evaluation_reason))}</dd><dt>Selection</dt><dd>${escapeHtml(humanize(state.lastSelectionReason))}</dd><dt>Snapshot</dt><dd>${escapeHtml(form.snapshot_id)}</dd><dt>Source date</dt><dd>${escapeHtml(form.source_date)}</dd><dt>Captured</dt><dd>${escapeHtml(form.captured_at)}</dd><dt>Status</dt><dd>${escapeHtml(form.status)}</dd><dt>Hash</dt><dd>${escapeHtml(form.source_sha256 || "see catalog")}</dd></dl>${condition ? `<p>Evaluated <strong>${escapeHtml(condition.path)}</strong> ${escapeHtml(condition.operator)} <strong>${escapeHtml(expected)}</strong>. Current value: <strong>${escapeHtml(actual)}</strong>.</p>` : ""}</section>` : ""}
-      <section class="inspector-panel"><h3>Current answer state</h3><p>${evaluation.needs_help ? "Marked as needing help." : evaluation.answered ? "An answer is recorded." : evaluation.unresolved_obligation ? "Visible, but the obligation rule still needs review." : "No answer is recorded."}</p></section>`;
+      <section class="inspector-panel">
+        <h3>3. Where to find this</h3>
+        ${hint?.where_to_find?.length
+          ? `<ul class="ingress-list">${hint.where_to_find.map((row) => `<li>${escapeHtml(row)}</li>`).join("")}</ul>`
+          : "<p>No question-specific source hint is recorded yet. Use the official wording and your Notice or prior filings.</p>"}
+        <p><strong>Already found:</strong> ${state.matterMode === "private_loaded" && hasValue(currentValue) ? "Value present in unlocked matter answers" : "Nothing mapped for this question yet"}</p>
+      </section>
+      <section class="inspector-panel">
+        <h3>4. Current answer state</h3>
+        <p>Current value: ${escapeHtml(valueText)}</p>
+        <p>${evaluation.needs_help ? "Marked as needing help." : evaluation.answered ? "An answer is recorded." : "No answer is recorded."}</p>
+        <p>If you skip this, package readiness stays incomplete.</p>
+      </section>
+      <section class="inspector-panel">
+        <h3>5. Ask Ibal</h3>
+        <button class="secondary-button" id="inspector-ask-ibal" type="button">Ask Ibal about this question</button>
+        <button class="text-button" id="toggle-source-audit" type="button">${expanded ? "Hide source and audit details" : "Source and audit details"}</button>
+      </section>
+      ${expanded ? `<section class="inspector-panel inspector-panel--audit"><h3>Source and audit details</h3><dl><dt>Stable ID</dt><dd>${escapeHtml(question.line_item_id)}</dd><dt>Kind</dt><dd>${escapeHtml(humanize(question.kind))}</dd><dt>Rule</dt><dd>${escapeHtml(question.required_rule)}</dd><dt>Snapshot</dt><dd>${escapeHtml(form.snapshot_id)}</dd><dt>Status</dt><dd>${escapeHtml(form.status)}</dd></dl></section>` : ""}`;
     $("#inspector-ask-ibal")?.addEventListener("click", openIbal);
     $("#toggle-source-audit")?.addEventListener("click", () => {
       state.inspectorExpanded = !state.inspectorExpanded;
@@ -661,18 +1011,61 @@ function renderInspector() {
     return;
   }
 
-  if (selectedWork) {
-    elements.inspectorTitle.textContent = "What is this work item?";
-    elements.inspectorContent.innerHTML = `<section class="inspector-panel"><h3>${escapeHtml(selectedWork.title)}</h3><p>${escapeHtml(selectedWork.summary || "")}</p><button class="text-button" id="toggle-source-audit" type="button">${expanded ? "Hide source and audit details" : "Source and audit details"}</button></section>${expanded ? `<section class="inspector-panel inspector-panel--audit"><h3>Control state</h3><dl><dt>Type</dt><dd>${escapeHtml(selectedWork.type)}</dd><dt>State</dt><dd>${escapeHtml(humanize(selectedWork.state))}</dd><dt>Source</dt><dd>${escapeHtml(selectedWork.source_ref || "not recorded")}</dd></dl><p>External actions remain blocked.</p></section>` : ""}`;
-    $("#toggle-source-audit")?.addEventListener("click", () => {
-      state.inspectorExpanded = !state.inspectorExpanded;
-      renderInspector();
-    });
+  if (selectedWork?.type === "form" || selectedWork?.type === "document") {
+    const source = selectedWork.governing_source;
+    elements.inspectorTitle.textContent = "Why this is in your case";
+    elements.inspectorContent.innerHTML = `
+      <section class="inspector-panel">
+        <h3>Why this item is here</h3>
+        <p>${escapeHtml(selectedWork.why_needed || "")}</p>
+        <p><strong>Who it is for:</strong> ${escapeHtml(selectedWork.who_for || "—")}</p>
+        <p><strong>When it is needed:</strong> ${escapeHtml(selectedWork.when_needed || "—")}</p>
+        <p><strong>Procedural stage:</strong> ${escapeHtml(humanize(selectedWork.procedural_stage || state.matterReadiness?.procedural_stage || ""))}</p>
+      </section>
+      <section class="inspector-panel">
+        <h3>Progress and blockers</h3>
+        <p>Progress: ${escapeHtml(progressLabel(selectedWork.progress_state || "not_started"))}${selectedWork.total ? ` · ${selectedWork.answered || 0} of ${selectedWork.total} steps` : ""}</p>
+        <p>Work blockers: ${escapeHtml((selectedWork.work_blockers || ["none"]).join(", "))}</p>
+        <p>Package blockers: ${escapeHtml((selectedWork.package_blockers || []).join("; ") || "none listed")}</p>
+      </section>
+      <section class="inspector-panel">
+        <h3>Governing source</h3>
+        <p>${escapeHtml(source?.citation || "Not recorded")}</p>
+        <p>Source date ${escapeHtml(source?.source_date || "—")} · verification ${escapeHtml(selectedWork.verification_state || "provisional")}</p>
+        <p>No longer required when: ${escapeHtml(selectedWork.no_longer_required_when || "Not recorded")}</p>
+      </section>
+      <section class="inspector-panel">
+        <h3>Ask Ibal</h3>
+        <button class="secondary-button" id="inspector-ask-ibal" type="button">Ask Ibal</button>
+      </section>`;
+    $("#inspector-ask-ibal")?.addEventListener("click", openIbal);
     return;
   }
 
-  elements.inspectorTitle.textContent = "Why this matters";
-  elements.inspectorContent.innerHTML = '<section class="inspector-panel"><h3>Selected work</h3><p>Select a form or question to see a plain-language explanation. Source IDs and hashes stay behind Source and audit details.</p></section>';
+  if (selectedWork?.type === "task") {
+    elements.inspectorTitle.textContent = "Why this task exists";
+    elements.inspectorContent.innerHTML = `
+      <section class="inspector-panel"><h3>Why this task exists</h3><p>${escapeHtml(selectedWork.summary || "")}</p></section>
+      <section class="inspector-panel"><h3>What it unblocks</h3><p>${escapeHtml(selectedWork.next_action || "Continue required document work after this item is resolved.")}</p></section>
+      <section class="inspector-panel"><h3>Related form / evidence</h3><p>${escapeHtml(selectedWork.source_ref || "Not linked yet")}</p></section>
+      <section class="inspector-panel"><button class="secondary-button" id="inspector-ask-ibal" type="button">Ask Ibal</button></section>`;
+    $("#inspector-ask-ibal")?.addEventListener("click", openIbal);
+    return;
+  }
+
+  if (selectedWork?.type === "correspondence") {
+    elements.inspectorTitle.textContent = "Why this message matters";
+    elements.inspectorContent.innerHTML = `
+      <section class="inspector-panel"><h3>Why this message matters</h3><p>${escapeHtml(selectedWork.summary || "")}</p></section>
+      <section class="inspector-panel"><h3>Affected forms</h3><p>${escapeHtml(selectedWork.source_ref || "Confirm after ingress mapping")}</p></section>
+      <section class="inspector-panel"><h3>Deadlines / follow-up</h3><p>${escapeHtml(selectedWork.due_label || "Timing not set")} · ${escapeHtml(selectedWork.next_action || "")}</p></section>
+      <section class="inspector-panel"><button class="secondary-button" id="inspector-ask-ibal" type="button">Ask Ibal</button></section>`;
+    $("#inspector-ask-ibal")?.addEventListener("click", openIbal);
+    return;
+  }
+
+  elements.inspectorTitle.textContent = "Case help";
+  elements.inspectorContent.innerHTML = '<section class="inspector-panel"><h3>Select work on the left</h3><p>This panel explains the selected document, task, or message: why it is here, what is missing, and what to do next.</p></section>';
 }
 
 function setSelectedQuestion(lineItemId) {
@@ -720,6 +1113,96 @@ function validateCurrentForm() {
   renderPackagePreview();
 }
 
+function renderIngressReconciliation() {
+  const recon = state.fixture?.ingress_reconciliation;
+  const mapped = asArray(recon?.mapped_assertions);
+  const incomplete = asArray(recon?.incomplete);
+  const disputed = asArray(recon?.disputed);
+  const unmapped = asArray(recon?.unmapped);
+  const activity = asArray(state.fixture?.activity);
+  elements.workspaceEmpty.classList.add("is-hidden");
+  elements.formWorkspace.classList.add("is-hidden");
+  elements.genericWorkspace.classList.remove("is-hidden");
+  elements.genericEyebrow.textContent = "Ingress reconciliation";
+  elements.genericTitle.textContent = "What was imported into this matter";
+  elements.genericSummary.textContent = recon
+    ? `Imported from ${recon.imported_from || "unknown"}. ${recon.note || ""}`
+    : "No ingress reconciliation is available until a private matter is unlocked, or a synthetic fixture supplies one.";
+  elements.genericAction.textContent = "Preview only";
+  elements.genericAction.disabled = true;
+  elements.genericContent.innerHTML = `
+    <article class="generic-card">
+      <h3>Mapped form answers</h3>
+      ${mapped.length ? `<ul class="ingress-list">${mapped.map((row) => `<li><strong>${escapeHtml(row.form_id)}</strong> — ${row.filled_field_count} fields filled · ${row.unknown_field_count} unknown · supports ${escapeHtml(row.supports || "assertions")}</li>`).join("")}</ul>` : "<p>Nothing mapped yet.</p>"}
+    </article>
+    <article class="generic-card">
+      <h3>Incomplete</h3>
+      ${incomplete.length ? `<ul class="ingress-list">${incomplete.map((row) => `<li><strong>${escapeHtml(row.form_id)}</strong> — ${escapeHtml(row.reason)} · ${escapeHtml((row.fields || []).join(", ") || "fields not listed")}</li>`).join("")}</ul>` : "<p>No incomplete mapping records.</p>"}
+    </article>
+    <article class="generic-card">
+      <h3>Disputed</h3>
+      ${disputed.length ? `<ul class="ingress-list">${disputed.map((row) => `<li>${escapeHtml(JSON.stringify(row))}</li>`).join("")}</ul>` : "<p>Nothing marked disputed.</p>"}
+    </article>
+    <article class="generic-card">
+      <h3>Not mapped</h3>
+      ${unmapped.length ? `<ul class="ingress-list">${unmapped.map((row) => `<li>${escapeHtml(typeof row === "string" ? row : JSON.stringify(row))}</li>`).join("")}</ul>` : "<p>No unmapped ingress items recorded.</p>"}
+    </article>
+    <article class="generic-card">
+      <h3>Activity trail</h3>
+      ${activity.length ? `<ul class="ingress-list">${activity.map((event) => `<li><strong>${escapeHtml(event.title || event.event_type)}</strong> · ${escapeHtml(event.at || "time unknown")} · ${escapeHtml(event.receipt_state || "no receipt")}</li>`).join("")}</ul>` : "<p>No activity events.</p>"}
+    </article>`;
+}
+
+function renderActivityWorkspace() {
+  const activity = asArray(state.fixture?.activity);
+  elements.workspaceEmpty.classList.add("is-hidden");
+  elements.formWorkspace.classList.add("is-hidden");
+  elements.genericWorkspace.classList.remove("is-hidden");
+  elements.genericEyebrow.textContent = "Activity";
+  elements.genericTitle.textContent = "Activity and receipts";
+  elements.genericSummary.textContent = "Meaningful state changes require append-only events and receipts. Nothing is transmitted from this preview.";
+  elements.genericAction.textContent = "Preview only";
+  elements.genericAction.disabled = true;
+  elements.genericContent.innerHTML = activity.length
+    ? activity.map((event) => `<article class="generic-card"><h3>${escapeHtml(event.title || event.event_type)}</h3><p>${escapeHtml(event.at || "time unknown")} · ${escapeHtml(event.receipt_state || "no receipt")}</p></article>`).join("")
+    : '<article class="generic-card"><h3>No events yet</h3><p>Activity appears after unlock or synthetic fixture load.</p></article>';
+}
+
+function renderPackagesWorkspace() {
+  const plan = computeMatterPlan();
+  const checklist = plan.checklist?.length
+    ? plan.checklist.map((item) => ({
+      label: item.label,
+      ok: item.state === "ready",
+      detail: item.reason
+    }))
+    : [];
+  elements.workspaceEmpty.classList.add("is-hidden");
+  elements.formWorkspace.classList.add("is-hidden");
+  elements.genericWorkspace.classList.remove("is-hidden");
+  elements.genericEyebrow.textContent = "Packages";
+  elements.genericTitle.textContent = "Matter package readiness";
+  elements.genericSummary.textContent = plan.requirement_review_complete
+    ? "Package status: Not ready until checklist items below are complete."
+    : "Package status: Not ready. Requirement review is not complete.";
+  elements.genericAction.textContent = "Blocked";
+  elements.genericAction.disabled = true;
+  elements.genericContent.innerHTML = `
+    <article class="generic-card">
+      <h3>Package status: Not ready</h3>
+      <p>${escapeHtml(plan.package_blockers.slice(0, 4).join("; "))}</p>
+    </article>
+    <article class="generic-card">
+      <h3>Before this stage is ready</h3>
+      <ul class="ingress-list">${checklist.map((row) => `<li><strong>${row.ok ? "Ready" : "Not ready"}</strong> — ${escapeHtml(row.label)}${row.detail ? ` · ${escapeHtml(row.detail)}` : ""}</li>`).join("")}</ul>
+    </article>
+    ${plan.forms.map((form) => `
+      <article class="generic-card">
+        <h3>${escapeHtml(form.official_number)} · ${escapeHtml(form.title)}</h3>
+        <p><span class="queue-chip queue-chip--${escapeHtml(form.progress_state)}">${escapeHtml(progressLabel(form.progress_state))}</span> ${form.progress}% · Package blocked: ${escapeHtml((form.package_blockers || []).slice(0, 1).join(" · ") || form.missing)}</p>
+      </article>`).join("")}`;
+}
+
 function renderRoute(route) {
   state.route = route;
   $$(".scope-item").forEach((button) => {
@@ -727,23 +1210,63 @@ function renderRoute(route) {
     button.classList.toggle("is-active", active);
     if (active) button.setAttribute("aria-current", "page"); else button.removeAttribute("aria-current");
   });
-  if (route === "matter") { renderQueue(); return; }
-  const routeContent = {
-    calendar: ["Calendar and calculated deadlines", "No court date is invented. Future dates remain source-linked and user-confirmed."],
-    tasks: ["Matter tasks", "Tasks are generated from deterministic dependencies and explicit user choices."],
-    activity: ["Activity and receipts", "Meaningful state changes require append-only events and receipts."],
-    contacts: ["Matter contacts", "No real contacts exist in this public synthetic preview."],
-    settings: ["Privacy and provider settings", "AI, external transmission, and private storage remain unconfigured or blocked."]
-  }[route];
+
+  if (route === "matter") {
+    setQueueView("today");
+    renderQueue();
+    calculateMatterProgress();
+    selectDefaultForCurrentRoute();
+    return;
+  }
+  if (route === "forms") {
+    setQueueView("required");
+    renderQueue();
+    selectDefaultForCurrentRoute();
+    return;
+  }
+  if (route === "evidence" || route === "tasks") {
+    setQueueView(route === "evidence" ? "evidence" : "tasks");
+    renderQueue();
+    selectDefaultForCurrentRoute();
+    return;
+  }
+  if (route === "correspondence") {
+    setQueueView("correspondence");
+    renderQueue();
+    selectDefaultForCurrentRoute();
+    return;
+  }
+
   state.selectedFormId = null;
   state.selectedQuestionId = null;
   state.selectedWorkId = null;
+  if (route === "ingress") {
+    renderIngressReconciliation();
+    renderInspector();
+    return;
+  }
+  if (route === "activity") {
+    renderActivityWorkspace();
+    renderInspector();
+    return;
+  }
+  if (route === "packages" || route === "review") {
+    renderPackagesWorkspace();
+    if (route === "review") {
+      elements.genericEyebrow.textContent = "Review";
+      elements.genericTitle.textContent = "Human review before any package leaves this computer";
+      elements.genericSummary.textContent = "Review the same required documents and readiness checklist. Nothing can be filed or served from this preview.";
+    }
+    renderInspector();
+    return;
+  }
+
   elements.workspaceEmpty.classList.add("is-hidden");
   elements.formWorkspace.classList.add("is-hidden");
   elements.genericWorkspace.classList.remove("is-hidden");
   elements.genericEyebrow.textContent = route;
-  elements.genericTitle.textContent = routeContent[0];
-  elements.genericSummary.textContent = routeContent[1];
+  elements.genericTitle.textContent = "Destination preview";
+  elements.genericSummary.textContent = "This route remains structural preview only.";
   elements.genericAction.textContent = "Preview only";
   elements.genericAction.disabled = true;
   elements.genericContent.innerHTML = '<article class="generic-card"><h3>Boundary</h3><p>This route is structural preview only.</p></article>';
@@ -871,6 +1394,10 @@ function bindEvents() {
       candidate.setAttribute("aria-selected", String(active));
     });
     renderQueue();
+    if (["required", "later", "evidence", "correspondence", "today", "all"].includes(state.queueView)) {
+      const first = filteredWorkItems()[0];
+      if (first) selectWorkItem(first.work_id);
+    }
   }));
   $$(".mode-button").forEach((button) => button.addEventListener("click", () => { state.workspaceMode = button.dataset.mode; renderWorkspaceMode(); }));
   $$(".scope-item").forEach((button) => button.addEventListener("click", () => renderRoute(button.dataset.route)));
@@ -892,6 +1419,80 @@ function bindEvents() {
   $("#close-ibal").addEventListener("click", closeIbal);
   elements.drawerScrim.addEventListener("click", closeIbal);
   $("#ibal-form").addEventListener("submit", submitIbal);
+  elements.lockNow?.addEventListener("click", () => lockPrivateMatter("Private matter locked. Practice data remains available."));
+  elements.toggleInspector?.addEventListener("click", () => {
+    state.inspectorCollapsed = !state.inspectorCollapsed;
+    elements.appShell.classList.toggle("inspector-collapsed", state.inspectorCollapsed);
+    elements.toggleInspector.setAttribute("aria-label", state.inspectorCollapsed ? "Expand help panel" : "Collapse help panel");
+    elements.toggleInspector.textContent = state.inspectorCollapsed ? "⟨" : "⟩";
+  });
+  bindPaneResizers();
+}
+
+function bindPaneResizers() {
+  const root = document.documentElement;
+  const persist = () => {
+    try {
+      const queue = Number.parseFloat(getComputedStyle(root).getPropertyValue("--queue-w")) || DEFAULT_QUEUE_W;
+      const inspector = Number.parseFloat(getComputedStyle(root).getPropertyValue("--inspector-w")) || DEFAULT_INSPECTOR_W;
+      sessionStorage.setItem(PANE_STORAGE_KEY, JSON.stringify({ queue, inspector }));
+    } catch {
+      // Practice pane widths only.
+    }
+  };
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(PANE_STORAGE_KEY) || "{}");
+    if (saved.queue) root.style.setProperty("--queue-w", `${saved.queue}px`);
+    if (saved.inspector) root.style.setProperty("--inspector-w", `${saved.inspector}px`);
+  } catch {
+    // Ignore invalid local pane prefs.
+  }
+
+  function attach(resizer, cssVar, min, max, defaultValue) {
+    if (!resizer) return;
+    const start = (event) => {
+      event.preventDefault();
+      const startX = event.clientX;
+      const startValue = Number.parseFloat(getComputedStyle(root).getPropertyValue(cssVar)) || defaultValue;
+      const onMove = (moveEvent) => {
+        const delta = moveEvent.clientX - startX;
+        const next = Math.max(min, Math.min(max, startValue + (cssVar === "--inspector-w" ? -delta : delta)));
+        root.style.setProperty(cssVar, `${next}px`);
+      };
+      const onUp = () => {
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+        persist();
+      };
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp);
+    };
+    resizer.addEventListener("pointerdown", start);
+    resizer.addEventListener("dblclick", () => {
+      root.style.setProperty(cssVar, `${defaultValue}px`);
+      persist();
+    });
+    resizer.addEventListener("keydown", (event) => {
+      const current = Number.parseFloat(getComputedStyle(root).getPropertyValue(cssVar)) || defaultValue;
+      const step = event.shiftKey ? 24 : 12;
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        const direction = event.key === "ArrowRight" ? 1 : -1;
+        const signed = cssVar === "--inspector-w" ? -direction : direction;
+        const next = Math.max(min, Math.min(max, current + signed * step));
+        root.style.setProperty(cssVar, `${next}px`);
+        persist();
+      }
+      if (event.key === "Home") {
+        event.preventDefault();
+        root.style.setProperty(cssVar, `${defaultValue}px`);
+        persist();
+      }
+    });
+  }
+
+  attach(elements.queueResizer, "--queue-w", 280, 520, DEFAULT_QUEUE_W);
+  attach(elements.inspectorResizer, "--inspector-w", 260, 480, DEFAULT_INSPECTOR_W);
 }
 
 async function fetchJson(path) {
@@ -907,13 +1508,12 @@ async function loadMatterFixture() {
     const session = await fetch("/api/local/session", { cache: "no-store" });
     if (session.ok) {
       const status = await session.json();
+      state.privateMatterPresent = Boolean(status.private_matter_present);
       if (status.private_matter_present && !status.unlocked) {
-        if (elements.privateLockBanner) {
-          elements.privateLockBanner.classList.remove("is-hidden");
-          elements.privateLockBanner.innerHTML = `<strong>Private matter available</strong><span>Not loaded. Open <a href="/app">/app</a> and unlock explicitly, or continue with practice data here.</span>`;
-        }
+        state.matterMode = "private_locked";
+        showPrivateUnlockPrompt();
         showToast("Private matter is present but locked. Using practice data until you unlock.", "warning");
-        return fetchJson("./data/synthetic-matter.json");
+        return fetchJson("/data/synthetic-matter.json");
       }
       if (status.unlocked) {
         const response = await fetch("/api/local/matter", { cache: "no-store" });
@@ -929,24 +1529,114 @@ async function loadMatterFixture() {
   } catch {
     // Session / private API is optional for synthetic preview.
   }
-  return fetchJson("./data/synthetic-matter.json");
+  state.matterMode = "practice";
+  return fetchJson("/data/synthetic-matter.json");
+}
+
+function showPrivateUnlockPrompt() {
+  state.matterMode = "private_locked";
+  renderMatterModeBanner();
+}
+
+async function unlockPrivateMatter() {
+  const errorEl = $("#unlock-private-error");
+  if (errorEl) {
+    errorEl.classList.add("is-hidden");
+    errorEl.textContent = "";
+  }
+  try {
+    const unlockResponse = await fetch("/api/local/unlock", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      cache: "no-store",
+      body: JSON.stringify({
+        acknowledge_privacy_boundary: true,
+        route: "/app"
+      })
+    });
+    if (!unlockResponse.ok) {
+      const payload = await unlockResponse.json().catch(() => ({}));
+      throw new Error(payload.message || payload.error || `Unlock failed (${unlockResponse.status})`);
+    }
+    const matterResponse = await fetch("/api/local/matter", { cache: "no-store" });
+    if (!matterResponse.ok) {
+      throw new Error(`Unable to load private matter (${matterResponse.status})`);
+    }
+    const privateMatter = await matterResponse.json();
+    if (!privateMatter?.privacy?.classification) {
+      throw new Error("Private matter projection missing privacy classification.");
+    }
+    await applyMatterFixture(privateMatter);
+    activatePrivateLock(privateMatter);
+    setQueueView("required");
+    renderQueue();
+    selectDefaultForCurrentRoute();
+  } catch (error) {
+    const bannerError = $("#unlock-private-error");
+    if (bannerError) {
+      bannerError.classList.remove("is-hidden");
+      bannerError.textContent = error.message || "Unable to unlock private matter.";
+    }
+    showToast(error.message || "Unable to unlock private matter.", "warning");
+  }
+}
+
+async function lockPrivateMatter(message = "Private matter locked.") {
+  try {
+    await fetch("/api/local/unlock", { method: "DELETE", cache: "no-store" });
+  } catch {
+    // Cookie clear best-effort.
+  }
+  state.privateMode = false;
+  state.privateLockAt = null;
+  state.matterMode = state.privateMatterPresent ? "private_locked" : "practice";
+  if (elements.lockNow) elements.lockNow.classList.add("is-hidden");
+  const practice = await fetchJson("/data/synthetic-matter.json");
+  await applyMatterFixture(practice);
+  const switcher = $("#matter-switcher");
+  if (switcher) {
+    switcher.querySelector(".matter-switcher__label").textContent = "Practice matter";
+    switcher.querySelector("strong").textContent = practice.matter?.safe_title || "Preparing for a JCC";
+    switcher.querySelector(".matter-switcher__meta").textContent = "Practice information only";
+    switcher.setAttribute("aria-label", "Current practice matter");
+  }
+  showPrivateUnlockPrompt();
+  showToast(message, "warning");
+  setQueueView("today");
+  renderQueue();
+  selectDefaultForCurrentRoute();
+}
+
+async function applyMatterFixture(fixture) {
+  state.fixture = fixture;
+  state.answers = structuredClone(fixture.answers || {});
+  state.unknownAnswers = structuredClone(fixture.unknown_answers || {});
+  state.revision = {};
+  state.validation = {};
+  evaluateWizardStates(null);
+  buildWorkItems();
+  calculateMatterProgress();
+  renderInspector();
 }
 
 function activatePrivateLock(privateMatter) {
   state.privateMode = true;
+  state.privateMatterPresent = true;
+  state.matterMode = "private_loaded";
   state.privateLockAt = Date.now();
+  if (elements.lockNow) elements.lockNow.classList.remove("is-hidden");
   const switcher = $("#matter-switcher");
   if (switcher) {
     switcher.querySelector(".matter-switcher__label").textContent = "Private matter";
-    switcher.querySelector("strong").textContent = privateMatter.matter?.caption || "Local private matter";
-    switcher.querySelector(".matter-switcher__meta").textContent = "Loopback only · not committed";
+    switcher.querySelector("strong").textContent = privateMatter.matter?.caption || privateMatter.matter?.safe_title || "Local private matter";
+    switcher.querySelector(".matter-switcher__meta").textContent = "Memory only · Lock now clears this session";
     switcher.setAttribute("aria-label", "Current private matter");
   }
   if (elements.privateLockBanner) {
-    elements.privateLockBanner.classList.remove("is-hidden");
-    elements.privateLockBanner.innerHTML = `<strong>Local private lock</strong><span>Matter loaded through <code>/api/local/matter</code> on loopback only. Static <code>/data/private/*</code> is disabled. Session clears after 30 minutes of inactivity.</span>`;
+    elements.privateLockBanner.classList.add("is-hidden");
   }
-  showToast("PRIVATE local matter loaded. Do not commit or publish these answers.", "warning");
+  renderMatterModeBanner();
+  showToast("PRIVATE local matter loaded into the workbench. Do not commit or publish these answers.", "warning");
   armPrivateIdleTimeout();
 }
 
@@ -956,11 +1646,7 @@ function armPrivateIdleTimeout() {
   const reset = () => {
     clearTimeout(privateIdleTimer);
     privateIdleTimer = setTimeout(() => {
-      state.answers = {};
-      state.unknownAnswers = {};
-      state.fixture = null;
-      showToast("Private session timed out. Reload on loopback to continue.", "warning");
-      elements.queueList.innerHTML = '<div class="generic-card"><strong>Private session locked.</strong><p>Reload this local preview to continue.</p></div>';
+      lockPrivateMatter("Private session timed out. Unlock again on loopback to continue.");
     }, 30 * 60 * 1000);
   };
   ["click", "keydown", "mousemove", "scroll"].forEach((eventName) => {
@@ -972,12 +1658,14 @@ function armPrivateIdleTimeout() {
 async function initialize() {
   bindEvents();
   try {
-    const [manifest, fixture] = await Promise.all([
+    const [manifest, fixture, diagnosis] = await Promise.all([
       fetchJson(`${FORM_CATALOG_ROOT}/forms-index.json`),
-      loadMatterFixture()
+      loadMatterFixture(),
+      fetchJson(DIAGNOSIS_PATH)
     ]);
     state.manifest = manifest;
     state.fixture = fixture;
+    state.diagnosis = diagnosis;
     const formEntries = await Promise.all(manifest.forms_included.map(async (entry) => {
       const file = FORM_FILES[entry.form_id];
       if (!file) throw new Error(`No catalog mapping for ${entry.form_id}`);
@@ -992,11 +1680,13 @@ async function initialize() {
     }
     evaluateWizardStates(null);
     buildWorkItems();
+    setQueueView("today");
     renderQueue();
     calculateMatterProgress();
+    renderMatterModeBanner();
     renderInspector();
-    const firstForm = state.workItems.find((item) => item.type === "form");
-    if (firstForm) selectWorkItem(firstForm.work_id);
+    // Default to the next required document so the centre pane is never blank.
+    selectDefaultForCurrentRoute();
   } catch (error) {
     console.error(error);
     elements.queueList.innerHTML = `<div class="generic-card"><strong>Preview failed to load.</strong><p>${escapeHtml(error.message)}</p></div>`;
