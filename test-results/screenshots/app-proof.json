@@ -1,10 +1,13 @@
 {
   "href": "http://127.0.0.1:4191/app",
-  "hasAnswerReview": true,
-  "hasBlocked": true,
-  "git_head": "8c37beab57a9f591443cf0123dc976290b04dd99",
+  "hasWorkbench": true,
+  "hasForms": true,
+  "hasIbal": true,
+  "hasGuidedRedirect": false,
+  "git_head": "d36f9e44c302050e37f4ab06f1ece324a9955dab",
   "route": "/app",
+  "product_shell": "inbox_derived_legal_workbench",
   "server_port": 4191,
   "cache_control": "no-store",
-  "captured_at": "2026-07-23T05:54:32.008Z"
+  "captured_at": "2026-07-23T07:39:20.085Z"
 }
