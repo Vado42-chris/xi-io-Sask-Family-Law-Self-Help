@@ -10,7 +10,7 @@ project_id: sask_family_law_self_help
 repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
 branch: chore/framework-bootstrap-2026-07-22
 base_ref: 2400b6dad4c1e8ec7246c6cf18f95fb1d09556c0
-head_ref: pending_commit
+head_ref: 436c8c2ff8315737e85c4fc77f05889569a35bd1
 operator_type: ai_assistant
 operator_name: ChatGPT
 provider_family: openai_compatible
@@ -367,7 +367,7 @@ project_id: sask_family_law_self_help
 repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
 branch: feat/synthetic-legal-workbench-001
 base_ref: f3445ee279b1ca3e133bfb2c320ce3de79676739
-head_ref: pending_commit
+head_ref: 436c8c2ff8315737e85c4fc77f05889569a35bd1
 operator_type: ai_assistant
 operator_name: Cursor Auto
 user_requested_goal: Seed a fully completed synthetic matter across all six forms, validate packages/page preview, and run the full check suite while fixing defects found.
@@ -497,7 +497,7 @@ project_id: sask_family_law_self_help
 repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
 branch: feat/synthetic-legal-workbench-001
 base_ref: bdb29ec469af1d66b6025e5e0efd1e477b783489
-head_ref: pending_commit
+head_ref: 436c8c2ff8315737e85c4fc77f05889569a35bd1
 operator_type: ai_assistant
 operator_name: Auto
 user_requested_goal: Acknowledge ChatGPT workbook pass and implement next safe completed-workbook disposition validator.
@@ -549,7 +549,7 @@ project_id: sask_family_law_self_help
 repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
 branch: feat/synthetic-legal-workbench-001
 base_ref: c3f02fbf81ab39a22ca4bbd8c7954464a9dfbb01
-head_ref: pending_commit
+head_ref: 436c8c2ff8315737e85c4fc77f05889569a35bd1
 operator_type: ai_assistant
 operator_name: Auto
 user_requested_goal: Apply ChatGPT approve-with-required-corrections sequence for PR #5.
@@ -601,7 +601,7 @@ project_id: sask_family_law_self_help
 repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
 branch: feat/synthetic-legal-workbench-001
 base_ref: deb44253630dff14e3130ec7bc2835ab8882006b
-head_ref: pending_commit
+head_ref: 436c8c2ff8315737e85c4fc77f05889569a35bd1
 operator_type: ai_assistant
 operator_name: Auto
 provider_family: cursor
