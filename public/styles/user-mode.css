@@ -1,0 +1,113 @@
+/* User mode keeps canonical source and audit data available without making it the default reading layer. */
+
+.user-mode .trust-cluster,
+.user-mode #form-source-summary,
+.user-mode .form-control-header__stats > div:nth-child(4),
+.user-mode .mode-actions,
+.user-mode .question-kind,
+.user-mode .question-rule,
+.user-mode .generic-card:has(h3:first-child:is(.audit-heading)) {
+  display: none;
+}
+
+.user-mode .form-control-header {
+  gap: 18px;
+}
+
+.user-mode .form-control-header__identity {
+  min-width: 0;
+}
+
+.user-mode .form-control-header__stats {
+  grid-template-columns: repeat(3, minmax(72px, 1fr));
+}
+
+.user-mode .freshness-banner {
+  align-items: center;
+  gap: 12px;
+  padding-block: 10px;
+}
+
+.user-mode .freshness-banner strong {
+  white-space: nowrap;
+}
+
+.user-mode .freshness-banner span {
+  line-height: 1.35;
+}
+
+.user-mode .workspace-mode-bar {
+  justify-content: flex-start;
+}
+
+.user-mode .segmented-control {
+  width: 100%;
+}
+
+.user-mode .mode-button {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.user-mode .question-card header {
+  align-items: flex-start;
+}
+
+.user-mode .question-card h4 {
+  max-width: 720px;
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  line-height: 1.2;
+}
+
+.user-mode .question-help {
+  white-space: nowrap;
+}
+
+.user-mode .question-card footer {
+  gap: 12px;
+}
+
+.user-mode .context-inspector .eyebrow,
+.user-mode .inspector-header .status-dot {
+  display: none;
+}
+
+.user-mode .inspector-header {
+  min-height: 72px;
+}
+
+.user-mode .inspector-panel--audit {
+  margin-top: 8px;
+}
+
+.user-mode .queue-chip {
+  text-transform: none;
+}
+
+.user-mode .private-lock-banner code {
+  display: none;
+}
+
+.user-mode .ibal-context .status-token,
+.user-mode .ibal-message--assistant .ibal-proposal,
+.user-mode .ibal-message--assistant .status-token {
+  display: none;
+}
+
+.user-mode .ibal-header .eyebrow {
+  display: none;
+}
+
+.user-mode .today-card__action {
+  max-width: 34ch;
+}
+
+@media (max-width: 1180px) {
+  .user-mode .form-control-header__stats {
+    display: none;
+  }
+
+  .user-mode .freshness-banner span {
+    display: none;
+  }
+}
