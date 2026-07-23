@@ -90,7 +90,12 @@ async function run() {
       await page.goto(`${BASE}/app`, { waitUntil: "networkidle" });
       await page.waitForSelector("#app-shell");
       await page.waitForSelector(".work-queue", { state: "attached" });
-      await page.waitForSelector("#today-card, #queue-list .queue-row", { timeout: 15000 });
+      await page.waitForFunction(() => {
+        const plan = document.querySelector("#case-plan-card");
+        const rows = document.querySelectorAll("#queue-list .queue-row");
+        const planVisible = plan && !plan.classList.contains("is-hidden") && plan.getClientRects().length > 0;
+        return planVisible || rows.length > 0;
+      }, { timeout: 15000 });
       // Ensure Today queue is visible for geometry proof (not buried behind a selected form on mobile).
       await page.evaluate(() => {
         document.querySelector("#app-shell")?.classList.remove("mobile-detail-open");
@@ -106,17 +111,21 @@ async function run() {
           hasFormsRoute: routes.includes("forms"),
           hasIngressRoute: routes.includes("ingress"),
           hasFamilyLawAssistant: text.includes("Family Law Assistant"),
-          hasContinue: text.includes("Continue where you left off") || text.includes("Next required action"),
+          hasContinue: text.includes("Continue Appearance Memo")
+            || text.includes("Continue where you left off")
+            || text.includes("Next exact action")
+            || text.includes("Case plan"),
           hasGuidedRedirect: text.includes("Continue in guided app")
         };
       });
       if (!shellProof.hasFormsRoute) failures.push(`${viewport.name}: Forms rail missing`);
       if (!shellProof.hasIngressRoute) failures.push(`${viewport.name}: Ingress rail missing`);
       if (!shellProof.hasFamilyLawAssistant) failures.push(`${viewport.name}: brand title missing`);
+      if (!shellProof.hasContinue) failures.push(`${viewport.name}: case plan / continue action missing`);
       if (shellProof.hasGuidedRedirect) failures.push(`${viewport.name}: replacement guided-app CTA still present`);
 
       const primaryVisible = await page
-        .locator("#today-continue, #continue-wizard, .queue-row")
+        .locator("#case-plan-continue, #continue-wizard, .queue-row")
         .evaluateAll((nodes) => nodes.some((node) => {
           const style = window.getComputedStyle(node);
           return style.display !== "none" && style.visibility !== "hidden" && node.getClientRects().length > 0;
@@ -156,7 +165,7 @@ async function run() {
     const zoomUsable = await zoomPage.evaluate(() => {
       const queue = document.querySelector(".work-queue");
       const workspace = document.querySelector(".document-workspace");
-      const today = document.querySelector("#today-continue, #today-card");
+      const today = document.querySelector("#case-plan-continue, #case-plan-card, #today-continue, #today-card");
       const visible = (el) => {
         if (!el) return false;
         const style = window.getComputedStyle(el);
