@@ -1,18 +1,20 @@
 {
   "name": "xi-io-sask-family-law-self-help",
-  "version": "0.1.0-preview.3",
+  "version": "0.1.0-preview.4",
   "private": true,
   "description": "Governed Saskatchewan family-law self-help workflow assistant with a synthetic legal workbench preview.",
   "type": "module",
   "scripts": {
-    "check": "npm run check:foundation && npm run check:source-catalog && npm run check:source-coverage && npm run check:applicability && npm run check:wizard-state && npm run check:preview",
+    "check": "npm run check:foundation && npm run check:source-catalog && npm run check:source-coverage && npm run check:source-review-workbook && npm run check:applicability && npm run check:wizard-state && npm run check:preview",
     "check:foundation": "node scripts/check-foundation.mjs",
     "check:source-catalog": "node scripts/check-source-catalog.mjs",
     "check:source-coverage": "node scripts/check-source-coverage.mjs",
+    "check:source-review-workbook": "node scripts/source-review-workbook.mjs --check",
     "check:applicability": "node scripts/check-applicability-engine.mjs",
     "check:wizard-state": "node scripts/check-wizard-state.mjs",
     "check:preview": "node scripts/check-preview.mjs",
     "preview": "node scripts/serve-preview.mjs",
+    "source-review:init": "node scripts/source-review-workbook.mjs",
     "fill:official-blank": "python3 scripts/form-fill/fill_official_blank.py"
   }
 }
