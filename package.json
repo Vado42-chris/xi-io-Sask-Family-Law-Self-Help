@@ -1,6 +1,6 @@
 {
   "name": "xi-io-sask-family-law-self-help",
-  "version": "0.1.0-preview.7",
+  "version": "0.1.0-preview.8",
   "private": true,
   "description": "Governed Saskatchewan family-law self-help workflow assistant with a plain-language local preview.",
   "type": "module",
@@ -20,6 +20,11 @@
     "preview": "node scripts/serve-preview.mjs",
     "source-review:init": "node scripts/source-review-workbook.mjs",
     "source-review:validate": "node scripts/source-review-workbook.mjs",
-    "fill:official-blank": "python3 scripts/form-fill/fill_official_blank.py"
+    "fill:official-blank": "python3 scripts/form-fill/fill_official_blank.py",
+    "postinstall": "npx playwright install chromium"
+  },
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "playwright": "^1.49.1"
   }
 }

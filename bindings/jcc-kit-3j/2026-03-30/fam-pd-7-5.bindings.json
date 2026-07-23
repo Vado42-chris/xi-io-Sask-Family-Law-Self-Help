@@ -17,8 +17,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "f0173ec2d1f83c39"
-      ]
+        "bb18c55192a6abed4a1080f8fc00379fcaecbdcd18a03edce40a3ebc93b35add"
+      ],
+      "binding_semantic_hash": "448db7e3a4924b29ff33d016e4eec046a1204573f5630a09094c4f8f9c5523d0"
     },
     {
       "binding_id": "binding.fam-pd-7-5.header_judicial_centre",
@@ -35,8 +36,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "71711b9892a0ca66"
-      ]
+        "4d6a7c6b6b0604f671755d94df2c080025aedb00b3cb1e8b0f4d539d2036f6b1"
+      ],
+      "binding_semantic_hash": "30cfef7071e0455f60ca910d2ff2727653d1c54c250a873b79e05585d8d9e53a"
     },
     {
       "binding_id": "binding.fam-pd-7-5.header_petitioner",
@@ -53,8 +55,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "c796261af5d9e08d"
-      ]
+        "a49c413dfb407a24353cc57233bf1328785e47dd85569cce29847c5bf19f7c5d"
+      ],
+      "binding_semantic_hash": "13b468c5085343f7803df8364b37d73ed25bf6ab5a364aa4b327a4f55e9e458d"
     },
     {
       "binding_id": "binding.fam-pd-7-5.header_respondent",
@@ -71,8 +74,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "2f3d104df1317f74"
-      ]
+        "8712c76c74884986ee0f708956ef415a0e37dddf5b8fa6933669abb4a3c4e739"
+      ],
+      "binding_semantic_hash": "5056da1cd3a302b9c4f8b94bf4b98a5af2b4692c0b8eaec4492c3079b2fd7252"
     },
     {
       "binding_id": "binding.fam-pd-7-5.schedule_date",
@@ -83,14 +87,15 @@
           "form_id": "fam-pd-7-5",
           "line_item_id": "schedule.date",
           "direction": "fact_to_form",
-          "transform": "date_long_en_ca"
+          "transform": "date_iso_to_long_en_ca"
         }
       ],
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "4af1d8d9e6bef95b"
-      ]
+        "9e19da9e68d3847f5eb3e3d3f0bbb25a11274debc127bf848679820ef52df58c"
+      ],
+      "binding_semantic_hash": "edba7821a590822be9162b46d83ed85303ee5990021d566dbfd8560b55d58d33"
     },
     {
       "binding_id": "binding.fam-pd-7-5.schedule_time_and_location",
@@ -107,8 +112,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "7928695114b71b0b"
-      ]
+        "6727395bccb25864455cd7652ba2339b491d3b4514bf3b2726ef24f637cfc44c"
+      ],
+      "binding_semantic_hash": "d6978919b53ac1f8ca914b1d8864101528920c06a469707de88740c4fa1b4f43"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p1a_filed_on_behalf_of",
@@ -125,8 +131,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "f14a3067eeeee615"
-      ]
+        "7c60370d91027f174c100a1fa0c008e60325d7ca89ac874f7ba8c307368bf546"
+      ],
+      "binding_semantic_hash": "b947cb45002eb568a3ffedec049b798ec8e3c6149e08b4991be70beef2472586"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p1b_other_parties_and_counsel",
@@ -143,8 +150,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "2284f7ebbfa8ff3d"
-      ]
+        "7f699dd9cbe70c1589efdf21dfab5dbd03260f3d2a4b1af919dbc76bf75bd8bb"
+      ],
+      "binding_semantic_hash": "e292198b467b5a93c1792ee275b71b70d7221d665c69eb61ed5f5b5639442964"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p2_party_role",
@@ -161,8 +169,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "3e0dd41a08995c42"
-      ]
+        "d310cb35ac4c6d552751073b5e1cd2b754fccce7812652be2cdde263c7154dc1"
+      ],
+      "binding_semantic_hash": "f7fe3fa100bb341e6ca3c2e5c48ac6613c251d945e7dd40286017d4b2e914eb1"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p2_request_date",
@@ -173,14 +182,15 @@
           "form_id": "fam-pd-7-5",
           "line_item_id": "p2.request_date",
           "direction": "fact_to_form",
-          "transform": "date_long_en_ca"
+          "transform": "date_iso_to_long_en_ca"
         }
       ],
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "bc1bfc0b3eecc64a"
-      ]
+        "3c16a5867e2c055931fc2492ca637afc221a25b2f02bd3bef7af44cd00a86dc0"
+      ],
+      "binding_semantic_hash": "344777ec4e3c89f473aef43f3266a0a27e97a6ccdedc57ada4e5abd018ffed35"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p2_draft_order_filed_date",
@@ -191,14 +201,15 @@
           "form_id": "fam-pd-7-5",
           "line_item_id": "p2.draft_order_filed_date",
           "direction": "fact_to_form",
-          "transform": "date_long_en_ca"
+          "transform": "date_iso_to_long_en_ca"
         }
       ],
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "e2dcad5db77cb2f0"
-      ]
+        "c166e86cf09d88fe970c975ab39301a2b8646e764a77aac572397941bf75a9c4"
+      ],
+      "binding_semantic_hash": "5caf4179a0ff5fd42864cf15485da44a0005f882162edcad7c58b868829543ab"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p3_readiness_position",
@@ -215,8 +226,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "e863382cbb26b5c7"
-      ]
+        "507a230ef92fc6061af4b0e8eea4baf57bad13df8e517c5349291e044551d224"
+      ],
+      "binding_semantic_hash": "5488b126cfc87c22e2d069631a059aafccf6505fbab43625f34b185363159fb8"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p4_legal_position_summary",
@@ -233,8 +245,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "84464419a365cb38"
-      ]
+        "90fae79be3825e3761cff8606e6d0365dca6d3878213a1d2a77dcbd347d14601"
+      ],
+      "binding_semantic_hash": "b8ac5e12a23412db34611598656ab55c10d02c54598bd3b4e8e4093df04bae82"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p5_consented_unopposed_relief",
@@ -251,8 +264,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "e8babf429e8400b6"
-      ]
+        "e0cac7f213b8f448731e15f4f2bfccce30d05af7a29e196e4db2736b1663d102"
+      ],
+      "binding_semantic_hash": "8341886591027d514ae8bfad794eb2ddcef63fd641838ef02b8908ad5b8ac6bc"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p6a_i_case_conferences_state",
@@ -269,8 +283,28 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "2b106b4cfae30405"
-      ]
+        "410a11bb9b72d40307311ea1759e7f130eab45d1a754028ceb703086d0f7d5e8"
+      ],
+      "binding_semantic_hash": "841f262df9c964fc921f36319a732c5544732875d8be462b2a869d9a39e6b2bc"
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p6a_i_case_conference_date",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.procedure.case_conference_date",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p6a.i.case_conference_date",
+          "direction": "fact_to_form",
+          "transform": "date_iso_to_long_en_ca"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "eac287f349ac0a7868d2c63285908145bbc7c64d4c67488f89ad28944172ce3a"
+      ],
+      "binding_semantic_hash": "67b5e1a3deb95942b58c8a438a5b2568a270d0a5df7e76c8f4a1e40cd9d04ad5"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p6a_ii_chambers_state",
@@ -287,8 +321,66 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "b1c967209780fcc6"
-      ]
+        "a82c41b6215803e694f5c6a24fe3548e9e8b6751213effb9cb85610da0b85f08"
+      ],
+      "binding_semantic_hash": "eb105598c92e920fa723fff2dcd017e5f1fad067b1bb39147c3ad52603c0f754"
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p6a_ii_chambers_return_date",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.procedure.chambers_return_date",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p6a.ii.chambers_return_date",
+          "direction": "fact_to_form",
+          "transform": "date_iso_to_long_en_ca"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "1bb427c82cb08a780c3f3a4d0d627b5a11b37ee0f98f4343252db8e3f38a849d"
+      ],
+      "binding_semantic_hash": "80ca6b44c7010e2f1135281b2b202bb90d19b0e1c3d542550720556941728b85"
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p6a_ii_chambers_reserved_date",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.procedure.chambers_reserved_date",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p6a.ii.chambers_reserved_date",
+          "direction": "fact_to_form",
+          "transform": "date_iso_to_long_en_ca"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "8a758d360e27d812787075c0d4d492e46c5d96e4a311c5c1a3db5a26c74fec91"
+      ],
+      "binding_semantic_hash": "81918d0381dec7cb6a76c7e9e79bddfccf6bb9b8b3a45bebaae5bea969b4a947"
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p6a_ii_chambers_reserved_justice",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.procedure.chambers_reserved_justice",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p6a.ii.chambers_reserved_justice",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "b6993d0c4c7be3baeb655ed8a6225301f5c65bc357b7550f4075ed5fe1472932"
+      ],
+      "binding_semantic_hash": "2202f78f65b0c791de0a6043510f3d7ca8c821863cbebedc6f3d82ca9111c0c1"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p6a_iii_pretrial_state",
@@ -305,8 +397,28 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "5d90a980d87e2bc5"
-      ]
+        "884ea8e8fdc9c485b80ca82d9c5c17bebad0e430ffac9bb1e577cacbda8ea31f"
+      ],
+      "binding_semantic_hash": "4544b3533489ebe133f6d75113fc760de5ebf6a7fcf239b1553404b3d115c64d"
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p6a_iii_pretrial_date",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.procedure.pretrial_date",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p6a.iii.pretrial_date",
+          "direction": "fact_to_form",
+          "transform": "date_iso_to_long_en_ca"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "1658a7859a15b86cc476412fd3458923b3343afaf4b6f80986ee1cafbc099e7b"
+      ],
+      "binding_semantic_hash": "5a6130fcac5f456f6ce4baa05ff3ae7f0a0107a19d01268ef95d6ef4fbaf87a3"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p6a_iv_trial_state",
@@ -323,8 +435,28 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "5ebf2d23138d7271"
-      ]
+        "7df564089cbbe6f4f42e8eda9f365406b82a26ecea7e61622bbeb2c1d702cd22"
+      ],
+      "binding_semantic_hash": "532ec13beebbef251263405db8193717f42b181fbf251361d42356fa0956cd93"
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p6a_iv_trial_date",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.procedure.trial_date",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p6a.iv.trial_date",
+          "direction": "fact_to_form",
+          "transform": "date_iso_to_long_en_ca"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "64521c3094d59a921ded2471b47421d176fd44f76e21f71b0cf50a258c199536"
+      ],
+      "binding_semantic_hash": "3a1c0b1b3fd0e142691457fc907e1ac5be212ffa2d4084689cbb8dc58e7a0060"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p6b_related_proceedings",
@@ -341,8 +473,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "50fecf79807aa16b"
-      ]
+        "d39f12ef27c7750558a8c541746b84f815666b97f89958863a10039fe2d74017"
+      ],
+      "binding_semantic_hash": "e97ae138aa047faacc3262fe2a4eecf5357daa7f6dbb36b4dcd1b0f2cc248684"
     },
     {
       "binding_id": "binding.fam-pd-7-5.p7_memo_type",
@@ -359,8 +492,66 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "bdffcadd2029f2b7"
-      ]
+        "9fdbcd830c6ca5c95e835987a646b09bfb9bc24690c2bd94b25fcb56b37094a5"
+      ],
+      "binding_semantic_hash": "6cf8e99bca84432ae12fbfacb532e1529e3615d8baed565845bb7fcd85442b0c"
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p7_updated_party_role",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.jcc.updated_party_role",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p7.updated_party_role",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "390a4547b240abe0a0f3b861869e3782528b65050fed05f4c64578bab2725769"
+      ],
+      "binding_semantic_hash": "b4123eaed74724033258639c77adf7d8553d2486c2277bd38e16a23f0f7f3eab"
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p7_change_state",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.jcc.change_state",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p7.change_state",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "607bba16d92140c76db5b9b9d36740169c374af48d0d7ee84c2a245f2e7721bb"
+      ],
+      "binding_semantic_hash": "896e4b32fb89adc89a4d651b2721ddcad27fce641de68e0a8b20ecdf8104d588"
+    },
+    {
+      "binding_id": "binding.fam-pd-7-5.p7_changes",
+      "source_snapshot_id": "jcc-kit-3j-2026-03-30",
+      "fact_definition_id": "matter.jcc.changes",
+      "targets": [
+        {
+          "form_id": "fam-pd-7-5",
+          "line_item_id": "p7.changes",
+          "direction": "fact_to_form",
+          "transform": "identity"
+        }
+      ],
+      "override_policy": "matter_assertion_is_canonical",
+      "conflict_policy": "require_human_resolution",
+      "source_line_item_hashes": [
+        "9e4568f05036a64ec4b13125c3a0f181f638a2fd2dc19bf766a8c2da78b2c93e"
+      ],
+      "binding_semantic_hash": "1d69b1c1f9c669038f1c219f70918325da058745705985838bbdcf0f5f76ccd7"
     },
     {
       "binding_id": "binding.fam-pd-7-5.execution_city",
@@ -377,8 +568,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "4bfb6640cf5e656a"
-      ]
+        "d10f766fc9e52d9e433ec00c97f1c21115afc5e8ec4c01bc5e10b7b3712a867b"
+      ],
+      "binding_semantic_hash": "047bb22c1bbfb163be3c110e1f949c3e685335339a13135888480f3af8828d1f"
     },
     {
       "binding_id": "binding.fam-pd-7-5.execution_day",
@@ -389,14 +581,15 @@
           "form_id": "fam-pd-7-5",
           "line_item_id": "execution.day",
           "direction": "fact_to_form",
-          "transform": "identity"
+          "transform": "integer_as_string"
         }
       ],
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "54033b091db2213e"
-      ]
+        "9df7aa98e2e96775c21eb556a930cc953e9dcec1d344302d43510882ea9ece93"
+      ],
+      "binding_semantic_hash": "672eb2bd6c4b79dd8bf48d22d6a737602e1c59ddc2fae779a6edff1f82dbaf77"
     },
     {
       "binding_id": "binding.fam-pd-7-5.execution_month",
@@ -413,8 +606,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "82f4c29b0fe20f48"
-      ]
+        "8b0050dd4cd2fff71832082c04801fe56990b7857c67872a91d7a35e5af6235f"
+      ],
+      "binding_semantic_hash": "9d658430bf5fdcb95e54cbd409fae23c38ee2d859f64340473623a38c3e7ae8e"
     },
     {
       "binding_id": "binding.fam-pd-7-5.execution_year",
@@ -425,14 +619,15 @@
           "form_id": "fam-pd-7-5",
           "line_item_id": "execution.year",
           "direction": "fact_to_form",
-          "transform": "identity"
+          "transform": "integer_as_string"
         }
       ],
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "5f412c446e064439"
-      ]
+        "6de08f0a57098b28edd5071f38011f172561bc3b14a5ada195d64c42cad8ea82"
+      ],
+      "binding_semantic_hash": "61b39505ab44da8a4b7426399f2d19bf71d48a0256f753679b0988c319e569e3"
     },
     {
       "binding_id": "binding.fam-pd-7-5.execution_name",
@@ -449,8 +644,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "0be30c88b0aa347a"
-      ]
+        "786634e87848a0dffbb891a073fb9134a20d7b491db5423e8564bb93c2449135"
+      ],
+      "binding_semantic_hash": "2c2318f8143acfaf40c52ac9f5b3cb97c7cde3aadaf333e9995e88dcadd8bf62"
     },
     {
       "binding_id": "binding.fam-pd-7-5.contact_name",
@@ -467,8 +663,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "a039a3eb826caeff"
-      ]
+        "56ec0bd63f6ec48dd2196841bb662309ec18383fea8c057309364aaa38f0f9b3"
+      ],
+      "binding_semantic_hash": "671b4b81b9d8f2a68c669e15b8e659e53c6625b80bf90ce566f6fce36bf24cc4"
     },
     {
       "binding_id": "binding.fam-pd-7-5.contact_address",
@@ -485,8 +682,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "dc082343f88ac84a"
-      ]
+        "9f3042ebd06d6fa39725563fccf105efbceb5835236f6ce6829e29528dcd3610"
+      ],
+      "binding_semantic_hash": "550f1c113eaaf74c6203dc7a5ff198c1370c561547c217840767a819ee1351d7"
     },
     {
       "binding_id": "binding.fam-pd-7-5.contact_telephone",
@@ -503,8 +701,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "ff5334fce5ab8051"
-      ]
+        "e9c8645f54902fbc90915f3dca2a2b8a604cbe394e49c1bdd5b766a1bd33b16a"
+      ],
+      "binding_semantic_hash": "36c118c7e7a2dba28f92d73d9ea6e79462d9d05c6d6a0f033e3b1ad79442ff9e"
     },
     {
       "binding_id": "binding.fam-pd-7-5.contact_fax",
@@ -521,8 +720,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "b841900a7a379b9a"
-      ]
+        "4d0698c6fd1e3d644c71685265c7f2a09be543d5838de4185830de9596f46ac8"
+      ],
+      "binding_semantic_hash": "3d0aac25c315a5a6711d055d2f27659323677529665e239005ad1f5d80f1e5c4"
     },
     {
       "binding_id": "binding.fam-pd-7-5.contact_email",
@@ -539,8 +739,9 @@
       "override_policy": "matter_assertion_is_canonical",
       "conflict_policy": "require_human_resolution",
       "source_line_item_hashes": [
-        "0395a6f1143c2f08"
-      ]
+        "2321bae245c584da609f12fde61502001d21dc498c223cfd374dd4e36dd9b623"
+      ],
+      "binding_semantic_hash": "4ca5c24e42563118d383722b9479ab748fdaf2396bd0b34450ab9a3ab0b7ea99"
     }
   ]
 }

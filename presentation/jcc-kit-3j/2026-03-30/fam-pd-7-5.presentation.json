@@ -24,40 +24,41 @@
       ],
       "presentation_strategy": "custom_prompt",
       "source_line_item_hashes": [
-        "4af1d8d9e6bef95b",
-        "7928695114b71b0b"
+        "9e19da9e68d3847f5eb3e3d3f0bbb25a11274debc127bf848679820ef52df58c",
+        "6727395bccb25864455cd7652ba2339b491d3b4514bf3b2726ef24f637cfc44c"
       ],
-      "binding_semantic_hash": "29cce57f090008bc",
+      "binding_semantic_hash": "e651f14f49017daf8ae016482c6815c042ade053f7e6cad2dd86b816f94fe348",
       "presentation_schema_version": 1,
-      "draft_state": "active",
+      "draft_state": "draft",
       "authorship": {
-        "method": "human_authored",
-        "created_at": "2026-07-23T05:00:00Z",
-        "reviewed_by": "local-architect-pass"
+        "method": "agent_draft",
+        "created_at": "2026-07-23T06:00:00Z",
+        "agent_pass": "local-architect-pass",
+        "note": "Untrusted draft. Not owner-approved. Not eligible for User mode."
       },
       "approvals": {
         "legal": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.conference_when_where.v1.legal"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "ux": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.conference_when_where.v1.ux"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "accessibility": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.conference_when_where.v1.a11y"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "source_binding": {
-          "state": "current",
-          "checked_at": "2026-07-23",
-          "binding_hash": "29cce57f090008bc"
+          "state": "unchecked",
+          "checked_at": null,
+          "binding_hash": "e651f14f49017daf8ae016482c6815c042ade053f7e6cad2dd86b816f94fe348"
         }
       },
       "supersedes": null,
@@ -87,41 +88,42 @@
       ],
       "presentation_strategy": "custom_prompt",
       "source_line_item_hashes": [
-        "f14a3067eeeee615",
-        "2284f7ebbfa8ff3d",
-        "3e0dd41a08995c42"
+        "7c60370d91027f174c100a1fa0c008e60325d7ca89ac874f7ba8c307368bf546",
+        "7f699dd9cbe70c1589efdf21dfab5dbd03260f3d2a4b1af919dbc76bf75bd8bb",
+        "d310cb35ac4c6d552751073b5e1cd2b754fccce7812652be2cdde263c7154dc1"
       ],
-      "binding_semantic_hash": "3208b8f0effa079d",
+      "binding_semantic_hash": "d92970c89caf0d4952be8a10dba46857adf0089f0e52bef40575f10db8c9a968",
       "presentation_schema_version": 1,
-      "draft_state": "active",
+      "draft_state": "draft",
       "authorship": {
-        "method": "human_authored",
-        "created_at": "2026-07-23T05:00:00Z",
-        "reviewed_by": "local-architect-pass"
+        "method": "agent_draft",
+        "created_at": "2026-07-23T06:00:00Z",
+        "agent_pass": "local-architect-pass",
+        "note": "Untrusted draft. Not owner-approved. Not eligible for User mode."
       },
       "approvals": {
         "legal": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.who_files.v1.legal"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "ux": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.who_files.v1.ux"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "accessibility": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.who_files.v1.a11y"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "source_binding": {
-          "state": "current",
-          "checked_at": "2026-07-23",
-          "binding_hash": "3208b8f0effa079d"
+          "state": "unchecked",
+          "checked_at": null,
+          "binding_hash": "d92970c89caf0d4952be8a10dba46857adf0089f0e52bef40575f10db8c9a968"
         }
       },
       "supersedes": null,
@@ -149,40 +151,41 @@
       ],
       "presentation_strategy": "custom_prompt",
       "source_line_item_hashes": [
-        "bc1bfc0b3eecc64a",
-        "e2dcad5db77cb2f0"
+        "3c16a5867e2c055931fc2492ca637afc221a25b2f02bd3bef7af44cd00a86dc0",
+        "c166e86cf09d88fe970c975ab39301a2b8646e764a77aac572397941bf75a9c4"
       ],
-      "binding_semantic_hash": "e4654f1eb4aaa312",
+      "binding_semantic_hash": "424f61fd5d30627e1e9b9aae0f97225cacf36721081fb3da67dc5d3689294a64",
       "presentation_schema_version": 1,
-      "draft_state": "active",
+      "draft_state": "draft",
       "authorship": {
-        "method": "human_authored",
-        "created_at": "2026-07-23T05:00:00Z",
-        "reviewed_by": "local-architect-pass"
+        "method": "agent_draft",
+        "created_at": "2026-07-23T06:00:00Z",
+        "agent_pass": "local-architect-pass",
+        "note": "Untrusted draft. Not owner-approved. Not eligible for User mode."
       },
       "approvals": {
         "legal": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.request_and_draft_dates.v1.legal"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "ux": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.request_and_draft_dates.v1.ux"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "accessibility": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.request_and_draft_dates.v1.a11y"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "source_binding": {
-          "state": "current",
-          "checked_at": "2026-07-23",
-          "binding_hash": "e4654f1eb4aaa312"
+          "state": "unchecked",
+          "checked_at": null,
+          "binding_hash": "424f61fd5d30627e1e9b9aae0f97225cacf36721081fb3da67dc5d3689294a64"
         }
       },
       "supersedes": null,
@@ -208,39 +211,40 @@
       ],
       "presentation_strategy": "custom_prompt",
       "source_line_item_hashes": [
-        "e863382cbb26b5c7"
+        "507a230ef92fc6061af4b0e8eea4baf57bad13df8e517c5349291e044551d224"
       ],
-      "binding_semantic_hash": "29e00336420c4c91",
+      "binding_semantic_hash": "5a3212912341c8d885e68f6dcb3b1268054bb53b456faf4ebba80f48c99bca96",
       "presentation_schema_version": 1,
-      "draft_state": "active",
+      "draft_state": "draft",
       "authorship": {
-        "method": "human_authored",
-        "created_at": "2026-07-23T05:00:00Z",
-        "reviewed_by": "local-architect-pass"
+        "method": "agent_draft",
+        "created_at": "2026-07-23T06:00:00Z",
+        "agent_pass": "local-architect-pass",
+        "note": "Untrusted draft. Not owner-approved. Not eligible for User mode."
       },
       "approvals": {
         "legal": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.readiness.v1.legal"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "ux": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.readiness.v1.ux"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "accessibility": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.readiness.v1.a11y"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "source_binding": {
-          "state": "current",
-          "checked_at": "2026-07-23",
-          "binding_hash": "29e00336420c4c91"
+          "state": "unchecked",
+          "checked_at": null,
+          "binding_hash": "5a3212912341c8d885e68f6dcb3b1268054bb53b456faf4ebba80f48c99bca96"
         }
       },
       "supersedes": null,
@@ -266,39 +270,40 @@
       ],
       "presentation_strategy": "custom_prompt",
       "source_line_item_hashes": [
-        "84464419a365cb38"
+        "90fae79be3825e3761cff8606e6d0365dca6d3878213a1d2a77dcbd347d14601"
       ],
-      "binding_semantic_hash": "b81611b9d5d2efb1",
+      "binding_semantic_hash": "63d98097e1699f222fec488b9baa1f7a7b484547bcd1047d5e5f5a99ceaeaf3f",
       "presentation_schema_version": 1,
-      "draft_state": "active",
+      "draft_state": "draft",
       "authorship": {
-        "method": "human_authored",
-        "created_at": "2026-07-23T05:00:00Z",
-        "reviewed_by": "local-architect-pass"
+        "method": "agent_draft",
+        "created_at": "2026-07-23T06:00:00Z",
+        "agent_pass": "local-architect-pass",
+        "note": "Untrusted draft. Not owner-approved. Not eligible for User mode."
       },
       "approvals": {
         "legal": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.legal_summary.v1.legal"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "ux": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.legal_summary.v1.ux"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "accessibility": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.legal_summary.v1.a11y"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "source_binding": {
-          "state": "current",
-          "checked_at": "2026-07-23",
-          "binding_hash": "b81611b9d5d2efb1"
+          "state": "unchecked",
+          "checked_at": null,
+          "binding_hash": "63d98097e1699f222fec488b9baa1f7a7b484547bcd1047d5e5f5a99ceaeaf3f"
         }
       },
       "supersedes": null,
@@ -324,39 +329,40 @@
       ],
       "presentation_strategy": "custom_prompt",
       "source_line_item_hashes": [
-        "e8babf429e8400b6"
+        "e0cac7f213b8f448731e15f4f2bfccce30d05af7a29e196e4db2736b1663d102"
       ],
-      "binding_semantic_hash": "9051378fa085e860",
+      "binding_semantic_hash": "6c2ff30821621156a6259e037eb39c542af981b07f9925629646a093ce4d5f37",
       "presentation_schema_version": 1,
-      "draft_state": "active",
+      "draft_state": "draft",
       "authorship": {
-        "method": "human_authored",
-        "created_at": "2026-07-23T05:00:00Z",
-        "reviewed_by": "local-architect-pass"
+        "method": "agent_draft",
+        "created_at": "2026-07-23T06:00:00Z",
+        "agent_pass": "local-architect-pass",
+        "note": "Untrusted draft. Not owner-approved. Not eligible for User mode."
       },
       "approvals": {
         "legal": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.consent.v1.legal"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "ux": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.consent.v1.ux"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "accessibility": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.consent.v1.a11y"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "source_binding": {
-          "state": "current",
-          "checked_at": "2026-07-23",
-          "binding_hash": "9051378fa085e860"
+          "state": "unchecked",
+          "checked_at": null,
+          "binding_hash": "6c2ff30821621156a6259e037eb39c542af981b07f9925629646a093ce4d5f37"
         }
       },
       "supersedes": null,
@@ -368,16 +374,28 @@
       "interaction_step_id": "jcc.appearance.other_proceedings",
       "fact_definition_ids": [
         "matter.procedure.other_case_conferences",
+        "matter.procedure.case_conference_date",
         "matter.procedure.chambers_state",
+        "matter.procedure.chambers_return_date",
+        "matter.procedure.chambers_reserved_date",
+        "matter.procedure.chambers_reserved_justice",
         "matter.procedure.pretrial_state",
+        "matter.procedure.pretrial_date",
         "matter.procedure.trial_state",
+        "matter.procedure.trial_date",
         "matter.procedure.related_proceedings"
       ],
       "line_item_ids": [
         "p6a.i.case_conferences_state",
+        "p6a.i.case_conference_date",
         "p6a.ii.chambers_state",
+        "p6a.ii.chambers_return_date",
+        "p6a.ii.chambers_reserved_date",
+        "p6a.ii.chambers_reserved_justice",
         "p6a.iii.pretrial_state",
+        "p6a.iii.pretrial_date",
         "p6a.iv.trial_state",
+        "p6a.iv.trial_date",
         "p6b.related_proceedings"
       ],
       "locale": "en-CA",
@@ -390,43 +408,50 @@
       ],
       "presentation_strategy": "custom_prompt",
       "source_line_item_hashes": [
-        "2b106b4cfae30405",
-        "b1c967209780fcc6",
-        "5d90a980d87e2bc5",
-        "5ebf2d23138d7271",
-        "50fecf79807aa16b"
+        "410a11bb9b72d40307311ea1759e7f130eab45d1a754028ceb703086d0f7d5e8",
+        "eac287f349ac0a7868d2c63285908145bbc7c64d4c67488f89ad28944172ce3a",
+        "a82c41b6215803e694f5c6a24fe3548e9e8b6751213effb9cb85610da0b85f08",
+        "1bb427c82cb08a780c3f3a4d0d627b5a11b37ee0f98f4343252db8e3f38a849d",
+        "8a758d360e27d812787075c0d4d492e46c5d96e4a311c5c1a3db5a26c74fec91",
+        "b6993d0c4c7be3baeb655ed8a6225301f5c65bc357b7550f4075ed5fe1472932",
+        "884ea8e8fdc9c485b80ca82d9c5c17bebad0e430ffac9bb1e577cacbda8ea31f",
+        "1658a7859a15b86cc476412fd3458923b3343afaf4b6f80986ee1cafbc099e7b",
+        "7df564089cbbe6f4f42e8eda9f365406b82a26ecea7e61622bbeb2c1d702cd22",
+        "64521c3094d59a921ded2471b47421d176fd44f76e21f71b0cf50a258c199536",
+        "d39f12ef27c7750558a8c541746b84f815666b97f89958863a10039fe2d74017"
       ],
-      "binding_semantic_hash": "e8e921da736aff60",
+      "binding_semantic_hash": "ee263413e5fd51ca08750a910a6b137f9a66a5290248ceda5f3d4995f32a40f4",
       "presentation_schema_version": 1,
-      "draft_state": "active",
+      "draft_state": "draft",
       "authorship": {
-        "method": "human_authored",
-        "created_at": "2026-07-23T05:00:00Z",
-        "reviewed_by": "local-architect-pass"
+        "method": "agent_draft",
+        "created_at": "2026-07-23T06:00:00Z",
+        "agent_pass": "local-architect-pass",
+        "note": "Untrusted draft. Not owner-approved. Not eligible for User mode."
       },
       "approvals": {
         "legal": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.other_proceedings.v1.legal"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "ux": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.other_proceedings.v1.ux"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "accessibility": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.other_proceedings.v1.a11y"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "source_binding": {
-          "state": "current",
-          "checked_at": "2026-07-23",
-          "binding_hash": "e8e921da736aff60"
+          "state": "unchecked",
+          "checked_at": null,
+          "binding_hash": "ee263413e5fd51ca08750a910a6b137f9a66a5290248ceda5f3d4995f32a40f4"
         }
       },
       "supersedes": null,
@@ -437,54 +462,64 @@
       "source_snapshot_id": "jcc-kit-3j-2026-03-30",
       "interaction_step_id": "jcc.appearance.memo_type",
       "fact_definition_ids": [
-        "matter.jcc.memo_type"
+        "matter.jcc.memo_type",
+        "matter.jcc.updated_party_role",
+        "matter.jcc.change_state",
+        "matter.jcc.changes"
       ],
       "line_item_ids": [
-        "p7.memo_type"
+        "p7.memo_type",
+        "p7.updated_party_role",
+        "p7.change_state",
+        "p7.changes"
       ],
       "locale": "en-CA",
       "reading_level_target": "plain_en_ca",
       "plain_language_prompt": "Is this your first Appearance Memo for this request, or an updated one?",
       "short_explanation": "Choose first memo unless you already filed one for this same request.",
-      "answer_guidance": "If updated, you will later describe what changed. If first, leave update fields blank.",
+      "answer_guidance": "If updated, describe what changed. If first, leave update fields blank.",
       "official_terms_preserved": [
         "Judicial Case Conference"
       ],
       "presentation_strategy": "custom_prompt",
       "source_line_item_hashes": [
-        "bdffcadd2029f2b7"
+        "9fdbcd830c6ca5c95e835987a646b09bfb9bc24690c2bd94b25fcb56b37094a5",
+        "390a4547b240abe0a0f3b861869e3782528b65050fed05f4c64578bab2725769",
+        "607bba16d92140c76db5b9b9d36740169c374af48d0d7ee84c2a245f2e7721bb",
+        "9e4568f05036a64ec4b13125c3a0f181f638a2fd2dc19bf766a8c2da78b2c93e"
       ],
-      "binding_semantic_hash": "bb3742c6cef4956d",
+      "binding_semantic_hash": "44a3fe89c60959b9cbb126aa398183dcacef37181f5d8878d5f8906dc869b28b",
       "presentation_schema_version": 1,
-      "draft_state": "active",
+      "draft_state": "draft",
       "authorship": {
-        "method": "human_authored",
-        "created_at": "2026-07-23T05:00:00Z",
-        "reviewed_by": "local-architect-pass"
+        "method": "agent_draft",
+        "created_at": "2026-07-23T06:00:00Z",
+        "agent_pass": "local-architect-pass",
+        "note": "Untrusted draft. Not owner-approved. Not eligible for User mode."
       },
       "approvals": {
         "legal": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.memo_type.v1.legal"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "ux": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.memo_type.v1.ux"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "accessibility": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.memo_type.v1.a11y"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "source_binding": {
-          "state": "current",
-          "checked_at": "2026-07-23",
-          "binding_hash": "bb3742c6cef4956d"
+          "state": "unchecked",
+          "checked_at": null,
+          "binding_hash": "44a3fe89c60959b9cbb126aa398183dcacef37181f5d8878d5f8906dc869b28b"
         }
       },
       "supersedes": null,
@@ -502,6 +537,7 @@
         "matter.contact.name",
         "matter.contact.address",
         "matter.contact.telephone",
+        "matter.contact.fax",
         "matter.contact.email"
       ],
       "line_item_ids": [
@@ -512,6 +548,7 @@
         "contact.name",
         "contact.address",
         "contact.telephone",
+        "contact.fax",
         "contact.email"
       ],
       "locale": "en-CA",
@@ -524,46 +561,48 @@
       ],
       "presentation_strategy": "custom_prompt",
       "source_line_item_hashes": [
-        "4bfb6640cf5e656a",
-        "54033b091db2213e",
-        "82f4c29b0fe20f48",
-        "5f412c446e064439",
-        "a039a3eb826caeff",
-        "dc082343f88ac84a",
-        "ff5334fce5ab8051",
-        "0395a6f1143c2f08"
+        "d10f766fc9e52d9e433ec00c97f1c21115afc5e8ec4c01bc5e10b7b3712a867b",
+        "9df7aa98e2e96775c21eb556a930cc953e9dcec1d344302d43510882ea9ece93",
+        "8b0050dd4cd2fff71832082c04801fe56990b7857c67872a91d7a35e5af6235f",
+        "6de08f0a57098b28edd5071f38011f172561bc3b14a5ada195d64c42cad8ea82",
+        "56ec0bd63f6ec48dd2196841bb662309ec18383fea8c057309364aaa38f0f9b3",
+        "9f3042ebd06d6fa39725563fccf105efbceb5835236f6ce6829e29528dcd3610",
+        "e9c8645f54902fbc90915f3dca2a2b8a604cbe394e49c1bdd5b766a1bd33b16a",
+        "4d0698c6fd1e3d644c71685265c7f2a09be543d5838de4185830de9596f46ac8",
+        "2321bae245c584da609f12fde61502001d21dc498c223cfd374dd4e36dd9b623"
       ],
-      "binding_semantic_hash": "6b2cf016c6f608f4",
+      "binding_semantic_hash": "53b7b811ef4e7eb0b1ca09d0a8544b25d19795e9c1fa67a60e4ccdba15407e8c",
       "presentation_schema_version": 1,
-      "draft_state": "active",
+      "draft_state": "draft",
       "authorship": {
-        "method": "human_authored",
-        "created_at": "2026-07-23T05:00:00Z",
-        "reviewed_by": "local-architect-pass"
+        "method": "agent_draft",
+        "created_at": "2026-07-23T06:00:00Z",
+        "agent_pass": "local-architect-pass",
+        "note": "Untrusted draft. Not owner-approved. Not eligible for User mode."
       },
       "approvals": {
         "legal": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.contact_and_date.v1.legal"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "ux": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.contact_and_date.v1.ux"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "accessibility": {
-          "state": "approved",
-          "reviewer": "owner-pending-second-pass",
-          "reviewed_at": "2026-07-23",
-          "receipt_id": "receipt.pres.jcc.appearance.contact_and_date.v1.a11y"
+          "state": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "receipt_id": null
         },
         "source_binding": {
-          "state": "current",
-          "checked_at": "2026-07-23",
-          "binding_hash": "6b2cf016c6f608f4"
+          "state": "unchecked",
+          "checked_at": null,
+          "binding_hash": "53b7b811ef4e7eb0b1ca09d0a8544b25d19795e9c1fa67a60e4ccdba15407e8c"
         }
       },
       "supersedes": null,

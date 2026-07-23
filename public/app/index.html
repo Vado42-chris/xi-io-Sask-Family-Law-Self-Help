@@ -14,11 +14,11 @@
     <section class="unlock-card" aria-labelledby="unlock-title">
       <p class="eyebrow">Local preview</p>
       <h1 id="unlock-title">Choose how to work</h1>
-      <p>A private matter file is available on this computer. It will not load until you unlock it.</p>
+      <p>A private matter file may be available on this computer. It will not load until you unlock it.</p>
       <ul class="boundary-list">
-        <li>Private answers stay on this computer.</li>
+        <li>Private answers stay in memory only on this computer.</li>
+        <li>Private answers are never written to browser storage.</li>
         <li>Nothing is filed, served, emailed, or transmitted from this preview.</li>
-        <li>Do not commit or publish real case information.</li>
       </ul>
       <div class="unlock-actions">
         <button type="button" id="use-practice" class="button button-primary">Use practice matter</button>
@@ -34,24 +34,28 @@
         <p class="eyebrow" id="matter-label">Practice matter</p>
         <h1>Family Law Assistant</h1>
       </div>
-      <p class="privacy-chip" id="privacy-chip">Nothing can be sent</p>
+      <div class="topbar-actions">
+        <p class="privacy-chip" id="privacy-chip">Nothing can be sent</p>
+        <button type="button" id="lock-now" class="button" hidden>Lock now</button>
+      </div>
     </header>
 
-    <div class="layout">
-      <aside class="work-plan" aria-labelledby="plan-title">
+    <div class="layout" data-mobile-pane="plan">
+      <aside class="work-plan" id="work-plan" aria-labelledby="plan-title">
         <p class="eyebrow">Continue where you left off</p>
         <h2 id="plan-title">Your next step</h2>
         <div id="next-step-card" class="next-step-card"></div>
         <div id="waiting-list" class="waiting-list" aria-live="polite"></div>
         <button type="button" id="toggle-full-plan" class="text-button">View full work plan</button>
         <ol id="full-plan" class="full-plan" hidden></ol>
-        <ol id="workflow-stages" class="workflow-stages" aria-label="Procedural stages"></ol>
+        <button type="button" id="show-current-work" class="button mobile-only">Open current work</button>
       </aside>
 
       <main id="current-work" class="current-work" tabindex="-1">
+        <button type="button" id="back-to-plan" class="text-button mobile-only">Back to work plan</button>
         <div class="answer-review-banner" role="status">
-          <strong>Answer review</strong>
-          <span>This is not the document you will file.</span>
+          <strong>ANSWER REVIEW</strong>
+          <span>THIS IS NOT THE DOCUMENT YOU WILL FILE</span>
         </div>
 
         <section id="step-panel" class="step-panel" aria-labelledby="step-heading">
@@ -59,6 +63,8 @@
           <h2 id="step-heading">Loading…</h2>
           <p id="step-explanation"></p>
           <p id="step-guidance" class="guidance"></p>
+          <p id="section-goal" class="section-goal"></p>
+
           <div id="blocked-panel" class="blocked-panel" hidden>
             <p id="blocked-message"></p>
             <ul>
@@ -66,22 +72,25 @@
               <li>View the exact court wording</li>
               <li>Ask an authorized reviewer to complete this step</li>
             </ul>
-            <button type="button" id="open-court-wording" class="button">View exact court wording</button>
+            <button type="button" id="open-court-wording-blocked" class="button">View exact court wording</button>
           </div>
-          <div id="answer-panel" class="answer-panel">
-            <label for="answer-input">Your answer</label>
-            <textarea id="answer-input" rows="8" autocomplete="off"></textarea>
+
+          <form id="answer-panel" class="answer-panel" hidden>
+            <div id="fields"></div>
+            <p id="form-error" class="error" role="alert" hidden></p>
             <div class="step-actions">
+              <button type="button" id="back-step" class="button">Back</button>
               <button type="button" id="mark-unknown" class="button">Mark unknown</button>
-              <button type="button" id="save-continue" class="button button-primary">Continue</button>
+              <button type="submit" id="save-continue" class="button button-primary">Continue</button>
               <button type="button" id="help-answer" class="button button-quiet">Help me answer this</button>
+              <button type="button" id="open-court-wording" class="button button-quiet">View exact court wording</button>
             </div>
-          </div>
+          </form>
         </section>
 
         <aside id="help-drawer" class="help-drawer" hidden>
           <h3>Help</h3>
-          <p id="help-body">Optional help stays off the main path. It cannot invent legal facts or override your answers.</p>
+          <p id="help-body"></p>
           <button type="button" id="close-help" class="button">Close help</button>
         </aside>
       </main>
@@ -90,7 +99,7 @@
 
   <dialog id="court-wording-dialog" aria-labelledby="court-wording-title">
     <h2 id="court-wording-title">Exact court wording</h2>
-    <pre id="court-wording-body"></pre>
+    <div id="court-wording-body"></div>
     <form method="dialog">
       <button class="button">Close</button>
     </form>

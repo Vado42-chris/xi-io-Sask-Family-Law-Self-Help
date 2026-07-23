@@ -3,44 +3,44 @@
   "$id": "https://xi-io.local/schemas/workflow-graph-schema-v1.json",
   "title": "Procedural workflow graph",
   "type": "object",
-  "required": [
-    "schema_version",
-    "snapshot_id",
-    "workflow_id",
-    "stages"
-  ],
+  "required": ["schema_version", "snapshot_id", "workflow_id", "stages"],
   "properties": {
-    "schema_version": {
-      "type": "integer"
-    },
-    "snapshot_id": {
-      "type": "string"
-    },
-    "workflow_id": {
-      "type": "string"
-    },
+    "schema_version": { "type": "integer" },
+    "snapshot_id": { "type": "string" },
+    "workflow_id": { "type": "string" },
     "stages": {
       "type": "array",
+      "minItems": 2,
       "items": {
         "type": "object",
         "required": [
           "stage_id",
           "title",
+          "depends_on",
+          "entry_conditions",
+          "completion_conditions",
+          "blocking_reasons",
+          "required_artifacts",
+          "deadline_rule",
+          "responsible_actor",
+          "receipts_required",
+          "next_stage_rules",
           "blocks_next_if_incomplete"
         ],
         "properties": {
-          "stage_id": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "blocks_next_if_incomplete": {
-            "type": "boolean"
-          },
-          "form_id": {
-            "type": "string"
-          }
+          "stage_id": { "type": "string" },
+          "title": { "type": "string" },
+          "depends_on": { "type": "array", "items": { "type": "string" } },
+          "entry_conditions": { "type": "array", "items": { "type": "string" } },
+          "completion_conditions": { "type": "array", "items": { "type": "string" } },
+          "blocking_reasons": { "type": "array", "items": { "type": "string" } },
+          "required_artifacts": { "type": "array", "items": { "type": "string" } },
+          "deadline_rule": { "type": "string" },
+          "responsible_actor": { "type": "string" },
+          "receipts_required": { "type": "array", "items": { "type": "string" } },
+          "next_stage_rules": { "type": "array" },
+          "blocks_next_if_incomplete": { "type": "boolean" },
+          "form_id": { "type": "string" }
         }
       }
     }

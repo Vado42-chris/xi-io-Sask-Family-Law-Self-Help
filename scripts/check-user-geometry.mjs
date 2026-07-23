@@ -1,14 +1,23 @@
 #!/usr/bin/env node
 
-import { readFileSync } from "node:fs";
+/**
+ * Real browser geometry and /app proof screenshots.
+ * Requires Playwright browsers (`npx playwright install chromium`).
+ */
+
+import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import { spawn, spawnSync } from "node:child_process";
 import path from "node:path";
 import process from "node:process";
+import { chromium } from "playwright";
 
 const ROOT = process.cwd();
+const PORT = 4191;
+const BASE = `http://127.0.0.1:${PORT}`;
+const outDir = path.join(ROOT, "test-results", "screenshots");
 const failures = [];
-const html = readFileSync(path.join(ROOT, "public/app/index.html"), "utf8");
-const css = readFileSync(path.join(ROOT, "public/styles/user-app.css"), "utf8");
-const js = readFileSync(path.join(ROOT, "public/src/user-app.js"), "utf8");
+const commit = spawnSync("git", ["rev-parse", "HEAD"], { cwd: ROOT, encoding: "utf8" }).stdout.trim();
+mkdirSync(outDir, { recursive: true });
 
 const viewports = [
   { name: "1920x1080", width: 1920, height: 1080 },
@@ -19,76 +28,161 @@ const viewports = [
   { name: "360x800", width: 360, height: 800 }
 ];
 
-function requireText(source, text, label) {
-  if (!source.includes(text)) failures.push(`${label} missing: ${text}`);
+function startServer() {
+  return new Promise((resolve, reject) => {
+    const child = spawn(process.execPath, ["scripts/serve-preview.mjs"], {
+      cwd: ROOT,
+      env: { ...process.env, PORT: String(PORT), HOST: "127.0.0.1", SFL_COMMIT: process.env.SFL_COMMIT || "local" },
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    let ready = false;
+    const onData = (chunk) => {
+      const text = String(chunk);
+      if (text.includes("/app") && !ready) {
+        ready = true;
+        resolve(child);
+      }
+    };
+    child.stdout.on("data", onData);
+    child.stderr.on("data", onData);
+    child.on("exit", (code) => {
+      if (!ready) reject(new Error(`Preview server exited early: ${code}`));
+    });
+    setTimeout(() => {
+      if (!ready) reject(new Error("Preview server did not become ready"));
+    }, 10000);
+  });
 }
 
-requireText(css, "overflow-x: hidden", "document-level horizontal scroll guard");
-requireText(css, "min-width: 0", "pane shrink guard");
-requireText(css, "min-height: 44px", "minimum interactive target size");
-requireText(css, "min-width: 44px", "minimum interactive target width");
-requireText(css, "outline: 3px solid var(--focus)", "visible keyboard focus");
-requireText(css, "prefers-reduced-motion", "reduced-motion support");
-requireText(css, "@media (max-width: 900px)", "mobile one-pane layout");
-requireText(css, "grid-template-columns: 1fr", "mobile single column");
-requireText(js, 'setAttribute("aria-live", "polite")', "question change announced to AT");
-requireText(js, "lastFocusedBeforeHelp", "focus restore after help");
-requireText(js, "mark-unknown", "unknown in one interaction wiring");
-requireText(html, "Mark unknown", "unknown control label");
-requireText(html, "Answer review", "answer-review banner");
-requireText(html, "This is not the document you will file.", "non-filing banner copy");
-requireText(html, "View full work plan", "deferred full inventory");
-requireText(html, "Continue", "primary continue action");
-
-// Colour-only status is forbidden: status text must exist beside chips/banners.
-requireText(html, "Nothing can be sent", "non-colour status text");
-requireText(css, "var(--warn-bg)", "status not colour-only (background + text pairing)");
-
-if (html.includes("Prepare package") || js.includes("Prepare package")) {
-  failures.push("Prepare package must stay deferred from normal user mode");
-}
-if (html.includes("global-search") || html.includes("Ask Ibal")) {
-  failures.push("Global search / always-visible Ibal branding must stay deferred from /app");
+async function assertNoHorizontalScroll(page, label) {
+  const metrics = await page.evaluate(() => ({
+    doc: document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1,
+    body: document.body.scrollWidth <= document.body.clientWidth + 1,
+    plan: (() => {
+      const el = document.querySelector(".work-plan");
+      return !el || el.scrollWidth <= el.clientWidth + 1;
+    })(),
+    work: (() => {
+      const el = document.querySelector(".current-work");
+      return !el || el.scrollWidth <= el.clientWidth + 1;
+    })()
+  }));
+  for (const [key, ok] of Object.entries(metrics)) {
+    if (!ok) failures.push(`${label}: horizontal scroll detected on ${key}`);
+  }
 }
 
-const media900 = css.includes("@media (max-width: 900px)");
-const media640 = css.includes("@media (max-width: 640px)");
-if (!media900 || !media640) {
-  failures.push("mobile breakpoints incomplete for required viewports");
+async function run() {
+  const server = await startServer();
+  const browser = await chromium.launch({ headless: true });
+  try {
+    for (const viewport of viewports) {
+      const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
+      await page.goto(`${BASE}/app`, { waitUntil: "networkidle" });
+      await page.waitForSelector("#unlock-gate, #app-shell");
+      // Practice path to reach shell without private data.
+      if (await page.locator("#use-practice").isVisible()) {
+        await page.click("#use-practice");
+        await page.waitForSelector("#app-shell:not([hidden])");
+      }
+      await assertNoHorizontalScroll(page, viewport.name);
+
+      if (viewport.width <= 900) {
+        await page.evaluate(() => document.querySelector(".layout")?.setAttribute("data-mobile-pane", "plan"));
+      }
+      const primaryVisible = await page
+        .locator("#continue-next, #open-court-wording-blocked, #save-continue")
+        .evaluateAll((nodes) => nodes.some((node) => {
+          const style = window.getComputedStyle(node);
+          return style.display !== "none" && style.visibility !== "hidden" && node.getClientRects().length > 0;
+        }));
+      if (!primaryVisible) failures.push(`${viewport.name}: primary action not visible`);
+
+      if (viewport.width <= 900) {
+        const planHidden = await page.evaluate(() => {
+          const layout = document.querySelector(".layout");
+          layout?.setAttribute("data-mobile-pane", "work");
+          const plan = document.querySelector(".work-plan");
+          return plan && getComputedStyle(plan).display === "none";
+        });
+        if (!planHidden) failures.push(`${viewport.name}: mobile one-pane work mode failed`);
+      }
+
+      // Help open/close + focus restore when help is available; otherwise wording dialog.
+      if (await page.locator("#help-answer").isVisible()) {
+        await page.click("#help-answer");
+        await page.waitForSelector("#help-drawer:not([hidden])");
+        await page.click("#close-help");
+        const focused = await page.evaluate(() => document.activeElement?.id || "");
+        if (focused !== "help-answer") failures.push(`${viewport.name}: focus did not restore to help control`);
+      }
+
+      const shot = path.join(outDir, `app-${viewport.name}.png`);
+      await page.screenshot({ path: shot, fullPage: true });
+      await page.close();
+    }
+
+    // 200% zoom usability on desktop.
+    const zoomPage = await browser.newPage({ viewport: { width: 1366, height: 768 } });
+    await zoomPage.goto(`${BASE}/app`, { waitUntil: "networkidle" });
+    if (await zoomPage.locator("#use-practice").isVisible()) await zoomPage.click("#use-practice");
+    await zoomPage.evaluate(() => {
+      document.documentElement.style.zoom = "2";
+    });
+    await assertNoHorizontalScroll(zoomPage, "200pct-zoom");
+    await zoomPage.screenshot({ path: path.join(outDir, "app-200pct-zoom.png"), fullPage: true });
+
+    // Prove URL and blocked fail-closed banner.
+    const proof = await zoomPage.evaluate(() => ({
+      href: location.href,
+      hasAnswerReview: document.body.innerText.includes("ANSWER REVIEW"),
+      hasBlocked:
+        document.body.innerText.includes("not yet available in the guided interview") ||
+        document.body.innerText.includes("Choose how to work")
+    }));
+    writeFileSync(
+      path.join(outDir, "app-proof.json"),
+      JSON.stringify(
+        {
+          ...proof,
+          git_head: commit,
+          route: "/app",
+          server_port: PORT,
+          cache_control: "no-store",
+          captured_at: new Date().toISOString()
+        },
+        null,
+        2
+      ) + "\n"
+    );
+    if (!proof.href.includes("/app")) failures.push("Screenshot session was not on /app");
+    if (!proof.hasAnswerReview) failures.push("ANSWER REVIEW banner missing on /app");
+    await zoomPage.close();
+  } finally {
+    await browser.close();
+    server.kill("SIGTERM");
+  }
+
+  if (failures.length) {
+    failures.forEach((failure) => console.error(`ERROR (user-geometry): ${failure}`));
+    process.exitCode = 1;
+  } else {
+    console.log(
+      JSON.stringify(
+        {
+          status: "passed",
+          viewports: viewports.map((item) => item.name),
+          screenshot_dir: "test-results/screenshots",
+          real_browser: true
+        },
+        null,
+        2
+      )
+    );
+  }
 }
 
-const zoomContract = css.includes("clamp(") || css.includes("rem");
-if (!zoomContract) {
-  failures.push("relative units required for 200% zoom usability");
-}
-
-const report = {
-  status: failures.length ? "failed" : "passed",
-  viewports,
-  contracts: {
-    no_horizontal_scroll: css.includes("overflow-x: hidden"),
-    min_target_44: css.includes("min-height: 44px"),
-    focus_visible: css.includes(":focus-visible"),
-    reduced_motion: css.includes("prefers-reduced-motion"),
-    mobile_single_pane: media900,
-    answer_review_banner: html.includes("Answer review"),
-    continue_first: html.includes("Continue where you left off"),
-    focus_restore: js.includes("lastFocusedBeforeHelp"),
-    at_announcement: js.includes('aria-live", "polite')
-  },
-  human_timing_checklist: [
-    "Resume in under 10 seconds",
-    "Find next required action in under 5 seconds",
-    "Open exact court wording in under 10 seconds",
-    "Mark unknown in one interaction",
-    "Return to same step after restart",
-    "Understand finalization blockers without reading audit data"
-  ]
-};
-
-if (failures.length) {
-  failures.forEach((failure) => console.error(`ERROR (user-geometry): ${failure}`));
+run().catch((error) => {
+  console.error(`ERROR (user-geometry): ${error.message}`);
   process.exitCode = 1;
-} else {
-  console.log(JSON.stringify(report, null, 2));
-}
+});

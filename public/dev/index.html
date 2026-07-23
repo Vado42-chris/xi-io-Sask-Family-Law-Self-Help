@@ -3,21 +3,86 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Developer diagnostics</title>
+  <title>Developer diagnostics — architecture proof</title>
   <link rel="stylesheet" href="/styles/user-app.css">
 </head>
 <body>
-  <main class="unlock-card" style="margin:2rem auto;width:min(48rem,calc(100% - 2rem));">
-    <p class="eyebrow">Capability surface</p>
+  <main class="unlock-card" style="margin:2rem auto;width:min(56rem,calc(100% - 2rem));">
+    <p class="eyebrow">Capability surface · not User mode</p>
     <h1>Developer diagnostics</h1>
-    <p>Default data on this route is synthetic only. Private matter does not auto-load. Production builds must omit or hard-disable <code>/dev</code>.</p>
+    <p>Default data is synthetic. Draft presentation wording may appear here with an explicit draft banner. Private matter does not auto-load. Production builds must omit or hard-disable <code>/dev</code>.</p>
+    <p class="answer-review-banner" role="status"><strong>DRAFT WORDING</strong><span>Not owner-approved. Not eligible for User mode.</span></p>
+    <div id="status" class="guidance"></div>
+    <div id="proof"></div>
+    <p id="result" class="guidance"></p>
     <ul>
       <li><a href="/api/capabilities">Capability projections</a></li>
       <li><a href="/api/local/session">Session status</a></li>
-      <li><a href="/data/synthetic-matter.json">Synthetic matter fixture</a></li>
+      <li><a href="/api/dev/interview/fam-pd-7-5">Draft interview projection</a></li>
       <li><a href="/legacy">Legacy workbench shell</a></li>
+      <li><a href="/app">Back to user app</a></li>
     </ul>
-    <p><a href="/app">Back to user app</a></p>
   </main>
+  <script type="module">
+    const status = document.getElementById("status");
+    const proof = document.getElementById("proof");
+    const result = document.getElementById("result");
+    const sessionId = crypto.randomUUID();
+
+    const interview = await fetch("/api/dev/interview/fam-pd-7-5", { cache: "no-store" }).then((r) => r.json());
+    const step = interview.steps.find((item) => item.input_schema?.fields?.length) || interview.steps[0];
+    status.textContent = `Architecture proof step: ${step.title}. Draft wording=${Boolean(step.draft_wording)}.`;
+
+    const form = document.createElement("form");
+    form.className = "answer-panel";
+    for (const field of step.input_schema?.fields || []) {
+      const wrap = document.createElement("div");
+      wrap.className = "field";
+      const label = document.createElement("label");
+      label.textContent = field.label;
+      label.setAttribute("for", field.field_token);
+      let input;
+      if (field.control === "select") {
+        input = document.createElement("select");
+        input.appendChild(new Option("Select…", ""));
+        for (const option of field.options || []) input.appendChild(new Option(option, option));
+      } else if (field.control === "textarea") {
+        input = document.createElement("textarea");
+        input.rows = 3;
+      } else {
+        input = document.createElement("input");
+        input.type = field.control || "text";
+      }
+      input.id = field.field_token;
+      input.name = field.field_token;
+      wrap.append(label, input);
+      form.appendChild(wrap);
+    }
+    const submit = document.createElement("button");
+    submit.className = "button button-primary";
+    submit.textContent = "Prove assertion → binding → projection";
+    form.appendChild(submit);
+    proof.appendChild(form);
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const values = Object.fromEntries(new FormData(form).entries());
+      const response = await fetch("/api/app/step/submit", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          mode: "practice",
+          practice_session_id: sessionId,
+          step_token: step.step_token,
+          values,
+          allow_draft_architecture_proof: true
+        })
+      });
+      const payload = await response.json();
+      result.textContent = response.ok
+        ? `Runtime OK: ${payload.assertion_count} assertions, ${payload.projection_count} projections, step_state=${payload.step_state}`
+        : `Runtime failed: ${payload.error || response.status}`;
+    });
+  </script>
 </body>
 </html>

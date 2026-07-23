@@ -101,6 +101,12 @@
       "sensitivity": "public_procedural"
     },
     {
+      "fact_definition_id": "matter.procedure.case_conference_date",
+      "label": "Case conference returnable date",
+      "value_type": "date",
+      "sensitivity": "public_procedural"
+    },
+    {
       "fact_definition_id": "matter.procedure.chambers_state",
       "label": "Chambers applications pending",
       "value_type": "enum",
@@ -109,6 +115,24 @@
         "returnable on",
         "reserved"
       ],
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.procedure.chambers_return_date",
+      "label": "Chambers return date",
+      "value_type": "date",
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.procedure.chambers_reserved_date",
+      "label": "Chambers reserved date",
+      "value_type": "date",
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.procedure.chambers_reserved_justice",
+      "label": "Reserved justice",
+      "value_type": "text",
       "sensitivity": "public_procedural"
     },
     {
@@ -122,6 +146,12 @@
       "sensitivity": "public_procedural"
     },
     {
+      "fact_definition_id": "matter.procedure.pretrial_date",
+      "label": "Pre-trial scheduled date",
+      "value_type": "date",
+      "sensitivity": "public_procedural"
+    },
+    {
       "fact_definition_id": "matter.procedure.trial_state",
       "label": "Trial scheduling state",
       "value_type": "enum",
@@ -129,6 +159,12 @@
         "Not scheduled",
         "Scheduled"
       ],
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.procedure.trial_date",
+      "label": "Trial scheduled date",
+      "value_type": "date",
       "sensitivity": "public_procedural"
     },
     {
@@ -146,6 +182,32 @@
         "Updated Memo"
       ],
       "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.jcc.updated_party_role",
+      "label": "Updated memo filed by",
+      "value_type": "enum",
+      "options": [
+        "petitioner",
+        "respondent"
+      ],
+      "sensitivity": "public_procedural"
+    },
+    {
+      "fact_definition_id": "matter.jcc.change_state",
+      "label": "Change state for updated memo",
+      "value_type": "enum",
+      "options": [
+        "Changes in circumstances and/or position",
+        "No change in circumstances and/or position"
+      ],
+      "sensitivity": "case_content"
+    },
+    {
+      "fact_definition_id": "matter.jcc.changes",
+      "label": "Describe changes",
+      "value_type": "long_text",
+      "sensitivity": "case_content"
     },
     {
       "fact_definition_id": "matter.execution.city",

@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "description": "Append-only approval receipts. Empty until a human owner records a real approval.",
+  "receipts": []
+}

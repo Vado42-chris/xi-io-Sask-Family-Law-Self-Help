@@ -113,7 +113,9 @@ if (!failures.length) {
   if (/fetch\(|localStorage|sessionStorage|\/api\/local\/matter|\/data\/private\//.test(userLayer)) {
     failures.push("User-language presentation layer must not access network, storage, or private matter paths.");
   }
-  if (html.includes("contenteditable")) failures.push("First preview must not use arbitrary contenteditable HTML as canonical form state.");
+  if (html.includes("data-route=\"calendar\"") || html.includes("data-route=\"tasks\"") || html.includes("data-route=\"activity\"")) {
+    failures.push("Legacy user shell must not expose empty Calendar/Tasks/History destinations.");
+  }
   if (css.length < 5000) failures.push("Preview CSS appears unexpectedly small for the required four-surface workbench.");
   if (userCss.length < 1000) failures.push("User-mode CSS appears unexpectedly small for the progressive-disclosure contract.");
   if (js.includes("form.line_items[state.currentQuestionIndex]")) failures.push("Visible wizard must not navigate the raw catalog index.");

@@ -6,52 +6,301 @@
     {
       "stage_id": "archive_notice",
       "title": "Archive the official Notice of JCC",
+      "depends_on": [],
+      "entry_conditions": [],
+      "completion_conditions": [
+        "notice_of_jcc_archived"
+      ],
+      "blocking_reasons": [
+        "incomplete_dependencies",
+        "missing_required_artifacts"
+      ],
+      "required_artifacts": [
+        "notice_of_jcc_archived"
+      ],
+      "deadline_rule": "none",
+      "responsible_actor": "party_or_counsel",
+      "receipts_required": [
+        "notice_of_jcc_archived"
+      ],
+      "next_stage_rules": [
+        {
+          "when": "stage_complete",
+          "goto": "confirm_deadline"
+        }
+      ],
       "blocks_next_if_incomplete": true
     },
     {
       "stage_id": "confirm_deadline",
       "title": "Confirm Appearance Memo filing/service deadline",
+      "depends_on": [
+        "archive_notice"
+      ],
+      "entry_conditions": [
+        "stage_complete:archive_notice"
+      ],
+      "completion_conditions": [
+        "deadline_confirmed"
+      ],
+      "blocking_reasons": [
+        "incomplete_dependencies",
+        "missing_required_artifacts"
+      ],
+      "required_artifacts": [
+        "deadline_confirmed"
+      ],
+      "deadline_rule": "human_confirmed_from_notice",
+      "responsible_actor": "party_or_counsel",
+      "receipts_required": [
+        "deadline_confirmed"
+      ],
+      "next_stage_rules": [
+        {
+          "when": "stage_complete",
+          "goto": "prepare_appearance_memo"
+        }
+      ],
       "blocks_next_if_incomplete": true
     },
     {
       "stage_id": "prepare_appearance_memo",
       "title": "Prepare Appearance Memo answers",
-      "form_id": "fam-pd-7-5",
-      "blocks_next_if_incomplete": true
+      "depends_on": [
+        "confirm_deadline"
+      ],
+      "entry_conditions": [
+        "stage_complete:confirm_deadline"
+      ],
+      "completion_conditions": [
+        "assertions_complete_or_unknowns_marked"
+      ],
+      "blocking_reasons": [
+        "incomplete_dependencies",
+        "missing_required_artifacts"
+      ],
+      "required_artifacts": [
+        "assertions_complete_or_unknowns_marked"
+      ],
+      "deadline_rule": "none",
+      "responsible_actor": "party_or_counsel",
+      "receipts_required": [
+        "assertions_complete_or_unknowns_marked"
+      ],
+      "next_stage_rules": [
+        {
+          "when": "stage_complete",
+          "goto": "review_answers"
+        }
+      ],
+      "blocks_next_if_incomplete": true,
+      "form_id": "fam-pd-7-5"
     },
     {
       "stage_id": "review_answers",
       "title": "Review answers and unknowns",
+      "depends_on": [
+        "prepare_appearance_memo"
+      ],
+      "entry_conditions": [
+        "stage_complete:prepare_appearance_memo"
+      ],
+      "completion_conditions": [
+        "human_answer_review_receipt"
+      ],
+      "blocking_reasons": [
+        "incomplete_dependencies",
+        "missing_required_artifacts"
+      ],
+      "required_artifacts": [
+        "human_answer_review_receipt"
+      ],
+      "deadline_rule": "none",
+      "responsible_actor": "party_or_counsel",
+      "receipts_required": [
+        "human_answer_review_receipt"
+      ],
+      "next_stage_rules": [
+        {
+          "when": "stage_complete",
+          "goto": "generate_document"
+        }
+      ],
       "blocks_next_if_incomplete": true
     },
     {
       "stage_id": "generate_document",
       "title": "Generate court-faithful draft PDF",
+      "depends_on": [
+        "review_answers"
+      ],
+      "entry_conditions": [
+        "stage_complete:review_answers"
+      ],
+      "completion_conditions": [
+        "draft_pdf_hash"
+      ],
+      "blocking_reasons": [
+        "incomplete_dependencies",
+        "missing_required_artifacts"
+      ],
+      "required_artifacts": [
+        "draft_pdf_hash"
+      ],
+      "deadline_rule": "none",
+      "responsible_actor": "party_or_counsel",
+      "receipts_required": [
+        "draft_pdf_hash"
+      ],
+      "next_stage_rules": [
+        {
+          "when": "stage_complete",
+          "goto": "sign"
+        }
+      ],
       "blocks_next_if_incomplete": true
     },
     {
       "stage_id": "sign",
       "title": "Sign (wet ink)",
+      "depends_on": [
+        "generate_document"
+      ],
+      "entry_conditions": [
+        "stage_complete:generate_document"
+      ],
+      "completion_conditions": [
+        "wet_ink_signature_receipt"
+      ],
+      "blocking_reasons": [
+        "incomplete_dependencies",
+        "missing_required_artifacts"
+      ],
+      "required_artifacts": [
+        "wet_ink_signature_receipt"
+      ],
+      "deadline_rule": "none",
+      "responsible_actor": "party_or_counsel",
+      "receipts_required": [
+        "wet_ink_signature_receipt"
+      ],
+      "next_stage_rules": [
+        {
+          "when": "stage_complete",
+          "goto": "serve"
+        }
+      ],
       "blocks_next_if_incomplete": true
     },
     {
       "stage_id": "serve",
       "title": "Serve required parties",
+      "depends_on": [
+        "sign"
+      ],
+      "entry_conditions": [
+        "stage_complete:sign"
+      ],
+      "completion_conditions": [
+        "service_proofs"
+      ],
+      "blocking_reasons": [
+        "incomplete_dependencies",
+        "missing_required_artifacts"
+      ],
+      "required_artifacts": [
+        "service_proofs"
+      ],
+      "deadline_rule": "human_confirmed_from_notice",
+      "responsible_actor": "party_or_counsel",
+      "receipts_required": [
+        "service_proofs"
+      ],
+      "next_stage_rules": [
+        {
+          "when": "stage_complete",
+          "goto": "file"
+        }
+      ],
       "blocks_next_if_incomplete": true
     },
     {
       "stage_id": "file",
       "title": "File with the court",
+      "depends_on": [
+        "serve"
+      ],
+      "entry_conditions": [
+        "stage_complete:serve"
+      ],
+      "completion_conditions": [
+        "filing_receipt"
+      ],
+      "blocking_reasons": [
+        "incomplete_dependencies",
+        "missing_required_artifacts"
+      ],
+      "required_artifacts": [
+        "filing_receipt"
+      ],
+      "deadline_rule": "human_confirmed_from_notice",
+      "responsible_actor": "party_or_counsel",
+      "receipts_required": [
+        "filing_receipt"
+      ],
+      "next_stage_rules": [
+        {
+          "when": "stage_complete",
+          "goto": "record_delivery"
+        }
+      ],
       "blocks_next_if_incomplete": true
     },
     {
       "stage_id": "record_delivery",
       "title": "Record delivery and court acceptance",
+      "depends_on": [
+        "file"
+      ],
+      "entry_conditions": [
+        "stage_complete:file"
+      ],
+      "completion_conditions": [
+        "acceptance_or_rejection_receipt"
+      ],
+      "blocking_reasons": [],
+      "required_artifacts": [
+        "acceptance_or_rejection_receipt"
+      ],
+      "deadline_rule": "none",
+      "responsible_actor": "party_or_counsel",
+      "receipts_required": [
+        "acceptance_or_rejection_receipt"
+      ],
+      "next_stage_rules": [
+        {
+          "when": "stage_complete",
+          "goto": "prepare_for_conference"
+        }
+      ],
       "blocks_next_if_incomplete": false
     },
     {
       "stage_id": "prepare_for_conference",
       "title": "Prepare for the conference",
+      "depends_on": [
+        "record_delivery"
+      ],
+      "entry_conditions": [
+        "stage_complete:record_delivery"
+      ],
+      "completion_conditions": [],
+      "blocking_reasons": [],
+      "required_artifacts": [],
+      "deadline_rule": "none",
+      "responsible_actor": "party_or_counsel",
+      "receipts_required": [],
+      "next_stage_rules": [],
       "blocks_next_if_incomplete": false
     }
   ]

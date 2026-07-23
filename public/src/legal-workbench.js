@@ -265,17 +265,20 @@ function renderTodayCard() {
 
   elements.todayCard.innerHTML = `
     <p class="eyebrow">Continue where you left off</p>
-    <h3>Next action</h3>
+    <h3>Next step</h3>
     <p class="today-card__action">${focusForm
-      ? `Answer about ${remaining || "a few"} questions in your ${escapeHtml(focusForm.title)}`
-      : "Select a form to continue"}</p>
+      ? `Continue your ${escapeHtml(focusForm.title)}`
+      : "Open the guided app to continue"}</p>
     <dl class="today-card__meta">
-      <div><dt>Estimated time</dt><dd>About ${estimateMinutes(remaining || 4)} minutes</dd></div>
-      <div><dt>Due</dt><dd>${escapeHtml(focusForm?.due_label || "Confirm deadline from official notice")}</dd></div>
+      <div><dt>Estimated time</dt><dd>About ${estimateMinutes(Math.min(remaining || 4, 4))} minutes</dd></div>
+      <div><dt>This section</dt><dd>A few short questions</dd></div>
       <div><dt>Also waiting on</dt><dd>${waitingTasks.length + waitingMail.length} item${waitingTasks.length + waitingMail.length === 1 ? "" : "s"}</dd></div>
     </dl>
     <p class="today-card__progress">${escapeHtml(answeredCopy)}</p>
-    <button class="primary-button" type="button" id="today-continue">${focusForm ? "Continue" : "Open work plan"}</button>
+    <div class="today-card__actions">
+      <a class="primary-button" href="/app">Continue in guided app</a>
+      <button class="secondary-button" type="button" id="today-continue">${focusForm ? "Open legacy form view" : "Open work plan"}</button>
+    </div>
   `;
   $("#today-continue", elements.todayCard)?.addEventListener("click", () => {
     if (focusForm) selectWorkItem(focusForm.work_id);
@@ -378,9 +381,9 @@ function showGenericWorkspace(item) {
   elements.genericAction.textContent = item.type === "task" ? "Mark reviewed" : "Create intake proposal";
   elements.genericAction.disabled = false;
   elements.genericContent.innerHTML = `
-    <article class="generic-card"><h3>Current state</h3><dl><dt>State</dt><dd>${escapeHtml(humanize(item.state))}</dd><dt>Timing</dt><dd>${escapeHtml(item.due_label || "Not set")}</dd><dt>Source</dt><dd>${escapeHtml(item.source_ref || "Not recorded")}</dd></dl></article>
+    <article class="generic-card"><h3>Current state</h3><p>${escapeHtml(humanize(item.state))}. ${escapeHtml(item.due_label || "Timing not set yet.")}</p></article>
     <article class="generic-card"><h3>Next safe action</h3><p>${escapeHtml(item.next_action || "Review this item")}</p></article>
-    <article class="generic-card"><h3>Audit boundary</h3><p>No external state is changed. A future action would require an append-only event and receipt.</p></article>`;
+    <article class="generic-card"><h3>Boundary</h3><p>Nothing is filed, served, emailed, or transmitted from this preview.</p></article>`;
 }
 
 function renderFormHeader() {
@@ -559,7 +562,7 @@ function renderSectionReview() {
       row.className = "section-question-row";
       row.tabIndex = 0;
       const answerState = navigationItem.needs_help ? ["Needs help", "is-unknown"] : navigationItem.answered ? ["Answered", "is-answered"] : navigationItem.unresolved_obligation ? ["Rule review", "is-unknown"] : ["Not answered", ""];
-      row.innerHTML = `<div><strong>${escapeHtml(item.source_label)}</strong><span>${escapeHtml(item.line_item_id)} · ${escapeHtml(humanize(item.kind))}</span></div><span class="answer-state ${answerState[1]}">${answerState[0]}</span>`;
+      row.innerHTML = `<div><strong>${escapeHtml(item.source_label)}</strong></div><span class="answer-state ${answerState[1]}">${answerState[0]}</span>`;
       row.addEventListener("click", () => {
         state.workspaceMode = "guided";
         setSelectedQuestion(item.line_item_id);
@@ -575,6 +578,11 @@ function renderPagePreview() {
   const form = currentForm();
   const entries = Object.entries(applicableQuestionsBySection(form));
   elements.pageView.innerHTML = "";
+  const banner = document.createElement("div");
+  banner.className = "answer-review-banner";
+  banner.setAttribute("role", "status");
+  banner.innerHTML = "<strong>ANSWER REVIEW</strong><span>THIS IS NOT THE DOCUMENT YOU WILL FILE</span>";
+  elements.pageView.append(banner);
   const targetPageCount = Math.max(1, Math.min(5, Math.ceil(entries.length / 4)));
   const sectionsPerPage = Math.ceil(entries.length / targetPageCount);
   for (let pageIndex = 0; pageIndex < targetPageCount; pageIndex += 1) {
@@ -631,8 +639,8 @@ function renderInspector() {
     elements.inspectorTitle.textContent = "Why am I being asked this?";
     elements.inspectorContent.innerHTML = `
       <section class="inspector-panel">
-        <h3>Simple answer</h3>
-        <p>This question comes from the official form. Answer only what you can confirm. Use “I do not know yet” if you need help.</p>
+        <h3>What this asks</h3>
+        <p>${escapeHtml(question.source_label)}. Answer only what you can confirm from your documents. Use “I do not know yet” if you need help.</p>
         <div class="inspector-actions">
           <button class="secondary-button" id="inspector-ask-ibal" type="button">Ask Ibal</button>
           <button class="text-button" id="toggle-source-audit" type="button">${expanded ? "Hide source and audit details" : "Source and audit details"}</button>

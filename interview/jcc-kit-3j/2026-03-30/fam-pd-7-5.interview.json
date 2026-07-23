@@ -6,241 +6,241 @@
       "form_id": "fam-pd-7-5",
       "line_item_id": "header.court_file_number",
       "disposition": "copied_from_existing_fact",
-      "source_line_item_hash": "f0173ec2d1f83c39"
+      "source_line_item_hash": "bb18c55192a6abed4a1080f8fc00379fcaecbdcd18a03edce40a3ebc93b35add"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "header.judicial_centre",
       "disposition": "copied_from_existing_fact",
-      "source_line_item_hash": "71711b9892a0ca66"
+      "source_line_item_hash": "4d6a7c6b6b0604f671755d94df2c080025aedb00b3cb1e8b0f4d539d2036f6b1"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "header.petitioner",
       "disposition": "copied_from_existing_fact",
-      "source_line_item_hash": "c796261af5d9e08d"
+      "source_line_item_hash": "a49c413dfb407a24353cc57233bf1328785e47dd85569cce29847c5bf19f7c5d"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "header.respondent",
       "disposition": "copied_from_existing_fact",
-      "source_line_item_hash": "2f3d104df1317f74"
+      "source_line_item_hash": "8712c76c74884986ee0f708956ef415a0e37dddf5b8fa6933669abb4a3c4e739"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "schedule.date",
       "disposition": "asked_directly",
-      "source_line_item_hash": "4af1d8d9e6bef95b"
+      "source_line_item_hash": "9e19da9e68d3847f5eb3e3d3f0bbb25a11274debc127bf848679820ef52df58c"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "schedule.time_and_location",
       "disposition": "asked_directly",
-      "source_line_item_hash": "7928695114b71b0b"
+      "source_line_item_hash": "6727395bccb25864455cd7652ba2339b491d3b4514bf3b2726ef24f637cfc44c"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p1a.filed_on_behalf_of",
       "disposition": "asked_directly",
-      "source_line_item_hash": "f14a3067eeeee615"
+      "source_line_item_hash": "7c60370d91027f174c100a1fa0c008e60325d7ca89ac874f7ba8c307368bf546"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p1b.other_parties_and_counsel",
       "disposition": "asked_directly",
-      "source_line_item_hash": "2284f7ebbfa8ff3d"
+      "source_line_item_hash": "7f699dd9cbe70c1589efdf21dfab5dbd03260f3d2a4b1af919dbc76bf75bd8bb"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p2.party_role",
       "disposition": "asked_directly",
-      "source_line_item_hash": "3e0dd41a08995c42"
+      "source_line_item_hash": "d310cb35ac4c6d552751073b5e1cd2b754fccce7812652be2cdde263c7154dc1"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p2.request_date",
       "disposition": "asked_directly",
-      "source_line_item_hash": "bc1bfc0b3eecc64a"
+      "source_line_item_hash": "3c16a5867e2c055931fc2492ca637afc221a25b2f02bd3bef7af44cd00a86dc0"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p2.draft_order_filed_date",
       "disposition": "asked_directly",
-      "source_line_item_hash": "e2dcad5db77cb2f0"
+      "source_line_item_hash": "c166e86cf09d88fe970c975ab39301a2b8646e764a77aac572397941bf75a9c4"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p3.readiness_position",
       "disposition": "asked_directly",
-      "source_line_item_hash": "e863382cbb26b5c7"
+      "source_line_item_hash": "507a230ef92fc6061af4b0e8eea4baf57bad13df8e517c5349291e044551d224"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p4.legal_position_summary",
       "disposition": "asked_directly",
-      "source_line_item_hash": "84464419a365cb38"
+      "source_line_item_hash": "90fae79be3825e3761cff8606e6d0365dca6d3878213a1d2a77dcbd347d14601"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p5.consented_unopposed_relief",
       "disposition": "asked_directly",
-      "source_line_item_hash": "e8babf429e8400b6"
+      "source_line_item_hash": "e0cac7f213b8f448731e15f4f2bfccce30d05af7a29e196e4db2736b1663d102"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p6a.i.case_conferences_state",
       "disposition": "asked_directly",
-      "source_line_item_hash": "2b106b4cfae30405"
+      "source_line_item_hash": "410a11bb9b72d40307311ea1759e7f130eab45d1a754028ceb703086d0f7d5e8"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p6a.i.case_conference_date",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "7ba6cf9897f17a96"
+      "source_line_item_hash": "eac287f349ac0a7868d2c63285908145bbc7c64d4c67488f89ad28944172ce3a"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p6a.ii.chambers_state",
       "disposition": "asked_directly",
-      "source_line_item_hash": "b1c967209780fcc6"
+      "source_line_item_hash": "a82c41b6215803e694f5c6a24fe3548e9e8b6751213effb9cb85610da0b85f08"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p6a.ii.chambers_return_date",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "781950c1005b5289"
+      "source_line_item_hash": "1bb427c82cb08a780c3f3a4d0d627b5a11b37ee0f98f4343252db8e3f38a849d"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p6a.ii.chambers_reserved_date",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "081e2415cb4db535"
+      "source_line_item_hash": "8a758d360e27d812787075c0d4d492e46c5d96e4a311c5c1a3db5a26c74fec91"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p6a.ii.chambers_reserved_justice",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "a3a654c8a66e4123"
+      "source_line_item_hash": "b6993d0c4c7be3baeb655ed8a6225301f5c65bc357b7550f4075ed5fe1472932"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p6a.iii.pretrial_state",
       "disposition": "asked_directly",
-      "source_line_item_hash": "5d90a980d87e2bc5"
+      "source_line_item_hash": "884ea8e8fdc9c485b80ca82d9c5c17bebad0e430ffac9bb1e577cacbda8ea31f"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p6a.iii.pretrial_date",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "c019a8a0e4ec8eab"
+      "source_line_item_hash": "1658a7859a15b86cc476412fd3458923b3343afaf4b6f80986ee1cafbc099e7b"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p6a.iv.trial_state",
       "disposition": "asked_directly",
-      "source_line_item_hash": "5ebf2d23138d7271"
+      "source_line_item_hash": "7df564089cbbe6f4f42e8eda9f365406b82a26ecea7e61622bbeb2c1d702cd22"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p6a.iv.trial_date",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "2d28a0b3792adddf"
+      "source_line_item_hash": "64521c3094d59a921ded2471b47421d176fd44f76e21f71b0cf50a258c199536"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p6b.related_proceedings",
       "disposition": "asked_directly",
-      "source_line_item_hash": "50fecf79807aa16b"
+      "source_line_item_hash": "d39f12ef27c7750558a8c541746b84f815666b97f89958863a10039fe2d74017"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p7.memo_type",
       "disposition": "asked_directly",
-      "source_line_item_hash": "bdffcadd2029f2b7"
+      "source_line_item_hash": "9fdbcd830c6ca5c95e835987a646b09bfb9bc24690c2bd94b25fcb56b37094a5"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p7.updated_party_role",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "01f80f59e68f4f86"
+      "source_line_item_hash": "390a4547b240abe0a0f3b861869e3782528b65050fed05f4c64578bab2725769"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p7.change_state",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "2c2a838ab31795c7"
+      "source_line_item_hash": "607bba16d92140c76db5b9b9d36740169c374af48d0d7ee84c2a245f2e7721bb"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "p7.changes",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "9bb0383e0323377e"
+      "source_line_item_hash": "9e4568f05036a64ec4b13125c3a0f181f638a2fd2dc19bf766a8c2da78b2c93e"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "execution.city",
       "disposition": "asked_directly",
-      "source_line_item_hash": "4bfb6640cf5e656a"
+      "source_line_item_hash": "d10f766fc9e52d9e433ec00c97f1c21115afc5e8ec4c01bc5e10b7b3712a867b"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "execution.day",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "54033b091db2213e"
+      "source_line_item_hash": "9df7aa98e2e96775c21eb556a930cc953e9dcec1d344302d43510882ea9ece93"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "execution.month",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "82f4c29b0fe20f48"
+      "source_line_item_hash": "8b0050dd4cd2fff71832082c04801fe56990b7857c67872a91d7a35e5af6235f"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "execution.year",
       "disposition": "grouped_into_step",
-      "source_line_item_hash": "5f412c446e064439"
+      "source_line_item_hash": "6de08f0a57098b28edd5071f38011f172561bc3b14a5ada195d64c42cad8ea82"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "execution.signature",
       "disposition": "signature_workflow",
-      "source_line_item_hash": "099c151f5443700f"
+      "source_line_item_hash": "392c8228bfd57477e2c55786809b8affca2e57983ddc3aaab7b4230d61ffb770"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "execution.name",
       "disposition": "copied_from_existing_fact",
-      "source_line_item_hash": "0be30c88b0aa347a"
+      "source_line_item_hash": "786634e87848a0dffbb891a073fb9134a20d7b491db5423e8564bb93c2449135"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "contact.name",
       "disposition": "copied_from_existing_fact",
-      "source_line_item_hash": "a039a3eb826caeff"
+      "source_line_item_hash": "56ec0bd63f6ec48dd2196841bb662309ec18383fea8c057309364aaa38f0f9b3"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "contact.address",
       "disposition": "asked_directly",
-      "source_line_item_hash": "dc082343f88ac84a"
+      "source_line_item_hash": "9f3042ebd06d6fa39725563fccf105efbceb5835236f6ce6829e29528dcd3610"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "contact.telephone",
       "disposition": "asked_directly",
-      "source_line_item_hash": "ff5334fce5ab8051"
+      "source_line_item_hash": "e9c8645f54902fbc90915f3dca2a2b8a604cbe394e49c1bdd5b766a1bd33b16a"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "contact.fax",
       "disposition": "asked_directly",
-      "source_line_item_hash": "b841900a7a379b9a"
+      "source_line_item_hash": "4d0698c6fd1e3d644c71685265c7f2a09be543d5838de4185830de9596f46ac8"
     },
     {
       "form_id": "fam-pd-7-5",
       "line_item_id": "contact.email",
       "disposition": "asked_directly",
-      "source_line_item_hash": "0395a6f1143c2f08"
+      "source_line_item_hash": "2321bae245c584da609f12fde61502001d21dc498c223cfd374dd4e36dd9b623"
     }
   ],
   "steps": [
@@ -248,6 +248,31 @@
       "interaction_step_id": "jcc.appearance.conference_when_where",
       "title": "Conference date and place",
       "order": 10,
+      "estimated_minutes": 3,
+      "section_goal": "Confirm when and where the conference is scheduled.",
+      "fields": [
+        {
+          "field_token": "field.schedule_date",
+          "fact_definition_id": "matter.jcc.scheduled_date",
+          "line_item_id": "schedule.date",
+          "label": "Conference date",
+          "control": "date",
+          "value_type": "date",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.schedule_date"
+        },
+        {
+          "field_token": "field.schedule_time_and_location",
+          "fact_definition_id": "matter.jcc.time_and_location",
+          "line_item_id": "schedule.time_and_location",
+          "label": "Time and location",
+          "control": "text",
+          "value_type": "text",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.schedule_time_and_location"
+        }
+      ],
+      "presentation_id": "pres.jcc.appearance.conference_when_where.v1",
       "fact_definition_ids": [
         "matter.jcc.scheduled_date",
         "matter.jcc.time_and_location"
@@ -256,20 +281,55 @@
         "schedule.date",
         "schedule.time_and_location"
       ],
-      "input_bindings": [
-        "binding.fam-pd-7-5.schedule_date",
-        "binding.fam-pd-7-5.schedule_time_and_location"
-      ],
+      "input_bindings": [],
       "output_bindings": [
         "binding.fam-pd-7-5.schedule_date",
         "binding.fam-pd-7-5.schedule_time_and_location"
-      ],
-      "presentation_id": "pres.jcc.appearance.conference_when_where.v1"
+      ]
     },
     {
       "interaction_step_id": "jcc.appearance.who_files",
       "title": "Who this memo is for",
       "order": 20,
+      "estimated_minutes": 4,
+      "section_goal": "Identify who files this memo and who is on the other side.",
+      "fields": [
+        {
+          "field_token": "field.p1a_filed_on_behalf_of",
+          "fact_definition_id": "matter.party.filing_as",
+          "line_item_id": "p1a.filed_on_behalf_of",
+          "label": "Filed on behalf of",
+          "control": "text",
+          "value_type": "text",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p1a_filed_on_behalf_of"
+        },
+        {
+          "field_token": "field.p1b_other_parties_and_counsel",
+          "fact_definition_id": "matter.party.other_parties_counsel",
+          "line_item_id": "p1b.other_parties_and_counsel",
+          "label": "Other parties and counsel",
+          "control": "textarea",
+          "value_type": "repeatable_text",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p1b_other_parties_and_counsel"
+        },
+        {
+          "field_token": "field.p2_party_role",
+          "fact_definition_id": "matter.party.role",
+          "line_item_id": "p2.party_role",
+          "label": "You are the",
+          "control": "select",
+          "value_type": "enum",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p2_party_role",
+          "options": [
+            "petitioner",
+            "respondent"
+          ]
+        }
+      ],
+      "presentation_id": "pres.jcc.appearance.who_files.v1",
       "fact_definition_ids": [
         "matter.party.filing_as",
         "matter.party.other_parties_counsel",
@@ -285,13 +345,37 @@
         "binding.fam-pd-7-5.p1a_filed_on_behalf_of",
         "binding.fam-pd-7-5.p1b_other_parties_and_counsel",
         "binding.fam-pd-7-5.p2_party_role"
-      ],
-      "presentation_id": "pres.jcc.appearance.who_files.v1"
+      ]
     },
     {
       "interaction_step_id": "jcc.appearance.request_and_draft_dates",
       "title": "Request and draft order dates",
       "order": 30,
+      "estimated_minutes": 3,
+      "section_goal": "Record the request and draft-order dates from filed documents.",
+      "fields": [
+        {
+          "field_token": "field.p2_request_date",
+          "fact_definition_id": "matter.jcc.request_date",
+          "line_item_id": "p2.request_date",
+          "label": "Request for Judicial Case Conference date",
+          "control": "date",
+          "value_type": "date",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p2_request_date"
+        },
+        {
+          "field_token": "field.p2_draft_order_filed_date",
+          "fact_definition_id": "matter.jcc.draft_order_filed_date",
+          "line_item_id": "p2.draft_order_filed_date",
+          "label": "Draft order filed on",
+          "control": "date",
+          "value_type": "date",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p2_draft_order_filed_date"
+        }
+      ],
+      "presentation_id": "pres.jcc.appearance.request_and_draft_dates.v1",
       "fact_definition_ids": [
         "matter.jcc.request_date",
         "matter.jcc.draft_order_filed_date"
@@ -304,13 +388,27 @@
       "output_bindings": [
         "binding.fam-pd-7-5.p2_request_date",
         "binding.fam-pd-7-5.p2_draft_order_filed_date"
-      ],
-      "presentation_id": "pres.jcc.appearance.request_and_draft_dates.v1"
+      ]
     },
     {
       "interaction_step_id": "jcc.appearance.readiness",
       "title": "Ready to proceed?",
       "order": 40,
+      "estimated_minutes": 5,
+      "section_goal": "State whether you are ready to proceed or need more time.",
+      "fields": [
+        {
+          "field_token": "field.p3_readiness_position",
+          "fact_definition_id": "matter.jcc.readiness_position",
+          "line_item_id": "p3.readiness_position",
+          "label": "Readiness position",
+          "control": "textarea",
+          "value_type": "long_text",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p3_readiness_position"
+        }
+      ],
+      "presentation_id": "pres.jcc.appearance.readiness.v1",
       "fact_definition_ids": [
         "matter.jcc.readiness_position"
       ],
@@ -320,13 +418,27 @@
       "input_bindings": [],
       "output_bindings": [
         "binding.fam-pd-7-5.p3_readiness_position"
-      ],
-      "presentation_id": "pres.jcc.appearance.readiness.v1"
+      ]
     },
     {
       "interaction_step_id": "jcc.appearance.legal_summary",
       "title": "Your position in plain terms",
       "order": 50,
+      "estimated_minutes": 8,
+      "section_goal": "Summarize the legal aspects of your position.",
+      "fields": [
+        {
+          "field_token": "field.p4_legal_position_summary",
+          "fact_definition_id": "matter.jcc.legal_position_summary",
+          "line_item_id": "p4.legal_position_summary",
+          "label": "Legal position summary",
+          "control": "textarea",
+          "value_type": "long_text",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p4_legal_position_summary"
+        }
+      ],
+      "presentation_id": "pres.jcc.appearance.legal_summary.v1",
       "fact_definition_ids": [
         "matter.jcc.legal_position_summary"
       ],
@@ -336,13 +448,27 @@
       "input_bindings": [],
       "output_bindings": [
         "binding.fam-pd-7-5.p4_legal_position_summary"
-      ],
-      "presentation_id": "pres.jcc.appearance.legal_summary.v1"
+      ]
     },
     {
       "interaction_step_id": "jcc.appearance.consent",
       "title": "Any agreed relief?",
       "order": 60,
+      "estimated_minutes": 4,
+      "section_goal": "List only relief that is consented to or unopposed.",
+      "fields": [
+        {
+          "field_token": "field.p5_consented_unopposed_relief",
+          "fact_definition_id": "matter.jcc.consented_relief",
+          "line_item_id": "p5.consented_unopposed_relief",
+          "label": "Consented or unopposed relief",
+          "control": "textarea",
+          "value_type": "repeatable_long_text",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p5_consented_unopposed_relief"
+        }
+      ],
+      "presentation_id": "pres.jcc.appearance.consent.v1",
       "fact_definition_ids": [
         "matter.jcc.consented_relief"
       ],
@@ -352,51 +478,365 @@
       "input_bindings": [],
       "output_bindings": [
         "binding.fam-pd-7-5.p5_consented_unopposed_relief"
-      ],
-      "presentation_id": "pres.jcc.appearance.consent.v1"
+      ]
     },
     {
       "interaction_step_id": "jcc.appearance.other_proceedings",
       "title": "Other court steps",
       "order": 70,
+      "estimated_minutes": 6,
+      "section_goal": "Describe other pending court steps and related proceedings.",
+      "fields": [
+        {
+          "field_token": "field.p6a_i_case_conferences_state",
+          "fact_definition_id": "matter.procedure.other_case_conferences",
+          "line_item_id": "p6a.i.case_conferences_state",
+          "label": "Other case conferences pending",
+          "control": "select",
+          "value_type": "enum",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p6a_i_case_conferences_state",
+          "options": [
+            "none",
+            "returnable on"
+          ]
+        },
+        {
+          "field_token": "field.p6a_i_case_conference_date",
+          "fact_definition_id": "matter.procedure.case_conference_date",
+          "line_item_id": "p6a.i.case_conference_date",
+          "label": "Case conference returnable date",
+          "control": "date",
+          "value_type": "date",
+          "required_rule": "conditional:p6a.i.case_conferences_state=returnable",
+          "binding_id": "binding.fam-pd-7-5.p6a_i_case_conference_date"
+        },
+        {
+          "field_token": "field.p6a_ii_chambers_state",
+          "fact_definition_id": "matter.procedure.chambers_state",
+          "line_item_id": "p6a.ii.chambers_state",
+          "label": "Chambers applications pending",
+          "control": "select",
+          "value_type": "enum",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p6a_ii_chambers_state",
+          "options": [
+            "none",
+            "returnable on",
+            "reserved"
+          ]
+        },
+        {
+          "field_token": "field.p6a_ii_chambers_return_date",
+          "fact_definition_id": "matter.procedure.chambers_return_date",
+          "line_item_id": "p6a.ii.chambers_return_date",
+          "label": "Chambers return date",
+          "control": "date",
+          "value_type": "date",
+          "required_rule": "conditional:p6a.ii.chambers_state=returnable",
+          "binding_id": "binding.fam-pd-7-5.p6a_ii_chambers_return_date"
+        },
+        {
+          "field_token": "field.p6a_ii_chambers_reserved_date",
+          "fact_definition_id": "matter.procedure.chambers_reserved_date",
+          "line_item_id": "p6a.ii.chambers_reserved_date",
+          "label": "Chambers reserved date",
+          "control": "date",
+          "value_type": "date",
+          "required_rule": "conditional:p6a.ii.chambers_state=reserved",
+          "binding_id": "binding.fam-pd-7-5.p6a_ii_chambers_reserved_date"
+        },
+        {
+          "field_token": "field.p6a_ii_chambers_reserved_justice",
+          "fact_definition_id": "matter.procedure.chambers_reserved_justice",
+          "line_item_id": "p6a.ii.chambers_reserved_justice",
+          "label": "Reserved justice",
+          "control": "text",
+          "value_type": "text",
+          "required_rule": "conditional:p6a.ii.chambers_state=reserved",
+          "binding_id": "binding.fam-pd-7-5.p6a_ii_chambers_reserved_justice"
+        },
+        {
+          "field_token": "field.p6a_iii_pretrial_state",
+          "fact_definition_id": "matter.procedure.pretrial_state",
+          "line_item_id": "p6a.iii.pretrial_state",
+          "label": "Pre-trial",
+          "control": "select",
+          "value_type": "enum",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p6a_iii_pretrial_state",
+          "options": [
+            "Not scheduled",
+            "Scheduled"
+          ]
+        },
+        {
+          "field_token": "field.p6a_iii_pretrial_date",
+          "fact_definition_id": "matter.procedure.pretrial_date",
+          "line_item_id": "p6a.iii.pretrial_date",
+          "label": "Pre-trial scheduled date",
+          "control": "date",
+          "value_type": "date",
+          "required_rule": "conditional:p6a.iii.pretrial_state=Scheduled",
+          "binding_id": "binding.fam-pd-7-5.p6a_iii_pretrial_date"
+        },
+        {
+          "field_token": "field.p6a_iv_trial_state",
+          "fact_definition_id": "matter.procedure.trial_state",
+          "line_item_id": "p6a.iv.trial_state",
+          "label": "Trial",
+          "control": "select",
+          "value_type": "enum",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p6a_iv_trial_state",
+          "options": [
+            "Not scheduled",
+            "Scheduled"
+          ]
+        },
+        {
+          "field_token": "field.p6a_iv_trial_date",
+          "fact_definition_id": "matter.procedure.trial_date",
+          "line_item_id": "p6a.iv.trial_date",
+          "label": "Trial scheduled date",
+          "control": "date",
+          "value_type": "date",
+          "required_rule": "conditional:p6a.iv.trial_state=Scheduled",
+          "binding_id": "binding.fam-pd-7-5.p6a_iv_trial_date"
+        },
+        {
+          "field_token": "field.p6b_related_proceedings",
+          "fact_definition_id": "matter.procedure.related_proceedings",
+          "line_item_id": "p6b.related_proceedings",
+          "label": "Related proceedings summary",
+          "control": "textarea",
+          "value_type": "long_text",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p6b_related_proceedings"
+        }
+      ],
+      "presentation_id": "pres.jcc.appearance.other_proceedings.v1",
       "fact_definition_ids": [
         "matter.procedure.other_case_conferences",
+        "matter.procedure.case_conference_date",
         "matter.procedure.chambers_state",
+        "matter.procedure.chambers_return_date",
+        "matter.procedure.chambers_reserved_date",
+        "matter.procedure.chambers_reserved_justice",
         "matter.procedure.pretrial_state",
+        "matter.procedure.pretrial_date",
         "matter.procedure.trial_state",
+        "matter.procedure.trial_date",
         "matter.procedure.related_proceedings"
       ],
       "line_item_ids": [
         "p6a.i.case_conferences_state",
+        "p6a.i.case_conference_date",
         "p6a.ii.chambers_state",
+        "p6a.ii.chambers_return_date",
+        "p6a.ii.chambers_reserved_date",
+        "p6a.ii.chambers_reserved_justice",
         "p6a.iii.pretrial_state",
+        "p6a.iii.pretrial_date",
         "p6a.iv.trial_state",
+        "p6a.iv.trial_date",
         "p6b.related_proceedings"
       ],
       "input_bindings": [],
-      "output_bindings": [],
-      "presentation_id": "pres.jcc.appearance.other_proceedings.v1"
+      "output_bindings": [
+        "binding.fam-pd-7-5.p6a_i_case_conferences_state",
+        "binding.fam-pd-7-5.p6a_i_case_conference_date",
+        "binding.fam-pd-7-5.p6a_ii_chambers_state",
+        "binding.fam-pd-7-5.p6a_ii_chambers_return_date",
+        "binding.fam-pd-7-5.p6a_ii_chambers_reserved_date",
+        "binding.fam-pd-7-5.p6a_ii_chambers_reserved_justice",
+        "binding.fam-pd-7-5.p6a_iii_pretrial_state",
+        "binding.fam-pd-7-5.p6a_iii_pretrial_date",
+        "binding.fam-pd-7-5.p6a_iv_trial_state",
+        "binding.fam-pd-7-5.p6a_iv_trial_date",
+        "binding.fam-pd-7-5.p6b_related_proceedings"
+      ]
     },
     {
       "interaction_step_id": "jcc.appearance.memo_type",
       "title": "First or updated memo?",
       "order": 80,
+      "estimated_minutes": 4,
+      "section_goal": "Say whether this is a first or updated Appearance Memo.",
+      "fields": [
+        {
+          "field_token": "field.p7_memo_type",
+          "fact_definition_id": "matter.jcc.memo_type",
+          "line_item_id": "p7.memo_type",
+          "label": "This is the",
+          "control": "select",
+          "value_type": "enum",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.p7_memo_type",
+          "options": [
+            "First Memo filed respecting this Request",
+            "Updated Memo"
+          ]
+        },
+        {
+          "field_token": "field.p7_updated_party_role",
+          "fact_definition_id": "matter.jcc.updated_party_role",
+          "line_item_id": "p7.updated_party_role",
+          "label": "Updated memo filed by",
+          "control": "select",
+          "value_type": "enum",
+          "required_rule": "conditional:p7.memo_type=Updated",
+          "binding_id": "binding.fam-pd-7-5.p7_updated_party_role",
+          "options": [
+            "petitioner",
+            "respondent"
+          ]
+        },
+        {
+          "field_token": "field.p7_change_state",
+          "fact_definition_id": "matter.jcc.change_state",
+          "line_item_id": "p7.change_state",
+          "label": "Change state",
+          "control": "select",
+          "value_type": "enum",
+          "required_rule": "conditional:p7.memo_type=Updated",
+          "binding_id": "binding.fam-pd-7-5.p7_change_state",
+          "options": [
+            "Changes in circumstances and/or position",
+            "No change in circumstances and/or position"
+          ]
+        },
+        {
+          "field_token": "field.p7_changes",
+          "fact_definition_id": "matter.jcc.changes",
+          "line_item_id": "p7.changes",
+          "label": "Describe changes",
+          "control": "textarea",
+          "value_type": "long_text",
+          "required_rule": "conditional:p7.change_state=Changes",
+          "binding_id": "binding.fam-pd-7-5.p7_changes"
+        }
+      ],
+      "presentation_id": "pres.jcc.appearance.memo_type.v1",
       "fact_definition_ids": [
-        "matter.jcc.memo_type"
+        "matter.jcc.memo_type",
+        "matter.jcc.updated_party_role",
+        "matter.jcc.change_state",
+        "matter.jcc.changes"
       ],
       "line_item_ids": [
-        "p7.memo_type"
+        "p7.memo_type",
+        "p7.updated_party_role",
+        "p7.change_state",
+        "p7.changes"
       ],
       "input_bindings": [],
       "output_bindings": [
-        "binding.fam-pd-7-5.p7_memo_type"
-      ],
-      "presentation_id": "pres.jcc.appearance.memo_type.v1"
+        "binding.fam-pd-7-5.p7_memo_type",
+        "binding.fam-pd-7-5.p7_updated_party_role",
+        "binding.fam-pd-7-5.p7_change_state",
+        "binding.fam-pd-7-5.p7_changes"
+      ]
     },
     {
       "interaction_step_id": "jcc.appearance.contact_and_date",
       "title": "Contact and dating",
       "order": 90,
+      "estimated_minutes": 5,
+      "section_goal": "Provide dating details and your address for service.",
+      "fields": [
+        {
+          "field_token": "field.execution_city",
+          "fact_definition_id": "matter.execution.city",
+          "line_item_id": "execution.city",
+          "label": "Dated at",
+          "control": "text",
+          "value_type": "text",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.execution_city"
+        },
+        {
+          "field_token": "field.execution_day",
+          "fact_definition_id": "matter.execution.day",
+          "line_item_id": "execution.day",
+          "label": "Day",
+          "control": "number",
+          "value_type": "integer",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.execution_day"
+        },
+        {
+          "field_token": "field.execution_month",
+          "fact_definition_id": "matter.execution.month",
+          "line_item_id": "execution.month",
+          "label": "Month",
+          "control": "text",
+          "value_type": "text",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.execution_month"
+        },
+        {
+          "field_token": "field.execution_year",
+          "fact_definition_id": "matter.execution.year",
+          "line_item_id": "execution.year",
+          "label": "Year",
+          "control": "number",
+          "value_type": "integer",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.execution_year"
+        },
+        {
+          "field_token": "field.contact_name",
+          "fact_definition_id": "matter.contact.name",
+          "line_item_id": "contact.name",
+          "label": "Name",
+          "control": "text",
+          "value_type": "text",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.contact_name"
+        },
+        {
+          "field_token": "field.contact_address",
+          "fact_definition_id": "matter.contact.address",
+          "line_item_id": "contact.address",
+          "label": "Address",
+          "control": "textarea",
+          "value_type": "address",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.contact_address"
+        },
+        {
+          "field_token": "field.contact_telephone",
+          "fact_definition_id": "matter.contact.telephone",
+          "line_item_id": "contact.telephone",
+          "label": "Telephone",
+          "control": "tel",
+          "value_type": "telephone",
+          "required_rule": "always",
+          "binding_id": "binding.fam-pd-7-5.contact_telephone"
+        },
+        {
+          "field_token": "field.contact_fax",
+          "fact_definition_id": "matter.contact.fax",
+          "line_item_id": "contact.fax",
+          "label": "Fax",
+          "control": "text",
+          "value_type": "fax",
+          "required_rule": "optional",
+          "binding_id": "binding.fam-pd-7-5.contact_fax"
+        },
+        {
+          "field_token": "field.contact_email",
+          "fact_definition_id": "matter.contact.email",
+          "line_item_id": "contact.email",
+          "label": "Email",
+          "control": "email",
+          "value_type": "email",
+          "required_rule": "optional",
+          "binding_id": "binding.fam-pd-7-5.contact_email"
+        }
+      ],
+      "presentation_id": "pres.jcc.appearance.contact_and_date.v1",
       "fact_definition_ids": [
         "matter.execution.city",
         "matter.execution.day",
@@ -405,6 +845,7 @@
         "matter.contact.name",
         "matter.contact.address",
         "matter.contact.telephone",
+        "matter.contact.fax",
         "matter.contact.email"
       ],
       "line_item_ids": [
@@ -415,11 +856,21 @@
         "contact.name",
         "contact.address",
         "contact.telephone",
+        "contact.fax",
         "contact.email"
       ],
       "input_bindings": [],
-      "output_bindings": [],
-      "presentation_id": "pres.jcc.appearance.contact_and_date.v1"
+      "output_bindings": [
+        "binding.fam-pd-7-5.execution_city",
+        "binding.fam-pd-7-5.execution_day",
+        "binding.fam-pd-7-5.execution_month",
+        "binding.fam-pd-7-5.execution_year",
+        "binding.fam-pd-7-5.contact_name",
+        "binding.fam-pd-7-5.contact_address",
+        "binding.fam-pd-7-5.contact_telephone",
+        "binding.fam-pd-7-5.contact_fax",
+        "binding.fam-pd-7-5.contact_email"
+      ]
     }
   ]
 }

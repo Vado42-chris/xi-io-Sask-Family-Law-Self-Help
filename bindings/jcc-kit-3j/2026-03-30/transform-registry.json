@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "transforms": [
+    {
+      "transform_id": "identity",
+      "description": "Pass-through"
+    },
+    {
+      "transform_id": "date_iso_to_long_en_ca",
+      "description": "ISO date to long English Canada date"
+    },
+    {
+      "transform_id": "integer_as_string",
+      "description": "Integer to decimal string"
+    }
+  ]
+}

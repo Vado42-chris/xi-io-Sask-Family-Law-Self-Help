@@ -555,6 +555,19 @@ p { color: var(--muted); line-height: 1.5; }
 .form-page__field strong { color: #222; font-size: .72rem; }
 .form-page__field p { margin: .2rem 0 0; color: #363636; font-family: Georgia, serif; font-size: .78rem; white-space: pre-wrap; }
 .form-page__footer { margin-top: 2rem; color: #555; font-size: .65rem; text-align: center; }
+.answer-review-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: baseline;
+  margin: 0 0 1rem;
+  padding: 0.85rem 1rem;
+  background: #f7ead8;
+  color: #8a4b12;
+  border: 1px solid #e2c8a4;
+  font-size: 0.95rem;
+}
+.answer-review-banner strong { letter-spacing: 0.04em; }
 
 .package-summary {
   display: grid;

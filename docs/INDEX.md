@@ -45,6 +45,7 @@ Project: `sask_family_law_self_help`
 | Progressive disclosure interview | `docs/ux/progressive-disclosure-interview-v1.md` |
 | Accessibility and cognitive load | `docs/ux/accessibility-and-cognitive-load-v1.md` |
 | Interaction architecture receipt | `docs/ops/SFL-INTERACTION-ARCHITECTURE-001I.md` |
+| Peer-review corrections | `docs/ops/SFL-PEER-REVIEW-CORRECTIONS-001K.md` |
 | Track A private litmus receipt | `docs/ops/SFL-TRACK-A-PRIVATE-LITMUS-001J.md` |
 | Legal-information boundary | `docs/legal/legal-information-boundary-v1.md` |
 

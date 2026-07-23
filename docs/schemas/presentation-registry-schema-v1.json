@@ -3,12 +3,10 @@
   "$id": "https://xi-io.local/schemas/presentation-registry-schema-v1.json",
   "title": "Presentation registry",
   "type": "object",
-  "required": [
-    "form_id",
-    "snapshot_id",
-    "presentations"
-  ],
+  "required": ["form_id", "snapshot_id", "presentations"],
   "properties": {
+    "form_id": { "type": "string" },
+    "snapshot_id": { "type": "string" },
     "presentations": {
       "type": "array",
       "items": {
@@ -24,22 +22,75 @@
           "answer_guidance",
           "approvals",
           "source_line_item_hashes",
-          "binding_semantic_hash"
+          "binding_semantic_hash",
+          "draft_state",
+          "authorship"
         ],
+        "not": { "required": ["example_answer"] },
         "properties": {
-          "example_answer": {
-            "not": {}
+          "presentation_id": { "type": "string" },
+          "source_snapshot_id": { "type": "string" },
+          "interaction_step_id": { "type": "string" },
+          "fact_definition_ids": { "type": "array", "items": { "type": "string" } },
+          "line_item_ids": { "type": "array", "items": { "type": "string" } },
+          "locale": { "type": "string" },
+          "reading_level_target": { "type": "string" },
+          "plain_language_prompt": { "type": "string" },
+          "short_explanation": { "type": "string" },
+          "answer_guidance": { "type": "string" },
+          "official_terms_preserved": { "type": "array", "items": { "type": "string" } },
+          "presentation_strategy": { "type": "string" },
+          "source_line_item_hashes": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 64, "maxLength": 64 }
+          },
+          "binding_semantic_hash": { "type": "string", "minLength": 64, "maxLength": 64 },
+          "presentation_schema_version": { "type": "integer" },
+          "draft_state": { "enum": ["draft", "active", "superseded", "blocked"] },
+          "authorship": {
+            "type": "object",
+            "required": ["method", "created_at"],
+            "properties": {
+              "method": { "enum": ["agent_draft", "human_authored", "human_revised"] },
+              "created_at": { "type": "string" },
+              "agent_pass": { "type": ["string", "null"] },
+              "note": { "type": "string" },
+              "reviewed_by": { "type": ["string", "null"] }
+            }
           },
           "approvals": {
             "type": "object",
-            "required": [
-              "legal",
-              "ux",
-              "accessibility",
-              "source_binding"
-            ]
-          }
+            "required": ["legal", "ux", "accessibility", "source_binding"],
+            "properties": {
+              "legal": { "$ref": "#/$defs/approvalAxis" },
+              "ux": { "$ref": "#/$defs/approvalAxis" },
+              "accessibility": { "$ref": "#/$defs/approvalAxis" },
+              "source_binding": {
+                "type": "object",
+                "required": ["state"],
+                "properties": {
+                  "state": { "enum": ["unchecked", "current", "stale", "conflict"] },
+                  "checked_at": { "type": ["string", "null"] },
+                  "binding_hash": { "type": ["string", "null"] }
+                }
+              }
+            }
+          },
+          "supersedes": { "type": ["string", "null"] },
+          "superseded_by": { "type": ["string", "null"] }
         }
+      }
+    }
+  },
+  "$defs": {
+    "approvalAxis": {
+      "type": "object",
+      "required": ["state", "reviewer", "reviewed_at", "receipt_id"],
+      "properties": {
+        "state": { "enum": ["pending", "approved", "rejected", "blocked"] },
+        "reviewer": { "type": ["string", "null"] },
+        "reviewed_at": { "type": ["string", "null"] },
+        "receipt_id": { "type": ["string", "null"] }
       }
     }
   }
