@@ -35,7 +35,10 @@ if (!failures.length) {
     "Page preview",
     "Package preview",
     "Ask Ibal",
-    "Synthetic preview"
+    "Synthetic preview",
+    "data-queue-view=\"today\"",
+    "Continue where you left off",
+    "private-lock-banner"
   ]);
 
   const css = expectText("public/styles/legal-workbench.css", [
@@ -44,6 +47,8 @@ if (!failures.length) {
     ".document-workspace",
     ".context-inspector",
     ".ibal-drawer",
+    ".today-card",
+    ".private-lock-banner",
     "prefers-reduced-motion"
   ]);
 
@@ -53,13 +58,14 @@ if (!failures.length) {
     "buildWizardState",
     "reconcileWizardSelection",
     "evaluateWizardStates",
-    "applicable questions completed",
-    "unanswered blockers",
+    "applicable questions",
     "evaluation_reason",
-    "condition.actual",
     "Affected ID",
     "localStorage",
     "No mutation in preview",
+    "/api/local/matter",
+    "Source and audit details",
+    "renderTodayCard",
     "fam-pd-7-2",
     "form-10-3-draft-order",
     "form-10-3-child-support-order",
@@ -68,6 +74,16 @@ if (!failures.length) {
     "fam-pd-7-5"
   ]);
 
+  const server = expectText("scripts/serve-preview.mjs", [
+    "/api/local/matter",
+    "static_private_paths_disabled",
+    "private_matter_requires_loopback",
+    "Refusing to start",
+    "Static /data/private/* routes are disabled"
+  ]);
+  if (server.includes('paths.push(requested)') && server.includes('/data/private/matter.json')) {
+    failures.push("serve-preview must not statically expose private matter.json");
+  }
   if (/https?:\/\//i.test(js)) failures.push("Preview JavaScript must not call a remote URL.");
   if (html.includes("contenteditable")) failures.push("First preview must not use arbitrary contenteditable HTML as canonical form state.");
   if (css.length < 5000) failures.push("Preview CSS appears unexpectedly small for the required four-surface workbench.");

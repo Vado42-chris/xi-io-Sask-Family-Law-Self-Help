@@ -540,3 +540,55 @@ next_action: ChatGPT peer review of disposition gates; begin independent page re
 created_at: 2026-07-23T03:35:00Z
 updated_at: 2026-07-23T03:35:00Z
 ```
+
+## SFL-AGENT-PRIVATE-LOCK-AND-REVIEW-CORRECTIONS-001G
+
+```yaml
+agent_run_id: SFL-AGENT-PRIVATE-LOCK-AND-REVIEW-CORRECTIONS-001G
+project_id: sask_family_law_self_help
+repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
+branch: feat/synthetic-legal-workbench-001
+base_ref: c3f02fbf81ab39a22ca4bbd8c7954464a9dfbb01
+head_ref: pending_commit
+operator_type: ai_assistant
+operator_name: Auto
+user_requested_goal: Apply ChatGPT approve-with-required-corrections sequence for PR #5.
+allowed_scope:
+  - private preview lockdown
+  - disposition validator hardening
+  - PR description accuracy
+  - Today progressive-disclosure start
+  - inspector audit collapse
+blocked_scope:
+  - merge
+  - deploy
+  - production private vault
+  - marking source items verified
+files_changed:
+  - scripts/serve-preview.mjs
+  - scripts/source-review-workbook.mjs
+  - scripts/check-preview.mjs
+  - public/src/legal-workbench.js
+  - public/index.html
+  - public/styles/legal-workbench.css
+  - docs/ops/SFL-PRIVATE-PREVIEW-LOCK-001G.md
+  - docs/ops/SFL-SOURCE-REVIEW-COMPLETED-VALIDATOR-001F.md
+commands_run:
+  - command_id: SFL-CMD-011
+    command_text_redacted: npm run check
+    command_class: test
+    allowed_by_policy: true
+    result_state: passed
+validation_results:
+  - validation_id: SFL-VAL-013
+    validation_type: local_http_smoke
+    result_state: passed
+    evidence_ref: /data/private/* -> 404; /api/local/matter -> 200; HOST=0.0.0.0 refused
+outcome_state: completed_reported_only
+risk_level: secrets_auth_preview_hardening
+merge_state: pending_push
+deploy_state: blocked
+next_action: ChatGPT re-review of required corrections; continue progressive disclosure and 267-item review.
+created_at: 2026-07-23T03:50:00Z
+updated_at: 2026-07-23T03:50:00Z
+```

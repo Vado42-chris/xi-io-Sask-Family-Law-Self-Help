@@ -24,7 +24,7 @@ const state = {
   selectedWorkId: null,
   selectedFormId: null,
   selectedQuestionId: null,
-  queueView: "all",
+  queueView: "today",
   workspaceMode: "guided",
   currentQuestionIndex: 0,
   searchTerm: "",
@@ -33,7 +33,11 @@ const state = {
   revision: {},
   validation: {},
   route: "matter",
-  lastSelectionReason: "initial"
+  lastSelectionReason: "initial",
+  privateMode: false,
+  privateLockAt: null,
+  inspectorExpanded: false,
+  disclosureLevel: "today"
 };
 
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -75,7 +79,10 @@ const elements = {
   drawerScrim: $("#drawer-scrim"),
   ibalContext: $("#ibal-context"),
   ibalConversation: $("#ibal-conversation"),
-  ibalPrompt: $("#ibal-prompt")
+  ibalPrompt: $("#ibal-prompt"),
+  todayCard: $("#today-card"),
+  privateLockBanner: $("#private-lock-banner"),
+  inspectorShell: $(".context-inspector")
 };
 
 function escapeHtml(value) {
@@ -183,7 +190,7 @@ function buildWorkItems() {
       title: entry.title,
       summary: `${progress.answered} of ${progress.total} applicable questions completed`,
       state: progress.percent === 100 && !progress.unresolved ? "ready_for_review" : progress.answered ? "in_progress" : "not_started",
-      due_label: entry.form_id === "fam-pd-7-5" ? "Later workflow stage" : "Current workflow",
+      due_label: entry.form_id === "fam-pd-7-5" ? "Before conference (confirm Notice)" : "Later stage",
       progress: progress.percent,
       blockers: progress.blockers + progress.unknown + progress.unresolved
     };
@@ -191,12 +198,28 @@ function buildWorkItems() {
   state.workItems = [...forms, ...asArray(state.fixture.tasks), ...asArray(state.fixture.correspondence)];
 }
 
+function isCurrentStageForm(formId) {
+  // Appearance Memo is the live stage for the Aug conference track; other kit forms are later.
+  return formId === "fam-pd-7-5";
+}
+
 function filteredWorkItems() {
   return state.workItems.filter((item) => {
-    const viewMatches = state.queueView === "all" ||
-      (state.queueView === "forms" && item.type === "form") ||
-      (state.queueView === "tasks" && item.type === "task") ||
-      (state.queueView === "correspondence" && item.type === "correspondence");
+    let viewMatches = false;
+    if (state.queueView === "today") {
+      viewMatches =
+        (item.type === "form" && isCurrentStageForm(item.form_id) && item.progress < 100) ||
+        (item.type === "task" && item.state !== "done" && item.state !== "completed") ||
+        (item.type === "correspondence" && item.state !== "archived");
+    } else if (state.queueView === "all") {
+      viewMatches = true;
+    } else if (state.queueView === "forms") {
+      viewMatches = item.type === "form";
+    } else if (state.queueView === "evidence" || state.queueView === "tasks") {
+      viewMatches = item.type === "task";
+    } else if (state.queueView === "correspondence") {
+      viewMatches = item.type === "correspondence";
+    }
     if (!viewMatches) return false;
     if (!state.searchTerm) return true;
     return [item.title, item.summary, item.official_number, item.state, item.source_ref]
@@ -212,15 +235,71 @@ function rowIcon(item) {
 }
 
 function rowGroup(item) {
-  if (item.type === "form") return "Forms and court documents";
-  if (item.type === "task") return "Homework and next actions";
-  if (item.type === "correspondence") return "Correspondence and external inputs";
+  if (state.queueView === "today") {
+    if (item.type === "form") return "Continue today";
+    if (item.type === "task") return "Also waiting on";
+    if (item.type === "correspondence") return "Also waiting on";
+  }
+  if (item.type === "form") {
+    return isCurrentStageForm(item.form_id) ? "Current stage forms" : "Later";
+  }
+  if (item.type === "task") return "Evidence and homework";
+  if (item.type === "correspondence") return "Correspondence";
   return "Other work";
 }
 
+function estimateMinutes(unanswered) {
+  return Math.max(3, Math.min(25, unanswered * 2));
+}
+
+function renderTodayCard() {
+  if (!elements.todayCard) return;
+  const focusForm = state.workItems.find((item) => item.type === "form" && isCurrentStageForm(item.form_id)) ||
+    state.workItems.find((item) => item.type === "form" && item.progress < 100);
+  const waitingTasks = state.workItems.filter((item) => item.type === "task" && item.state !== "done" && item.state !== "completed");
+  const waitingMail = state.workItems.filter((item) => item.type === "correspondence" && item.state !== "archived");
+  const remaining = focusForm ? Math.max(0, Math.round((100 - (focusForm.progress || 0)) / 100 * (getFormProgress(state.forms.get(focusForm.form_id)).total || 0))) : 0;
+  const answeredCopy = focusForm && focusForm.progress > 0
+    ? `You have already completed part of ${focusForm.official_number || "this form"}.`
+    : "Start with identity and scheduling, then move to the relief you are asking for.";
+
+  elements.todayCard.innerHTML = `
+    <p class="eyebrow">Continue where you left off</p>
+    <h3>Next action</h3>
+    <p class="today-card__action">${focusForm
+      ? `Answer about ${remaining || "a few"} questions in your ${escapeHtml(focusForm.title)}`
+      : "Select a form to continue"}</p>
+    <dl class="today-card__meta">
+      <div><dt>Estimated time</dt><dd>About ${estimateMinutes(remaining || 4)} minutes</dd></div>
+      <div><dt>Due</dt><dd>${escapeHtml(focusForm?.due_label || "Confirm deadline from official notice")}</dd></div>
+      <div><dt>Also waiting on</dt><dd>${waitingTasks.length + waitingMail.length} item${waitingTasks.length + waitingMail.length === 1 ? "" : "s"}</dd></div>
+    </dl>
+    <p class="today-card__progress">${escapeHtml(answeredCopy)}</p>
+    <button class="primary-button" type="button" id="today-continue">${focusForm ? "Continue" : "Open work plan"}</button>
+  `;
+  $("#today-continue", elements.todayCard)?.addEventListener("click", () => {
+    if (focusForm) selectWorkItem(focusForm.work_id);
+    else {
+      state.queueView = "forms";
+      $$(".queue-tab").forEach((button) => {
+        const active = button.dataset.queueView === "forms";
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-selected", String(active));
+      });
+      renderQueue();
+    }
+  });
+}
+
 function renderQueue() {
+  renderTodayCard();
   const items = filteredWorkItems();
   elements.queueList.innerHTML = "";
+  if (state.queueView === "today" && elements.todayCard) {
+    elements.todayCard.classList.remove("is-hidden");
+  } else if (elements.todayCard) {
+    elements.todayCard.classList.add("is-hidden");
+  }
   if (!items.length) {
     elements.queueList.innerHTML = '<div class="generic-card"><strong>No matching work.</strong><p>Change the queue view or search terms.</p></div>';
     return;
@@ -243,7 +322,7 @@ function renderQueue() {
       <span class="queue-row__body">
         <span class="queue-row__top"><span class="queue-row__title">${escapeHtml(item.official_number ? `${item.official_number} · ${item.title}` : item.title)}</span><span class="queue-row__meta">${escapeHtml(item.due_label || "")}</span></span>
         <span class="queue-row__summary">${escapeHtml(item.summary || "")}</span>
-        <span class="queue-row__chips"><span class="queue-chip">${escapeHtml(humanize(item.state))}</span>${item.blockers ? `<span class="queue-chip">${item.blockers} unresolved</span>` : ""}</span>
+        <span class="queue-row__chips"><span class="queue-chip">${escapeHtml(humanize(item.state))}</span></span>
       </span>
       <span class="queue-row__progress">${item.type === "form" ? `${item.progress}%` : ""}</span>`;
     row.addEventListener("click", () => selectWorkItem(item.work_id));
@@ -255,7 +334,11 @@ function calculateMatterProgress() {
   const totals = state.matterWizardState || { applicable: 0, completed: 0, needsHelp: 0, blockers: 0, unresolvedObligations: 0, percent_complete: 0 };
   elements.progressPercent.textContent = `${totals.percent_complete}%`;
   elements.progressBar.style.width = `${totals.percent_complete}%`;
-  elements.progressCopy.textContent = `${totals.completed} of ${totals.applicable} applicable questions completed · ${totals.blockers} unanswered blockers · ${totals.needsHelp} need help`;
+  const next = state.workItems.find((item) => item.type === "form" && isCurrentStageForm(item.form_id)) ||
+    state.workItems.find((item) => item.type === "form" && item.progress < 100);
+  elements.progressCopy.textContent = next
+    ? `Next: continue ${next.official_number || next.title}. ${totals.completed} of ${totals.applicable} applicable questions done.`
+    : `${totals.completed} of ${totals.applicable} applicable questions completed.`;
 }
 
 function selectWorkItem(workId) {
@@ -386,6 +469,21 @@ function readQuestionControl(card, item) {
   return { hasValue: String(field.value).trim() !== "", value: field.value };
 }
 
+function humanQuestionPrompt(item) {
+  const label = String(item.source_label || "").trim();
+  if (/requested$/i.test(label)) {
+    return `Are you asking the court for this: ${label.replace(/\s+requested$/i, "")}?`;
+  }
+  if (/^COURT FILE NUMBER$/i.test(label)) return "What is the court file number on your documents?";
+  if (/^JUDICIAL CENTRE$/i.test(label)) return "Which judicial centre is this matter in?";
+  if (/^PETITIONER/i.test(label)) return "Who is named as the petitioner?";
+  if (/^RESPONDENT/i.test(label)) return "Who is named as the respondent?";
+  if (/scheduled on/i.test(label)) return "When is the Judicial Case Conference scheduled?";
+  if (/filed on behalf of/i.test(label)) return "Who is this Appearance Memo filed for?";
+  if (/I do not know|unknown/i.test(label)) return label;
+  return label.endsWith("?") ? label : `${label}`;
+}
+
 function renderGuidedQuestion() {
   const form = currentForm();
   const wizard = currentWizardState();
@@ -393,7 +491,7 @@ function renderGuidedQuestion() {
   const item = currentQuestion();
   elements.guidedCard.innerHTML = "";
   if (!form || !wizard || !item || !navigationItem) {
-    elements.guidedCard.innerHTML = '<article class="generic-card"><h3>No applicable user questions</h3><p>This form currently has no user-answerable questions under the evaluated synthetic facts.</p></article>';
+    elements.guidedCard.innerHTML = '<article class="generic-card"><h3>No applicable user questions</h3><p>This form currently has no user-answerable questions under the evaluated facts.</p></article>';
     elements.questionPosition.textContent = "0 of 0";
     return;
   }
@@ -403,8 +501,8 @@ function renderGuidedQuestion() {
   const fragment = $("#question-template").content.cloneNode(true);
   const card = $(".question-card", fragment);
   $(".question-kind", fragment).textContent = humanize(item.kind);
-  $(".question-label", fragment).textContent = item.source_label;
-  $(".question-rule", fragment).textContent = `Applicability: ${humanize(navigationItem.evaluation_reason)} · ${item.required_rule}`;
+  $(".question-label", fragment).textContent = humanQuestionPrompt(item);
+  $(".question-rule", fragment).textContent = "Optional: open Source and audit details in the right panel for official wording and rules.";
   $(".question-input", fragment).append(inputControl(form, item));
   const unknownButton = $(".question-unknown", fragment);
   unknownButton.textContent = isUnknown(form.form_id, item.line_item_id) ? "Marked: needs help" : "I do not know yet";
@@ -414,7 +512,7 @@ function renderGuidedQuestion() {
     state.unknownAnswers[form.form_id] = [...list];
     state.revision[form.form_id] = (state.revision[form.form_id] || 1) + 1;
     persistDemoState();
-    refreshAfterAnswerChange("Needs-help state updated in the local synthetic preview.", item.line_item_id);
+    refreshAfterAnswerChange("Needs-help state updated in the local preview.", item.line_item_id);
   });
   $(".question-save", fragment).addEventListener("click", () => {
     const result = readQuestionControl(card, item);
@@ -427,7 +525,7 @@ function renderGuidedQuestion() {
     state.unknownAnswers[form.form_id] = asArray(state.unknownAnswers[form.form_id]).filter((id) => id !== item.line_item_id);
     state.revision[form.form_id] = (state.revision[form.form_id] || 1) + 1;
     persistDemoState();
-    refreshAfterAnswerChange("Synthetic answer saved. Applicability and progress were recalculated.", item.line_item_id);
+    refreshAfterAnswerChange("Answer saved. Applicability and progress were recalculated.", item.line_item_id);
     moveQuestion(1, true);
   });
   $(".question-help", fragment).addEventListener("click", openIbal);
@@ -524,22 +622,49 @@ function renderInspector() {
   const form = currentForm();
   const question = currentQuestion();
   const evaluation = evaluationForSelectedQuestion();
+  const expanded = state.inspectorExpanded;
+
   if (form && question && evaluation) {
     const condition = evaluation.condition;
     const actual = condition?.actual === undefined ? "not answered" : condition.actual === true ? "Yes" : condition.actual === false ? "No" : condition.actual;
     const expected = condition?.expected === true ? "Yes" : condition?.expected === false ? "No" : condition?.expected;
-    elements.inspectorTitle.textContent = "Question context";
-    elements.inspectorContent.innerHTML = `<section class="inspector-panel"><h3>Official source wording</h3><div class="inspector-source-label">${escapeHtml(question.source_label)}</div></section><section class="inspector-panel"><h3>Applicability and identity</h3><dl><dt>Stable ID</dt><dd>${escapeHtml(question.line_item_id)}</dd><dt>Kind</dt><dd>${escapeHtml(humanize(question.kind))}</dd><dt>Rule</dt><dd>${escapeHtml(question.required_rule)}</dd><dt>Result</dt><dd>${escapeHtml(humanize(evaluation.evaluation_reason))}</dd><dt>Selection</dt><dd>${escapeHtml(humanize(state.lastSelectionReason))}</dd></dl>${condition ? `<p>Evaluated <strong>${escapeHtml(condition.path)}</strong> ${escapeHtml(condition.operator)} <strong>${escapeHtml(expected)}</strong>. Current value: <strong>${escapeHtml(actual)}</strong>.</p>` : ""}</section><section class="inspector-panel"><h3>Current answer state</h3><p>${evaluation.needs_help ? "Marked as needing help." : evaluation.answered ? `A synthetic answer is recorded: ${escapeHtml(answerFor(form.form_id, question.line_item_id) === true ? "Yes" : answerFor(form.form_id, question.line_item_id) === false ? "No" : answerFor(form.form_id, question.line_item_id))}` : evaluation.unresolved_obligation ? "The question is visible, but its obligation rule still requires review." : "No answer is recorded."}</p></section><section class="inspector-panel"><h3>Source and freshness</h3><dl><dt>Snapshot</dt><dd>${escapeHtml(form.snapshot_id)}</dd><dt>Source date</dt><dd>${escapeHtml(form.source_date)}</dd><dt>Captured</dt><dd>${escapeHtml(form.captured_at)}</dd><dt>Status</dt><dd>${escapeHtml(form.status)}</dd></dl></section><section class="inspector-panel"><h3>Evidence and AI boundary</h3><p>No evidence is linked. Ibal cannot silently change this answer or approve the form.</p><button class="secondary-button" id="inspector-ask-ibal" type="button">Ask Ibal about this</button></section>`;
+    elements.inspectorTitle.textContent = "Why am I being asked this?";
+    elements.inspectorContent.innerHTML = `
+      <section class="inspector-panel">
+        <h3>Simple answer</h3>
+        <p>This question comes from the official form. Answer only what you can confirm. Use “I do not know yet” if you need help.</p>
+        <div class="inspector-actions">
+          <button class="secondary-button" id="inspector-ask-ibal" type="button">Ask Ibal</button>
+          <button class="text-button" id="toggle-source-audit" type="button">${expanded ? "Hide source and audit details" : "Source and audit details"}</button>
+        </div>
+      </section>
+      <section class="inspector-panel">
+        <h3>Official form wording</h3>
+        <div class="inspector-source-label">${escapeHtml(question.source_label)}</div>
+      </section>
+      ${expanded ? `<section class="inspector-panel inspector-panel--audit"><h3>Source and audit details</h3><dl><dt>Stable ID</dt><dd>${escapeHtml(question.line_item_id)}</dd><dt>Kind</dt><dd>${escapeHtml(humanize(question.kind))}</dd><dt>Rule</dt><dd>${escapeHtml(question.required_rule)}</dd><dt>Result</dt><dd>${escapeHtml(humanize(evaluation.evaluation_reason))}</dd><dt>Selection</dt><dd>${escapeHtml(humanize(state.lastSelectionReason))}</dd><dt>Snapshot</dt><dd>${escapeHtml(form.snapshot_id)}</dd><dt>Source date</dt><dd>${escapeHtml(form.source_date)}</dd><dt>Captured</dt><dd>${escapeHtml(form.captured_at)}</dd><dt>Status</dt><dd>${escapeHtml(form.status)}</dd><dt>Hash</dt><dd>${escapeHtml(form.source_sha256 || "see catalog")}</dd></dl>${condition ? `<p>Evaluated <strong>${escapeHtml(condition.path)}</strong> ${escapeHtml(condition.operator)} <strong>${escapeHtml(expected)}</strong>. Current value: <strong>${escapeHtml(actual)}</strong>.</p>` : ""}</section>` : ""}
+      <section class="inspector-panel"><h3>Current answer state</h3><p>${evaluation.needs_help ? "Marked as needing help." : evaluation.answered ? "An answer is recorded." : evaluation.unresolved_obligation ? "Visible, but the obligation rule still needs review." : "No answer is recorded."}</p></section>`;
     $("#inspector-ask-ibal")?.addEventListener("click", openIbal);
+    $("#toggle-source-audit")?.addEventListener("click", () => {
+      state.inspectorExpanded = !state.inspectorExpanded;
+      renderInspector();
+    });
+    elements.inspectorShell?.classList.toggle("is-expanded", expanded);
     return;
   }
+
   if (selectedWork) {
-    elements.inspectorTitle.textContent = selectedWork.type === "task" ? "Task context" : selectedWork.type === "form" ? "Form context" : "Ingress context";
-    elements.inspectorContent.innerHTML = `<section class="inspector-panel"><h3>${escapeHtml(selectedWork.title)}</h3><p>${escapeHtml(selectedWork.summary || "")}</p></section><section class="inspector-panel"><h3>Control state</h3><dl><dt>Type</dt><dd>${escapeHtml(selectedWork.type)}</dd><dt>State</dt><dd>${escapeHtml(humanize(selectedWork.state))}</dd><dt>Source</dt><dd>${escapeHtml(selectedWork.source_ref || "not recorded")}</dd></dl></section><section class="inspector-panel"><h3>Audit boundary</h3><p>External actions remain blocked.</p></section>`;
+    elements.inspectorTitle.textContent = "What is this work item?";
+    elements.inspectorContent.innerHTML = `<section class="inspector-panel"><h3>${escapeHtml(selectedWork.title)}</h3><p>${escapeHtml(selectedWork.summary || "")}</p><button class="text-button" id="toggle-source-audit" type="button">${expanded ? "Hide source and audit details" : "Source and audit details"}</button></section>${expanded ? `<section class="inspector-panel inspector-panel--audit"><h3>Control state</h3><dl><dt>Type</dt><dd>${escapeHtml(selectedWork.type)}</dd><dt>State</dt><dd>${escapeHtml(humanize(selectedWork.state))}</dd><dt>Source</dt><dd>${escapeHtml(selectedWork.source_ref || "not recorded")}</dd></dl><p>External actions remain blocked.</p></section>` : ""}`;
+    $("#toggle-source-audit")?.addEventListener("click", () => {
+      state.inspectorExpanded = !state.inspectorExpanded;
+      renderInspector();
+    });
     return;
   }
+
   elements.inspectorTitle.textContent = "Why this matters";
-  elements.inspectorContent.innerHTML = '<section class="inspector-panel"><h3>Selected work</h3><p>Select a form, task, correspondence item, or question to see its evaluated context.</p></section>';
+  elements.inspectorContent.innerHTML = '<section class="inspector-panel"><h3>Selected work</h3><p>Select a form or question to see a plain-language explanation. Source IDs and hashes stay behind Source and audit details.</p></section>';
 }
 
 function setSelectedQuestion(lineItemId) {
@@ -769,15 +894,55 @@ async function fetchJson(path) {
 
 async function loadMatterFixture() {
   try {
-    const privateMatter = await fetchJson("/data/private/matter.json");
-    if (privateMatter?.privacy?.classification) {
-      showToast("PRIVATE real-matter workspace loaded. Do not commit or publish these answers.", "warning");
-      return privateMatter;
+    const response = await fetch("/api/local/matter", { cache: "no-store" });
+    if (response.ok) {
+      const privateMatter = await response.json();
+      if (privateMatter?.privacy?.classification) {
+        activatePrivateLock(privateMatter);
+        return privateMatter;
+      }
     }
   } catch {
-    // Private sidecar is optional and gitignored.
+    // Private sidecar API is optional.
   }
   return fetchJson("./data/synthetic-matter.json");
+}
+
+function activatePrivateLock(privateMatter) {
+  state.privateMode = true;
+  state.privateLockAt = Date.now();
+  const switcher = $("#matter-switcher");
+  if (switcher) {
+    switcher.querySelector(".matter-switcher__label").textContent = "Private matter";
+    switcher.querySelector("strong").textContent = privateMatter.matter?.caption || "Local private matter";
+    switcher.querySelector(".matter-switcher__meta").textContent = "Loopback only · not committed";
+    switcher.setAttribute("aria-label", "Current private matter");
+  }
+  if (elements.privateLockBanner) {
+    elements.privateLockBanner.classList.remove("is-hidden");
+    elements.privateLockBanner.innerHTML = `<strong>Local private lock</strong><span>Matter loaded through <code>/api/local/matter</code> on loopback only. Static <code>/data/private/*</code> is disabled. Session clears after 30 minutes of inactivity.</span>`;
+  }
+  showToast("PRIVATE local matter loaded. Do not commit or publish these answers.", "warning");
+  armPrivateIdleTimeout();
+}
+
+let privateIdleTimer = null;
+function armPrivateIdleTimeout() {
+  if (!state.privateMode) return;
+  const reset = () => {
+    clearTimeout(privateIdleTimer);
+    privateIdleTimer = setTimeout(() => {
+      state.answers = {};
+      state.unknownAnswers = {};
+      state.fixture = null;
+      showToast("Private session timed out. Reload on loopback to continue.", "warning");
+      elements.queueList.innerHTML = '<div class="generic-card"><strong>Private session locked.</strong><p>Reload this local preview to continue.</p></div>';
+    }, 30 * 60 * 1000);
+  };
+  ["click", "keydown", "mousemove", "scroll"].forEach((eventName) => {
+    window.addEventListener(eventName, reset, { passive: true });
+  });
+  reset();
 }
 
 async function initialize() {

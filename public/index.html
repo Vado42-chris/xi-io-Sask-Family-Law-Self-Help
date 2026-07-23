@@ -76,6 +76,8 @@
         <button class="icon-button" id="queue-filter-button" type="button" aria-label="Filter work queue">≡</button>
       </div>
 
+      <div id="private-lock-banner" class="private-lock-banner is-hidden" role="status"></div>
+
       <section class="matter-progress" aria-labelledby="matter-progress-title">
         <div class="progress-heading">
           <h3 id="matter-progress-title">JCC preparation</h3>
@@ -86,11 +88,14 @@
       </section>
 
       <div class="queue-tabs" role="tablist" aria-label="Work queue views">
-        <button class="queue-tab is-active" type="button" role="tab" aria-selected="true" data-queue-view="all">All</button>
+        <button class="queue-tab is-active" type="button" role="tab" aria-selected="true" data-queue-view="today">Today</button>
         <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="forms">Forms</button>
-        <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="tasks">Tasks</button>
+        <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="evidence">Evidence</button>
         <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="correspondence">Mail</button>
+        <button class="queue-tab" type="button" role="tab" aria-selected="false" data-queue-view="all">All work</button>
       </div>
+
+      <article id="today-card" class="today-card" aria-label="Continue where you left off"></article>
 
       <div class="queue-list" id="queue-list" aria-live="polite"></div>
     </aside>

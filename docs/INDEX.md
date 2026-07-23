@@ -127,6 +127,7 @@ Ledgers are append-only. Corrections require a new entry that identifies the cor
 | Court-faithful litmus track | `docs/ops/SFL-COURT-FAITHFUL-LITMUS-001.md` | active; case-relevant forms first |
 | Source review workbook | `docs/ops/SFL-SOURCE-REVIEW-WORKBOOK-001E.md` | implemented; 267 pending entries |
 | Completed workbook disposition validator | `docs/ops/SFL-SOURCE-REVIEW-COMPLETED-VALIDATOR-001F.md` | implemented; verified gates enforced |
+| Private preview lock | `docs/ops/SFL-PRIVATE-PREVIEW-LOCK-001G.md` | implemented; loopback API only |
 
 ## Validation
 

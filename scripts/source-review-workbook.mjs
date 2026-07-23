@@ -60,8 +60,8 @@ function parseArguments(argv) {
     }
   }
 
-  if (options.reviewDate && !DATE_RE.test(options.reviewDate)) {
-    throw new Error("--review-date must use YYYY-MM-DD");
+  if (options.reviewDate && !isValidCalendarDate(options.reviewDate)) {
+    throw new Error("--review-date must be a real calendar date in YYYY-MM-DD form");
   }
 
   return options;
@@ -73,6 +73,17 @@ async function readJson(filePath) {
 
 function nonEmptyString(value) {
   return typeof value === "string" && value.trim().length > 0;
+}
+
+export function isValidCalendarDate(value) {
+  if (!nonEmptyString(value) || !DATE_RE.test(value)) return false;
+  const [year, month, day] = value.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return (
+    date.getUTCFullYear() === year &&
+    date.getUTCMonth() === month - 1 &&
+    date.getUTCDate() === day
+  );
 }
 
 function buildReviewEntry(form, item) {
@@ -132,7 +143,7 @@ export async function buildWorkbook() {
       corrections_require_new_catalog_version: true,
       court_readiness_not_implied: true,
       reviewer_must_compare_rendered_source: true,
-      verified_requires_reviewer_date_rendered_transcription_evidence: true
+      verified_requires_reviewer_date_rendered_transcription_rule_evidence: true
     },
     reviewer: null,
     review_started_at: null,
@@ -201,8 +212,10 @@ function requireReviewerAndDate(entry, failures) {
   if (!nonEmptyString(entry.reviewer)) {
     failures.push(`${entry.review_key}: disposition ${entry.disposition} requires reviewer identity`);
   }
-  if (!nonEmptyString(entry.reviewed_at) || !DATE_RE.test(entry.reviewed_at)) {
-    failures.push(`${entry.review_key}: disposition ${entry.disposition} requires reviewed_at as YYYY-MM-DD`);
+  if (!isValidCalendarDate(entry.reviewed_at)) {
+    failures.push(
+      `${entry.review_key}: disposition ${entry.disposition} requires reviewed_at as a real calendar date (YYYY-MM-DD)`
+    );
   }
 }
 
@@ -240,6 +253,9 @@ export function validateEntryDisposition(entry) {
     }
     if (entry.transcription_verified !== true) {
       failures.push(`${key}: verified requires transcription_verified=true`);
+    }
+    if (entry.rule_verified !== true) {
+      failures.push(`${key}: verified requires rule_verified=true`);
     }
     if (!nonEmptyString(entry.evidence_reference)) {
       failures.push(`${key}: verified requires evidence_reference`);
@@ -362,12 +378,14 @@ export function dispositionFixtureCases() {
         reviewed_at: "2026-07-23",
         rendered_source_verified: false,
         transcription_verified: false,
+        rule_verified: false,
         evidence_reference: null
       }),
       expectOk: false,
       mustInclude: [
         "rendered_source_verified=true",
         "transcription_verified=true",
+        "rule_verified=true",
         "evidence_reference"
       ]
     },
@@ -385,12 +403,41 @@ export function dispositionFixtureCases() {
       expectOk: true
     },
     {
+      name: "verified_without_rule_verification_fails",
+      entry: baseEntry({
+        disposition: "verified",
+        reviewer: "Reviewer A",
+        reviewed_at: "2026-07-23",
+        rendered_source_verified: true,
+        transcription_verified: true,
+        rule_verified: false,
+        evidence_reference: "kit-page-18"
+      }),
+      expectOk: false,
+      mustInclude: ["rule_verified=true"]
+    },
+    {
+      name: "verified_with_impossible_date_fails",
+      entry: baseEntry({
+        disposition: "verified",
+        reviewer: "Reviewer A",
+        reviewed_at: "2026-99-99",
+        rendered_source_verified: true,
+        transcription_verified: true,
+        rule_verified: true,
+        evidence_reference: "kit-page-18"
+      }),
+      expectOk: false,
+      mustInclude: ["real calendar date"]
+    },
+    {
       name: "verified_without_reviewer_fails",
       entry: baseEntry({
         disposition: "verified",
         reviewed_at: "2026-07-23",
         rendered_source_verified: true,
         transcription_verified: true,
+        rule_verified: true,
         evidence_reference: "kit-page-18"
       }),
       expectOk: false,

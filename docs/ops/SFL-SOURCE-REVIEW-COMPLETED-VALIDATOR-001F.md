@@ -14,10 +14,11 @@ Add a deterministic disposition validator for source-review workbooks so a `veri
 For disposition `verified`, every entry must include:
 
 1. Non-empty `reviewer`
-2. `reviewed_at` as `YYYY-MM-DD`
+2. `reviewed_at` as a real calendar date (`YYYY-MM-DD`, not merely a matching pattern)
 3. `rendered_source_verified=true`
 4. `transcription_verified=true`
-5. Non-empty `evidence_reference`
+5. `rule_verified=true`
+6. Non-empty `evidence_reference`
 
 Additional controlled rules:
 
