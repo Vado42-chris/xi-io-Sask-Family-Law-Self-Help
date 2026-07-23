@@ -6,12 +6,13 @@ const requiredFiles = [
   "public/index.html",
   "public/styles/legal-workbench.css",
   "public/src/legal-workbench.js",
+  "public/src/applicability-engine.js",
+  "public/src/wizard-state.js",
   "public/data/synthetic-matter.json",
   "scripts/serve-preview.mjs"
 ];
 
 const failures = [];
-
 for (const path of requiredFiles) {
   if (!existsSync(path)) failures.push(`Missing required preview file: ${path}`);
 }
@@ -48,20 +49,30 @@ if (!failures.length) {
 
   const js = expectText("public/src/legal-workbench.js", [
     "FORM_CATALOG_ROOT",
+    "aggregateMatterWizardProgress",
+    "buildWizardState",
+    "reconcileWizardSelection",
+    "evaluateWizardStates",
+    "applicable questions completed",
+    "unanswered blockers",
+    "evaluation_reason",
+    "condition.actual",
+    "Affected ID",
+    "localStorage",
+    "No mutation in preview",
     "fam-pd-7-2",
     "form-10-3-draft-order",
     "form-10-3-child-support-order",
     "form-15-8b",
     "form-12-3",
-    "fam-pd-7-5",
-    "Affected ID",
-    "localStorage",
-    "No mutation in preview"
+    "fam-pd-7-5"
   ]);
 
   if (/https?:\/\//i.test(js)) failures.push("Preview JavaScript must not call a remote URL.");
   if (html.includes("contenteditable")) failures.push("First preview must not use arbitrary contenteditable HTML as canonical form state.");
   if (css.length < 5000) failures.push("Preview CSS appears unexpectedly small for the required four-surface workbench.");
+  if (js.includes("form.line_items[state.currentQuestionIndex]")) failures.push("Visible wizard must not navigate the raw catalog index.");
+  if (js.includes("form.line_items.length}`")) failures.push("Visible question position must use applicable wizard navigation length.");
 
   const fixture = JSON.parse(readFileSync("public/data/synthetic-matter.json", "utf8"));
   if (!fixture.fixture_notice?.includes("Synthetic")) failures.push("Synthetic fixture notice is missing.");
@@ -70,7 +81,12 @@ if (!failures.length) {
   if (!Array.isArray(fixture.tasks) || fixture.tasks.length < 3) failures.push("Synthetic task coverage is incomplete.");
   if (!Array.isArray(fixture.correspondence) || fixture.correspondence.length < 1) failures.push("Synthetic correspondence ingress coverage is missing.");
 
-  const syntaxChecks = ["public/src/legal-workbench.js", "scripts/serve-preview.mjs"];
+  const syntaxChecks = [
+    "public/src/legal-workbench.js",
+    "public/src/applicability-engine.js",
+    "public/src/wizard-state.js",
+    "scripts/serve-preview.mjs"
+  ];
   for (const path of syntaxChecks) {
     const result = spawnSync(process.execPath, ["--check", path], { encoding: "utf8" });
     if (result.status !== 0) failures.push(`${path} failed node --check: ${result.stderr || result.stdout}`);
@@ -84,4 +100,5 @@ if (failures.length) {
 }
 
 console.log("Synthetic legal workbench preview check passed.");
+console.log("Visible guided navigation, progress, validation, package blockers, and inspector reasoning are bound to deterministic wizard state.");
 console.log("This proves structural preview integrity only, not browser quality, security, accessibility, legal accuracy, or runtime readiness.");
