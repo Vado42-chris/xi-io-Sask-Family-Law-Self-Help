@@ -88,12 +88,18 @@ async function run() {
     for (const viewport of viewports) {
       const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
       await page.goto(`${BASE}/app`, { waitUntil: "networkidle" });
-      await page.waitForSelector("#unlock-gate, #app-shell");
-      // Practice path to reach shell without private data.
+      // Without private matter, practice mode auto-starts and unlock-gate stays hidden.
+      await page.waitForSelector("#app-shell:not([hidden]), #unlock-gate:not([hidden])");
+      // Practice path to reach shell when unlock gate is shown.
       if (await page.locator("#use-practice").isVisible()) {
         await page.click("#use-practice");
-        await page.waitForSelector("#app-shell:not([hidden])");
       }
+      await page.waitForSelector("#app-shell:not([hidden])");
+      // Allow interview projection to render next-step controls.
+      await page.waitForSelector("#continue-next, #open-court-wording-blocked, #blocked-panel", {
+        state: "visible",
+        timeout: 15000
+      });
       await assertNoHorizontalScroll(page, viewport.name);
 
       if (viewport.width <= 900) {
@@ -134,7 +140,9 @@ async function run() {
     // 200% zoom usability on desktop.
     const zoomPage = await browser.newPage({ viewport: { width: 1366, height: 768 } });
     await zoomPage.goto(`${BASE}/app`, { waitUntil: "networkidle" });
+    await zoomPage.waitForSelector("#app-shell:not([hidden]), #unlock-gate:not([hidden])");
     if (await zoomPage.locator("#use-practice").isVisible()) await zoomPage.click("#use-practice");
+    await zoomPage.waitForSelector("#app-shell:not([hidden])");
     await zoomPage.evaluate(() => {
       document.documentElement.style.zoom = "2";
     });
