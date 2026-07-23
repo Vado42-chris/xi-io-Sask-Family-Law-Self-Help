@@ -2,9 +2,9 @@
   "href": "http://127.0.0.1:4191/app",
   "hasAnswerReview": true,
   "hasBlocked": true,
-  "git_head": "fa919fd43031eb132159034ffcc69b80958b063a",
+  "git_head": "8c37beab57a9f591443cf0123dc976290b04dd99",
   "route": "/app",
   "server_port": 4191,
   "cache_control": "no-store",
-  "captured_at": "2026-07-23T05:52:44.928Z"
+  "captured_at": "2026-07-23T05:54:32.008Z"
 }
