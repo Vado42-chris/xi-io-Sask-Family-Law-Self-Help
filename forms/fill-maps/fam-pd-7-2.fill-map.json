@@ -1,0 +1,300 @@
+{
+  "form_id": "fam-pd-7-2",
+  "official_number": "FAM-PD #7-2",
+  "title": "Request for a Judicial Case Conference",
+  "snapshot_id": "jcc-kit-3j-2026-03-30",
+  "blank_pdf": "sources/official-blanks/fam-pd-7/2024-01-10/fam-pd-7-2-blank.pdf",
+  "blank_sha256": "15f20c2c015e36a4643a78516ace0a3152a07006fd33db4a0cb7c1c20aefb49d",
+  "source_manifest": "sources/official-blanks/fam-pd-7/2024-01-10/source-manifest.json",
+  "notes": [
+    "Litmus fill for case package reconstruction only.",
+    "Prior Request for JCC was treated as withdrawn (2026-06-29 email). Aug 7, 2026 JCC is already scheduled by court Notice.",
+    "Do not treat a filled #7-2 as ready to file unless a human confirms a new procedural need."
+  ],
+  "coordinate_system": {
+    "page_size": {
+      "width": 612,
+      "height": 792
+    },
+    "measured_as": "pdftotext_bbox_top_left",
+    "draw_as": "pdf_user_space_bottom_left"
+  },
+  "font": {
+    "name": "Helvetica",
+    "size": 9
+  },
+  "placements": [
+    {
+      "line_item_id": "header.court_file_number",
+      "kind": "text",
+      "page": 1,
+      "x": 230,
+      "y_top": 139,
+      "max_width": 280
+    },
+    {
+      "line_item_id": "header.judicial_centre",
+      "kind": "text",
+      "page": 1,
+      "x": 210,
+      "y_top": 207,
+      "max_width": 280
+    },
+    {
+      "line_item_id": "header.petitioner",
+      "kind": "text",
+      "page": 1,
+      "x": 200,
+      "y_top": 228,
+      "max_width": 300
+    },
+    {
+      "line_item_id": "header.respondent",
+      "kind": "text",
+      "page": 1,
+      "x": 200,
+      "y_top": 249,
+      "max_width": 300
+    },
+    {
+      "line_item_id": "p1.requesting_party_name",
+      "kind": "text",
+      "page": 1,
+      "x": 245,
+      "y_top": 349,
+      "max_width": 95
+    },
+    {
+      "line_item_id": "p1.requesting_party_role",
+      "kind": "human_only",
+      "note": "Role indicated in requesting-party name text for this litmus pass; dedicated strike map pending."
+    },
+    {
+      "line_item_id": "p1.request_type",
+      "kind": "checkbox_choice",
+      "page": 1,
+      "choices": {
+        "An initiating request for a Judicial Case Conference": {
+          "x": 126,
+          "y_top": 371
+        },
+        "A response to a request for a Judicial Case Conference that was served on me": {
+          "x": 126,
+          "y_top": 393
+        }
+      }
+    },
+    {
+      "line_item_id": "p1.response_schedule_state",
+      "kind": "checkbox_choice",
+      "page": 1,
+      "choices": {
+        "No Judicial Case Conference date has been scheduled yet": {
+          "x": 162,
+          "y_top": 415
+        },
+        "A Judicial Case Conference has been scheduled": {
+          "x": 162,
+          "y_top": 437
+        }
+      },
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p1.scheduled_date",
+      "kind": "text",
+      "page": 1,
+      "x": 430,
+      "y_top": 437,
+      "max_width": 100,
+      "format": "long_date",
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p3.other_relief",
+      "kind": "wrapped_text",
+      "page": 1,
+      "lines": [
+        {
+          "x": 120,
+          "y_top": 558,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 572,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 586,
+          "max_width": 410
+        }
+      ],
+      "font_size": 7.5
+    },
+    {
+      "line_item_id": "p4.expedited",
+      "kind": "checkbox_choice",
+      "page": 1,
+      "choices": {
+        "NO": {
+          "x": 117,
+          "y_top": 683
+        },
+        "YES": {
+          "x": 162,
+          "y_top": 683
+        }
+      }
+    },
+    {
+      "line_item_id": "p4.expedited_explanation",
+      "kind": "wrapped_text",
+      "page": 1,
+      "lines": [
+        {
+          "x": 120,
+          "y_top": 697,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 711,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 725,
+          "max_width": 410
+        }
+      ],
+      "font_size": 7.5,
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p5.factual_basis",
+      "kind": "wrapped_text",
+      "page": 2,
+      "lines": [
+        {
+          "x": 120,
+          "y_top": 106,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 120,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 134,
+          "max_width": 410
+        }
+      ],
+      "font_size": 7.5
+    },
+    {
+      "line_item_id": "p6.legal_grounds",
+      "kind": "wrapped_text",
+      "page": 2,
+      "lines": [
+        {
+          "x": 120,
+          "y_top": 203,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 217,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 231,
+          "max_width": 410
+        }
+      ],
+      "font_size": 7.5
+    },
+    {
+      "line_item_id": "p7.opposing_party_name",
+      "kind": "text",
+      "page": 2,
+      "x": 240,
+      "y_top": 262,
+      "max_width": 200
+    },
+    {
+      "line_item_id": "p7.opposing_party_role",
+      "kind": "strike_pair",
+      "page": 2,
+      "pairs": {
+        "petitioner": {
+          "strike": {
+            "x1": 300,
+            "y_top": 262,
+            "x2": 360
+          }
+        },
+        "respondent": {
+          "strike": {
+            "x1": 240,
+            "y_top": 262,
+            "x2": 298
+          }
+        }
+      },
+      "skip_if_empty": true,
+      "note": "Approximate strike on (petitioner/respondent) label; verify visually."
+    },
+    {
+      "line_item_id": "p8.resolution_efforts",
+      "kind": "wrapped_text",
+      "page": 2,
+      "lines": [
+        {
+          "x": 120,
+          "y_top": 415,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 429,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 442,
+          "max_width": 410
+        }
+      ],
+      "font_size": 7.5
+    },
+    {
+      "line_item_id": "p9.consented_relief",
+      "kind": "wrapped_text",
+      "page": 2,
+      "lines": [
+        {
+          "x": 120,
+          "y_top": 500,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 513,
+          "max_width": 410
+        },
+        {
+          "x": 120,
+          "y_top": 527,
+          "max_width": 410
+        }
+      ],
+      "font_size": 7.5,
+      "skip_if_empty": true
+    }
+  ]
+}

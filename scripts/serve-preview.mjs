@@ -16,17 +16,40 @@ const mimeTypes = {
   ".svg": "image/svg+xml"
 };
 
+function candidatePaths(urlPath) {
+  const decoded = decodeURIComponent((urlPath || "/").split("?")[0]);
+  const requested = decoded === "/" ? "/public/index.html" : decoded;
+  const paths = [requested];
+
+  // Root-relative asset links from public/index.html resolve under /public/.
+  if (
+    requested.startsWith("/styles/") ||
+    requested.startsWith("/src/") ||
+    requested.startsWith("/data/")
+  ) {
+    paths.push(`/public${requested}`);
+  }
+
+  // Private matter sidecar is intentionally outside public/ and gitignored.
+  if (requested === "/data/private/matter.json" || requested.startsWith("/data/private/")) {
+    paths.push(requested);
+  }
+
+  return paths
+    .map((path) => resolve(root, `.${path}`))
+    .filter((candidate) => candidate === root || candidate.startsWith(`${root}${sep}`));
+}
+
 function safePath(urlPath) {
-  const requested = urlPath === "/" ? "/public/index.html" : urlPath;
-  const decoded = decodeURIComponent(requested.split("?")[0]);
-  const candidate = resolve(root, `.${decoded}`);
-  if (candidate !== root && !candidate.startsWith(`${root}${sep}`)) return null;
-  return candidate;
+  for (const candidate of candidatePaths(urlPath)) {
+    if (existsSync(candidate) && statSync(candidate).isFile()) return candidate;
+  }
+  return null;
 }
 
 const server = createServer((request, response) => {
   const filePath = safePath(request.url || "/");
-  if (!filePath || !existsSync(filePath) || !statSync(filePath).isFile()) {
+  if (!filePath) {
     response.writeHead(404, { "content-type": "text/plain; charset=utf-8" });
     response.end("Not found");
     return;

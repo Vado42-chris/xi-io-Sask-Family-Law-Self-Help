@@ -1,0 +1,13 @@
+{
+  "artifact_id": "kb-form-10-3-from-application-without-notice-guide-2025-05-16",
+  "official_download_url": "https://sasklawcourts.ca/wp-content/uploads/2025/05/KB_Application-Without-Notice-Guide.pdf",
+  "note": "Form 10-3 extracted from official Application Without Notice guide page 8. Prefer Publications Saskatchewan editable blank when archived separately.",
+  "captured_at": "2026-07-23T02:38:38.839378+00:00",
+  "guide_sha256": "8ef0963ddeacd6f1e3c39b7cc22bb1499ed34e399e62288f9f158c1d2f8d9424",
+  "blank_sha256": "6d98e68664091eb96744e3ec1b82ec6c1ae6176d51498e070c00be7cde3f1f77",
+  "page_count_guide": 8,
+  "form_page_1_based": 8,
+  "acroform": false,
+  "authority_state": "official_court_pdf_embedded_form_archived",
+  "freshness_state": "captured_unverified_current"
+}

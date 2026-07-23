@@ -1,0 +1,20 @@
+{
+  "$schema_name": "official-blank-fill-map",
+  "schema_version": 1,
+  "description": "Coordinate overlay map from catalog line_item_id values onto an archived official blank PDF. Coordinates use PDF user space (origin bottom-left, points). Source measurement used pdftotext -bbox-layout (origin top-left); converters must transform y as page_height - y_top.",
+  "required_keys": [
+    "form_id",
+    "blank_pdf",
+    "blank_sha256",
+    "page_size",
+    "placements"
+  ],
+  "placement_kinds": [
+    "text",
+    "wrapped_text",
+    "checkbox",
+    "strike_pair",
+    "human_only",
+    "skip_if_empty"
+  ]
+}

@@ -44,6 +44,47 @@ assert.equal(evaluateCondition("support_claim=true", context).matched, true);
 assert.equal(evaluateCondition("support_claim!=false", context).matched, true);
 assert.equal(derivedFacts.parenting_or_child_support_claim, true);
 
+// Short-code conditions must match official choice labels used in catalogs.
+assert.equal(
+  evaluateCondition(
+    "request_type=response",
+    createRuleContext({
+      answers: {
+        "fam-pd-7-2": {
+          "p1.request_type": "A response to a request for a Judicial Case Conference that was served on me"
+        }
+      }
+    })
+  ).matched,
+  true
+);
+assert.equal(
+  evaluateCondition(
+    "p7.service_state=served",
+    createRuleContext({
+      answers: {
+        "fam-pd-7-2": {
+          "p7.service_state": "The opposing party was served with a copy of this Request at least three days before it was filed with the court; proof attached"
+        }
+      }
+    })
+  ).matched,
+  true
+);
+assert.equal(
+  evaluateCondition(
+    "p15c.pretrial_state=Scheduled",
+    createRuleContext({
+      answers: {
+        "fam-pd-7-2": {
+          "p15c.pretrial_state": "Not scheduled"
+        }
+      }
+    })
+  ).matched,
+  false
+);
+
 const initialEvaluation = evaluateFormCatalog(requestForm, { answers, derivedFacts });
 const byId = new Map(initialEvaluation.items.map((item) => [item.line_item_id, item]));
 

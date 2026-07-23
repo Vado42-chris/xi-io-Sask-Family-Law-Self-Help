@@ -80,6 +80,9 @@ if (!failures.length) {
   if (!fixture.answers?.["fam-pd-7-2"]) failures.push("Synthetic FAM-PD #7-2 answers are missing.");
   if (!Array.isArray(fixture.tasks) || fixture.tasks.length < 3) failures.push("Synthetic task coverage is incomplete.");
   if (!Array.isArray(fixture.correspondence) || fixture.correspondence.length < 1) failures.push("Synthetic correspondence ingress coverage is missing.");
+  if (!existsSync("public/data/fixtures/synthetic-matter-complete.json")) {
+    failures.push("Missing complete synthetic fixture used by structural completeness checks.");
+  }
 
   const syntaxChecks = [
     "public/src/legal-workbench.js",
@@ -90,6 +93,36 @@ if (!failures.length) {
   for (const path of syntaxChecks) {
     const result = spawnSync(process.execPath, ["--check", path], { encoding: "utf8" });
     if (result.status !== 0) failures.push(`${path} failed node --check: ${result.stderr || result.stdout}`);
+  }
+
+  const completeness = spawnSync(process.execPath, ["--input-type=module", "-e", `
+    import { readFileSync } from "node:fs";
+    import { aggregateMatterWizardProgress } from "./public/src/wizard-state.js";
+    const files = [
+      "fam-pd-7-2.json",
+      "form-10-3-draft-order.json",
+      "form-10-3-child-support-order.json",
+      "form-15-8b.json",
+      "form-12-3.json",
+      "fam-pd-7-5.json"
+    ];
+    const forms = files.map((file) => JSON.parse(readFileSync("sources/jcc-kit-3j/2026-03-30/forms/" + file, "utf8")));
+    const fixture = JSON.parse(readFileSync("public/data/fixtures/synthetic-matter-complete.json", "utf8"));
+    const progress = aggregateMatterWizardProgress(forms, fixture);
+    if (progress.percent_complete !== 100 || progress.blockers !== 0) {
+      console.error(JSON.stringify(progress.forms.map((form) => ({
+        form_id: form.form_id,
+        percent: form.percent_complete,
+        blockers: form.blockers
+      })), null, 2));
+      process.exit(1);
+    }
+    console.log("Fixture structural completeness: 100% across six forms.");
+  `], { encoding: "utf8" });
+  if (completeness.status !== 0) {
+    failures.push(`Seeded fixture is not structurally complete:\n${completeness.stderr || completeness.stdout}`);
+  } else if (completeness.stdout) {
+    process.stdout.write(completeness.stdout);
   }
 }
 

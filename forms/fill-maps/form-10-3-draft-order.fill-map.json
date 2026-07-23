@@ -1,0 +1,171 @@
+{
+  "form_id": "form-10-3-draft-order",
+  "official_number": "Form 10-3",
+  "title": "Draft Order (General Form)",
+  "snapshot_id": "jcc-kit-3j-2026-03-30",
+  "blank_pdf": "sources/official-blanks/form-10-3/2025-05-16/form-10-3-blank.pdf",
+  "blank_sha256": "6d98e68664091eb96744e3ec1b82ec6c1ae6176d51498e070c00be7cde3f1f77",
+  "source_manifest": "sources/official-blanks/form-10-3/2025-05-16/source-manifest.json",
+  "notes": [
+    "Official blank extracted from KB Application Without Notice Guide (2025-05), page 8.",
+    "Blank labels are APPLICANT(S)/RESPONDENT(S). Kit catalog uses PETITIONER/RESPONDENT.",
+    "Court-completed fields (judge, chambers date, issued date, registrar) stay blank on drafts.",
+    "Order terms space on this one-page blank is limited; overflow requires a Schedule A or shorter terms before filing."
+  ],
+  "coordinate_system": {
+    "page_size": { "width": 612, "height": 792 },
+    "measured_as": "pdftotext_bbox_top_left",
+    "draw_as": "pdf_user_space_bottom_left"
+  },
+  "font": { "name": "Helvetica", "size": 9 },
+  "unknown_policy": "leave_blank",
+  "placements": [
+    {
+      "line_item_id": "header.court_file_number",
+      "kind": "text",
+      "page": 1,
+      "x": 215,
+      "y_top": 86,
+      "max_width": 180
+    },
+    {
+      "line_item_id": "header.judicial_centre",
+      "kind": "text",
+      "page": 1,
+      "x": 200,
+      "y_top": 127,
+      "max_width": 220
+    },
+    {
+      "line_item_id": "application.applicant",
+      "kind": "text",
+      "page": 1,
+      "x": 196,
+      "y_top": 148,
+      "max_width": 225,
+      "note": "Placed on APPLICANT(S) blank of the general Form 10-3."
+    },
+    {
+      "line_item_id": "header.petitioner",
+      "kind": "text",
+      "page": 1,
+      "x": 196,
+      "y_top": 169,
+      "max_width": 225,
+      "note": "Opposing party on RESPONDENT(S) blank when the Respondent applies for interim relief."
+    },
+    {
+      "line_item_id": "header.respondent",
+      "kind": "human_only",
+      "note": "Respondent name is carried via application.applicant when Respondent is the applying party on this blank."
+    },
+    {
+      "line_item_id": "title.order_type",
+      "kind": "text",
+      "page": 1,
+      "x": 250,
+      "y_top": 205,
+      "max_width": 160,
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "court.judge",
+      "kind": "human_only",
+      "note": "Leave blank on draft."
+    },
+    {
+      "line_item_id": "court.chambers_day",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "court.chambers_month",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "court.chambers_year",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "application.applicant_repeat",
+      "source_line_item_id": "application.applicant",
+      "kind": "text",
+      "page": 1,
+      "x": 258,
+      "y_top": 334,
+      "max_width": 110,
+      "note": "Repeats applicant on 'On the application of the applicant' line."
+    },
+    {
+      "line_item_id": "court.materials_read",
+      "kind": "wrapped_text",
+      "page": 1,
+      "lines": [{ "x": 90, "y_top": 370, "max_width": 430 }],
+      "font_size": 7.5,
+      "skip_if_empty": true,
+      "note": "Kit marks materials as court_only; for draft package we may pre-list proposed materials with DRAFT warning."
+    },
+    {
+      "line_item_id": "orders.terms",
+      "kind": "wrapped_text",
+      "page": 1,
+      "lines": [
+        { "x": 90, "y_top": 410, "max_width": 430 },
+        { "x": 90, "y_top": 422, "max_width": 430 },
+        { "x": 90, "y_top": 434, "max_width": 430 },
+        { "x": 90, "y_top": 446, "max_width": 430 },
+        { "x": 90, "y_top": 458, "max_width": 430 },
+        { "x": 90, "y_top": 470, "max_width": 430 }
+      ],
+      "font_size": 7
+    },
+    {
+      "line_item_id": "court.issued_city",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "court.issued_day",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "court.issued_month",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "court.issued_year",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "court.registrar_signature",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "header.clerk_stamp",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "court.appearances",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "contact.name",
+      "kind": "human_only",
+      "note": "This general blank page has no contact block; keep contact answers for package cover only."
+    },
+    {
+      "line_item_id": "contact.address",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "contact.telephone",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "contact.fax",
+      "kind": "human_only"
+    },
+    {
+      "line_item_id": "contact.email",
+      "kind": "human_only"
+    }
+  ]
+}

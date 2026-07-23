@@ -13,6 +13,82 @@ export function normalizeScalar(value) {
   return text;
 }
 
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Compare catalog condition tokens to stored answers.
+ * Source catalogs often encode short codes (served, fixed_monthly) while
+ * choice options store the full official label. Exact match remains preferred.
+ */
+export function valuesEqual(actual, expected) {
+  const left = normalizeScalar(actual);
+  const right = normalizeScalar(expected);
+  if (left === right) return true;
+  if (typeof left !== "string" || typeof right !== "string") return false;
+
+  const actualText = left.trim().toLowerCase();
+  const expectedRaw = right.trim().toLowerCase();
+  const expectedSpaced = expectedRaw.replaceAll("_", " ");
+
+  if (actualText === expectedSpaced) return true;
+
+  if (expectedRaw === "not_served" || expectedSpaced === "not served") {
+    return /\bnot\b.{0,40}\bserved\b/i.test(actualText);
+  }
+  if (expectedRaw === "served") {
+    return /\bserved\b/i.test(actualText) && !/\bnot\b.{0,40}\bserved\b/i.test(actualText);
+  }
+  if (expectedRaw === "scheduled") {
+    return /\bscheduled\b/i.test(actualText)
+      && !/\bscheduled yet\b/i.test(actualText)
+      && !/^no\b/i.test(actualText)
+      && !/^not\b/i.test(actualText);
+  }
+  if (expectedRaw === "changes") {
+    return /^changes\b/i.test(actualText);
+  }
+  if (expectedRaw === "adult_person") {
+    return /^adult\b/i.test(actualText);
+  }
+  if (expectedRaw === "law_office") {
+    return /\b(lawyer|law)\s+office\b/i.test(actualText);
+  }
+  if (expectedRaw === "other_party") {
+    return /^other party\b/i.test(actualText);
+  }
+  if (expectedRaw === "lawyer") {
+    return /\blawyer\b/i.test(actualText) && !/^other party\b/i.test(actualText);
+  }
+
+  if (expectedRaw.includes("_")) {
+    const tokens = expectedRaw.split("_").filter(Boolean);
+    if (tokens.every((token) => new RegExp(`\\b${escapeRegExp(token)}\\b`, "i").test(actualText) || actualText.includes(token))) {
+      return true;
+    }
+  }
+
+  if (!expectedRaw.includes(" ") && !expectedRaw.includes("_") && expectedRaw.length >= 4) {
+    if (!new RegExp(`\\b${escapeRegExp(expectedRaw)}\\b`, "i").test(actualText)) return false;
+    // Avoid "Scheduled" matching "Not scheduled".
+    if (/^not\b/i.test(actualText) && !/^not\b/i.test(expectedRaw)) return false;
+    return true;
+  }
+
+  if (expectedSpaced.includes(" ")) {
+    let cursor = 0;
+    for (const word of expectedSpaced.split(/\s+/)) {
+      const found = actualText.indexOf(word, cursor);
+      if (found < 0) return false;
+      cursor = found + word.length;
+    }
+    return true;
+  }
+
+  return false;
+}
+
 export function createRuleContext({ answers = {}, derivedFacts = {} } = {}) {
   const context = { ...derivedFacts };
 
@@ -21,6 +97,13 @@ export function createRuleContext({ answers = {}, derivedFacts = {} } = {}) {
     context[formId] = formAnswers;
     for (const [lineItemId, value] of Object.entries(formAnswers)) {
       context[lineItemId] = value;
+      // Catalogs often encode conditions with the trailing segment only
+      // (request_type=response) while answers are stored under full IDs
+      // (p1.request_type). Index both forms.
+      const shortId = lineItemId.includes(".") ? lineItemId.slice(lineItemId.lastIndexOf(".") + 1) : lineItemId;
+      if (!Object.prototype.hasOwnProperty.call(context, shortId)) {
+        context[shortId] = value;
+      }
     }
   }
 
@@ -54,7 +137,7 @@ export function evaluateCondition(expression, context = {}) {
   const path = rawPath.trim();
   const actual = normalizeScalar(readContextValue(context, path));
   const expected = normalizeScalar(rawExpected);
-  const equal = actual === expected;
+  const equal = valuesEqual(actual, expected);
 
   return {
     matched: operator === "=" ? equal : !equal,

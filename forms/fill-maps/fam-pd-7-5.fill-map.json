@@ -1,0 +1,375 @@
+{
+  "form_id": "fam-pd-7-5",
+  "official_number": "FAM-PD #7-5",
+  "title": "Judicial Case Conference Appearance Memo",
+  "snapshot_id": "jcc-kit-3j-2026-03-30",
+  "blank_pdf": "sources/official-blanks/fam-pd-7/2024-01-10/fam-pd-7-5-blank.pdf",
+  "blank_sha256": "pending_compute",
+  "source_manifest": "sources/official-blanks/fam-pd-7/2024-01-10/source-manifest.json",
+  "coordinate_system": {
+    "page_size": { "width": 612, "height": 792 },
+    "measured_as": "pdftotext_bbox_top_left",
+    "draw_as": "pdf_user_space_bottom_left"
+  },
+  "font": { "name": "Helvetica", "size": 9, "checkbox_size": 10 },
+  "unknown_policy": "leave_blank",
+  "draft_policy": "render_answer_text_as_provided",
+  "placements": [
+    {
+      "line_item_id": "header.court_file_number",
+      "kind": "text",
+      "page": 1,
+      "x": 272,
+      "y_top": 142,
+      "max_width": 210
+    },
+    {
+      "line_item_id": "header.judicial_centre",
+      "kind": "text",
+      "page": 1,
+      "x": 272,
+      "y_top": 201,
+      "max_width": 210
+    },
+    {
+      "line_item_id": "header.petitioner",
+      "kind": "text",
+      "page": 1,
+      "x": 272,
+      "y_top": 227,
+      "max_width": 210
+    },
+    {
+      "line_item_id": "header.respondent",
+      "kind": "text",
+      "page": 1,
+      "x": 272,
+      "y_top": 253,
+      "max_width": 210
+    },
+    {
+      "line_item_id": "schedule.date",
+      "kind": "text",
+      "page": 1,
+      "x": 316,
+      "y_top": 336,
+      "max_width": 210,
+      "format": "long_date"
+    },
+    {
+      "line_item_id": "schedule.time_and_location",
+      "kind": "text",
+      "page": 1,
+      "x": 108,
+      "y_top": 350,
+      "max_width": 420,
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p1a.filed_on_behalf_of",
+      "kind": "wrapped_text",
+      "page": 1,
+      "lines": [
+        { "x": 286, "y_top": 407, "max_width": 250 },
+        { "x": 138, "y_top": 427, "max_width": 400 }
+      ]
+    },
+    {
+      "line_item_id": "p1b.other_parties_and_counsel",
+      "kind": "repeatable_text_lines",
+      "page": 1,
+      "lines": [
+        { "x": 165, "y_top": 473, "max_width": 370 },
+        { "x": 165, "y_top": 493, "max_width": 370 },
+        { "x": 165, "y_top": 512, "max_width": 365 }
+      ]
+    },
+    {
+      "line_item_id": "p2.party_role",
+      "kind": "strike_pair",
+      "page": 1,
+      "pairs": {
+        "petitioner": { "keep_label": "petitioner", "strike": { "x1": 148, "y_top": 538, "x2": 205 } },
+        "respondent": { "keep_label": "respondent", "strike": { "x1": 98, "y_top": 538, "x2": 145 } }
+      },
+      "note": "Strikes the unused role inside '(petitioner/respondent)' on paragraph 2."
+    },
+    {
+      "line_item_id": "p2.request_date",
+      "kind": "text",
+      "page": 1,
+      "x": 288,
+      "y_top": 558,
+      "max_width": 100,
+      "format": "long_date",
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p2.draft_order_filed_date",
+      "kind": "text",
+      "page": 1,
+      "x": 120,
+      "y_top": 572,
+      "max_width": 400,
+      "format": "long_date",
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p3.readiness_position",
+      "kind": "wrapped_text",
+      "page": 1,
+      "lines": [
+        { "x": 110, "y_top": 645, "max_width": 425 },
+        { "x": 110, "y_top": 659, "max_width": 425 },
+        { "x": 110, "y_top": 673, "max_width": 425 }
+      ]
+    },
+    {
+      "line_item_id": "p4.legal_position_summary",
+      "kind": "wrapped_text",
+      "page": 1,
+      "lines": [
+        { "x": 158, "y_top": 718, "max_width": 375 },
+        { "x": 110, "y_top": 732, "max_width": 425 }
+      ]
+    },
+    {
+      "line_item_id": "p5.consented_unopposed_relief",
+      "kind": "repeatable_text_lines",
+      "page": 2,
+      "lines": [
+        { "x": 140, "y_top": 114, "max_width": 395 },
+        { "x": 140, "y_top": 148, "max_width": 395 }
+      ]
+    },
+    {
+      "line_item_id": "p6a.i.case_conferences_state",
+      "kind": "checkbox_choice",
+      "page": 2,
+      "choices": {
+        "none": { "x": 183, "y_top": 265 },
+        "returnable on": { "x": 183, "y_top": 285 }
+      }
+    },
+    {
+      "line_item_id": "p6a.i.case_conference_date",
+      "kind": "text",
+      "page": 2,
+      "x": 280,
+      "y_top": 285,
+      "max_width": 150,
+      "format": "long_date",
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p6a.ii.chambers_state",
+      "kind": "checkbox_choice",
+      "page": 2,
+      "choices": {
+        "none": { "x": 183, "y_top": 330 },
+        "returnable on": { "x": 183, "y_top": 350 },
+        "reserved": { "x": 183, "y_top": 370 }
+      }
+    },
+    {
+      "line_item_id": "p6a.ii.chambers_return_date",
+      "kind": "text",
+      "page": 2,
+      "x": 280,
+      "y_top": 350,
+      "max_width": 150,
+      "format": "long_date",
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p6a.ii.chambers_reserved_date",
+      "kind": "text",
+      "page": 2,
+      "x": 255,
+      "y_top": 370,
+      "max_width": 80,
+      "format": "long_date",
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p6a.ii.chambers_reserved_justice",
+      "kind": "text",
+      "page": 2,
+      "x": 390,
+      "y_top": 370,
+      "max_width": 90,
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p6a.iii.pretrial_state",
+      "kind": "checkbox_choice",
+      "page": 2,
+      "choices": {
+        "Not scheduled": { "x": 211, "y_top": 396 },
+        "Scheduled": { "x": 304, "y_top": 396 }
+      }
+    },
+    {
+      "line_item_id": "p6a.iii.pretrial_date",
+      "kind": "text",
+      "page": 2,
+      "x": 400,
+      "y_top": 396,
+      "max_width": 70,
+      "format": "long_date",
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p6a.iv.trial_state",
+      "kind": "checkbox_choice",
+      "page": 2,
+      "choices": {
+        "Not scheduled": { "x": 210, "y_top": 421 },
+        "Scheduled": { "x": 303, "y_top": 421 }
+      }
+    },
+    {
+      "line_item_id": "p6a.iv.trial_date",
+      "kind": "text",
+      "page": 2,
+      "x": 400,
+      "y_top": 421,
+      "max_width": 70,
+      "format": "long_date",
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p6b.related_proceedings",
+      "kind": "wrapped_text",
+      "page": 2,
+      "lines": [
+        { "x": 128, "y_top": 481, "max_width": 405 },
+        { "x": 128, "y_top": 495, "max_width": 405 }
+      ]
+    },
+    {
+      "line_item_id": "p7.memo_type",
+      "kind": "checkbox_choice",
+      "page": 2,
+      "choices": {
+        "First Memo filed respecting this Request": { "x": 126, "y_top": 552 },
+        "Updated Memo": { "x": 126, "y_top": 604 }
+      }
+    },
+    {
+      "line_item_id": "p7.updated_party_role",
+      "kind": "strike_pair",
+      "page": 2,
+      "pairs": {
+        "petitioner": { "strike": { "x1": 230, "y_top": 598, "x2": 290 } },
+        "respondent": { "strike": { "x1": 175, "y_top": 598, "x2": 228 } }
+      },
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p7.change_state",
+      "kind": "checkbox_choice",
+      "page_by_choice": {
+        "Changes in circumstances and/or position": { "page": 2, "x": 126, "y_top": 643 },
+        "No change in circumstances and/or position": { "page": 3, "x": 126, "y_top": 88 }
+      },
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "p7.changes",
+      "kind": "wrapped_text",
+      "page": 2,
+      "lines": [{ "x": 146, "y_top": 677, "max_width": 390 }],
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "execution.city",
+      "kind": "text",
+      "page": 3,
+      "x": 138,
+      "y_top": 154,
+      "max_width": 130
+    },
+    {
+      "line_item_id": "execution.day",
+      "kind": "text",
+      "page": 3,
+      "x": 305,
+      "y_top": 154,
+      "max_width": 30
+    },
+    {
+      "line_item_id": "execution.month",
+      "kind": "text",
+      "page": 3,
+      "x": 375,
+      "y_top": 154,
+      "max_width": 100
+    },
+    {
+      "line_item_id": "execution.year",
+      "kind": "text",
+      "page": 3,
+      "x": 505,
+      "y_top": 154,
+      "max_width": 28,
+      "format": "two_digit_year"
+    },
+    {
+      "line_item_id": "execution.signature",
+      "kind": "human_only",
+      "page": 3,
+      "note": "Leave blank for wet-ink signature."
+    },
+    {
+      "line_item_id": "execution.name",
+      "kind": "human_only",
+      "page": 3,
+      "note": "Printed name is carried in contact.name; do not place text on the wet-ink signature lines."
+    },
+    {
+      "line_item_id": "contact.name",
+      "kind": "text",
+      "page": 3,
+      "x": 292,
+      "y_top": 306,
+      "max_width": 240
+    },
+    {
+      "line_item_id": "contact.address",
+      "kind": "text",
+      "page": 3,
+      "x": 292,
+      "y_top": 326,
+      "max_width": 240,
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "contact.telephone",
+      "kind": "text",
+      "page": 3,
+      "x": 292,
+      "y_top": 360,
+      "max_width": 240,
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "contact.fax",
+      "kind": "text",
+      "page": 3,
+      "x": 292,
+      "y_top": 379,
+      "max_width": 240,
+      "skip_if_empty": true
+    },
+    {
+      "line_item_id": "contact.email",
+      "kind": "text",
+      "page": 3,
+      "x": 292,
+      "y_top": 399,
+      "max_width": 240,
+      "skip_if_empty": true
+    }
+  ]
+}

@@ -358,3 +358,133 @@ next_action: Pass final CI, resolve review threads, merge PRs 1, 2 and 4 in orde
 created_at: 2026-07-22T22:30:00Z
 updated_at: 2026-07-22T22:30:00Z
 ```
+
+## SFL-AGENT-005
+
+```yaml
+agent_run_id: SFL-AGENT-005
+project_id: sask_family_law_self_help
+repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
+branch: feat/synthetic-legal-workbench-001
+base_ref: f3445ee279b1ca3e133bfb2c320ce3de79676739
+head_ref: pending_commit
+operator_type: ai_assistant
+operator_name: Cursor Auto
+user_requested_goal: Seed a fully completed synthetic matter across all six forms, validate packages/page preview, and run the full check suite while fixing defects found.
+allowed_scope:
+  - synthetic fixture completion
+  - preview shell and applicability engine defects
+  - local preview server path rewrite
+  - structural validators
+blocked_scope:
+  - real matter data
+  - source legal approval
+  - court filing or email transmission
+  - merge
+  - deploy
+files_changed:
+  - public/data/synthetic-matter.json
+  - public/src/applicability-engine.js
+  - public/src/legal-workbench.js
+  - scripts/check-applicability-engine.mjs
+  - scripts/check-preview.mjs
+  - scripts/check-wizard-state.mjs
+  - scripts/serve-preview.mjs
+commands_run:
+  - command_id: SFL-CMD-007
+    command_text_redacted: npm run check
+    command_class: test
+    allowed_by_policy: true
+    result_state: passed
+validation_results:
+  - validation_id: SFL-VAL-008
+    validation_type: structural_local
+    result_state: passed
+    evidence_ref: npm run check on feat/synthetic-legal-workbench-001
+  - validation_id: SFL-VAL-009
+    validation_type: browser_preview
+    result_state: passed
+    evidence_ref: http://127.0.0.1:4173/ package and page preview with 173/173 complete
+known_blockers:
+  - source review still pending
+  - Finalize package remains disabled by design
+  - companion Form 15-47 still uncaptured
+  - signatures and attachments are seeded placeholders only
+outcome_state: completed_reported_only
+risk_level: legal_sensitive_preview_only
+merge_state: local_changes_uncommitted
+deploy_state: blocked
+next_action: Owner visual review of complete package/page previews; commit when requested.
+created_at: 2026-07-23T01:55:00Z
+updated_at: 2026-07-23T01:55:00Z
+```
+
+## SFL-AGENT-COURT-FAITHFUL-LITMUS-001
+
+```yaml
+agent_run_id: SFL-AGENT-COURT-FAITHFUL-LITMUS-001
+project_id: sask_family_law_self_help
+repo_full_name: Vado42-chris/xi-io-Sask-Family-Law-Self-Help
+branch: feat/synthetic-legal-workbench-001
+base_ref: b8a1c412eb2601fc8a0665dd1ecec27d0223e15a
+head_ref: f3445ee279b1ca3e133bfb2c320ce3de79676739
+operator_type: ai_assistant
+operator_name: Auto
+user_requested_goal: Work case-relevant court forms first, systematically, as litmus before unrelated forms.
+allowed_scope:
+  - archive official blanks for case-relevant forms
+  - official-blank overlay fill maps and fill tool
+  - private draft filled PDFs under data/private/
+  - structural preview disclaimer
+blocked_scope:
+  - commit of real case PII
+  - treating drafts as court-ready
+  - generating FAM-PD #7-4 as a party filing
+  - refiling withdrawn #7-2 without human confirmation
+  - merge
+  - deploy
+files_changed:
+  - docs/ops/SFL-COURT-FAITHFUL-LITMUS-001.md
+  - docs/INDEX.md
+  - forms/fill-maps/
+  - scripts/form-fill/fill_official_blank.py
+  - sources/official-blanks/
+  - public/src/legal-workbench.js
+  - package.json
+  - project-tracking/open-work-ledger.md
+  - project-tracking/agent-run-ledger.md
+commands_run:
+  - command_id: SFL-CMD-008
+    command_text_redacted: npm run check
+    command_class: test
+    allowed_by_policy: true
+    result_state: passed
+  - command_id: SFL-CMD-009
+    command_text_redacted: python3 scripts/form-fill/fill_official_blank.py (private matter overlays)
+    command_class: local_private_generation
+    allowed_by_policy: true
+    result_state: passed_with_overflow_flags
+validation_results:
+  - validation_id: SFL-VAL-010
+    validation_type: structural_local
+    result_state: passed
+    evidence_ref: npm run check
+  - validation_id: SFL-VAL-011
+    validation_type: private_pdf_overlay_qa
+    result_state: passed_with_known_gaps
+    evidence_ref: data/private/filled-packages/*-DRAFT*.receipt.json
+known_blockers:
+  - July 16 Notice still needed for JCC time/location and memo deadline text
+  - Appearance Memo §§3–4 text overflows printed lines
+  - Form 10-3 blank still carries guide footer Page 8 of 8
+  - FAM-PD #7-2 draft must not be filed while prior request withdrawn and JCC scheduled
+  - Service form official blanks not yet archived
+  - SFL-SOURCE-REVIEW-002 still open
+outcome_state: completed_reported_only
+risk_level: legal_sensitive_private_drafts_only
+merge_state: local_changes_uncommitted
+deploy_state: blocked
+next_action: Confirm July 16 Notice fields for #7-5; archive Form 15-8B/12-3 blanks if service package needed; owner visual review of private drafts.
+created_at: 2026-07-23T02:45:00Z
+updated_at: 2026-07-23T02:45:00Z
+```

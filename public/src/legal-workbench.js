@@ -484,7 +484,7 @@ function renderPagePreview() {
     if (!pageSections.length) continue;
     const page = document.createElement("article");
     page.className = "form-page";
-    page.innerHTML = `<div class="form-page__court"><p>COURT OF KING'S BENCH FOR SASKATCHEWAN</p><h3>${escapeHtml(form.official_number)} · ${escapeHtml(form.title)}</h3></div><div class="form-page__meta"><strong>COURT FILE NUMBER</strong><span>${escapeHtml(answerFor(form.form_id, "header.court_file_number") || "________________")}</span><strong>JUDICIAL CENTRE</strong><span>${escapeHtml(answerFor(form.form_id, "header.judicial_centre") || "________________")}</span><strong>SOURCE DATE</strong><span>${escapeHtml(form.source_date)}</span><strong>PREVIEW REVISION</strong><span>r${state.revision[form.form_id] || 1}</span></div><div class="form-page__body"></div><div class="form-page__footer">Synthetic applicable-question preview · page ${pageIndex + 1} of ${targetPageCount} · not court-ready</div>`;
+    page.innerHTML = `<div class="form-page__court"><p>COURT OF KING'S BENCH FOR SASKATCHEWAN</p><h3>${escapeHtml(form.official_number)} · ${escapeHtml(form.title)}</h3></div><div class="form-page__meta"><strong>COURT FILE NUMBER</strong><span>${escapeHtml(answerFor(form.form_id, "header.court_file_number") || "________________")}</span><strong>JUDICIAL CENTRE</strong><span>${escapeHtml(answerFor(form.form_id, "header.judicial_centre") || "________________")}</span><strong>SOURCE DATE</strong><span>${escapeHtml(form.source_date)}</span><strong>PREVIEW REVISION</strong><span>r${state.revision[form.form_id] || 1}</span></div><div class="form-page__body"></div><div class="form-page__footer">Structural answer preview only · not an official court blank · page ${pageIndex + 1} of ${targetPageCount} · filing PDF uses official-template fill</div>`;
     const body = $(".form-page__body", page);
     pageSections.forEach(([section, questions]) => {
       const sectionElement = document.createElement("section");
@@ -681,6 +681,9 @@ function showToast(message, tone = "default") {
 }
 
 function persistDemoState() {
+  if (state.fixture?.privacy?.classification) {
+    return;
+  }
   try {
     localStorage.setItem("xiio-sfl-synthetic-preview", JSON.stringify({ answers: state.answers, unknownAnswers: state.unknownAnswers, revision: state.revision }));
   } catch {
@@ -764,10 +767,26 @@ async function fetchJson(path) {
   return response.json();
 }
 
+async function loadMatterFixture() {
+  try {
+    const privateMatter = await fetchJson("/data/private/matter.json");
+    if (privateMatter?.privacy?.classification) {
+      showToast("PRIVATE real-matter workspace loaded. Do not commit or publish these answers.", "warning");
+      return privateMatter;
+    }
+  } catch {
+    // Private sidecar is optional and gitignored.
+  }
+  return fetchJson("./data/synthetic-matter.json");
+}
+
 async function initialize() {
   bindEvents();
   try {
-    const [manifest, fixture] = await Promise.all([fetchJson(`${FORM_CATALOG_ROOT}/forms-index.json`), fetchJson("./data/synthetic-matter.json")]);
+    const [manifest, fixture] = await Promise.all([
+      fetchJson(`${FORM_CATALOG_ROOT}/forms-index.json`),
+      loadMatterFixture()
+    ]);
     state.manifest = manifest;
     state.fixture = fixture;
     const formEntries = await Promise.all(manifest.forms_included.map(async (entry) => {
@@ -778,7 +797,10 @@ async function initialize() {
     formEntries.forEach(([id, form]) => state.forms.set(id, form));
     state.answers = structuredClone(fixture.answers || {});
     state.unknownAnswers = structuredClone(fixture.unknown_answers || {});
-    restoreDemoState();
+    // Do not restore browser-local synthetic answers over a private real matter.
+    if (!fixture?.privacy?.classification) {
+      restoreDemoState();
+    }
     evaluateWizardStates(null);
     buildWorkItems();
     renderQueue();

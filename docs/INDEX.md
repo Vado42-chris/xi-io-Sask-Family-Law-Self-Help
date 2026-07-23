@@ -84,6 +84,13 @@ Official source locations are recorded for all six companion forms, but no compa
 
 See `docs/source-materials/official-companion-form-source-discovery-v1.md` for URLs, page ranges, authority states and capture requirements.
 
+Partial archive progress (still not a complete source gate):
+
+- FAM-PD #7 full PDF archived under `sources/official-blanks/fam-pd-7/2024-01-10/` with form slices #7-1 through #7-5
+- Form 10-3 general blank extracted from the official Application Without Notice guide under `sources/official-blanks/form-10-3/2025-05-16/`
+
+Court-faithful fill litmus track: `docs/ops/SFL-COURT-FAITHFUL-LITMUS-001.md`
+
 The application must not claim complete JCC coverage until the exact artifacts are downloaded, hashed, archived, line-item indexed and independently reviewed.
 
 ## xi project profiles
@@ -117,6 +124,7 @@ Ledgers are append-only. Corrections require a new entry that identifies the cor
 | Startup packet | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-07-22.md` | created |
 | JCC source capture receipt | `docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md` | source transcription complete, review pending |
 | JCC source capture review packet | `docs/reviews/local-review-packet-jcc-source-capture-001.md` | author complete, independent source review pending |
+| Court-faithful litmus track | `docs/ops/SFL-COURT-FAITHFUL-LITMUS-001.md` | active; case-relevant forms first |
 
 ## Validation
 

@@ -1,0 +1,59 @@
+{
+  "artifact_id": "kb-family-pd7-revised-2024-01-10",
+  "official_download_url": "https://sasklawcourts.ca/wp-content/uploads/2024/01/KB_FAMILY_PD7-_Revised2024.pdf",
+  "captured_at": "2026-07-23T02:37:21.485608+00:00",
+  "sha256": "65251cbe2093470e1e381e7bd052d2970533ae7ad200bbe6a8353f3890ecbf8e",
+  "size_bytes": 452551,
+  "page_count": 32,
+  "form": "none_acroform",
+  "authority_state": "official_court_pdf_archived",
+  "freshness_state": "captured_unverified_current",
+  "slices": {
+    "fam-pd-7-1": {
+      "pages_1_based": [
+        13,
+        14
+      ],
+      "title": "Certificate of Compliance"
+    },
+    "fam-pd-7-2": {
+      "pages_1_based": [
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "title": "Request for Judicial Case Conference"
+    },
+    "fam-pd-7-3": {
+      "pages_1_based": [
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "title": "Joint Request for Judicial Case Conference"
+    },
+    "fam-pd-7-4": {
+      "pages_1_based": [
+        26,
+        27,
+        28,
+        29
+      ],
+      "title": "Notice of Judicial Case Conference",
+      "note": "court-issued; do not generate as party filing"
+    },
+    "fam-pd-7-5": {
+      "pages_1_based": [
+        30,
+        31,
+        32
+      ],
+      "title": "Judicial Case Conference Appearance Memo"
+    }
+  }
+}

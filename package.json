@@ -12,6 +12,7 @@
     "check:applicability": "node scripts/check-applicability-engine.mjs",
     "check:wizard-state": "node scripts/check-wizard-state.mjs",
     "check:preview": "node scripts/check-preview.mjs",
-    "preview": "node scripts/serve-preview.mjs"
+    "preview": "node scripts/serve-preview.mjs",
+    "fill:official-blank": "python3 scripts/form-fill/fill_official_blank.py"
   }
 }
