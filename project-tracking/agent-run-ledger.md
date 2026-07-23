@@ -702,3 +702,30 @@ deploy_state: blocked
 next_action: Owner re-review of corrections; keep PR #5 draft.
 created_at: 2026-07-23T05:35:00Z
 ```
+
+## SFL-AGENT-PREVIEW-STARTUP-FIX-001L
+
+```yaml
+agent_run_id: SFL-AGENT-PREVIEW-STARTUP-FIX-001L
+branch: feat/synthetic-legal-workbench-001
+base_ref: 30a54c9
+head_ref: 56a0b13
+operator_type: ai_assistant
+user_requested_goal: Fix invalid runtime proof — CI red, stale screenshots, HOST fragility, lockfile/postinstall.
+local_startup_diagnosis:
+  failure: ambient HOST=0.0.0.0 with private matter refused preview under old HOST binding
+  resolution: SFL_HOST defaults to 127.0.0.1; ambient HOST ignored
+  evidence: HOST=0.0.0.0 PORT=4173 node scripts/serve-preview.mjs served /app HTTP 200
+commands_run:
+  - npm run check
+  - npm run check:browser-proof
+  - HOST=0.0.0.0 PORT=4173 preview smoke
+validation_results:
+  - /app HTTP 200 with unlock gate
+  - EADDRINUSE clear message verified
+  - app-proof.git_head tied to 6e5e1f8 with screenshot-only follow-up commit accepted
+merge_state: draft_only
+deploy_state: blocked
+next_action: Confirm CI green on PR #5; keep draft; no owner acceptance claim.
+created_at: 2026-07-23T05:52:00Z
+```

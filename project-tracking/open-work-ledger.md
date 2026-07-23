@@ -34,6 +34,7 @@ Status: append-only
 | SFL-WORK-028 | SFL-INTERACTION-ARCHITECTURE-001I | Layered interaction architecture + capability surfaces + #7-5 proof seed | corrections_in_progress | ui_component, data_model, legal_sensitive | ADR-002, schemas, registries, `/app` unlock, integrity checks | Peer-review P0/P1 corrections; keep draft |
 | SFL-WORK-029 | SFL-TRACK-A-PRIVATE-LITMUS-001J | Private litmus for #7-5 / 10-3 / #7-2 with human PDF compare | active | legal_sensitive, provenance | fill maps, private drafts, owner review checklist | Close Appearance Memo unknowns; human final review |
 | SFL-WORK-030 | SFL-PEER-REVIEW-CORRECTIONS-001K | Revoke fabricated approvals; private memory-only; opaque /app; runtime bindings; browser geometry | ready_for_review | secrets_auth, ui_component, legal_sensitive | 001K receipt, Playwright screenshots, AJV checks | Owner re-review; do not merge; no court readiness |
+| SFL-WORK-031 | SFL-PREVIEW-STARTUP-FIX-001L | Fix HOST/CI/lockfile/stale screenshot proof so owner can open /app | ready_for_review | deployment_live, ui_component | 001L receipt, npm ci CI, SFL_HOST smoke | Keep draft; verify CI green |
 
 ## Supersession notes, 2026-07-22
 
