@@ -154,8 +154,15 @@ This bootstrap follows the xi-io repository governance quickstart, project start
 ## Local preview (architecture proof)
 
 ```bash
+npm ci
 npm run check
 npm run preview
+```
+
+Preview always binds to loopback by default via `SFL_HOST` (ambient `HOST` is ignored). If port 4173 is busy:
+
+```bash
+SFL_HOST=127.0.0.1 PORT=4174 npm run preview
 ```
 
 Open:
@@ -165,7 +172,14 @@ Open:
 - Developer diagnostics: `http://127.0.0.1:4173/dev`
 - Legacy workbench: `http://127.0.0.1:4173/legacy`
 
-Private matter never auto-loads. Court readiness remains blocked. See `docs/ops/SFL-INTERACTION-ARCHITECTURE-001I.md`.
+Browser screenshot proof (separate from ordinary checks):
+
+```bash
+npm run playwright:install
+npm run check:browser-proof
+```
+
+Private matter never auto-loads. Guided wording remains blocked until owner ledger approvals exist. Court readiness remains blocked. See `docs/ops/SFL-INTERACTION-ARCHITECTURE-001I.md` and `docs/ops/SFL-PEER-REVIEW-CORRECTIONS-001K.md`.
 
 ## Next action
 

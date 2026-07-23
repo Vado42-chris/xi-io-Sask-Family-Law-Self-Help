@@ -32,7 +32,14 @@ function startServer() {
   return new Promise((resolve, reject) => {
     const child = spawn(process.execPath, ["scripts/serve-preview.mjs"], {
       cwd: ROOT,
-      env: { ...process.env, PORT: String(PORT), HOST: "127.0.0.1", SFL_COMMIT: process.env.SFL_COMMIT || "local" },
+      env: {
+        ...process.env,
+        PORT: String(PORT),
+        SFL_HOST: "127.0.0.1",
+        // Prove ambient HOST cannot break private-matter preview.
+        HOST: "0.0.0.0",
+        SFL_COMMIT: process.env.SFL_COMMIT || commit
+      },
       stdio: ["ignore", "pipe", "pipe"]
     });
     let ready = false;

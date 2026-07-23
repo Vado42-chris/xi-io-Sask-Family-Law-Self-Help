@@ -100,9 +100,15 @@ if (!failures.length) {
     "static_private_paths_disabled",
     "private_matter_requires_loopback",
     "private_unlock_required",
+    "SFL_HOST",
+    "EADDRINUSE",
+    "ambient HOST is ignored",
     "Refusing to start",
     "Static /data/private/* routes are disabled"
   ]);
+  if (server.includes("process.env.HOST")) {
+    failures.push("serve-preview must not read ambient process.env.HOST");
+  }
   if (!js.includes("private_matter_present && !status.unlocked")) {
     failures.push("Legacy workbench must not auto-load private matter without unlock.");
   }

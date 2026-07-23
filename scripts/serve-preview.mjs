@@ -21,7 +21,9 @@ import {
 
 const root = resolve(process.cwd());
 const port = Number(process.env.PORT || 4173);
-const requestedHost = process.env.HOST || "127.0.0.1";
+// Do not read ambient HOST — Cursor/dev environments often set HOST=0.0.0.0.
+// Use SFL_HOST only; default is loopback.
+const requestedHost = process.env.SFL_HOST || "127.0.0.1";
 const PRIVATE_MATTER_PATH = resolve(root, "data/private/matter.json");
 const SNAPSHOT = "jcc-kit-3j/2026-03-30";
 const SNAPSHOT_ID = "jcc-kit-3j-2026-03-30";
@@ -91,9 +93,10 @@ function assertPrivateHostPolicy() {
   if (!isLoopbackHost(requestedHost)) {
     console.error(
       [
-        "Refusing to start: private matter.json is present but HOST is not loopback-only.",
-        `HOST=${requestedHost}`,
-        "Use HOST=127.0.0.1 (default) or remove/relocate the private matter sidecar."
+        "Refusing to start: private matter.json is present but SFL_HOST is not loopback-only.",
+        `SFL_HOST=${requestedHost}`,
+        "Use SFL_HOST=127.0.0.1 (default) or remove/relocate the private matter sidecar.",
+        "Note: ambient HOST is ignored so Cursor/dev HOST=0.0.0.0 cannot break local preview."
       ].join("\n")
     );
     process.exit(1);
@@ -625,10 +628,27 @@ const server = createServer((request, response) => {
   createReadStream(filePath).pipe(response);
 });
 
+server.on("error", (error) => {
+  if (error && error.code === "EADDRINUSE") {
+    console.error(
+      [
+        `Preview port ${port} is already in use on ${requestedHost}.`,
+        "Stop the other process, or choose a free port:",
+        `  SFL_HOST=127.0.0.1 PORT=4174 npm run preview`,
+        "Then open http://127.0.0.1:4174/app"
+      ].join("\n")
+    );
+    process.exit(1);
+  }
+  console.error(`Preview server failed to start: ${error?.message || error}`);
+  process.exit(1);
+});
+
 server.listen(port, requestedHost, () => {
   console.log(`Family law workbench preview: http://${requestedHost}:${port}/app`);
   console.log(`Source review: http://${requestedHost}:${port}/source-review`);
   console.log(`Developer diagnostics: http://${requestedHost}:${port}/dev`);
+  console.log(`Bind: SFL_HOST=${requestedHost} PORT=${port} (ambient HOST is ignored)`);
   if (privateMatterPresent()) {
     console.log("PRIVATE MODE: loopback-only. Explicit unlock required. Browser persistence forbidden for private answers.");
     console.log("Static /data/private/* routes are disabled. Do not expose this process off-machine.");
