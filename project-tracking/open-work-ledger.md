@@ -37,6 +37,14 @@ Status: append-only
 | SFL-WORK-031 | SFL-PREVIEW-STARTUP-FIX-001L | Fix HOST/CI/lockfile/stale screenshot proof so owner can open /app | ready_for_review | deployment_live, ui_component | 001L receipt, npm ci CI, SFL_HOST smoke | Keep draft; verify CI green |
 | SFL-WORK-032 | SFL-OWNER-CORRECTION-001M | Restore Inbox-derived workbench as canonical /app; demote wizard to /interview-proof; hydrate private unlock + ingress | active | ui_component, legal_sensitive | 001M receipt, form inventory, unlock-in-place, owner visual proof | Owner verify private matter + forms in workbench; no merge until confirmed |
 | SFL-WORK-033 | SFL-WORKBENCH-CLARITY-P0-001N | Case plan, diagnosis/readiness P0, mode banner, progress≠blockers, private unlock proof | active_not_accepted | ui_component, legal_sensitive | 001N receipt on GitHub PR head; owner private unlock of five clarity questions | Push local clarity+diagnosis pass; owner unlock private matter; keep PR #5 draft |
+| SFL-WORK-034 | SFL-UX-DESIGN-RECOVERY-001P | Write and apply the workbench design doctrine, progressive-disclosure standard, plain-language standard, and implementation packet | planning_complete_implementation_blocked | ui_component, accessibility, legal_sensitive | design standards, implementation packet, browser proofs, private owner litmus | Implement passes A-F in order; no shell replacement; owner acceptance required |
+
+## Supersession notes, 2026-07-24 (UX implementation paused for design recovery)
+
+- UI feature additions should pause until `docs/reviews/SFL-UX-DESIGN-RECOVERY-IMPLEMENTATION-PACKET-001P.md` is reviewed and implemented in ordered passes.
+- The Inbox-derived shell remains locked. Cognitive-load corrections are projection, hierarchy, content, and state-scope work only.
+- `SFL-WORK-034` does not supersede source review or private litmus gates. It provides the agent handoff needed to complete the user experience without further architecture drift.
+- Framework backfeed remains candidate-only until private owner proof and acceptance.
 
 ## Supersession notes, 2026-07-23 (clarity P0 not accepted)
 
