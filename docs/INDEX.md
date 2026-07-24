@@ -39,18 +39,22 @@ Project: `sask_family_law_self_help`
 
 ## Workflow and UX
 
-| Document | Path |
-|---|---|
-| Kit #3J workflow | `docs/workflows/jcc-kit-3j-workflow-v1.md` |
-| Progressive disclosure interview | `docs/ux/progressive-disclosure-interview-v1.md` |
-| Accessibility and cognitive load | `docs/ux/accessibility-and-cognitive-load-v1.md` |
-| Interaction architecture receipt | `docs/ops/SFL-INTERACTION-ARCHITECTURE-001I.md` |
-| Peer-review corrections | `docs/ops/SFL-PEER-REVIEW-CORRECTIONS-001K.md` |
-| Preview startup fix | `docs/ops/SFL-PREVIEW-STARTUP-FIX-001L.md` |
-| Owner correction: restore Inbox workbench | `docs/ops/SFL-OWNER-CORRECTION-WORKBENCH-RECOVERY-001M.md` |
-| Workbench clarity P0 corrections | `docs/ops/SFL-WORKBENCH-CLARITY-P0-001N.md` |
-| Track A private litmus receipt | `docs/ops/SFL-TRACK-A-PRIVATE-LITMUS-001J.md` |
-| Legal-information boundary | `docs/legal/legal-information-boundary-v1.md` |
+| Document | Path | State |
+|---|---|---|
+| Kit #3J workflow | `docs/workflows/jcc-kit-3j-workflow-v1.md` | active planning |
+| Progressive disclosure interview | `docs/ux/progressive-disclosure-interview-v1.md` | earlier interview contract |
+| Accessibility and cognitive load | `docs/ux/accessibility-and-cognitive-load-v1.md` | required design contract |
+| Workbench design doctrine | `docs/ux/workbench-design-doctrine-v1.md` | required direction, owner review pending |
+| Progressive disclosure workbench standard | `docs/ux/progressive-disclosure-workbench-standard-v1.md` | implementation contract, owner acceptance pending |
+| Plain-language legal content standard | `docs/ux/plain-language-legal-content-standard-v1.md` | required content standard, owner review pending |
+| UX recovery implementation packet | `docs/reviews/SFL-UX-DESIGN-RECOVERY-IMPLEMENTATION-PACKET-001P.md` | agent handoff, implementation pending |
+| Interaction architecture receipt | `docs/ops/SFL-INTERACTION-ARCHITECTURE-001I.md` | implemented architecture checkpoint |
+| Peer-review corrections | `docs/ops/SFL-PEER-REVIEW-CORRECTIONS-001K.md` | correction checkpoint |
+| Preview startup fix | `docs/ops/SFL-PREVIEW-STARTUP-FIX-001L.md` | correction checkpoint |
+| Owner correction: restore Inbox workbench | `docs/ops/SFL-OWNER-CORRECTION-WORKBENCH-RECOVERY-001M.md` | active locked direction |
+| Workbench clarity P0 corrections | `docs/ops/SFL-WORKBENCH-CLARITY-P0-001N.md` | active, owner not accepted |
+| Track A private litmus receipt | `docs/ops/SFL-TRACK-A-PRIVATE-LITMUS-001J.md` | active private proof lane |
+| Legal-information boundary | `docs/legal/legal-information-boundary-v1.md` | active boundary |
 
 ## Canonical source snapshots
 
@@ -136,6 +140,7 @@ Ledgers are append-only. Corrections require a new entry that identifies the cor
 | Source review workbook | `docs/ops/SFL-SOURCE-REVIEW-WORKBOOK-001E.md` | implemented; 267 pending entries |
 | Completed workbook disposition validator | `docs/ops/SFL-SOURCE-REVIEW-COMPLETED-VALIDATOR-001F.md` | implemented; verified gates enforced |
 | Private preview lock | `docs/ops/SFL-PRIVATE-PREVIEW-LOCK-001G.md` | implemented; loopback API only |
+| UX recovery implementation packet | `docs/reviews/SFL-UX-DESIGN-RECOVERY-IMPLEMENTATION-PACKET-001P.md` | planning complete; owner acceptance pending |
 
 ## Validation
 
