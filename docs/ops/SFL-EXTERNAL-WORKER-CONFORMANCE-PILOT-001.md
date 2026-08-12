@@ -1,8 +1,8 @@
 # SFL External Worker Conformance Pilot 001
 
-Status: `READY AS TEST SPEC AFTER EXACT-HEAD REPOSITORY VALIDATION; NOT YET EXECUTED`  
-Pilot target: fresh external AI worker, first target Claude  
-Private framework access: `NONE / NOT PROVIDED / NOT REQUIRED`  
+Status: `READY AS TEST SPEC AFTER EXACT-HEAD REPOSITORY VALIDATION; NOT YET EXECUTED`
+Pilot target: fresh external AI worker, first target Claude
+Private framework access: `NONE / NOT PROVIDED / NOT REQUIRED`
 Chat-history dependency: `NONE`
 
 ## Purpose
