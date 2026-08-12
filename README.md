@@ -25,7 +25,8 @@ A fresh worker must resolve those before selecting or creating Git work. Do not 
 | Accepted repository truth | `main` |
 | Active proposed recovery | PR `#6` |
 | Current ChangeUnit | `SFL-RECOVERY-CLOSEOUT-001` |
-| PR #5 | `FROZEN_DONOR / SALVAGE_SOURCE`, no wholesale merge |
+| PR #5 | `FROZEN_DONOR / SALVAGE_SOURCE`, no wholesale merge; R6-D classification complete |
+| Recovery closeout gate | R6-E exact-head validation next; R6-F hostile review follows |
 | Strategic/waterfall projection | product vision/architecture exist; one typed accepted PlanRevision projection still missing |
 | Agile/current-work projection | recovery dependency queue exists; separate canonical planning object pending |
 | Active execution projection | checkpoint + lane + detailed execution plan in PR #6 |
@@ -40,6 +41,7 @@ A fresh worker must resolve those before selecting or creating Git work. Do not 
 | New `xiio/` writes | blocked pending framework namespace/read-order prerequisite |
 | Rights/license posture | repository public; project license not selected; reuse/distribution claims remain unresolved |
 | Inbox-derived primitive names | source-mapped promotion intake only, not canonical framework registry truth |
+| Product-family/convergence work | distributed to framework/product owners; not implementation scope for PR #6 |
 
 ## What this repo is
 
@@ -102,6 +104,7 @@ Unknown, stale, changed, unavailable or materially disputed source state must bl
 - It does not treat generated drafts, structural catalogs, Inbox donor behavior or framework candidates as verified legal truth.
 - It is not a fork of `xi-io Inbox` and must not depend on Inbox `main` at runtime.
 - It is not licensed for reuse/distribution merely because the repository is public.
+- It does not treat product-family identity or a framework/synthesis convergence projection as legal-currentness, safety or mutation authority.
 
 ## Human-only path
 
@@ -159,6 +162,7 @@ wholesale PR #5 merge
 new canonical xi-io.net registry writes from this repo
 new xiio/ managed-project writes before the framework namespace prerequisite clears
 Claude settings/hooks/subagent enforcement work inside PR #6
+product-family brand or convergence implementation inside PR #6
 ```
 
 ## Documentation map
@@ -172,10 +176,11 @@ Start here for current work:
 5. `docs/INDEX.md`, navigation.
 6. `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md`, recovery provenance.
 7. `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md`, current kickoff/process delta.
-8. `docs/ops/execution-sequence-v1.md`, product gate dependency graph.
-9. `project-tracking/open-work-ledger.md`, work inventory.
-10. `docs/product/product-vision-locked-v1.md`, product vision.
-11. `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`, architecture approval.
+8. `docs/ops/SFL-PR5-SALVAGE-MAP-001.md`, completed R6-D read-only donor classification.
+9. `docs/ops/execution-sequence-v1.md`, product gate dependency graph.
+10. `project-tracking/open-work-ledger.md`, work inventory.
+11. `docs/product/product-vision-locked-v1.md`, product vision.
+12. `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`, architecture approval.
 
 External-worker / Claude handoff:
 
@@ -207,14 +212,16 @@ Current owner/provenance pointers materially affecting future sam_law adoption i
 - rights/licensing/contribution/distribution qualification,
 - managed-project onboarding/re-onboarding,
 - Work Continuation,
-- planning-promotion graduation.
+- planning-promotion graduation,
+- product-family identity/brand binding,
+- Repo Rehab provenance/convergence projection.
 
 Open framework planning work is not automatically an accepted product contract. Required public-worker obligations must be exported locally, and product adoption must remain explicit.
 
 ## Known gaps
 
-- PR #6 still requires the read-only PR #5 salvage map before closeout.
-- Current kickoff/re-onboarding bytes require fresh exact-head validation and hostile review.
+- R6-D PR #5 donor/salvage classification is complete; later code harvest remains separately gated and must not be started in PR #6.
+- Current closeout-status bytes require fresh exact-head validation and hostile review before owner merge consideration.
 - A single typed accepted strategic PlanRevision/current phase/gate projection is not yet on accepted `main`.
 - The recovery queue is not yet a canonical agile-plan object.
 - Kit #3J independent rendered/current-source review is incomplete.
@@ -231,14 +238,15 @@ Open framework planning work is not automatically an accepted product contract. 
 - Claude enforcement hooks/settings/subagents and provider-neutral executable preflight are not yet built.
 - Project rights/license/contribution/distribution posture requires a future explicit qualification pass.
 - Saskatchewan's broader self-help kit catalogue still requires authoritative reconciliation before completeness can be claimed.
+- Product-family brand and evidence-backed convergence adoption remain future separately admitted capabilities; PR #6 only records their consumer boundary.
 
 ## Next action
 
 Do **not** start another development branch.
 
-Finish `SFL-RECOVERY-CLOSEOUT-001` in PR #6 according to `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`:
+Continue `SFL-RECOVERY-CLOSEOUT-001` in PR #6 according to `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`:
 
-1. finish the read-only PR #5 salvage map,
+1. treat R6-D as complete and do not redo the PR #5 salvage map,
 2. run `npm run check` and `git diff --check` on the exact current head,
 3. require exact-head hosted CI success,
 4. perform exact-head hostile review,
