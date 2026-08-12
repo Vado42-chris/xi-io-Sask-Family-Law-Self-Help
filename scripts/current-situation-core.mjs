@@ -6,9 +6,13 @@ export const STATES = Object.freeze({
   NOT_APPLICABLE: 'NOT_APPLICABLE'
 });
 
-function latestCompletedRun(runs = [], headSha) {
+function latestCompletedRun(runs = [], headSha, requiredWorkflowName) {
   return runs
-    .filter((run) => run && run.head_sha === headSha && run.status === 'completed')
+    .filter((run) => {
+      if (!run || run.head_sha !== headSha || run.status !== 'completed') return false;
+      if (!requiredWorkflowName) return true;
+      return run.name === requiredWorkflowName;
+    })
     .sort((a, b) => {
       const an = Number(a.run_number || 0);
       const bn = Number(b.run_number || 0);
@@ -44,8 +48,9 @@ export function deriveCurrentSituation(input) {
   const headSha = git.head_sha || null;
   const defaultBranch = repo.default_branch || 'main';
   const defaultBranchHeadSha = live.default_branch_head_sha || null;
+  const requiredWorkflowName = policy.required_validation_workflow_name || null;
   const pr = currentPullRequest(live.pull_requests || [], headSha);
-  const run = latestCompletedRun(live.workflow_runs || [], headSha);
+  const run = latestCompletedRun(live.workflow_runs || [], headSha, requiredWorkflowName);
   const validation = validationState(run);
 
   const onAcceptedMain = Boolean(headSha && defaultBranchHeadSha && headSha === defaultBranchHeadSha);
@@ -66,9 +71,10 @@ export function deriveCurrentSituation(input) {
     if (validation === STATES.FAIL) {
       nextSafeAction = `Repair the failing exact-head validation on PR #${pr.number} without broadening scope.`;
     } else if (validation === STATES.UNKNOWN) {
-      nextSafeAction = `Wait for or obtain exact-head validation evidence for PR #${pr.number}.`;
+      const workflowClause = requiredWorkflowName ? ` for required workflow ${requiredWorkflowName}` : '';
+      nextSafeAction = `Wait for or obtain exact-head validation evidence${workflowClause} for PR #${pr.number}.`;
     } else {
-      nextSafeAction = `Resolve remaining review/owner gates for PR #${pr.number}; validation is current for this exact head.`;
+      nextSafeAction = `Resolve remaining review/owner gates for PR #${pr.number}; required validation is current for this exact head.`;
     }
   } else if (onAcceptedMain) {
     workState = STATES.PASS;
@@ -114,7 +120,8 @@ export function deriveCurrentSituation(input) {
     },
     validation: {
       state: validation,
-      evidence_source: run ? 'LIVE_GITHUB_ACTIONS' : (liveEvidenceAvailable ? 'LIVE_GITHUB_ACTIONS_NO_MATCHING_COMPLETED_RUN' : 'UNAVAILABLE'),
+      required_workflow_name: requiredWorkflowName,
+      evidence_source: run ? 'LIVE_GITHUB_ACTIONS' : (liveEvidenceAvailable ? 'LIVE_GITHUB_ACTIONS_NO_MATCHING_COMPLETED_REQUIRED_RUN' : 'UNAVAILABLE'),
       run: run ? {
         id: run.id || null,
         number: run.run_number || null,
