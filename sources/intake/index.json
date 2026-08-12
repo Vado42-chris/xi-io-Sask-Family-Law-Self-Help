@@ -2,6 +2,19 @@
   "schema_version": 1,
   "purpose": "Recovery intake registry for supplied or discovered source artifacts that have not yet passed canonical source admission.",
   "runtime_truth": false,
+  "discovery_graph": {
+    "path": "sources/intake/self-help-kit-candidate-graph.json",
+    "state": "discovery_only_not_runtime_truth",
+    "catalogue_reconciliation_target": 18,
+    "catalogue_reconciliation_authority": "Government of Saskatchewan Family Law Information Centre",
+    "known_exact_full_kit_artifacts": 3,
+    "catalogue_complete": false,
+    "notes": [
+      "Candidate relationships are mined from kit directions, exclusions, hand-offs and current discovery surfaces.",
+      "Candidate kit names, workflow families and historical kit numbers are not canonical source truth.",
+      "Every newly obtained full kit must be recursively mined for additional kit and procedural-resource references before discovery closure."
+    ]
+  },
   "records": [
     {
       "snapshot_intake_id": "kit-2a-2023-04-10",
