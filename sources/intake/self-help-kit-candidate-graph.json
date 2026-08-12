@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "record_status": "discovery_only_not_runtime_truth",
+  "generated_at": "2026-08-12",
+  "project": "sask_family_law_self_help",
+  "catalogue_reconciliation": {
+    "authority": "Government of Saskatchewan Family Law Information Centre",
+    "public_current_count": 18,
+    "count_state": "current_public_government_statement_discovery_target",
+    "known_full_kit_artifacts": [
+      "kit-2a-2023-04-10",
+      "jcc-kit-3j-2026-03-30",
+      "kit-4a-2023-04-10"
+    ],
+    "known_full_kit_count": 3,
+    "catalogue_complete": false,
+    "completion_reason": "Three exact mailbox kit families do not reconcile with the current public FLIC statement that 18 self-help kits are available. Exact current titles and artifacts for the remaining catalogue are unresolved."
+  },
+  "discovery_rules": {
+    "plea_role": "discovery_routing_and_explanatory_surface_not_exact_flic_artifact_authority",
+    "third_party_copy_role": "legacy_name_or_number_seed_only",
+    "candidate_is_runtime_truth": false,
+    "authoritative_artifact_required_before_admission": true,
+    "recursive_edge_mining_required_for_every_new_full_kit": true,
+    "candidate_classes": [
+      "full_kit_candidate",
+      "workflow_family_candidate",
+      "procedural_resource_candidate",
+      "companion_form_candidate",
+      "external_procedural_dependency"
+    ]
+  },
+  "source_nodes": [
+    {
+      "node_id": "kit-2a-2023-04-10",
+      "source_title": "Kit #2a, Preparing an Answer and Counter-Petition",
+      "source_state": "recovery_intake_unreviewed"
+    },
+    {
+      "node_id": "jcc-kit-3j-2026-03-30",
+      "source_title": "Kit #3J, Request for a Judicial Case Conference Order",
+      "source_state": "captured_unverified_current_source_review_pending"
+    },
+    {
+      "node_id": "kit-4a-2023-04-10",
+      "source_title": "Kit #4a, Replying to a Court Application",
+      "source_state": "recovery_intake_unreviewed"
+    }
+  ],
+  "candidate_nodes": [
+    {
+      "candidate_id": "reply-to-court-application",
+      "display_label": "Replying to a Court Application",
+      "candidate_class": "full_kit_candidate",
+      "resolution_state": "resolved_to_known_kit_4a_intake"
+    },
+    {
+      "candidate_id": "agreement-or-consent-judgment",
+      "display_label": "Agreement or consent judgment",
+      "candidate_class": "workflow_family_candidate",
+      "resolution_state": "exact_flic_kit_status_and_title_unknown"
+    },
+    {
+      "candidate_id": "interim-substantive-court-application",
+      "display_label": "Interim or substantive court application",
+      "candidate_class": "full_kit_candidate",
+      "resolution_state": "explicit_kit_family_reference_exact_title_number_and_variants_unknown"
+    },
+    {
+      "candidate_id": "final-order-variation",
+      "display_label": "Variation of a final order",
+      "candidate_class": "full_kit_candidate",
+      "resolution_state": "exact_flic_artifact_unknown_current_government_confirms_support_change_kit_family_exists"
+    },
+    {
+      "candidate_id": "post-divorce-corollary-relief",
+      "display_label": "Corollary relief after divorce",
+      "candidate_class": "workflow_family_candidate",
+      "resolution_state": "exact_flic_kit_status_and_title_unknown"
+    },
+    {
+      "candidate_id": "substituted-service",
+      "display_label": "Application for Substituted Service",
+      "candidate_class": "procedural_resource_candidate",
+      "resolution_state": "flic_referral_found_kit_status_unknown"
+    },
+    {
+      "candidate_id": "prepare-court-order",
+      "display_label": "Preparing a court order",
+      "candidate_class": "full_kit_candidate",
+      "resolution_state": "explicit_additional_self_help_kit_reference_exact_title_and_number_unknown"
+    },
+    {
+      "candidate_id": "pretrial-trial-resources",
+      "display_label": "Pre-trial and trial preparation resources",
+      "candidate_class": "procedural_resource_candidate",
+      "resolution_state": "flic_resources_reference_found_resource_set_unknown"
+    },
+    {
+      "candidate_id": "starting-family-law-proceeding",
+      "display_label": "Starting a Family Law Proceeding",
+      "candidate_class": "full_kit_candidate",
+      "resolution_state": "legacy_third_party_seed_identifies_kit_1a_current_authoritative_artifact_required"
+    },
+    {
+      "candidate_id": "enforcement-applications",
+      "display_label": "Enforcement applications",
+      "candidate_class": "workflow_family_candidate",
+      "resolution_state": "current_plea_workflow_family_catalogue_membership_unknown"
+    },
+    {
+      "candidate_id": "interjurisdictional-support-variation",
+      "display_label": "Inter-jurisdictional support variation",
+      "candidate_class": "workflow_family_candidate",
+      "resolution_state": "government_iso_route_confirmed_flic_kit_ownership_or_status_unknown"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "kit2a-to-kit4a",
+      "from": "kit-2a-2023-04-10",
+      "to": "reply-to-court-application",
+      "relationship": "separate_response_workflow_when_notice_of_application_also_served",
+      "evidence_class": "source_instruction",
+      "confidence": "high",
+      "state": "resolved_to_known_kit_family"
+    },
+    {
+      "edge_id": "kit2a-to-consent",
+      "from": "kit-2a-2023-04-10",
+      "to": "agreement-or-consent-judgment",
+      "relationship": "not_the_correct_kit_when_petition_claims_are_agreed_and_no_additional_claims_are_sought",
+      "evidence_class": "source_instruction_with_flic_referral",
+      "confidence": "high",
+      "state": "workflow_candidate_kit_status_unconfirmed"
+    },
+    {
+      "edge_id": "kit2a-to-interim",
+      "from": "kit-2a-2023-04-10",
+      "to": "interim-substantive-court-application",
+      "relationship": "different_self_help_kits_may_be_available_to_make_interim_application",
+      "evidence_class": "explicit_other_self_help_kit_reference",
+      "confidence": "high",
+      "state": "source_acquisition_required"
+    },
+    {
+      "edge_id": "kit3j-to-final-variation",
+      "from": "jcc-kit-3j-2026-03-30",
+      "to": "final-order-variation",
+      "relationship": "kit_explicitly_excludes_application_to_vary_final_order",
+      "evidence_class": "source_exclusion",
+      "confidence": "high",
+      "state": "source_acquisition_required"
+    },
+    {
+      "edge_id": "kit3j-to-corollary",
+      "from": "jcc-kit-3j-2026-03-30",
+      "to": "post-divorce-corollary-relief",
+      "relationship": "kit_explicitly_excludes_corollary_relief_after_divorce_granted",
+      "evidence_class": "source_exclusion",
+      "confidence": "high",
+      "state": "candidate_resolution_required"
+    },
+    {
+      "edge_id": "kit3j-to-substituted-service",
+      "from": "jcc-kit-3j-2026-03-30",
+      "to": "substituted-service",
+      "relationship": "source_describes_application_for_substituted_service_and_refers_user_to_flic_for_more_information",
+      "evidence_class": "source_instruction_with_flic_referral",
+      "confidence": "high",
+      "state": "resource_type_resolution_required"
+    },
+    {
+      "edge_id": "kit4a-to-order-kit",
+      "from": "kit-4a-2023-04-10",
+      "to": "prepare-court-order",
+      "relationship": "source_explicitly_directs_responsible_party_to_an_additional_self_help_kit_to_prepare_court_order",
+      "evidence_class": "explicit_additional_self_help_kit_reference",
+      "confidence": "high",
+      "state": "source_acquisition_required"
+    },
+    {
+      "edge_id": "kit4a-to-pretrial-trial",
+      "from": "kit-4a-2023-04-10",
+      "to": "pretrial-trial-resources",
+      "relationship": "source_says_additional_resources_are_available_from_flic_if_pretrial_or_trial_is_scheduled",
+      "evidence_class": "source_instruction_with_flic_referral",
+      "confidence": "high",
+      "state": "resource_type_resolution_required"
+    }
+  ],
+  "external_discovery_seeds": [
+    {
+      "seed_id": "legacy-kit-1a",
+      "candidate_id": "starting-family-law-proceeding",
+      "source_type": "non_authoritative_third_party_indexed_copy",
+      "apparent_title": "Kit #1a, Starting a Family Law Proceeding Self-Help Kit",
+      "apparent_source_date": "2022-09-09",
+      "authority_state": "discovery_seed_only_do_not_ingress_as_canonical",
+      "required_resolution": "obtain_current_exact_flic_artifact_and_verify_current_number_title_and_contents"
+    },
+    {
+      "seed_id": "current-government-support-change",
+      "candidate_id": "final-order-variation",
+      "source_type": "current_government_public_information",
+      "authority_state": "current_workflow_family_confirmation_not_exact_kit_artifact",
+      "meaning": "Government of Saskatchewan states that a self-represented person can use a self-help kit to change support orders through court."
+    }
+  ],
+  "acquisition_queue": [
+    {"priority": "P0", "candidate_id": "prepare-court-order"},
+    {"priority": "P0", "candidate_id": "interim-substantive-court-application"},
+    {"priority": "P0", "candidate_id": "final-order-variation"},
+    {"priority": "P0", "candidate_id": "starting-family-law-proceeding"},
+    {"priority": "P1", "candidate_id": "agreement-or-consent-judgment"},
+    {"priority": "P1", "candidate_id": "post-divorce-corollary-relief"},
+    {"priority": "P1", "candidate_id": "substituted-service"},
+    {"priority": "P1", "candidate_id": "pretrial-trial-resources"},
+    {"priority": "P2", "candidate_id": "enforcement-applications"},
+    {"priority": "P2", "candidate_id": "interjurisdictional-support-variation"}
+  ],
+  "closure_rule": {
+    "candidate_edge_closure_required": true,
+    "authoritative_catalogue_reconciliation_required": true,
+    "current_public_catalogue_count_target": 18,
+    "silent_name_or_number_inference_forbidden": true,
+    "cross_snapshot_form_deduplication_without_comparison_forbidden": true
+  }
+}
