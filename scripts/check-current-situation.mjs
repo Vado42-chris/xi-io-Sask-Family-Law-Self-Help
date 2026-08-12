@@ -15,7 +15,10 @@ function base(overrides = {}) {
       pull_requests: [{ number: 9, state: 'open', draft: true, base: 'main', head_sha: H }],
       workflow_runs: [{ id: 1, run_number: 120, name: 'Foundation check', status: 'completed', conclusion: 'success', head_sha: H }]
     },
-    policy: { mutation_admission: STATES.BLOCKED },
+    policy: {
+      mutation_admission: STATES.BLOCKED,
+      required_validation_workflow_name: 'Foundation check'
+    },
     ...overrides
   };
 }
@@ -23,6 +26,7 @@ function base(overrides = {}) {
 {
   const result = deriveCurrentSituation(base());
   assert.equal(result.validation.state, STATES.PASS);
+  assert.equal(result.validation.required_workflow_name, 'Foundation check');
   assert.equal(result.validation.evidence_source, 'LIVE_GITHUB_ACTIONS');
   assert.equal(result.validation.tracked_projection.matches_current_head, false);
   assert.equal(result.active_work.pull_request.number, 9);
@@ -42,7 +46,18 @@ function base(overrides = {}) {
   input.live.workflow_runs = [];
   const result = deriveCurrentSituation(input);
   assert.equal(result.validation.state, STATES.UNKNOWN);
-  assert.match(result.next_safe_action, /obtain exact-head validation evidence/);
+  assert.match(result.next_safe_action, /required workflow Foundation check/);
+}
+
+{
+  const input = base();
+  input.live.workflow_runs = [
+    { id: 2, run_number: 121, name: 'Unrelated docs check', status: 'completed', conclusion: 'success', head_sha: H }
+  ];
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.validation.state, STATES.UNKNOWN);
+  assert.equal(result.validation.run, null);
+  assert.equal(result.validation.evidence_source, 'LIVE_GITHUB_ACTIONS_NO_MATCHING_COMPLETED_REQUIRED_RUN');
 }
 
 {
@@ -66,4 +81,4 @@ function base(overrides = {}) {
   assert.match(result.next_safe_action, /Resolve live GitHub attestations/);
 }
 
-console.log('current-situation checks: PASS (5 cases)');
+console.log('current-situation checks: PASS (6 cases)');
