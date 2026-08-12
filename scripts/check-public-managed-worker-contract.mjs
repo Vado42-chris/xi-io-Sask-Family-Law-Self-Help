@@ -95,13 +95,16 @@ if (machine.future_portable_contract?.target_namespace !== 'xiio/' || machine.fu
 for (const [key, value] of [
   ['active_work_checkpoint', checkpointPath],
   ['current_lane_status', lanePath],
+  ['current_state_ref', currentPlanPath],
   ['re_onboarding_delta', reonboardPath],
   ['verification_runbook', runbookPath],
   ['do_not_touch_register', doNotTouchPath]
 ]) {
   if (machine.discovery?.[key] !== value) fail(`machine discovery ${key} is not ${value}.`);
 }
-if (!machine.discovery?.current_state_ref) fail('machine discovery has no current-state pointer.');
+if (machine.discovery?.current_situation_command !== 'npm run current:situation') {
+  fail('machine discovery does not expose the live CurrentSituation command.');
+}
 
 for (const plane of ['STRATEGIC_WATERFALL','AGILE_FLOW','ACTIVE_EXECUTION']) {
   if (!machine.planning_planes?.includes(plane)) fail(`missing planning plane ${plane}.`);
@@ -117,6 +120,9 @@ if (machine.startup_reonboarding?.operation !== 're_onboard_existing_project' ||
 }
 if (machine.claude?.settings_hooks_subagents_in_recovery_scope !== false) {
   fail('Claude enforcement state is overstated.');
+}
+if (machine.live_attestation?.tracked_markdown_is_not_live_ci_proof !== true) {
+  fail('machine projection must preserve tracked-state/live-attestation separation.');
 }
 
 const expectedCadence = ['RESUME_HYDRATE','ASSESS','PREFLIGHT','ELIGIBILITY_MUTATION_ADMISSION','BRANCH_ISOLATE','IMPLEMENT','TARGETED_VERIFY','INTEGRATION_VERIFY','HOSTILE_INDEPENDENT_REVIEW','OWNER_GATE','MERGE','VERIFY_MAIN','CHANGE_RECEIPT','RELEASE_ADOPTION_FRESHNESS_DELTA','RETIRE','NEXT'];
@@ -153,8 +159,14 @@ for (const key of custodyKeys) {
   if (!a || !b || !c) fail(`current custody surfaces must all expose ${key}.`);
   if (a !== b || a !== c) fail(`current custody ${key} disagrees across checkpoint/lane/current plan: ${a} / ${b} / ${c}`);
 }
-if (field(lane, 'next_new_branch') !== 'BLOCKED while PR #9 owns mutation') {
+
+const activePr = field(lane, 'active_pr');
+const nextBranch = field(lane, 'next_new_branch');
+if (!nextBranch?.startsWith('BLOCKED')) {
   fail('current lane must explicitly block a second mutation branch while the active PR owns custody.');
+}
+if (!nextBranch.includes(`PR #${activePr}`)) {
+  fail(`next_new_branch must identify the active PR #${activePr} that owns mutation custody.`);
 }
 if (!checkpoint.includes('TRACKED CHECKPOINT') || !checkpoint.includes('LIVE CURRENT SITUATION')) {
   fail('checkpoint must separate durable tracked custody from live attestation.');
