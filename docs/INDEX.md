@@ -1,6 +1,6 @@
 # Documentation Index v1
 
-Status: `ACTIVE RECOVERY INDEX; RE-ONBOARDING / CLAUDE COLD-START SURFACES EXPLICIT`  
+Status: `ACTIVE RECOVERY INDEX; R6-D COMPLETE / EXACT-HEAD CLOSEOUT VALIDATION NEXT`  
 Project: `sask_family_law_self_help`
 
 ## Start here
@@ -16,10 +16,11 @@ Read these in order for current repository work:
 | 5 | Agent/operator rules | `AGENTS.md` | recovery/re-onboarding refreshed |
 | 6 | Recovery provenance | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md` | recovery checkpoint |
 | 7 | Kickoff/re-onboarding delta | `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md` | current process/product delta; no implementation authority |
-| 8 | Product gate dependency graph | `docs/ops/execution-sequence-v1.md` | recovery-adjusted dependency map; Git mutation cadence is owned by the execution plan |
-| 9 | Durable work inventory | `project-tracking/open-work-ledger.md` | append-only |
-| 10 | Canonical product vision | `docs/product/product-vision-locked-v1.md` | owner-approved |
-| 11 | Product architecture approval | `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md` | owner-approved |
+| 8 | Completed PR #5 donor classification | `docs/ops/SFL-PR5-SALVAGE-MAP-001.md` | R6-D complete; read-only classification only |
+| 9 | Product gate dependency graph | `docs/ops/execution-sequence-v1.md` | recovery-adjusted dependency map; Git mutation cadence is owned by the execution plan |
+| 10 | Durable work inventory | `project-tracking/open-work-ledger.md` | append-only |
+| 11 | Canonical product vision | `docs/product/product-vision-locked-v1.md` | owner-approved |
+| 12 | Product architecture approval | `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md` | owner-approved |
 
 Current repository custody:
 
@@ -27,6 +28,8 @@ Current repository custody:
 main = accepted repository truth
 PR #6 = active recovery/control-plane proposal
 PR #5 = frozen donor/salvage source, no wholesale merge
+R6-D = complete read-only salvage classification
+next gate = R6-E exact-head validation, then R6-F hostile exact-head review
 next new branch = none until PR #6 merges and merged main is verified
 ```
 
@@ -53,13 +56,14 @@ Current limitation: product vision/architecture and recovery dependency order ex
 
 | Artifact | Path | State |
 |---|---|---|
-| Active-work checkpoint | `docs/ops/ACTIVE_WORK_CHECKPOINT.md` | fail-closed current custody projection; revalidation required after current bytes |
-| Current lane | `docs/ops/CURRENT_LANE_STATUS.md` | PR #6 / SFL-RECOVERY-CLOSEOUT-001 projection |
+| Active-work checkpoint | `docs/ops/ACTIVE_WORK_CHECKPOINT.md` | fail-closed current custody projection; exact-head validation required after current closeout bytes |
+| Current lane | `docs/ops/CURRENT_LANE_STATUS.md` | PR #6 / SFL-RECOVERY-CLOSEOUT-001 / R6-E-next projection |
 | GitHub execution plan | `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md` | detailed current mutation/cadence authority |
 | Do-not-touch register | `docs/ops/do-not-touch-register.md` | overlapping/concurrent work guardrail |
 | Verification runbook | `docs/ops/verification-runbook.md` | exact current recovery validation applicability |
 | August recovery startup | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md` | provenance/history |
 | Re-onboarding delta | `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md` | current kickoff/process-domain classification |
+| PR #5 salvage map | `docs/ops/SFL-PR5-SALVAGE-MAP-001.md` | R6-D complete; eight donor families classified; no code harvest authority |
 | Mailbox source discovery | `docs/ops/SFL-OWNER-MAILBOX-SOURCE-DISCOVERY-001.md` | Kit #2a, #3J, #4a, Form 15-52 discovered |
 | Kit #4a scope correction | `docs/ops/SFL-KIT-4A-SCOPE-RECOVERY-001.md` | recovery evidence |
 | Namespace migration dry run | `docs/ops/SFL-PROJECT-KERNEL-NAMESPACE-MIGRATION-001.md` | plan only, no `xiio/` write yet |
@@ -133,6 +137,22 @@ The Inbox Mail surface is a qualified donor source, not a runtime dependency.
 
 Canonical framework ownership remains external to this repository. The 33 locked primitives are not canonical framework registry entries until accepted through xi-io.net. No SFL-local component registry may be created.
 
+## Product-family identity / provenance-convergence adoption boundary
+
+The owner-approved portfolio infographic has been distributed to its correct framework/product owners. This repository does not implement those capabilities in PR #6.
+
+Future sam_law adoption must preserve:
+
+```text
+PRODUCT FAMILY / BRAND IDENTITY
+!= LEGAL WARNING / BLOCKED / CURRENTNESS STATE
+!= PROVENANCE / FRAMEWORK-vs-SYNTHESIS CONVERGENCE
+!= SECURITY / RIGHTS / RELEASE QUALIFICATION
+!= MUTATION AUTHORITY
+```
+
+Framework/product planning handles for later work include brand binding through the framework brand owner, provenance/convergence through Repo Rehab, capability delivery through framework distribution/adopter locks, and read-only Studio projection. These remain future separately admitted work after recovery.
+
 ## Project Kernel namespace
 
 Current framework direction is:
@@ -171,6 +191,8 @@ The repository is public, but no project license is selected. Public visibility 
 | `npm run check:public-managed-worker-contract` | public-worker/Claude discovery, planning-plane, active-work and fail-closed contract structure |
 | `git diff --check` | whitespace/diff integrity before review |
 
+Hosted Foundation Check run #112 passed on `402b9b91889da444e8840507ce10528c315d6c99` after the re-onboarding validator regressions were corrected. Later closeout-status updates intentionally invalidate that exact-head proof. Require fresh hosted validation on the final reviewed PR #6 head.
+
 These checks do not prove legal currentness/correctness, runtime behavior, private-workspace security or Claude conformance. Source approval and provider qualification remain separate evidence gates.
 
 ## Ledgers
@@ -200,4 +222,4 @@ Historical documents are evidence, not current work custody.
 
 Follow `docs/ops/ACTIVE_WORK_CHECKPOINT.md` and `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`.
 
-The current mutation priority is to close PR #6 cleanly as recovery/control-plane work. Do not start another development branch until PR #6 is approved, merged and merged `main` is verified. The first final Claude qualification is then the read-only fresh-clone conformance pilot, not a new runtime feature branch.
+R6-D is complete. The current mutation priority is to finish PR #6 closeout truth, obtain exact-head hosted validation, perform hostile exact-head review, then stop for the explicit owner merge gate. Do not start another development branch until PR #6 is approved, merged and merged `main` is verified. The first final Claude qualification is then the read-only fresh-clone conformance pilot, not a new runtime feature branch.
