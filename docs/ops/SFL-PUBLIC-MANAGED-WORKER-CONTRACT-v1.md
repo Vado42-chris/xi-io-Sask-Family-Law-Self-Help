@@ -1,10 +1,10 @@
 # SFL Public Managed-Worker Contract v1
 
-Status: `PRODUCT-LOCAL PUBLIC-SAFE PROJECTION / PILOT / NOT FRAMEWORK CANONICAL`  
-Project: `sask_family_law_self_help`  
-Repository: `Vado42-chris/xi-io-Sask-Family-Law-Self-Help`  
-Repository visibility: `public`  
-Contract version: `sfl.public-managed-worker.v1`  
+Status: `PRODUCT-LOCAL PUBLIC-SAFE PROJECTION / PILOT / NOT FRAMEWORK CANONICAL`
+Project: `sask_family_law_self_help`
+Repository: `Vado42-chris/xi-io-Sask-Family-Law-Self-Help`
+Repository visibility: `public`
+Contract version: `sfl.public-managed-worker.v1`
 Export basis: private xi-io framework accepted revision `b27738d8e31937fb996ba8cf2abd4b8bb125d8f9` plus product-local accepted/recovery evidence current on 2026-08-12.
 
 ## Purpose
