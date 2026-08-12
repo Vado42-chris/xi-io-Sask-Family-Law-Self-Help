@@ -173,9 +173,9 @@ if (!/NEXT NEW BRANCH\s*=\s*NONE until PR #6 merges and main is verified/.test(p
 for (const claim of [
   'operation: re_onboard_existing_project',
   'REFERENCE SLICE SELECTED',
-  'STRATEGIC / WATERFALL',
-  'AGILE / FLOW',
-  'ACTIVE EXECUTION',
+  '### A. Strategic / waterfall truth',
+  '### B. Agile / flow truth',
+  '### C. Active execution truth',
   'CLAUDE-CONFORMANCE-001'
 ]) {
   if (!reonboard.includes(claim)) {
