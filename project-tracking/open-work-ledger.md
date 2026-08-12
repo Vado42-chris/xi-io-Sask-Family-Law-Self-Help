@@ -28,12 +28,27 @@ Status: append-only
 | SFL-WORK-022 | SFL-ARCH-001 | Lock canonical product vision, legal workbench architecture and PostgreSQL/object-vault direction | completed_owner_approved | legal_sensitive, cross_repo_adoption, data_model | owner approval receipt, canonical vision, architecture docs, CI | Merge stacked architecture after checks and review fixes |
 | SFL-WORK-023 | SFL-SOURCE-REVIEW-002 | Execute the canonical source-completion gate as the next active product work | active | legal_sensitive, provenance, data_model | exact binaries, hashes, line-item catalogs, two-pass review, source approval receipt | Capture companion artifacts and independently verify every question |
 | SFL-WORK-024 | SFL-UX-SHELL-001 | Prepare target-owned synthetic workbench shell plan without implementing legal runtime | queued_after_source_gate | ui_component, cross_repo_adoption | source-map receipts, route model, synthetic fixtures, geometry/a11y checks | Begin only when SFL-SOURCE-REVIEW-002 closes |
+| SFL-WORK-025 | SFL-FRAMEWORK-RECOVERY-001 | Rehydrate the existing repository against current xi-io.net framework direction | active | metadata_config, cross_repo_adoption | recovery startup record, framework baseline, migration map, validation receipt | Complete bounded framework recovery before PR #5 salvage |
+| SFL-WORK-026 | SFL-KIT-4A-SOURCE-RECOVERY-001 | Preserve and verify the supplied Kit #4a source artifact identity | active | provenance, legal_sensitive | exact binary archive, SHA-256, source metadata, current official comparison | Archive exact bytes through binary-capable Git path and compare current official source |
+| SFL-WORK-027 | SFL-KIT-4A-SOURCE-RECOVERY-001 | Capture every Kit #4a included form, all Form 15-47 schedules, and the 42-row situation matrix | active_partial | legal_sensitive, data_model | four complete line-item catalogs, schedule catalogs, matrix review receipt | Independently review the captured matrix, then catalog all remaining form/schedule fields |
+| SFL-WORK-028 | SFL-KIT-4A-SOURCE-RECOVERY-001 | Capture Kit #4a applicability, prerequisites, service, filing, hearing and post-hearing process as source-bound rules | active | legal_sensitive, engine_runtime | reviewed workflow graph, deadline rules, alternative-path rules, discrepancy dispositions | Build workflow catalog without inferring unresolved rules |
+| SFL-WORK-029 | SFL-MULTI-KIT-SOURCE-001 | Replace the single-global-snapshot assumption with independently versioned source-family semantics | planned | data_model, provenance | registry design, migration plan, validators, no-silent-current test | Design before promoting Kit #4a intake to canonical snapshot |
+| SFL-WORK-030 | SFL-KIT-4A-SOURCE-RECOVERY-001 | Compare Kit #4a Form 15-8B and Form 12-3 with the Kit #3J instances before reuse | blocked_on_comparison | legal_sensitive, provenance | text/hash/rendered diff and explicit equivalence or divergence record | Do not deduplicate by form number alone |
+| SFL-WORK-031 | SFL-KIT-4A-SOURCE-RECOVERY-001 | Resolve Kit #4a source conflicts, including Form 12-3/12-13 and 7-day/3-day filing guidance | blocked | legal_sensitive | current authoritative source comparison and human disposition receipt | Keep affected runtime branches blocked |
 
 ## Supersession notes, 2026-07-22
 
 - `SFL-WORK-002` is superseded in scope by `SFL-WORK-009` through `SFL-WORK-014`.
 - `SFL-WORK-015` and `SFL-WORK-016` are completed through `SFL-WORK-022` and `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`.
 - Architecture approval does not unblock runtime. `SFL-WORK-023` is the active implementation gate.
+
+## Recovery correction, 2026-08-12
+
+- `SFL-WORK-023` remains necessary for Kit #3J, but is no longer sufficient to represent complete product source readiness.
+- Owner-supplied Kit #4a revealed a second independently versioned workflow source with four included forms, seven Financial Statement schedules, a 42-row schedule-selection matrix, and procedural instructions that were not represented in the repository.
+- `SFL-WORK-025` through `SFL-WORK-031` make the framework recovery, multi-kit model, Kit #4a source capture, process mapping, cross-snapshot comparison, and discrepancy resolution explicit.
+- The Kit #4a matrix currently stored under `sources/intake/` is unreviewed intake evidence, not approved runtime truth.
+- Runtime schema, triage, task-plan, form-generation and transmission work remain blocked until the applicable source gates are explicit and reviewed.
 
 The original rows remain preserved because this ledger is append-only.
 
