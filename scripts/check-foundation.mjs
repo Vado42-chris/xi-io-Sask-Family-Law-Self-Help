@@ -7,6 +7,7 @@ const requiredFiles = [
   'package.json',
   '.env.example',
   'docs/INDEX.md',
+  'docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md',
   'docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-07-22.md',
   'docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md',
   'docs/ops/execution-sequence-v1.md',
@@ -24,6 +25,9 @@ const requiredFiles = [
   'docs/legal/legal-information-boundary-v1.md',
   'docs/source-materials/jcc-kit-3j-source-record-v1.md',
   'docs/source-materials/source-capture-and-freshness-standard-v1.md',
+  'docs/source-materials/inbox-framework-component-promotion-lock-v1.md',
+  'docs/source-materials/inbox-framework-component-promotion-lock-v1.json',
+  'docs/source-materials/inbox-framework-component-source-map-v1.json',
   'docs/schemas/matter-record-schema-v1.md',
   'docs/schemas/workflow-definition-schema-v1.md',
   'docs/reviews/local-review-packet-sask_family_law_self_help-001.md',
@@ -41,6 +45,7 @@ const requiredFiles = [
   'sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-5.json',
   'scripts/check-source-catalog.mjs',
   'scripts/check-recovery-sources.mjs',
+  'scripts/check-framework-component-promotion-lock.mjs',
   'xi/managed-project.manifest.yaml',
   'xi/project-lexicon.yaml',
   'xi/feature-index.yaml',
@@ -100,6 +105,30 @@ for (const heading of [
   }
 }
 
+const planPath = 'docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md';
+const agents = fs.readFileSync('AGENTS.md', 'utf8');
+const plan = fs.readFileSync(planPath, 'utf8');
+
+if (!readme.includes(planPath)) {
+  console.error('Foundation check failed. README does not point to the current GitHub execution plan.');
+  process.exit(1);
+}
+if (!agents.includes(`1. \`${planPath}\``)) {
+  console.error('Foundation check failed. AGENTS does not make the current GitHub execution plan first in read order.');
+  process.exit(1);
+}
+for (const requiredPlanClaim of [
+  'CURRENT COLD-START EXECUTION AUTHORITY FOR REPOSITORY WORK',
+  'PR #5 = frozen donor/salvage source, not a merge unit',
+  'Current active recovery PR: `#6`',
+  'Next new branch               = NONE until PR #6 merges and main is verified'
+]) {
+  if (!plan.includes(requiredPlanClaim)) {
+    console.error(`Foundation check failed. GitHub execution plan missing required custody claim: ${requiredPlanClaim}`);
+    process.exit(1);
+  }
+}
+
 const manifest = fs.readFileSync('xi/managed-project.manifest.yaml', 'utf8');
 for (const field of [
   'project_id:',
@@ -119,7 +148,13 @@ for (const field of [
 }
 
 const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-for (const scriptName of ['check', 'check:foundation', 'check:source-catalog', 'check:recovery-sources']) {
+for (const scriptName of [
+  'check',
+  'check:foundation',
+  'check:source-catalog',
+  'check:recovery-sources',
+  'check:framework-component-promotion-lock'
+]) {
   if (!packageJson.scripts?.[scriptName]) {
     console.error(`Foundation check failed. Missing package script: ${scriptName}`);
     process.exit(1);
@@ -127,3 +162,4 @@ for (const scriptName of ['check', 'check:foundation', 'check:source-catalog', '
 }
 
 console.log(`Foundation check passed (${requiredFiles.length} required files).`);
+console.log('Cold-start GitHub execution authority is present and linked from README/AGENTS.');
