@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "purpose": "Recovery intake registry for supplied or discovered source artifacts that have not yet passed canonical source admission.",
+  "runtime_truth": false,
+  "records": [
+    {
+      "snapshot_intake_id": "kit-4a-2023-04-10",
+      "source_family_candidate_id": "kit-4a-reply-to-court-application",
+      "source_title": "Kit #4a, Replying to a Court Application, Self-Help Kit",
+      "source_date": "2023-04-10",
+      "intake_path": "sources/intake/kit-4a/2023-04-10/source-intake.json",
+      "state": "captured_unreviewed",
+      "currentness": "unverified",
+      "canonical_snapshot_id": null,
+      "runtime_admissible": false,
+      "blockers": [
+        "exact binary not archived in Git",
+        "current official comparison missing",
+        "complete four-form line-item review missing",
+        "complete procedural graph review missing",
+        "material source discrepancies unresolved"
+      ]
+    }
+  ]
+}
