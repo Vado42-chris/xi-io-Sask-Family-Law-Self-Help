@@ -9,6 +9,7 @@ Project: `sask_family_law_self_help`
 |---|---|---|
 | Canonical product vision | `docs/product/product-vision-locked-v1.md` | owner-approved locked direction |
 | August existing-project recovery | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md` | active recovery checkpoint |
+| Owner mailbox source discovery | `docs/ops/SFL-OWNER-MAILBOX-SOURCE-DISCOVERY-001.md` | Kit #2a, Kit #3J, Kit #4a and Form 15-52 discovery recorded |
 | Kit #4a scope correction | `docs/ops/SFL-KIT-4A-SCOPE-RECOVERY-001.md` | active source-recovery gate |
 | Current gate sequence | `docs/ops/execution-sequence-v1.md` | recovery-adjusted |
 | Open work | `project-tracking/open-work-ledger.md` | append-only, recovery rows added |
@@ -35,7 +36,7 @@ Project: `sask_family_law_self_help`
 | Privacy and data boundary | `docs/architecture/privacy-and-data-boundary-v1.md` | bootstrap draft |
 | Inbox pattern adoption and legal workbench | `docs/architecture/inbox-pattern-adoption-and-legal-workbench-v1.md` | owner-approved locked direction, no Inbox mutation |
 | ADR-001 PostgreSQL runtime catalog | `docs/architecture/adr-001-postgresql-runtime-catalog-v1.md` | owner-accepted direction, no database configured |
-| Multi-kit source registry | `docs/architecture/multi-kit-source-registry-v1.md` | recovery design, required before Kit #4a promotion |
+| Multi-kit source registry | `docs/architecture/multi-kit-source-registry-v1.md` | recovery design, required before recovery intakes are promoted |
 | Matter record schema | `docs/schemas/matter-record-schema-v1.md` | conceptual |
 | Workflow definition schema | `docs/schemas/workflow-definition-schema-v1.md` | conceptual and incomplete for recovered multi-kit scope |
 
@@ -43,8 +44,10 @@ Project: `sask_family_law_self_help`
 
 | Document | Path | State |
 |---|---|---|
+| Kit #2a workflow intake | `sources/intake/kit-2a/2023-04-10/source-intake.json` | form selection and major process rules inventoried, full graph/review pending |
 | Kit #3J workflow | `docs/workflows/jcc-kit-3j-workflow-v1.md` | source review pending |
-| Kit #4a workflow | `sources/intake/kit-4a/2023-04-10/source-intake.json` | process stages inventoried, source-bound graph pending |
+| Kit #4a workflow intake | `sources/intake/kit-4a/2023-04-10/source-intake.json` | process stages inventoried, source-bound graph pending |
+| Form 15-52 rule/form intake | `sources/intake/form-15-52/undated/source-intake.json` | supplied rule and request choices captured, source date/currentness unresolved |
 | Progressive disclosure interview | `docs/ux/progressive-disclosure-interview-v1.md` | existing UX direction |
 | Accessibility and cognitive load | `docs/ux/accessibility-and-cognitive-load-v1.md` | existing UX direction |
 | Legal-information boundary | `docs/legal/legal-information-boundary-v1.md` | existing boundary |
@@ -73,11 +76,16 @@ These artifacts are deliberately separate from canonical approved source truth.
 | Artifact | Path | State |
 |---|---|---|
 | Intake registry | `sources/intake/index.json` | unreviewed source candidates only |
-| Kit #4a source intake | `sources/intake/kit-4a/2023-04-10/source-intake.json` | hash identified, currentness unverified, full capture pending |
-| Form 15-47 schedule-selection matrix | `sources/intake/kit-4a/2023-04-10/form-15-47-schedule-matrix.json` | 42 source rows captured, independent review pending |
+| Mailbox source discovery receipt | `docs/ops/SFL-OWNER-MAILBOX-SOURCE-DISCOVERY-001.md` | direct attachment inventory, private case details excluded |
+| Kit #2a source intake | `sources/intake/kit-2a/2023-04-10/source-intake.json` | nine included forms identified, form-selection/process mining started, currentness unverified |
+| Kit #4a source intake | `sources/intake/kit-4a/2023-04-10/source-intake.json` | four included forms identified, currentness unverified, full capture pending |
+| Kit #4a Form 15-47 schedule-selection matrix | `sources/intake/kit-4a/2023-04-10/form-15-47-schedule-matrix.json` | 42 source rows captured, independent review pending |
+| Form 15-52 Notice to Disclose intake | `sources/intake/form-15-52/undated/source-intake.json` | four-page rule/form source captured, revision date unknown, review pending |
 | Kit #4a recovery audit | `docs/ops/SFL-KIT-4A-SCOPE-RECOVERY-001.md` | records forms, process scope, discrepancies and blockers |
 
-Kit #4a physically contains Form 13-31, Form 15-47, Form 15-8B and Form 12-3. The latter two overlap form numbers already cataloged under Kit #3J, but cross-snapshot equivalence has not been proven and reuse is blocked pending comparison.
+Mailbox discovery found three full self-help kit source families in the direct-government-sender attachment lane: Kit #2a, Kit #3J and Kit #4a. It also found standalone Form 15-52 with supplied Rule 15-52 and a dated Saskatoon Judicial Family Centre schedule poster.
+
+Repeated form numbers across kits are not assumed equivalent. Kit #2a, Kit #4a and Kit #3J overlap on Form 15-47 references, Form 15-8B, Form 12-3 and other form families. Cross-snapshot reuse remains blocked until explicit comparison and review.
 
 No completed user forms or private case evidence belong in this repository.
 
@@ -130,6 +138,7 @@ Ledgers are append-only. Corrections require a new entry that identifies the cor
 | Original bootstrap review packet | `docs/reviews/local-review-packet-sask_family_law_self_help-001.md` | historical checkpoint |
 | Original startup packet | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-07-22.md` | historical checkpoint |
 | Recovery startup packet | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md` | active recovery checkpoint |
+| Mailbox source discovery | `docs/ops/SFL-OWNER-MAILBOX-SOURCE-DISCOVERY-001.md` | additional source families recorded |
 | JCC source capture receipt | `docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md` | source transcription complete, review pending |
 | JCC source capture review packet | `docs/reviews/local-review-packet-jcc-source-capture-001.md` | independent source review pending |
 
@@ -141,18 +150,15 @@ Existing commands:
 |---|---|
 | `npm run check` | Run current repository checks |
 | `npm run check:source-catalog` | Verify the existing Kit #3J snapshot/catalog structure |
+| `npm run check:recovery-sources` | Fail closed on Kit #2a, Kit #4a and Form 15-52 recovery intake provenance/admission invariants |
 
-Recovery gap:
-
-The existing validators are first-slice validators. They do not yet validate Kit #4a intake, multi-kit source-family semantics, cross-snapshot form relationships, or complete procedure catalogs. New validation must be added before recovery can claim structural compliance.
-
-A passing structural check proves consistency only. It does not prove legal correctness or currentness.
+Recovery validators prove only structural recovery claims. They deliberately reject silent canonical promotion or currentness claims for the intake sources. They do not prove legal correctness or currentness.
 
 ## Framework references
 
 Canonical framework repo: `Vado42-chris/xi-io.net`.
 
-The original bootstrap used framework commit `c29afb513d6e44511ecb00bec7514df3229f7d0c`. Recovery inspection found the framework 195 commits ahead of that point and requires revalidation against current framework truth before merge.
+The original bootstrap used framework commit `c29afb513d6e44511ecb00bec7514df3229f7d0c`. Recovery inspection found substantial framework drift and requires revalidation against current framework truth before merge.
 
 Material recovery references include:
 
@@ -171,7 +177,9 @@ Architecture remains owner-approved, but source and framework recovery now have 
 
 - `SFL-FRAMEWORK-RECOVERY-001`, current framework/Project Kernel recovery,
 - `SFL-SOURCE-REVIEW-002`, unfinished Kit #3J review,
-- `SFL-KIT-4A-SOURCE-RECOVERY-001`, Kit #4a forms plus process recovery,
+- `SFL-KIT-2A-SOURCE-RECOVERY-001`, Kit #2a forms plus Answer/Counter-Petition process recovery,
+- `SFL-KIT-4A-SOURCE-RECOVERY-001`, Kit #4a forms plus application-response process recovery,
+- `SFL-FORM-15-52-SOURCE-RECOVERY-001`, Notice to Disclose form/rule recovery,
 - `SFL-MULTI-KIT-SOURCE-001`, independent source-family registry semantics.
 
 Runtime schemas, triage, task planning, form generation, private workspace, AI, egress and transmission remain blocked behind the applicable reviewed source and framework gates.
