@@ -4,6 +4,25 @@
   "runtime_truth": false,
   "records": [
     {
+      "snapshot_intake_id": "kit-2a-2023-04-10",
+      "source_family_candidate_id": "kit-2a-answer-and-counter-petition",
+      "source_title": "Kit #2a, Preparing an Answer and Counter-Petition, Self-Help Kit",
+      "source_date": "2023-04-10",
+      "intake_path": "sources/intake/kit-2a/2023-04-10/source-intake.json",
+      "state": "captured_unreviewed",
+      "currentness": "unverified",
+      "canonical_snapshot_id": null,
+      "runtime_admissible": false,
+      "blockers": [
+        "exact binary not archived in Git",
+        "current official comparison missing",
+        "complete nine-form line-item review missing",
+        "complete procedural and form-selection graph review missing",
+        "cross-snapshot form equivalence unproven",
+        "material source discrepancies unresolved"
+      ]
+    },
+    {
       "snapshot_intake_id": "kit-4a-2023-04-10",
       "source_family_candidate_id": "kit-4a-reply-to-court-application",
       "source_title": "Kit #4a, Replying to a Court Application, Self-Help Kit",
@@ -19,6 +38,36 @@
         "complete four-form line-item review missing",
         "complete procedural graph review missing",
         "material source discrepancies unresolved"
+      ]
+    },
+    {
+      "snapshot_intake_id": "form-15-52-undated-owner-mailbox",
+      "source_family_candidate_id": "form-15-52-notice-to-disclose",
+      "source_title": "Form 15-52, Notice to Disclose, with King’s Bench Rule 15-52",
+      "source_date": null,
+      "intake_path": "sources/intake/form-15-52/undated/source-intake.json",
+      "state": "captured_unreviewed",
+      "currentness": "unverified",
+      "canonical_snapshot_id": null,
+      "runtime_admissible": false,
+      "blockers": [
+        "source revision date unknown",
+        "exact binary not archived in Git",
+        "current official Rule 15-52 and form comparison missing",
+        "complete line-item review missing"
+      ]
+    }
+  ],
+  "procedural_reference_candidates": [
+    {
+      "reference_id": "saskatoon-judicial-family-centre-poster-apr-aug-2026",
+      "source_title": "Poster - Saskatoon - Apr-Aug 2026.pdf",
+      "source_channel": "direct_government_sender_attachment_in_owner_connected_mailbox",
+      "state": "discovered_not_mined",
+      "runtime_admissible": false,
+      "notes": [
+        "Dated scheduling/reference material, not a self-help kit or form.",
+        "Do not use as current schedule truth without separate freshness verification."
       ]
     }
   ]
