@@ -11,6 +11,9 @@ Project: `sask_family_law_self_help`
 | August existing-project recovery | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md` | active recovery checkpoint |
 | Owner mailbox source discovery | `docs/ops/SFL-OWNER-MAILBOX-SOURCE-DISCOVERY-001.md` | Kit #2a, Kit #3J, Kit #4a and Form 15-52 discovery recorded |
 | Kit #4a scope correction | `docs/ops/SFL-KIT-4A-SCOPE-RECOVERY-001.md` | active source-recovery gate |
+| Reusable Xi primitive promotion lock | `docs/source-materials/inbox-framework-component-promotion-lock-v1.md` | stable names/lineage locked, canonical framework registry admission blocked by `xi-io.net#306 R1` |
+| Machine-readable primitive lock | `docs/source-materials/inbox-framework-component-promotion-lock-v1.json` | validator-enforced promotion intake, not canonical framework registry truth |
+| Exact primitive source map | `docs/source-materials/inbox-framework-component-source-map-v1.json` | framework + accepted Inbox source refs for every locked primitive |
 | Current gate sequence | `docs/ops/execution-sequence-v1.md` | recovery-adjusted |
 | Open work | `project-tracking/open-work-ledger.md` | append-only, recovery rows added |
 | Owner architecture approval | `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md` | accepted |
@@ -93,9 +96,14 @@ No completed user forms or private case evidence belong in this repository.
 
 | Donor | Record | State |
 |---|---|---|
-| xi-io Inbox | `docs/source-materials/inbox-pattern-source-map-v1.md` | read-only source map, adoption not implemented on main |
+| xi-io Inbox | `docs/source-materials/inbox-pattern-source-map-v1.md` | historical read-only source map, adoption not implemented on main |
+| xi-io Inbox Mail | `docs/source-materials/inbox-mail-workbench-donor-census-2026-08-12.md` | current accepted-main donor census, Mail treated as broader workbench donor |
+| Inbox -> framework primitive promotion | `docs/source-materials/inbox-framework-component-promotion-lock-v1.md` | names, aliases, tranches and authority boundaries locked for framework intake |
+| Primitive source map | `docs/source-materials/inbox-framework-component-source-map-v1.json` | every locked primitive mapped to current framework and accepted Inbox source refs |
 
 The Inbox repository is a read-only donor. This project must not depend on its active `main` branch at runtime or change Inbox while implementing the family-law product.
+
+The primitive promotion artifacts are not a second framework registry. Canonical component admission remains owned by `xi-io.net#236/#306/#315` and is currently blocked by the `#306 R1` namespace/read-order prerequisite.
 
 ## Project Kernel and repo-local namespace
 
@@ -148,11 +156,14 @@ Existing commands:
 
 | Command | Purpose |
 |---|---|
-| `npm run check` | Run current repository checks |
+| `npm run check` | Run current repository checks, including the framework primitive promotion lock |
 | `npm run check:source-catalog` | Verify the existing Kit #3J snapshot/catalog structure |
 | `npm run check:recovery-sources` | Fail closed on Kit #2a, Kit #4a and Form 15-52 recovery intake provenance/admission invariants |
+| `npm run check:framework-component-promotion-lock` | Enforce stable primitive IDs/symbols, exact source-map coverage, lifecycle boundaries and authority-denial invariants |
 
 Recovery validators prove only structural recovery claims. They deliberately reject silent canonical promotion or currentness claims for the intake sources. They do not prove legal correctness or currentness.
+
+The framework-component promotion validator likewise proves only that the promotion intake is internally stable and source-mapped. It does not make the entries canonical `xi-io.net` registry truth or claim that framework implementation/adoption verification has passed.
 
 ## Framework references
 
@@ -169,7 +180,9 @@ Material recovery references include:
 - user/workspace lifecycle,
 - Task Context compilation,
 - GitHub management/governance,
-- receipt and no-silent-green rules.
+- receipt and no-silent-green rules,
+- Workbench UI consumer/component contracts,
+- framework component registry and active-consumer feedback loop.
 
 ## Current gate and gaps
 
@@ -180,6 +193,7 @@ Architecture remains owner-approved, but source and framework recovery now have 
 - `SFL-KIT-2A-SOURCE-RECOVERY-001`, Kit #2a forms plus Answer/Counter-Petition process recovery,
 - `SFL-KIT-4A-SOURCE-RECOVERY-001`, Kit #4a forms plus application-response process recovery,
 - `SFL-FORM-15-52-SOURCE-RECOVERY-001`, Notice to Disclose form/rule recovery,
-- `SFL-MULTI-KIT-SOURCE-001`, independent source-family registry semantics.
+- `SFL-MULTI-KIT-SOURCE-001`, independent source-family registry semantics,
+- reusable Workbench/communication primitive canonical registry admission, blocked by `xi-io.net#306 R1` before `#306 R2/R3` can admit the locked source-mapped rows.
 
 Runtime schemas, triage, task planning, form generation, private workspace, AI, egress and transmission remain blocked behind the applicable reviewed source and framework gates.
