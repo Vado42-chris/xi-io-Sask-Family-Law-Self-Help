@@ -1,22 +1,25 @@
 # Documentation Index v1
 
-Status: `ACTIVE RECOVERY INDEX; GITHUB COLD-START AUTHORITY RESOLVED`  
+Status: `ACTIVE RECOVERY INDEX; RE-ONBOARDING / CLAUDE COLD-START SURFACES EXPLICIT`  
 Project: `sask_family_law_self_help`
 
 ## Start here
 
-Read these in order for current GitHub work:
+Read these in order for current repository work:
 
 | Order | Purpose | Path | State |
 |---|---|---|---|
-| 1 | Current GitHub execution/custody authority | `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md` | current, self-contained |
-| 2 | Human/project orientation | `README.md` | recovery-refreshed |
-| 3 | Agent/operator rules | `AGENTS.md` | recovery-refreshed |
-| 4 | Recovery provenance | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md` | recovery checkpoint |
-| 5 | Product gate dependency graph | `docs/ops/execution-sequence-v1.md` | recovery-adjusted dependency map, Git mutation cadence is owned by the execution plan |
-| 6 | Durable work inventory | `project-tracking/open-work-ledger.md` | append-only |
-| 7 | Canonical product vision | `docs/product/product-vision-locked-v1.md` | owner-approved |
-| 8 | Product architecture approval | `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md` | owner-approved |
+| 1 | Fail-closed active-work checkpoint | `docs/ops/ACTIVE_WORK_CHECKPOINT.md` | current projection; live SHA must still be resolved |
+| 2 | Detailed GitHub execution/custody authority | `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md` | current, self-contained |
+| 3 | Concise current-lane projection | `docs/ops/CURRENT_LANE_STATUS.md` | current projection |
+| 4 | Human/project orientation | `README.md` | recovery/re-onboarding refreshed |
+| 5 | Agent/operator rules | `AGENTS.md` | recovery/re-onboarding refreshed |
+| 6 | Recovery provenance | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md` | recovery checkpoint |
+| 7 | Kickoff/re-onboarding delta | `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md` | current process/product delta; no implementation authority |
+| 8 | Product gate dependency graph | `docs/ops/execution-sequence-v1.md` | recovery-adjusted dependency map; Git mutation cadence is owned by the execution plan |
+| 9 | Durable work inventory | `project-tracking/open-work-ledger.md` | append-only |
+| 10 | Canonical product vision | `docs/product/product-vision-locked-v1.md` | owner-approved |
+| 11 | Product architecture approval | `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md` | owner-approved |
 
 Current repository custody:
 
@@ -27,17 +30,53 @@ PR #5 = frozen donor/salvage source, no wholesale merge
 next new branch = none until PR #6 merges and merged main is verified
 ```
 
+Do not infer current work from newest PR/branch/issue/commit.
+
+## Planning/work-state split
+
+The repository now explicitly distinguishes:
+
+```text
+STRATEGIC / WATERFALL
+  product intent, requirements, major gates/dependencies
+
+AGILE / FLOW
+  derived ready/blocked/ordered work items
+
+ACTIVE EXECUTION
+  exact current ChangeUnit + mutation custody
+```
+
+Current limitation: product vision/architecture and recovery dependency order exist, but one typed accepted strategic PlanRevision/current-gate projection and one canonical agile-plan object are not yet present on accepted `main`. Do not fabricate them from issue/branch recency.
+
 ## Current recovery/control-plane records
 
 | Artifact | Path | State |
 |---|---|---|
-| GitHub execution plan | `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md` | current mutation/cadence authority |
+| Active-work checkpoint | `docs/ops/ACTIVE_WORK_CHECKPOINT.md` | fail-closed current custody projection; revalidation required after current bytes |
+| Current lane | `docs/ops/CURRENT_LANE_STATUS.md` | PR #6 / SFL-RECOVERY-CLOSEOUT-001 projection |
+| GitHub execution plan | `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md` | detailed current mutation/cadence authority |
+| Do-not-touch register | `docs/ops/do-not-touch-register.md` | overlapping/concurrent work guardrail |
+| Verification runbook | `docs/ops/verification-runbook.md` | exact current recovery validation applicability |
 | August recovery startup | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md` | provenance/history |
+| Re-onboarding delta | `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md` | current kickoff/process-domain classification |
 | Mailbox source discovery | `docs/ops/SFL-OWNER-MAILBOX-SOURCE-DISCOVERY-001.md` | Kit #2a, #3J, #4a, Form 15-52 discovered |
 | Kit #4a scope correction | `docs/ops/SFL-KIT-4A-SCOPE-RECOVERY-001.md` | recovery evidence |
 | Namespace migration dry run | `docs/ops/SFL-PROJECT-KERNEL-NAMESPACE-MIGRATION-001.md` | plan only, no `xiio/` write yet |
 | Execution/gate sequence | `docs/ops/execution-sequence-v1.md` | product dependency graph |
 | Open work | `project-tracking/open-work-ledger.md` | append-only work inventory |
+
+## External worker / Claude handoff
+
+| Artifact | Path | State |
+|---|---|---|
+| Claude adapter | `CLAUDE.md` | thin provider-specific discovery only |
+| Public managed-worker contract | `docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.md` | provider-neutral public-safe pilot contract |
+| Machine projection | `docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.json` | machine-readable companion; not final framework ABI |
+| External-worker conformance pilot | `docs/ops/SFL-EXTERNAL-WORKER-CONFORMANCE-PILOT-001.md` | test spec; final run not executed |
+| Public-worker validator | `scripts/check-public-managed-worker-contract.mjs` | structure/discovery/fail-closed validator |
+
+The final Claude conformance qualification is intentionally post-recovery: fresh clone of accepted `main`, no chat history, no private framework access, read-only/plan-oriented hostile scenarios first. Passing repo structure does not equal provider conformance.
 
 ## Product and architecture
 
@@ -77,7 +116,7 @@ next new branch = none until PR #6 merges and merged main is verified
 
 No recovery intake becomes canonical or runtime-admissible without reviewed source promotion.
 
-Repeated form numbers across kits are candidate relationships only until explicit byte/text/rendered comparison proves equivalence or divergence.
+A first/reference kit is not proof of full Saskatchewan product-source coverage. Repeated form numbers across kits are candidate relationships only until explicit byte/text/rendered comparison proves equivalence or divergence.
 
 ## Inbox / reusable framework donor program
 
@@ -92,16 +131,7 @@ The Inbox Mail surface is a qualified donor source, not a runtime dependency.
 | Exact primitive source map | `docs/source-materials/inbox-framework-component-source-map-v1.json` | current framework + accepted Inbox source refs |
 | Lock validator | `scripts/check-framework-component-promotion-lock.mjs` | fail-closed naming/source/authority checks |
 
-Canonical framework ownership remains:
-
-```text
-xi-io.net#236 = UI/component adoption and two-way freshness
-xi-io.net#306 = namespace/registry compatibility recovery
-xi-io.net#315 = versioned distribution/adopter locks
-xi-io.net#300 = Git cadence
-```
-
-The 33 locked primitives are not canonical framework registry entries until accepted through xi-io.net. No SFL-local component registry may be created.
+Canonical framework ownership remains external to this repository. The 33 locked primitives are not canonical framework registry entries until accepted through xi-io.net. No SFL-local component registry may be created.
 
 ## Project Kernel namespace
 
@@ -123,20 +153,25 @@ This repository still has five legacy portable contracts under `xi/`:
 
 Preserve them. The migration plan is `docs/ops/SFL-PROJECT-KERNEL-NAMESPACE-MIGRATION-001.md`.
 
-New `xiio/` writes remain blocked until the controlling xi-io.net namespace/read-order prerequisite is accepted and current guidance is unambiguous.
+New `xiio/` writes remain blocked until the controlling framework namespace/read-order prerequisite is accepted and current guidance is unambiguous.
+
+## Rights/distribution state
+
+The repository is public, but no project license is selected. Public visibility does not itself grant reuse, redistribution, bundling or commercial distribution rights. A future explicit rights/license/contribution/distribution qualification pass remains required for stronger external-use claims.
 
 ## Validation
 
 | Command | Purpose |
 |---|---|
 | `npm run check` | complete current repository structural checks |
-| `npm run check:foundation` | required files, cold-start authority, secret-like content and basic contracts |
+| `npm run check:foundation` | required files, cold-start/checkpoint/re-onboarding contracts, secret-like content and basic contracts |
 | `npm run check:source-catalog` | existing Kit #3J structural catalog |
 | `npm run check:recovery-sources` | Kit #2a/#4a/Form 15-52 intake fail-closed invariants |
 | `npm run check:framework-component-promotion-lock` | stable IDs/symbols, source-map coverage and authority separation |
+| `npm run check:public-managed-worker-contract` | public-worker/Claude discovery, planning-plane, active-work and fail-closed contract structure |
 | `git diff --check` | whitespace/diff integrity before review |
 
-These checks do not prove legal currentness/correctness. Source approval remains a separate human/evidence gate.
+These checks do not prove legal currentness/correctness, runtime behavior, private-workspace security or Claude conformance. Source approval and provider qualification remain separate evidence gates.
 
 ## Ledgers
 
@@ -154,15 +189,15 @@ Ledgers are append-only unless an accepted framework migration explicitly supers
 
 | Artifact | Path | Meaning |
 |---|---|---|
-| July startup | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-07-22.md` | historical empty/bootstrap checkpoint |
+| July startup | `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-07-22.md` | historical empty/bootstrap checkpoint; first reference slice was not full product-source coverage |
 | Original bootstrap review | `docs/reviews/local-review-packet-sask_family_law_self_help-001.md` | historical review evidence |
 | Product brief | `docs/product/product-brief-v1.md` | earlier planning |
-| First reference slice | `docs/product/first-reference-slice-v1.md` | historical first-slice planning, not full product boundary |
+| First reference slice | `docs/product/first-reference-slice-v1.md` | historical proving-slice planning, not full product boundary |
 
 Historical documents are evidence, not current work custody.
 
 ## Current next Git action
 
-Follow `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`.
+Follow `docs/ops/ACTIVE_WORK_CHECKPOINT.md` and `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`.
 
-The current mutation priority is to close PR #6 cleanly as recovery/control-plane work. Do not start another development branch until PR #6 is approved, merged and merged `main` is verified.
+The current mutation priority is to close PR #6 cleanly as recovery/control-plane work. Do not start another development branch until PR #6 is approved, merged and merged `main` is verified. The first final Claude qualification is then the read-only fresh-clone conformance pilot, not a new runtime feature branch.
