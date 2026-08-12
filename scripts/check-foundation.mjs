@@ -120,13 +120,16 @@ if (!agents.includes(`1. \`${planPath}\``)) {
 for (const requiredPlanClaim of [
   'CURRENT COLD-START EXECUTION AUTHORITY FOR REPOSITORY WORK',
   'PR #5 = frozen donor/salvage source, not a merge unit',
-  'Current active recovery PR: `#6`',
-  'Next new branch               = NONE until PR #6 merges and main is verified'
+  'Current active recovery PR: `#6`'
 ]) {
   if (!plan.includes(requiredPlanClaim)) {
     console.error(`Foundation check failed. GitHub execution plan missing required custody claim: ${requiredPlanClaim}`);
     process.exit(1);
   }
+}
+if (!/NEXT NEW BRANCH\s*=\s*NONE until PR #6 merges and main is verified/.test(plan)) {
+  console.error('Foundation check failed. GitHub execution plan must explicitly block a new branch until PR #6 merges and main is verified.');
+  process.exit(1);
 }
 
 const manifest = fs.readFileSync('xi/managed-project.manifest.yaml', 'utf8');
