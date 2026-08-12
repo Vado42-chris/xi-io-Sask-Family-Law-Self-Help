@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "record_status": "intake_unreviewed_not_runtime_truth",
+  "snapshot_intake_id": "kit-2a-2023-04-10",
+  "source_identity": {
+    "source_title": "Kit #2a, Preparing an Answer and Counter-Petition, Self-Help Kit",
+    "source_file_name": "K02a - Preparing an Answer and Counter-Petition - FINAL - KB - 2023.04.10.docx",
+    "source_date": "2023-04-10",
+    "captured_at": "2026-08-12",
+    "mailbox_received_date": "2026-05-04",
+    "provenance_state": "direct_government_sender_attachment_in_owner_connected_mailbox",
+    "jurisdiction": "Court of King's Bench for Saskatchewan, Family Law Division",
+    "source_class": "owner_mailbox_public_legal_information_attachment",
+    "sha256": "7f7bb360d65cd0361e97f3943c53cdf83ec87dab4805ae266721c96662d250ac",
+    "size_bytes": 255694,
+    "page_count_reported": 66,
+    "authority_state": "direct_government_sender_attachment_not_yet_compared_with_current_official_download",
+    "freshness_state": "captured_unverified_current",
+    "official_currentness_verified": false,
+    "original_artifact_state": "hash_verified_in_recovery_session_not_archived_in_repo"
+  },
+  "kit_scope": {
+    "source_stated_use": [
+      "prepare an Answer after being served with a Petition",
+      "prepare an Answer and Counter-Petition when making claims not already made in the Petition",
+      "respond to Petition claims involving divorce",
+      "respond to Petition claims involving parenting",
+      "respond to Petition claims involving child support",
+      "respond to Petition claims involving spousal support",
+      "respond to Petition claims involving division of family property"
+    ],
+    "source_stated_not_this_workflow": [
+      "a separate response workflow is required when also responding to a Notice of Application"
+    ],
+    "source_is_workflow_document": true,
+    "form_catalog_alone_is_sufficient": false
+  },
+  "forms_physically_included": [
+    {"form_id":"form-15-19b","official_number":"Form 15-19B","title":"Notice of Intent to Answer","toc_start_page":18,"capture_state":"pending_complete_line_item_catalog"},
+    {"form_id":"form-15-19a","official_number":"Form 15-19A","title":"Answer","toc_start_page":19,"capture_state":"pending_complete_line_item_catalog"},
+    {"form_id":"form-15-20","official_number":"Form 15-20","title":"Answer and Counter-Petition","toc_start_page":23,"capture_state":"pending_complete_line_item_catalog"},
+    {"form_id":"form-15-51","official_number":"Form 15-51","title":"Notice to File Financial Statement","toc_start_page":35,"capture_state":"pending_complete_line_item_catalog"},
+    {"form_id":"form-15-47","official_number":"Form 15-47","title":"Financial Statement","toc_start_page":37,"capture_state":"pending_complete_line_item_and_schedule_catalog_cross_snapshot_comparison_required"},
+    {"form_id":"form-15-49","official_number":"Form 15-49","title":"Property Statement","toc_start_page":53,"capture_state":"pending_complete_line_item_and_table_catalog"},
+    {"form_id":"form-15-8b","official_number":"Form 15-8B","title":"Affidavit of Service by Alternate Mode","toc_start_page":60,"capture_state":"pending_complete_catalog_cross_snapshot_comparison_required"},
+    {"form_id":"form-15-8a","official_number":"Form 15-8A","title":"Affidavit of Personal Service","toc_start_page":65,"capture_state":"pending_complete_line_item_catalog"},
+    {"form_id":"form-12-3","official_number":"Form 12-3","title":"Acknowledgment of Service","toc_start_page":66,"capture_state":"pending_complete_catalog_cross_snapshot_comparison_required","notes":["The embedded form heading is Form 12-3, while the kit table of contents, instructions and checklist repeatedly call it Form 12-13."]}
+  ],
+  "referenced_not_included_or_separate": [
+    {"form_id":"form-15-48b","official_number":"Form 15-48B","title":"Agreement as to Child Support","relationship":"referenced_exception_to_financial_statement_requirement","capture_state":"not_included_in_kit"},
+    {"form_id":"form-15-48a","official_number":"Form 15-48A","title":"Waiver relating to financial statements","relationship":"referenced_exception_to_financial_statement_requirement","capture_state":"not_included_in_kit"},
+    {"form_id":"form-15-50","official_number":"Form 15-50","title":"Waiver of Property Statements","relationship":"referenced_exception_to_property_statement_requirement","capture_state":"not_confirmed_in_kit_inventory"},
+    {"source_family_candidate_id":"reply-to-court-application","relationship":"separate_workflow_required_when_notice_of_application_also_served","capture_state":"covered_by_separate_kit_family_candidate"}
+  ],
+  "source_derived_workflow_rules": [
+    {"rule_id":"kit-2a.fit-001","category":"applicability","source_meaning":"Use this kit after being served with a Petition when disputing one or more Petition claims or making claims of your own.","state":"captured_unreviewed"},
+    {"rule_id":"kit-2a.deadline-001","category":"deadline","source_meaning":"The kit states a 30-day deadline to serve and file a response to a Petition.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"kit-2a.extension-001","category":"deadline_extension","source_meaning":"Form 15-19B Notice of Intent to Answer may provide 10 additional days according to this source; a written agreed extension is another source-described path.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"kit-2a.application-crossflow-001","category":"workflow_boundary","source_meaning":"If a Notice of Application was also served and the user wishes to respond, the source directs the user to a separate kit and states application-response material must be served/filed at least seven days before the hearing.","state":"captured_unreviewed_cross_source_verification_required"},
+    {"rule_id":"kit-2a.dispute-resolution-001","category":"prerequisite","source_meaning":"The source describes mandatory early dispute resolution after the Answer or Answer and Counter-Petition is filed, subject to emergency/family-violence/abduction exemption paths.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"kit-2a.parenting-course-001","category":"prerequisite","source_meaning":"For a later interim application dealing with children, the source says Parenting after Separation and Divorce registration is required before the application is heard and recommends early attendance where child claims exist.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"kit-2a.divorce-certificate-001","category":"supporting_document","source_meaning":"If the Petition does not claim divorce but the Counter-Petition will, the source requires a marriage certificate or Certificate of Registration of Marriage and describes translation requirements where applicable.","state":"captured_unreviewed"},
+    {"rule_id":"kit-2a.form-choice-001","category":"form_selection","source_meaning":"Use Form 15-19A Answer when the Petition contains all issues that need resolution and the respondent disputes how they should be resolved; use Form 15-20 Answer and Counter-Petition when the respondent needs to add claims not already made.","state":"captured_unreviewed"},
+    {"rule_id":"kit-2a.financial-statement-001","category":"form_selection","source_meaning":"If either party claims child or spousal support, the source generally requires Form 15-47, subject to source-described agreement/waiver exceptions.","state":"captured_unreviewed_exception_graph_pending"},
+    {"rule_id":"kit-2a.property-statement-001","category":"form_selection","source_meaning":"If either party claims division of family property, the source requires Form 15-49, subject to a source-described waiver exception.","state":"captured_unreviewed_exception_graph_pending"},
+    {"rule_id":"kit-2a.notice-financial-001","category":"form_selection","source_meaning":"If the Counter-Petition adds a support claim that the Petition did not contain, the source requires service of Form 15-51 with the Counter-Petition.","state":"captured_unreviewed"},
+    {"rule_id":"kit-2a.signing-001","category":"commissioning","source_meaning":"The source instructs the user not to sign Financial or Property Statements early and requires signing/sworn-or-affirmed completion before a Commissioner for Oaths.","state":"captured_unreviewed"},
+    {"rule_id":"kit-2a.answer-service-001","category":"service","source_meaning":"For an Answer without Counter-Petition, the source describes multiple service methods and proof paths depending on recipient and method.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"kit-2a.counterpetition-service-001","category":"service","source_meaning":"The source says an Answer and Counter-Petition must be personally served on the Petitioner, even when represented, by someone other than the Respondent.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"kit-2a.proof-service-001","category":"proof_of_service","source_meaning":"The source describes acknowledgment, personal-service affidavit and alternate-mode affidavit paths, but contains form-number discrepancies that block clean normalization.","state":"blocked_by_source_discrepancy"},
+    {"rule_id":"kit-2a.filing-001","category":"filing","source_meaning":"After service, the source directs filing originals plus proof of service and lists filing fees that must be treated as stale/unverified until current official comparison.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"kit-2a.next-stage-001","category":"post_filing","source_meaning":"The source describes negotiation/dispute resolution, possible interim applications, and eventual pre-trial/trial paths when issues remain unresolved.","state":"captured_unreviewed"}
+  ],
+  "source_discrepancies": [
+    {
+      "discrepancy_id":"kit-2a-disc-001",
+      "topic":"acknowledgment_form_number",
+      "observed":["The table of contents, service instructions and checklist call the Acknowledgment of Service Form 12-13.","The embedded form heading is Form 12-3 (Subrule 12-3(1))."],
+      "resolution_state":"recorded_not_silently_corrected",
+      "runtime_effect":"proof_of_service_identity_blocked_pending_current_source_review"
+    },
+    {
+      "discrepancy_id":"kit-2a-disc-002",
+      "topic":"personal_service_affidavit_form_number",
+      "observed":["Most instructions, checklist and embedded form identify Affidavit of Personal Service as Form 15-8A.","One Answer and Counter-Petition service instruction calls it Form 15-18A."],
+      "resolution_state":"recorded_not_silently_corrected",
+      "runtime_effect":"counterpetition_proof_of_service_rule_blocked_pending_review"
+    },
+    {
+      "discrepancy_id":"kit-2a-disc-003",
+      "topic":"stale_deadlines_fees_and_process",
+      "observed":["The artifact is dated 2023-04-10 and contains deadlines, filing fees, dispute-resolution rules and service instructions."],
+      "resolution_state":"current_official_comparison_required",
+      "runtime_effect":"all_time_fee_and_procedure_sensitive_rules_blocked_from_final_ready_use"
+    }
+  ],
+  "cross_snapshot_relationships": [
+    {"local_form_id":"form-15-47","other_snapshot_or_intake_id":"kit-4a-2023-04-10","relationship":"candidate_equivalent_unverified"},
+    {"local_form_id":"form-15-8b","other_snapshot_or_intake_id":"kit-4a-2023-04-10","relationship":"candidate_equivalent_unverified"},
+    {"local_form_id":"form-12-3","other_snapshot_or_intake_id":"kit-4a-2023-04-10","relationship":"candidate_equivalent_unverified"},
+    {"local_form_id":"form-15-47","other_snapshot_or_intake_id":"jcc-kit-3j-2026-03-30","relationship":"candidate_related_unverified"},
+    {"local_form_id":"form-15-8b","other_snapshot_or_intake_id":"jcc-kit-3j-2026-03-30","relationship":"candidate_equivalent_unverified"},
+    {"local_form_id":"form-12-3","other_snapshot_or_intake_id":"jcc-kit-3j-2026-03-30","relationship":"candidate_equivalent_unverified"}
+  ],
+  "required_before_runtime_use": [
+    "archive exact source binary and reverify hash",
+    "compare source against current official court materials",
+    "capture every included form line item and repeatable structure",
+    "capture the Form 15-47 schedule matrix and supporting-document requirements for this exact snapshot or prove reviewed equivalence",
+    "capture all Form 15-49 tables, conditional rules and supporting-document requirements",
+    "capture full applicability, deadline, service, filing and next-stage graph",
+    "resolve or block every material source discrepancy",
+    "independently compare rendered source pages against normalized catalogs",
+    "issue human source approval receipt"
+  ]
+}
