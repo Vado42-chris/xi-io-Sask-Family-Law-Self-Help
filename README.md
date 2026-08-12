@@ -1,164 +1,268 @@
 # xi-io: Saskatchewan Family Law Self-Help
 
-Status: `active managed project, governance and source-capture bootstrap`  
+Status: `ACTIVE EXISTING-PROJECT RECOVERY; RUNTIME LEGAL WORK BLOCKED`  
 Project ID: `sask_family_law_self_help`  
-Repo: `Vado42-chris/xi-io-Sask-Family-Law-Self-Help`  
-Default branch: `main`
+Repository: `Vado42-chris/xi-io-Sask-Family-Law-Self-Help`  
+Default branch: `main`  
+Current recovery PR: `#6`  
+Current recovery branch: `chore/framework-recovery-2026-08-12`
 
 ## Current status
 
-This repository contains the framework-aligned startup spine and the first dated legal-source snapshot for a public-facing Saskatchewan family-law workflow assistant. Runtime application code has not started and has not been verified.
+This repository is being recovered and re-onboarded from an older single-workflow bootstrap into the Saskatchewan jurisdiction package for the planned `xi-io: sam_law` product. The project is not a one-kit JCC application.
 
-| Area | State |
+Current cold-start/custody surfaces are:
+
+1. `docs/ops/ACTIVE_WORK_CHECKPOINT.md`
+2. `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`
+3. `docs/ops/CURRENT_LANE_STATUS.md`
+4. `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md` for kickoff/process-freshness state.
+
+A fresh worker must resolve those before selecting or creating Git work. Do not infer current work from newest branch, PR, issue comment or commit.
+
+| Area | Current state |
 |---|---|
-| Completion class | `C2 scaffold_only` |
-| Evidence tier | `E2 static_review` |
-| Runtime | `not_started` |
-| API | `docs_only` |
-| MCP | `docs_only` |
-| Schemas | `conceptual_docs_only` |
-| AI integration | `not_configured` |
-| Court or email transmission | `forbidden_not_implemented` |
-| Security review | `required_not_started` |
-| Current source snapshot | `jcc-kit-3j-2026-03-30` |
-| Source freshness | `captured_unverified_current` |
-| Included forms indexed | `6` |
-| Captured line items | `267` |
+| Accepted repository truth | `main` |
+| Active proposed recovery | PR `#6` |
+| Current ChangeUnit | `SFL-RECOVERY-CLOSEOUT-001` |
+| PR #5 | `FROZEN_DONOR / SALVAGE_SOURCE`, no wholesale merge; R6-D classification complete |
+| Recovery closeout gate | R6-E exact-head validation next; R6-F hostile review follows |
+| Strategic/waterfall projection | product vision/architecture exist; one typed accepted PlanRevision projection still missing |
+| Agile/current-work projection | recovery dependency queue exists; separate canonical planning object pending |
+| Active execution projection | checkpoint + lane + detailed execution plan in PR #6 |
+| Legal source model | multi-kit recovery active |
+| Runtime legal/procedural rules | blocked |
+| Private matter runtime | blocked / not accepted |
+| AI runtime | blocked / not accepted |
+| Claude discovery contract | present as public-safe pilot projection |
+| Claude conformance | not yet executed; first final run is post-recovery fresh clone |
+| Court/email transmission | forbidden / not implemented |
+| Legacy framework namespace | tracked under `xi/`, preserve as legacy input |
+| New `xiio/` writes | blocked pending framework namespace/read-order prerequisite |
+| Rights/license posture | repository public; project license not selected; reuse/distribution claims remain unresolved |
+| Inbox-derived primitive names | source-mapped promotion intake only, not canonical framework registry truth |
+| Product-family/convergence work | distributed to framework/product owners; not implementation scope for PR #6 |
 
 ## What this repo is
 
-This project is intended to turn versioned Saskatchewan court self-help kits into deterministic, progressive-disclosure workflows. A user describes the result they need, the system identifies a candidate workflow and required forms, gathers reusable facts, drafts user-reviewable text, identifies missing records, prepares form packages, and tracks service, filing, and follow-up tasks.
+This project converts governed Saskatchewan family-law self-help sources into deterministic, progressive-disclosure workflows. The governed unit is a workflow/procedural source, not merely a blank form.
 
-The first reference workflow is Saskatchewan Court of King's Bench Kit #3J, Request for a Judicial Case Conference Order, source version dated March 30, 2026 and captured by this project on July 22, 2026.
+For every admitted source family the product must capture, review and preserve:
+
+```text
+source identity and exact version
+-> forms physically included
+-> every form line item
+-> applicability and selection rules
+-> supporting-document obligations
+-> prerequisites
+-> service/proof alternatives
+-> filing steps and deadlines
+-> hearing/post-hearing process
+-> discrepancies and blocked branches
+-> reviewed deterministic projection
+```
+
+A reference slice proves a bounded workflow only. It does not prove that all Saskatchewan family-law self-help source families, forms or process handoffs have been inventoried.
+
+The product architecture is owner-approved in `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`. The legal matter/workbench interaction grammar uses reusable xi-io patterns while legal source truth stays target-owned.
 
 ## Canonical source snapshot
 
-The source registry lives at [`sources/source-registry.json`](sources/source-registry.json). The first snapshot contains complete line-item catalogs for the six forms physically included in the supplied 45-page kit:
+The historical first canonical snapshot remains `jcc-kit-3j-2026-03-30` in `sources/source-registry.json`. That registry still reflects the first-slice single-global-snapshot assumption and is under recovery.
 
-- FAM-PD #7-2, Request for a Judicial Case Conference
-- Form 10-3, Draft Order
-- Form 10-3, Draft Child Support Order
-- Form 15-8B, Affidavit of Service by Alternate Mode
-- Form 12-3, Acknowledgment of Service
-- FAM-PD #7-5, Judicial Case Conference Appearance Memo
+Additional source families currently exist only as governed recovery intake unless separately approved:
 
-The catalogs contain 267 stable line items, including inputs, choices, conditional follow-ups, repeatable groups, attachment requirements, signatures, commissioner fields, material static clauses, and court-only fields.
+- Kit #2a, Preparing an Answer and Counter-Petition, dated 2023-04-10,
+- Kit #4a, Replying to a Court Application, dated 2023-04-10,
+- standalone Form 15-52 with supplied Rule 15-52, revision date unresolved,
+- dated procedural/scheduling reference candidates.
 
-This does not yet establish complete JCC coverage. FAM-PD #7-1, FAM-PD #7-3, court-generated FAM-PD #7-4, Form 15-8A, Form 15-47, and Form 15-49 remain explicit source gaps.
+Kit #3J currently has six physically included forms cataloged with 267 line items, but independent rendered-source/current-official review is incomplete.
+
+No source under `sources/intake/` is runtime-admissible merely because it has been captured structurally.
 
 ## Required freshness disclosure
 
-Every workflow start screen, form workspace, preview, and final package screen must visibly show:
+Every future workflow, form workspace, preview and package must expose source provenance and freshness appropriate to the exact governing source family, including:
 
-- form source date,
-- date captured by this application,
-- freshness state,
-- last official verification date or `Not yet verified`,
-- a warning whenever the snapshot is not independently verified as current.
+- source/version date,
+- capture date,
+- current-official comparison state,
+- reviewer/verification state,
+- stale/unknown/disputed warning where applicable.
 
-Current required wording is based on this state:
-
-> This workflow was captured from Kit #3J dated March 30, 2026, on July 22, 2026. It has not yet been independently verified against the current official court download. Review current court requirements before filing or serving documents.
+Unknown, stale, changed, unavailable or materially disputed source state must block the affected final-ready filing/service/transmission path. It must not falsely invalidate unrelated source families.
 
 ## What this repo is not
 
-- It is not a law firm, lawyer, court, filing service, or source of legal advice.
-- It is not authorized to decide legal entitlement or predict outcomes.
-- It does not yet transmit documents to a court, opposing party, lawyer, or service provider.
+- It is not a law firm, lawyer, court, filing service or source of legal advice.
+- It is not authorized to decide entitlement or predict outcomes.
+- It does not yet have accepted court, service or email transmission capability.
 - It does not store real case files in this public repository.
 - It does not make AI mandatory for core use.
-- It does not treat a generated draft or a structurally valid catalog as verified legal content.
+- It does not treat generated drafts, structural catalogs, Inbox donor behavior or framework candidates as verified legal truth.
+- It is not a fork of `xi-io Inbox` and must not depend on Inbox `main` at runtime.
+- It is not licensed for reuse/distribution merely because the repository is public.
+- It does not treat product-family identity or a framework/synthesis convergence projection as legal-currentness, safety or mutation authority.
 
 ## Human-only path
 
-Supported by design. A user must be able to:
-
-1. select or confirm the applicable workflow,
-2. answer plain-language questions,
-3. enter and edit facts manually,
-4. see why each question is being asked,
-5. upload or identify required records,
-6. review every generated field and paragraph,
-7. export a package without AI access.
+The intended product must remain usable without AI. A user must be able to select or confirm an applicable workflow, answer plain-language questions, edit facts, understand why information is requested, identify supporting records, review every generated field/paragraph and produce an approved package through deterministic rules.
 
 ## AI-assisted path
 
-AI is optional and interchangeable. It may help interpret user intent, ask bounded follow-up questions, reorganize the user's own facts, suggest plain-language drafts, flag inconsistencies, and explain form terminology. It may not silently select relief, invent facts, provide unqualified legal conclusions, sign, swear, serve, file, or send documents.
+AI is optional and subordinate to deterministic/legal source gates. It may explain, ask bounded follow-ups, organize user-provided facts, draft proposed wording, compare information and identify missing support.
+
+It may not invent facts or procedure, silently choose legal relief, override deterministic rules, approve revisions, sign, swear, commission, file, serve or send.
+
+`XiSelectedContext`/Ibal proposal state is context and recommendation, not execution authority.
+
+External development agents such as Claude consume `docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.md`; provider-specific adapters may change discovery/representation only, not policy or authority.
 
 ## Local-first and data posture
 
-The public repo contains only code, blank workflow definitions, public source records, test fixtures that contain no personal information, and governance artifacts. Real legal matters must use a separate private workspace. Sensitive data must not be committed, included in public logs, used as analytics payload, or sent to an AI provider without explicit informed approval.
+This repository may contain public source records, schemas, synthetic fixtures, governance artifacts and product code that contains no real matter data. Real legal matters belong in a separate private local workspace with explicit security, deletion, recovery and consent controls.
+
+Private legal data, completed forms, tax/medical/financial records, correspondence and provider credentials must not be committed here.
 
 ## Safe commands
 
 ```bash
 npm run check
+npm run check:foundation
 npm run check:source-catalog
+npm run check:recovery-sources
+npm run check:framework-component-promotion-lock
+npm run check:public-managed-worker-contract
+git diff --check
 ```
 
-No dependency installation is required for the current documentation and source-catalog checks.
+No dependency installation is required for the current checks.
+
+Detailed applicability is in `docs/ops/verification-runbook.md`.
 
 ## Blocked commands
 
-The following action classes are blocked unless separately approved and receipted:
+Unless a separately admitted and approved lane says otherwise:
 
 ```text
-destructive git or force push
-merge or release
+destructive Git / force push / history rewrite
+merge or release without owner gate
+branch deletion / broad cleanup
 public deploy or tunnel changes
 secret or .env display
-schema migration
-court filing or email transmission
-service on another party
-AI-provider data egress involving a real matter
+schema/database migration
+private matter ingestion
+court filing or service
+email/provider mutation
+AI-provider egress involving real matter data
 cross-repo mutation
-production storage or authentication changes
+wholesale PR #5 merge
+new canonical xi-io.net registry writes from this repo
+new xiio/ managed-project writes before the framework namespace prerequisite clears
+Claude settings/hooks/subagent enforcement work inside PR #6
+product-family brand or convergence implementation inside PR #6
 ```
 
 ## Documentation map
 
-Start with [`docs/INDEX.md`](docs/INDEX.md). Primary control files are:
+Start here for current work:
 
-- [`AGENTS.md`](AGENTS.md)
-- [`sources/source-registry.json`](sources/source-registry.json)
-- [`sources/jcc-kit-3j/2026-03-30/forms-index.json`](sources/jcc-kit-3j/2026-03-30/forms-index.json)
-- [`docs/source-materials/source-capture-and-freshness-standard-v1.md`](docs/source-materials/source-capture-and-freshness-standard-v1.md)
-- [`docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md`](docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md)
-- [`xi/managed-project.manifest.yaml`](xi/managed-project.manifest.yaml)
-- [`xi/feature-index.yaml`](xi/feature-index.yaml)
-- [`docs/ops/execution-sequence-v1.md`](docs/ops/execution-sequence-v1.md)
-- [`docs/workflows/jcc-kit-3j-workflow-v1.md`](docs/workflows/jcc-kit-3j-workflow-v1.md)
-- [`project-tracking/open-work-ledger.md`](project-tracking/open-work-ledger.md)
+1. `docs/ops/ACTIVE_WORK_CHECKPOINT.md`, fail-closed active-work checkpoint.
+2. `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`, detailed current GitHub execution/custody authority.
+3. `docs/ops/CURRENT_LANE_STATUS.md`, concise active-lane projection.
+4. `AGENTS.md`, worker rules.
+5. `docs/INDEX.md`, navigation.
+6. `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md`, recovery provenance.
+7. `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md`, current kickoff/process delta.
+8. `docs/ops/SFL-PR5-SALVAGE-MAP-001.md`, completed R6-D read-only donor classification.
+9. `docs/ops/execution-sequence-v1.md`, product gate dependency graph.
+10. `project-tracking/open-work-ledger.md`, work inventory.
+11. `docs/product/product-vision-locked-v1.md`, product vision.
+12. `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`, architecture approval.
+
+External-worker / Claude handoff:
+
+- `CLAUDE.md`
+- `docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.md`
+- `docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.json`
+- `docs/ops/SFL-EXTERNAL-WORKER-CONFORMANCE-PILOT-001.md`
+- `docs/ops/verification-runbook.md`
+- `docs/ops/do-not-touch-register.md`
+
+Reusable primitive intake:
+
+- `docs/source-materials/inbox-mail-workbench-donor-census-2026-08-12.md`
+- `docs/source-materials/inbox-framework-component-promotion-lock-v1.md`
+- `docs/source-materials/inbox-framework-component-promotion-lock-v1.json`
+- `docs/source-materials/inbox-framework-component-source-map-v1.json`
 
 ## Related framework records
 
-Canonical framework reference: `Vado42-chris/xi-io.net`.
+Canonical framework repository: `Vado42-chris/xi-io.net`.
 
-This bootstrap follows the xi-io repository governance quickstart, project startup hydration standard, README standard, managed-project manifest standard, agent-run ledger standard, and managed-project white-label launch prompt current at framework commit `c29afb513d6e44511ecb00bec7514df3229f7d0c`.
+Current owner/provenance pointers materially affecting future sam_law adoption include framework work for:
+
+- Git cadence / mutation admission,
+- namespace/registry/read-order reconciliation,
+- Task Context,
+- strategy-to-execution lifecycle,
+- versioned capability distribution/adopter locks,
+- rights/licensing/contribution/distribution qualification,
+- managed-project onboarding/re-onboarding,
+- Work Continuation,
+- planning-promotion graduation,
+- product-family identity/brand binding,
+- Repo Rehab provenance/convergence projection.
+
+Open framework planning work is not automatically an accepted product contract. Required public-worker obligations must be exported locally, and product adoption must remain explicit.
 
 ## Known gaps
 
-- The exact original Kit #3J binary is hash-identified but not yet archived in the repository.
-- The 267 line items require independent rendered-page review before approval.
-- Six named companion forms remain uncaptured.
-- No runtime stack or dependency versions have been selected.
-- No executable workflow engine exists.
-- No form rendering or PDF insertion engine exists.
-- No private matter workspace exists.
-- No authentication, encryption, retention, deletion, backup, or recovery implementation exists.
-- No official court filing integration has been verified.
-- No lawyer or court administrator has reviewed the product rules.
-- Automated kit freshness monitoring is not implemented.
-- Accessibility requirements are documented but not runtime tested.
+- R6-D PR #5 donor/salvage classification is complete; later code harvest remains separately gated and must not be started in PR #6.
+- Current closeout-status bytes require fresh exact-head validation and hostile review before owner merge consideration.
+- A single typed accepted strategic PlanRevision/current phase/gate projection is not yet on accepted `main`.
+- The recovery queue is not yet a canonical agile-plan object.
+- Kit #3J independent rendered/current-source review is incomplete.
+- Kit #2a full form/process review and current official comparison are incomplete.
+- Kit #4a full form/process review and current official comparison are incomplete.
+- Form 15-52 revision/currentness and complete review are unresolved.
+- Multi-kit source-family canonical semantics are not yet accepted.
+- Repeated forms across kits are not proven equivalent.
+- Legacy `xi/` contracts have not been migrated to `xiio/`.
+- Framework primitive rows are not yet canonical registry entries.
+- No accepted runtime schema/triage/task/form engine exists on `main` for the recovered product scope.
+- No accepted private workspace, AI adapter, egress or transmission system exists.
+- Claude conformance has not yet been run from an accepted fresh clone.
+- Claude enforcement hooks/settings/subagents and provider-neutral executable preflight are not yet built.
+- Project rights/license/contribution/distribution posture requires a future explicit qualification pass.
+- Saskatchewan's broader self-help kit catalogue still requires authoritative reconciliation before completeness can be claimed.
+- Product-family brand and evidence-backed convergence adoption remain future separately admitted capabilities; PR #6 only records their consumer boundary.
 
 ## Next action
 
-Complete `SFL-SOURCE-REVIEW-002`: compare all 267 line items against the rendered source pages, archive the exact source binary, obtain the six absent companion forms from official sources, and issue an approved or changes-requested source review receipt. Runtime implementation remains blocked until that source gate is explicit.
+Do **not** start another development branch.
+
+Continue `SFL-RECOVERY-CLOSEOUT-001` in PR #6 according to `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`:
+
+1. treat R6-D as complete and do not redo the PR #5 salvage map,
+2. run `npm run check` and `git diff --check` on the exact current head,
+3. require exact-head hosted CI success,
+4. perform exact-head hostile review,
+5. obtain explicit owner merge approval,
+6. merge PR #6,
+7. verify merged `main`,
+8. record recovery closeout/retirement evidence,
+9. then run `CLAUDE-CONFORMANCE-001` from a fresh clone with no chat history/private framework access,
+10. only after that evidence admit the next bounded development/worker-preflight ChangeUnit.
 
 ## Maintenance rule
 
-Update this README whenever the project status, runtime state, API or MCP state, schema state, privacy boundary, source kit version, manifest, major blocker, or next action changes. Do not describe the product as complete or production-ready without linked evidence.
+This README is orientation, not the full execution ledger. When current work custody changes, update the active-work checkpoint and execution plan first, then keep README/AGENTS/INDEX/Claude pointers consistent.
+
+Do not describe captured source, planning item, framework candidate, product implementation or release state as current/verified without linked evidence.
 
 ## License
 
-No project license has been selected. Public visibility does not grant permission to reuse code or content beyond rights provided by applicable law.
+No project license has been selected. Repository visibility does not itself grant reuse rights beyond applicable law.

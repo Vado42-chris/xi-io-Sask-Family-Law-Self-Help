@@ -1,0 +1,3 @@
+# Markdown permits end-of-line spaces for explicit hard line breaks.
+# Keep git diff --check strict for code, data, workflow and other file types.
+*.md whitespace=-blank-at-eol

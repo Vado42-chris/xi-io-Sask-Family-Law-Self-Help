@@ -1,0 +1,214 @@
+{
+  "schema": "xiio.framework-component-source-map.v1",
+  "captured_at": "2026-08-12",
+  "promotion_lock": "docs/source-materials/inbox-framework-component-promotion-lock-v1.json",
+  "framework": {
+    "repo": "Vado42-chris/xi-io.net",
+    "ref": "b27738d8e31937fb996ba8cf2abd4b8bb125d8f9"
+  },
+  "donor": {
+    "repo": "Vado42-chris/xi-io-Inbox",
+    "ref": "83826afa0ed18601300302ef1112202d11c7742c"
+  },
+  "classification_rule": "framework sources prove existing framework behavior/contract only; Inbox sources prove donor behavior only; neither alone proves canonical promoted implementation",
+  "mappings": {
+    "app_shell": {
+      "framework_sources": ["docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/ui/inbox-framework-component-map.md", "public/inbox-preview.js"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "extract_or_stabilize_existing_shell_grammar"
+    },
+    "lane_nav": {
+      "framework_sources": ["docs/framework/workbench-ui-consumer-contract-v1.md"],
+      "donor_sources": ["public/src/shell/route-table.js", "docs/ui/inbox-framework-component-map.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "stabilize_route_aware_navigation_contract"
+    },
+    "trust_cluster": {
+      "framework_sources": ["public/github-management-components.js", "docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/ui/inbox-framework-component-map.md", "public/inbox-preview.js"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "extract_no_silent_green_trust_projection"
+    },
+    "workbench_shell": {
+      "framework_sources": ["public/workbench-event-components.js", "public/workbench-event-runtime.js", "docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/product/mail-workbench-recovery-001a.md", "docs/ui/inbox-framework-component-map.md", "public/inbox-preview.js"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "framework_behavior_exists_needs_named_export_contract"
+    },
+    "scope_lens": {
+      "framework_sources": ["public/workbench-event-components.js", "public/github-management-components.js"],
+      "donor_sources": ["docs/product/mail-list-control-ia-001a.md", "docs/ui/inbox-framework-component-map.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "framework_behavior_exists_needs_domain_neutral_component_boundary"
+    },
+    "work_list_controls": {
+      "framework_sources": ["docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/product/mail-list-control-ia-001a.md", "docs/product/mail-list-section-controls-001a.md"],
+      "issue_lineage": [],
+      "implementation_disposition": "promote_from_inbox_with_framework_contract_alignment"
+    },
+    "selectable_work_list": {
+      "framework_sources": ["public/workbench-event-components.js", "public/workbench-event-runtime.js"],
+      "donor_sources": ["docs/product/mail-workbench-recovery-001a.md", "docs/product/mail-list-control-ia-001a.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "framework_keyboard_selection_exists_inbox_deepens_focus_checked_semantics"
+    },
+    "ui_action_registry": {
+      "framework_sources": ["docs/framework/workbench-preview-panel-component-contract-v1.md", "public/workbench-event-components.js"],
+      "donor_sources": ["docs/product/mail-action-control-standard-001a.md", "public/src/mail/mail-toolbar-action.js"],
+      "issue_lineage": [],
+      "implementation_disposition": "promote_inbox_registry_contract_without_execution_authority"
+    },
+    "context_control_cluster": {
+      "framework_sources": ["public/workbench-event-components.js"],
+      "donor_sources": ["public/src/mail/mail-context-controls.js", "scripts/mail-context-control-cluster-and-rail-footer-001a-model-check.mjs", "scripts/mail-context-control-cluster-and-rail-footer-001a-geometry-check.mjs"],
+      "issue_lineage": [],
+      "implementation_disposition": "promote_selected_object_control_composition"
+    },
+    "workspace_split": {
+      "framework_sources": ["docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/product/mail-composer-drawer-001a.md", "scripts/mail-resizer-owner-review-verify-001b.mjs", "docs/product/mail-workbench-recovery-001a.md"],
+      "issue_lineage": [],
+      "implementation_disposition": "promote_geometry_and_resize_contract"
+    },
+    "trusted_content_reader": {
+      "framework_sources": ["docs/framework/workbench-ui-consumer-contract-v1.md"],
+      "donor_sources": ["docs/product/mail-body-renderer-001d.md", "docs/product/mail-renderer-original-view-001e.md", "docs/ui/reviews/mail-body-renderer-001d-receipt.md"],
+      "issue_lineage": [],
+      "implementation_disposition": "promote_trust_modes_with_product_supplied_content_policy"
+    },
+    "context_inspector": {
+      "framework_sources": ["public/workbench-event-components.js", "docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/ui/inbox-framework-component-map.md", "docs/product/mail-progressive-actions-lane-ux-001a.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "framework_behavior_exists_needs_named_stable_boundary"
+    },
+    "safe_action_bar": {
+      "framework_sources": ["public/workbench-event-components.js", "docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/product/mail-action-control-standard-001a.md", "public/src/mail/mail-context-controls.js"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "compose_action_registry_with_preview_safe_rendering"
+    },
+    "progressive_action_lane": {
+      "framework_sources": ["docs/framework/workbench-ui-consumer-contract-v1.md"],
+      "donor_sources": ["docs/product/mail-progressive-actions-lane-ux-001a.md", "public/src/mail/mail-progressive-actions-lane.js", "scripts/mail-progressive-actions-lane-ux-001a-model-check.mjs"],
+      "issue_lineage": [],
+      "implementation_disposition": "promote_inbox_progressive_disclosure_behavior"
+    },
+    "draft_workspace": {
+      "framework_sources": ["docs/framework/workbench-ui-consumer-contract-v1.md"],
+      "donor_sources": ["docs/product/mail-composer-drawer-001a.md", "docs/ui/ui-007-draft-workbench-architecture.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "generalize_mail_draft_workspace_without_provider_send"
+    },
+    "source_evidence_block": {
+      "framework_sources": ["public/workbench-event-components.js", "docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/evidence-email-ingress/README.md", "docs/product/library-books-provider-neutral-bins-001a.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "framework_evidence_rendering_exists_needs_shared_contract"
+    },
+    "receipt_row": {
+      "framework_sources": ["docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/product/library-books-provider-neutral-bins-001a.md", "docs/ui/inbox-framework-component-map.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "stabilize_single_receipt_projection"
+    },
+    "receipt_ledger": {
+      "framework_sources": ["docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/product/library-books-provider-neutral-bins-001a.md", "docs/ui/inbox-framework-component-map.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "stabilize_append_only_receipt_projection"
+    },
+    "object_timeline": {
+      "framework_sources": ["public/workbench-event-components.js", "public/workbench-event-runtime.js"],
+      "donor_sources": ["docs/evidence-email-ingress/README.md", "docs/product/library-books-provider-neutral-bins-001a.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "framework_event_chain_exists_generalize_object_chronology"
+    },
+    "status_token": {
+      "framework_sources": ["public/workbench-event-components.js", "public/github-management-components.js", "docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/ui/inbox-framework-component-map.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "framework_behavior_exists_extract_shared_status_semantics"
+    },
+    "gate_panel": {
+      "framework_sources": ["public/github-management-components.js", "docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/ui/inbox-framework-component-map.md", "docs/product/mail-action-control-standard-001a.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "framework_warning_gate_behavior_exists_generalize"
+    },
+    "progressive_empty_state": {
+      "framework_sources": ["docs/framework/workbench-preview-panel-component-contract-v1.md", "docs/framework/workbench-ui-consumer-contract-v1.md"],
+      "donor_sources": ["docs/product/mail-list-control-ia-001a.md"],
+      "issue_lineage": ["xi-io.net#236"],
+      "implementation_disposition": "standardize_purpose_first_empty_state_contract"
+    },
+    "selected_context_packet": {
+      "framework_sources": ["public/workbench-event-runtime.js", "public/workbench-event-components.js"],
+      "donor_sources": ["docs/ui/inbox-framework-component-map.md", "docs/product/mail-ibal-action-model-001a.md"],
+      "issue_lineage": [],
+      "implementation_disposition": "formalize_context_packet_separately_from_assistant"
+    },
+    "ibal_recommendation": {
+      "framework_sources": ["docs/framework/workbench-ui-consumer-contract-v1.md"],
+      "donor_sources": ["docs/product/mail-ibal-action-model-001a.md", "docs/product/mail-progressive-actions-lane-ux-001a.md"],
+      "issue_lineage": ["xi-io.net#239"],
+      "implementation_disposition": "stabilize_inspectable_recommendation_projection"
+    },
+    "ui_geometry_accessibility_verifier": {
+      "framework_sources": ["docs/framework/workbench-preview-panel-component-contract-v1.md", "docs/framework/workbench-ui-consumer-contract-v1.md"],
+      "donor_sources": ["scripts/mail-context-control-cluster-and-rail-footer-001a-geometry-check.mjs", "scripts/mail-progressive-actions-lane-ux-001a-full-shell-proof.mjs", "scripts/mail-workbench-visual-quality-001a-visual-proof.mjs"],
+      "issue_lineage": ["xi-io.net#236"],
+      "implementation_disposition": "generalize_structural_geometry_a11y_checks_without_replacing_owner_visual_review"
+    },
+    "communication_account_ref": {
+      "framework_sources": ["docs/framework/workbench-ui-consumer-contract-v1.md"],
+      "donor_sources": ["docs/product/library-books-provider-neutral-bins-001a.md", "docs/architecture/xiio-framework-alignment.md"],
+      "issue_lineage": ["xi-io.net#301", "xi-io.net#302"],
+      "implementation_disposition": "schema_promotion_after_provider_identity_collision_review"
+    },
+    "communication_event": {
+      "framework_sources": ["docs/framework/chatbot-ingress-standard-v1.md"],
+      "donor_sources": ["docs/evidence-email-ingress/README.md", "tools/gmail/lib/snapshot-schema.js"],
+      "issue_lineage": ["xi-io.net#301"],
+      "implementation_disposition": "schema_adapter_under_existing_event_ingress_semantics"
+    },
+    "communication_source_record": {
+      "framework_sources": ["docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/product/library-books-provider-neutral-bins-001a.md", "docs/EMAIL-EVIDENCE-ARCHIVE-ARCHITECTURE.md"],
+      "issue_lineage": ["xi-io.net#301", "xi-io.net#302"],
+      "implementation_disposition": "schema_promotion_with_bins_resource_vocabulary_collision_review"
+    },
+    "communication_attachment_manifest": {
+      "framework_sources": ["docs/framework/workbench-ui-consumer-contract-v1.md"],
+      "donor_sources": ["docs/product/library-attachments-003a.md", "docs/EMAIL-EVIDENCE-ARCHIVE-ARCHITECTURE.md"],
+      "issue_lineage": ["xi-io.net#302"],
+      "implementation_disposition": "schema_promotion_with_file_safety_and_custody_contract"
+    },
+    "communication_ingress_pipeline": {
+      "framework_sources": ["docs/framework/chatbot-ingress-standard-v1.md"],
+      "donor_sources": ["docs/evidence-email-ingress/README.md", "docs/EMAIL-EVIDENCE-ARCHIVE-ARCHITECTURE.md"],
+      "issue_lineage": ["xi-io.net#301", "xi-io.net#302"],
+      "implementation_disposition": "workflow_contract_preserve_hash_normalize_propose_confirm"
+    },
+    "communication_draft": {
+      "framework_sources": ["docs/framework/workbench-ui-consumer-contract-v1.md"],
+      "donor_sources": ["docs/ui/ui-007-draft-workbench-architecture.md", "docs/product/mail-composer-drawer-001a.md"],
+      "issue_lineage": ["xi-io.net#239", "xi-io.net#302"],
+      "implementation_disposition": "schema_promotion_without_send_authority"
+    },
+    "communication_egress_proposal": {
+      "framework_sources": ["docs/framework/workbench-ui-consumer-contract-v1.md"],
+      "donor_sources": ["docs/product/mail-action-control-standard-001a.md", "docs/product/mail-lifecycle-e2e-001a.md"],
+      "issue_lineage": ["xi-io.net#301", "xi-io.net#302"],
+      "implementation_disposition": "workflow_contract_separating_draft_approval_capability_and_execution"
+    },
+    "communication_receipt": {
+      "framework_sources": ["docs/framework/workbench-preview-panel-component-contract-v1.md"],
+      "donor_sources": ["docs/product/library-books-provider-neutral-bins-001a.md", "docs/EMAIL-EVIDENCE-ARCHIVE-ARCHITECTURE.md"],
+      "issue_lineage": ["xi-io.net#301", "xi-io.net#302"],
+      "implementation_disposition": "schema_promotion_provider_outcome_without_domain_acceptance_inference"
+    }
+  }
+}

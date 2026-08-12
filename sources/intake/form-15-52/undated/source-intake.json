@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "record_status": "intake_unreviewed_not_runtime_truth",
+  "snapshot_intake_id": "form-15-52-undated-owner-mailbox",
+  "source_identity": {
+    "source_title": "Form 15-52, Notice to Disclose, with King’s Bench Rule 15-52",
+    "source_file_name": "Form 15-52 - Notice to Disclose - with KB Rule - KB.docx",
+    "source_date": null,
+    "source_date_state": "no_revision_or_publication_date_observed_in_supplied_artifact",
+    "captured_at": "2026-08-12",
+    "mailbox_received_date": "2026-07-17",
+    "provenance_state": "direct_government_sender_attachment_in_owner_connected_mailbox",
+    "jurisdiction": "Court of King's Bench for Saskatchewan, Family Law Division",
+    "source_class": "owner_mailbox_public_legal_form_and_rule_attachment",
+    "sha256": "9ec454f420f15845f99968b0d0ab43c78ff54a74cbe514fd2f4db434bbc0c389",
+    "size_bytes": 24668,
+    "page_count_reported": 4,
+    "authority_state": "direct_government_sender_attachment_not_yet_compared_with_current_official_source",
+    "freshness_state": "captured_unverified_current",
+    "official_currentness_verified": false,
+    "original_artifact_state": "hash_verified_in_recovery_session_not_archived_in_repo"
+  },
+  "artifact_structure": [
+    {"component_id":"rule-15-52","title":"Subdivision 4, Notice to Disclose, Rule 15-52","pages":[1],"capture_state":"rule_text_captured_unreviewed"},
+    {"component_id":"form-15-52","title":"Notice to Disclose","official_number":"Form 15-52","pages":[2,3,4],"capture_state":"field_and_choice_inventory_started_unreviewed"}
+  ],
+  "source_derived_rule_inventory": [
+    {"rule_id":"form-15-52.rule-001","source_meaning":"Where financial or property statements are required under the Division, the source rule permits a party to serve Form 15-52 once without leave and at another time with Court leave or written consent of the opposite party.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"form-15-52.rule-002","source_meaning":"Requested information is limited by the supplied rule to existing documents in the control of the opposite party.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"form-15-52.rule-003","source_meaning":"The supplied rule and form state a 30-day response period after service.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"form-15-52.rule-004","source_meaning":"A party objecting to disclosure must make the objection in writing, state the reason, and serve the objection together with information not objected to within the response time.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"form-15-52.rule-005","source_meaning":"The form warns that failure to provide requested documents may result in an application for Court orders or other remedies identified in the form.","state":"captured_unreviewed_currentness_blocked"},
+    {"rule_id":"form-15-52.rule-006","source_meaning":"The form requires continuing correction when information supplied in response is later found incorrect, incomplete, or materially changed.","state":"captured_unreviewed_currentness_blocked"}
+  ],
+  "request_choices": [
+    {"choice_id":"request.financial-statement","label":"Financial Statement in Form 15-47"},
+    {"choice_id":"request.property-statement","label":"Property Statement in Form 15-49"},
+    {"choice_id":"request.pay-stubs","label":"three most recent pay remittance stubs"},
+    {"choice_id":"request.ei-statements","label":"three most recent employment insurance benefit statements"},
+    {"choice_id":"request.workers-comp-statements","label":"three most recent worker’s compensation benefit statements"},
+    {"choice_id":"request.pension-statement","label":"most recent pension plan statement"},
+    {"choice_id":"request.social-assistance-proof","label":"current documentary evidence of social assistance received"},
+    {"choice_id":"request.real-property-assessment","label":"most recent assessment notice for real property owned"},
+    {"choice_id":"request.business-cheques","label":"particulars or copies of cheques issued during the last six weeks from a business or corporation in which the party has an interest or rendered a service"},
+    {"choice_id":"request.bank-statements","label":"bank account statements for the past three months"},
+    {"choice_id":"request.investment-statements","label":"most recent statements for RRSPs, term deposits, GICs, stock accounts and other investments"},
+    {"choice_id":"request.credit-card-statements","label":"credit card statements for the last three months"},
+    {"choice_id":"request.authorization","label":"authorization to obtain requested information not provided"},
+    {"choice_id":"request.other-1","label":"other specifically requested item 1"},
+    {"choice_id":"request.other-2","label":"other specifically requested item 2"},
+    {"choice_id":"request.other-3","label":"other specifically requested item 3"}
+  ],
+  "form_fields_pending_complete_catalog": [
+    "court file number",
+    "judicial centre",
+    "petitioner",
+    "respondent",
+    "recipient identity and role",
+    "all disclosure checkboxes",
+    "three free-text other-item requests",
+    "date/location/signature",
+    "self-represented party contact and address for service"
+  ],
+  "source_discrepancies": [
+    {
+      "discrepancy_id":"form-15-52-disc-001",
+      "topic":"source_date_unknown",
+      "observed":["No revision or publication date was observed in the supplied four-page artifact."],
+      "resolution_state":"official_source_comparison_required",
+      "runtime_effect":"time_sensitive_rule_and_form_use_blocked_from_final_ready_state"
+    }
+  ],
+  "cross_source_dependencies": [
+    {"form_id":"form-15-47","relationship":"requestable_document_and_rule_scope_dependency","state":"exact_current_source_relationship_pending"},
+    {"form_id":"form-15-49","relationship":"requestable_document_and_rule_scope_dependency","state":"exact_current_source_relationship_pending"}
+  ],
+  "required_before_runtime_use": [
+    "archive exact source binary and reverify hash",
+    "locate and compare with current official Rule 15-52 and Form 15-52",
+    "capture every form field, checkbox, warning and contact field with stable IDs",
+    "capture service and response deadline semantics from current authoritative source",
+    "capture remedy/objection branches without converting them into legal advice",
+    "independently compare normalized catalog against rendered pages",
+    "issue human source approval receipt"
+  ]
+}

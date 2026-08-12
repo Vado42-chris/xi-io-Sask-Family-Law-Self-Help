@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "record_status": "intake_unreviewed_not_runtime_truth",
+  "snapshot_intake_id": "kit-4a-2023-04-10",
+  "source_identity": {
+    "source_title": "Kit #4a, Replying to a Court Application, Self-Help Kit",
+    "source_file_name": "K04a - Replying to a Court Application - FINAL - KB - 2023.04.10 (1).docx",
+    "source_date": "2023-04-10",
+    "captured_at": "2026-08-12",
+    "jurisdiction": "Court of King's Bench for Saskatchewan, Family Law Division",
+    "source_class": "user_supplied_public_legal_information",
+    "sha256": "c73537d34d1c9b00b518e7b15645cab2a6cf8ee3431a27b822a3c324ef255ade",
+    "size_bytes": 160117,
+    "page_count_reported": 44,
+    "authority_state": "user_supplied_official_looking_source_not_independently_download_verified",
+    "freshness_state": "captured_unverified_current",
+    "official_currentness_verified": false,
+    "original_artifact_state": "hash_verified_in_session_not_archived_in_repo"
+  },
+  "kit_scope": {
+    "source_stated_use": [
+      "replying to an application concerning decision-making responsibility",
+      "replying to an application concerning parenting time",
+      "replying to an application concerning child support",
+      "replying to an application concerning spousal support",
+      "combinations of those issues"
+    ],
+    "source_is_workflow_document": true,
+    "form_catalog_alone_is_sufficient": false
+  },
+  "forms_physically_included": [
+    {
+      "form_id": "form-13-31",
+      "official_number": "Form 13-31",
+      "title": "Affidavit",
+      "printed_pages": [15, 18],
+      "capture_state": "pending_line_item_catalog"
+    },
+    {
+      "form_id": "form-15-47",
+      "official_number": "Form 15-47",
+      "title": "Financial Statement",
+      "printed_pages": [19, 37],
+      "capture_state": "decision_matrix_captured_unreviewed_full_line_item_catalog_pending",
+      "schedule_count": 7,
+      "situation_matrix_row_count": 42,
+      "schedule_matrix_path": "sources/intake/kit-4a/2023-04-10/form-15-47-schedule-matrix.json"
+    },
+    {
+      "form_id": "form-15-8b",
+      "official_number": "Form 15-8B",
+      "title": "Affidavit of Service by Alternate Mode",
+      "printed_pages": [38, 42],
+      "capture_state": "pending_kit_4a_catalog_cross_snapshot_equivalence_unproven"
+    },
+    {
+      "form_id": "form-12-3",
+      "official_number": "Form 12-3",
+      "title": "Acknowledgment of Service",
+      "printed_pages": [43, 44],
+      "capture_state": "pending_kit_4a_catalog_cross_snapshot_equivalence_unproven"
+    }
+  ],
+  "financial_statement_schedules": [
+    {"schedule_id": "schedule-1", "title": "Employment Information and Income"},
+    {"schedule_id": "schedule-2", "title": "Expenses"},
+    {"schedule_id": "schedule-3", "title": "Special or Extraordinary Expenses"},
+    {"schedule_id": "schedule-4", "title": "Child-Centred Budget"},
+    {"schedule_id": "schedule-5", "title": "Income for Other Persons Residing in Household"},
+    {"schedule_id": "schedule-6", "title": "Undue Hardship"},
+    {"schedule_id": "schedule-7", "title": "Net Worth Statement"}
+  ],
+  "source_derived_workflow_stages": [
+    {"stage_id": "kit-4a.fit", "state": "pending_rule_capture", "description": "Determine whether Kit #4a appears applicable to the response being made."},
+    {"stage_id": "kit-4a.parenting-course", "state": "pending_rule_capture", "description": "When the application deals with children, register for Parenting after Separation and Divorce before the hearing and track the certificate."},
+    {"stage_id": "kit-4a.affidavit", "state": "pending_rule_capture", "description": "Complete Form 13-31 and intentionally manage affidavit exhibits."},
+    {"stage_id": "kit-4a.financial-statement-applicability", "state": "pending_rule_capture", "description": "Determine whether an up-to-date Form 15-47 is required."},
+    {"stage_id": "kit-4a.financial-schedules", "state": "matrix_captured_unreviewed", "description": "Select every Form 15-47 schedule required by all applicable situation rows and collect required supporting documents."},
+    {"stage_id": "kit-4a.commissioning", "state": "pending_rule_capture", "description": "Delay signatures where instructed and swear or affirm applicable documents before an authorized witness."},
+    {"stage_id": "kit-4a.copies", "state": "pending_rule_capture", "description": "Prepare the source-required document copies."},
+    {"stage_id": "kit-4a.service", "state": "pending_rule_capture", "description": "Serve the other party or lawyer through a source-described method."},
+    {"stage_id": "kit-4a.proof-of-service", "state": "pending_rule_capture", "description": "Use the applicable proof path, returned acknowledgment or sworn affidavit of service."},
+    {"stage_id": "kit-4a.filing", "state": "blocked_by_source_discrepancy", "description": "File required documents and applicable certificate subject to unresolved deadline/proof wording conflicts."},
+    {"stage_id": "kit-4a.hearing", "state": "pending_rule_capture", "description": "Attend the hearing or make prior arrangements to request telephone appearance and follow source-described hearing steps."},
+    {"stage_id": "kit-4a.after-hearing", "state": "pending_rule_capture", "description": "Track adjournment, reserved judgment, order, or later order-preparation work."}
+  ],
+  "source_discrepancies": [
+    {
+      "discrepancy_id": "kit-4a-disc-001",
+      "topic": "acknowledgment_form_number",
+      "observed": ["Table of contents and embedded form identify Form 12-3.", "Service instructions call the acknowledgment Form 12-13."],
+      "resolution_state": "recorded_not_silently_corrected",
+      "runtime_effect": "proof_of_service_rule_blocked_pending_review"
+    },
+    {
+      "discrepancy_id": "kit-4a-disc-002",
+      "topic": "filing_deadline",
+      "observed": ["Filing Documents section says at least 7 days before the court date.", "Checklist says at least 3 days before the court date."],
+      "resolution_state": "unresolved_material_conflict",
+      "runtime_effect": "filing_deadline_guidance_blocked"
+    },
+    {
+      "discrepancy_id": "kit-4a-disc-003",
+      "topic": "proof_of_service_filing_wording",
+      "observed": ["Service section permits acknowledgment or affidavit of service.", "Filing section specifically says affidavit of service.", "Checklist again permits affidavit or acknowledgment."],
+      "resolution_state": "unresolved_material_conflict",
+      "runtime_effect": "filing_package_rule_blocked"
+    },
+    {
+      "discrepancy_id": "kit-4a-disc-004",
+      "topic": "cross_snapshot_form_equivalence",
+      "observed": ["Form 15-8B and Form 12-3 exist in the Kit #3J snapshot.", "No comparison proves the Kit #4a instances are equivalent to the Kit #3J instances."],
+      "resolution_state": "comparison_required",
+      "runtime_effect": "no_cross_snapshot_deduplication"
+    },
+    {
+      "discrepancy_id": "kit-4a-disc-005",
+      "topic": "form_15_8b_courier_mode",
+      "observed": ["Form 15-8B first page lists courier as a service mode.", "The supplied form pages visibly provide detail sections for address, mail, fax and e-mail before Form 12-3 begins."],
+      "resolution_state": "rendered_source_and_current_form_review_required",
+      "runtime_effect": "courier_detail_rule_not_inferred"
+    },
+    {
+      "discrepancy_id": "kit-4a-disc-006",
+      "topic": "form_15_47_row_36_source_text",
+      "observed": ["Situation row 36 ends at 'that party's income is greater than' in the supplied artifact extraction while the schedule marks remain visible."],
+      "resolution_state": "rendered_source_review_required",
+      "runtime_effect": "row_36_condition_not_interpreted"
+    }
+  ],
+  "cross_snapshot_relationships": [
+    {"local_form_id": "form-15-8b", "other_snapshot_id": "jcc-kit-3j-2026-03-30", "relationship": "candidate_equivalent_unverified"},
+    {"local_form_id": "form-12-3", "other_snapshot_id": "jcc-kit-3j-2026-03-30", "relationship": "candidate_equivalent_unverified"}
+  ],
+  "required_before_runtime_use": [
+    "archive exact source binary and reverify hash",
+    "compare supplied artifact against current official source",
+    "capture every included form line item",
+    "capture each schedule's conditional attachment requirements",
+    "capture full procedural graph and deadlines",
+    "resolve or block source discrepancies",
+    "perform independent rendered-page review",
+    "issue human source approval receipt"
+  ]
+}
