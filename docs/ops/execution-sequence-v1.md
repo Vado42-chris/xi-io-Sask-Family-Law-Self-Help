@@ -1,198 +1,318 @@
 # Execution Sequence v1
 
-Status: `active gate sequence, recovery correction appended 2026-08-12`  
+Status: `ACTIVE PRODUCT GATE DEPENDENCY GRAPH; GIT MUTATION CADENCE OWNED BY SFL-GITHUB-EXECUTION-PLAN-2026-08-12`  
 Project: `sask_family_law_self_help`
 
-## Current gates
+This file defines product/source gate dependencies. It does **not** choose the active Git branch or authorize parallel mutation lanes.
 
-### SFL-BOOTSTRAP-001, framework-aligned startup spine
+For current GitHub custody, branch/PR instructions, allowed/blocked paths, closeout order and next-branch rules, read first:
 
-Acceptance:
+`docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`
 
-- README, AGENTS, manifest, docs index, ledgers, lexicon, feature index, UI profile, capability profile, source record, risk register, and review packet exist.
-- `npm run check` passes.
-- No private case data is present.
-- Owner or delegated reviewer approves the architecture and privacy boundaries.
+## Current Git state
 
-Historical state at the July 22 checkpoint: `ready_for_review`.
+```text
+accepted repository truth = main
+active proposed recovery = PR #6 / chore/framework-recovery-2026-08-12
+current ChangeUnit = SFL-RECOVERY-CLOSEOUT-001
+PR #5 = FROZEN_DONOR / SALVAGE_SOURCE
+next new branch = NONE until PR #6 merges and merged main is verified
+```
 
-### SFL-FRAMEWORK-RECOVERY-001, existing-project rehydration
+## Gate 0 — SFL-FRAMEWORK-RECOVERY-001
 
-Purpose:
+Purpose: recover the existing repository against current xi-io framework direction without pretending it is a blank project.
 
-Bring the repository forward from its 2026-07-22 framework checkpoint without pretending it is a blank new project.
+Required recovery outcomes:
 
-Acceptance:
+- exact repository/branch/framework state is known,
+- multi-kit product scope is represented,
+- legacy `xi/` contracts are preserved and migration is planned non-destructively,
+- README/AGENTS/INDEX/cold-start instructions agree,
+- PR #5 is treated as donor/salvage work rather than a merge unit,
+- Inbox-derived reusable primitives are source-mapped and routed to framework owners rather than copied locally,
+- recovery sources remain fail-closed intake unless explicitly promoted,
+- repository checks, exact-head review and owner merge gate pass.
 
-- recovery startup record identifies exact repo/branch/framework state,
-- legacy `xi/` contracts are inventoried and a non-destructive `xiio/` migration map exists,
-- current framework dependencies and blockers are explicit,
-- stale README/AGENTS/manifest/profile claims are corrected through reviewed changes,
-- PR #5 has a bounded salvage map rather than being treated as one merge unit,
-- branch cleanup candidates are re-verified before deletion,
-- validation and human approval precede merge.
+Current state: `ACTIVE / PR #6 CLOSEOUT`.
 
-Current state: `active`.
+Git action for this gate is defined exclusively by the current GitHub execution plan.
 
-### SFL-MAILBOX-SOURCE-DISCOVERY-001, direct government-sender source inventory
+## Gate 1 — source-family governance foundation
 
-Purpose:
+### SFL-MULTI-KIT-SOURCE-001
 
-Identify public legal-source artifacts directly supplied through the owner's connected mailbox without copying private case correspondence into the public repository.
-
-Current discovery result:
-
-- Kit #2a, Preparing an Answer and Counter-Petition,
-- Kit #3J, JCC Kit,
-- Kit #4a, Replying to a Court Application,
-- standalone Form 15-52 with supplied Rule 15-52,
-- a dated Saskatoon Judicial Family Centre schedule poster as a procedural-reference candidate.
-
-No other full self-help kit attachment was found in the direct-sender mailbox lane during the 2026-08-12 recovery search.
-
-Current state: `completed_reported_only`; re-run when new source attachments arrive or provenance needs refresh.
-
-### SFL-SOURCE-REVIEW-002, Kit #3J independent source verification
+Purpose: replace the unsafe assumption that one global `current_snapshot_id` represents all source truth.
 
 Acceptance:
 
-- exact source binary is archived in the repository and its SHA-256 matches the receipt,
-- all 267 line items are independently compared against rendered source pages,
-- transcription differences are corrected through review receipts,
-- required companion sources are captured from official sources or explicitly excluded with reasons,
-- source discrepancies affecting service or filing are resolved or block the affected branch,
-- official-current comparison date and reviewer are recorded,
-- owner or delegated source reviewer approves the snapshot for schema implementation.
+- source families have independent stable identities,
+- current/superseded state is per source family,
+- repeated forms have explicit equivalence/divergence relationships,
+- workflows resolve exact governing source snapshots,
+- stale/blocked source state affects only dependent workflows,
+- intake-only sources cannot become runtime truth without reviewed promotion,
+- validators fail closed on ambiguous governing source identity.
 
-Current state: `blocked_on_review_and_missing_sources`.
+Current state: `PLANNED DESIGN RECORDED / IMPLEMENTATION AFTER RECOVERY MAIN`.
 
-### SFL-KIT-2A-SOURCE-RECOVERY-001, Preparing an Answer and Counter-Petition
+This is the first broadly reusable legal-source data-contract prerequisite after PR #6 closeout unless a higher-priority owner decision changes the queue.
 
-Purpose:
+## Gate 2 — independent source-family review
 
-Capture Kit #2a as a governed Petition-response workflow source, including form selection, supporting documents, service/proof paths, filing and post-filing process.
+Source families may be reviewed in bounded lanes, but Git mutation remains one admitted branch at a time unless truly independent concurrent ownership is explicitly admitted.
 
-Acceptance:
-
-- exact Kit #2a binary is archived and SHA-256 verified,
-- current official-source comparison and freshness disposition are recorded,
-- all nine physically included form instances are completely cataloged,
-- Answer versus Answer-and-Counter-Petition selection is represented as reviewed deterministic rules,
-- Form 15-47 Financial Statement conditions/schedules and Form 15-49 Property Statement structures are captured for this source or linked through reviewed equivalence,
-- Form 15-51 conditional use is represented deterministically,
-- response/extension, prerequisite, service, proof-of-service, filing and next-stage rules are captured and currentness-reviewed,
-- Form 12-3/12-13 and Form 15-8A/15-18A source conflicts are resolved or leave affected runtime branches blocked,
-- repeated forms are compared with Kit #3J and Kit #4a before reuse,
-- rendered-page review and human source approval are complete.
-
-Current state: `active_partial`; source identity, nine-form inventory and major workflow rules are recorded under `sources/intake/kit-2a/2023-04-10/`.
-
-### SFL-KIT-4A-SOURCE-RECOVERY-001, Replying to a Court Application
-
-Purpose:
-
-Capture Kit #4a as a governed application-response workflow source, including both forms and the procedural logic that determines what a user must complete and do.
+### SFL-SOURCE-REVIEW-002 — Kit #3J
 
 Acceptance:
 
-- exact Kit #4a binary is archived and SHA-256 verified,
-- current official-source comparison and freshness disposition are recorded,
-- all four included forms are completely cataloged,
-- all seven Form 15-47 schedules are completely cataloged,
-- all 42 Form 15-47 situation-to-schedule relationships are independently verified,
-- schedule-specific supporting-document obligations are captured,
-- applicability, prerequisites, service, filing, hearing and post-hearing process is represented as source-bound deterministic rules,
-- repeated forms are compared with other source families before reuse,
-- source discrepancies affecting form identity, deadlines, service or filing are resolved or leave affected runtime branches blocked,
-- rendered-page review and human source approval are complete.
+- exact source bytes archived and hash-verified,
+- 267 captured line items independently compared against rendered pages,
+- transcription differences receipted,
+- required companion sources obtained or explicitly excluded,
+- discrepancies affecting service/filing resolved or blocking,
+- current-official comparison date and reviewer recorded,
+- human source approval received.
 
-Current state: `active_partial`; source identity and the unreviewed 42-row matrix are recorded under `sources/intake/kit-4a/2023-04-10/`.
+Current state: `BLOCKED_ON_REVIEW_AND_MISSING_SOURCES`.
 
-### SFL-FORM-15-52-SOURCE-RECOVERY-001, Notice to Disclose
+### SFL-KIT-2A-SOURCE-RECOVERY-001
 
-Purpose:
-
-Govern the directly supplied standalone Form 15-52 together with its supplied Rule 15-52 instead of treating it as an ad hoc case attachment.
+Source: Preparing an Answer and Counter-Petition, 2023-04-10 supplied artifact.
 
 Acceptance:
 
-- exact source binary is archived and SHA-256 verified,
-- current official Rule 15-52 and Form 15-52 are located and compared,
-- source revision date/currentness is established or remains explicitly unknown/blocked,
-- every form field, disclosure choice, warning and address-for-service field has a stable source-bound ID,
-- service/response, objection, correction and non-response branches are represented as reviewed source rules,
-- dependencies on current Form 15-47 and Form 15-49 are explicit,
-- rendered-page review and human source approval are complete.
+- exact bytes archived/hash-verified,
+- current official comparison/freshness disposition,
+- all nine included form instances completely cataloged,
+- Answer versus Answer-and-Counter-Petition selection represented deterministically,
+- Form 15-47/15-49 structures and obligations captured or linked through reviewed equivalence,
+- Form 15-51 conditional use represented,
+- prerequisites, timing, service, proof, filing and post-filing process captured,
+- Form 12-3/12-13 and 15-8A/15-18A conflicts resolved or affected paths remain blocked,
+- repeated forms compared across source families before reuse,
+- rendered-page review and human approval complete.
 
-Current state: `active_partial`; the four-page supplied artifact, 16 request choices and supplied rule meanings are captured as undated unreviewed intake.
+Current state: `ACTIVE_PARTIAL IN RECOVERY INTAKE / DEEP COMPLETION DEFERRED TO POST-RECOVERY SOURCE LANE`.
 
-### SFL-MULTI-KIT-SOURCE-001, independent source-family registry
+### SFL-KIT-4A-SOURCE-RECOVERY-001
 
-Purpose:
-
-Remove the first-slice assumption that one global `current_snapshot_id` can represent source truth for the whole product.
+Source: Replying to a Court Application, 2023-04-10 supplied artifact.
 
 Acceptance:
 
-- source families have independent stable identities and current/superseded states,
-- forms can be related across snapshots through explicit equivalence/divergence records,
-- no form is deduplicated solely by form number,
-- each workflow resolves to exact governing source snapshots,
-- stale state blocks only affected workflows/forms without falsely invalidating unrelated source families,
-- validators reject ambiguous or missing governing source identity,
-- intake-only sources cannot become runtime truth without reviewed promotion.
+- exact bytes archived/hash-verified,
+- current official comparison/freshness disposition,
+- all four included forms completely cataloged,
+- seven Form 15-47 schedules completely cataloged,
+- 42 situation-to-schedule relationships independently verified,
+- supporting-document obligations captured,
+- applicability, prerequisites, service, filing, hearing and post-hearing process represented as source-bound rules,
+- repeated forms compared before reuse,
+- deadline/form/service conflicts resolved or blocking,
+- rendered-page review and human approval complete.
 
-Current state: `planned_design_recorded`; required before any recovery intake is promoted to canonical runtime source truth.
+Current state: `ACTIVE_PARTIAL IN RECOVERY INTAKE / DEEP COMPLETION DEFERRED TO POST-RECOVERY SOURCE LANE`.
 
-### SFL-PROCEDURAL-REFERENCE-001, dated scheduling/reference artifacts
+### SFL-FORM-15-52-SOURCE-RECOVERY-001
 
-Purpose:
+Acceptance:
 
-Define whether and how dated court posters or schedules are captured, refreshed and displayed without allowing stale schedule artifacts to masquerade as current court-calendar truth.
+- exact bytes archived/hash-verified,
+- current official Rule 15-52/Form 15-52 located and compared,
+- source revision/currentness established or explicitly unknown/blocked,
+- every field/request choice/warning/address-for-service field has a stable source ID,
+- service/response, objection, correction and non-response branches represented as reviewed rules,
+- dependencies on current Form 15-47/15-49 explicit,
+- rendered-page review and human approval complete.
 
-Current state: `queued`; the discovered Saskatoon April-August 2026 poster is not runtime-admissible.
+Current state: `ACTIVE_PARTIAL IN RECOVERY INTAKE / DEEP COMPLETION DEFERRED TO POST-RECOVERY SOURCE LANE`.
 
-## Recovery-adjusted ordered gates
+### SFL-PROCEDURAL-REFERENCE-001
 
-| Order | Gate | Purpose | Entry requirement | Exit evidence |
-|---|---|---|---|---|
-| 1 | `SFL-FRAMEWORK-RECOVERY-001` | Recover current repo/framework truth | Existing repository | Recovery startup, migration/salvage maps, validation, approval |
-| 2A | `SFL-SOURCE-REVIEW-002` | Finish Kit #3J source verification | Existing Kit #3J capture | Approved Kit #3J source receipt |
-| 2B | `SFL-KIT-2A-SOURCE-RECOVERY-001` | Capture/review Kit #2a forms and Petition-response process | Direct mailbox Kit #2a | Approved Kit #2a source/workflow receipt |
-| 2C | `SFL-KIT-4A-SOURCE-RECOVERY-001` | Capture/review Kit #4a forms and application-response process | Direct mailbox Kit #4a | Approved Kit #4a source/workflow receipt |
-| 2D | `SFL-FORM-15-52-SOURCE-RECOVERY-001` | Capture/review Notice to Disclose form and rule | Direct mailbox Form 15-52 | Approved form/rule source receipt |
-| 2E | `SFL-MULTI-KIT-SOURCE-001` | Establish multi-kit source semantics | Multiple source families identified | Registry validators and migration receipt |
-| 3 | `SFL-SCHEMA-001` | Make workflow and matter schemas executable | Applicable source families reviewed and registry semantics accepted | Schema validators and synthetic fixtures |
-| 4 | `SFL-TRIAGE-001` | Human-only applicability and form-selection triage | Schemas accepted | Tested source-bound decision tree and explanation output |
-| 5 | `SFL-TASKPLAN-001` | Generate deterministic forms, schedules, evidence and homework plan | Triage accepted | Synthetic task-plan fixtures and dependency/deadline tests |
-| 6 | `SFL-UX-001` | Progressive-disclosure shell | Human-only logic accepted | Keyboard, screen-reader, responsive and cognitive-load QA |
-| 7 | `SFL-DRAFT-001` | User-controlled narrative drafting | Private data boundary approved | Draft provenance and approval receipts |
-| 8 | `SFL-FORMS-001` | Map approved facts into exact form templates | Source/form review accepted | Field-map and rendered-form comparison tests |
-| 9 | `SFL-PRIVATE-001` | Private matter workspace | Threat model and retention policy approved | Encryption, deletion, recovery and isolation evidence |
-| 10 | `SFL-AI-001` | Optional AI adapter | Consent and provider contract approved | Redaction, fallback, disable, cost and provider tests |
-| 11 | `SFL-EGRESS-001` | Package generation only | Form review accepted | Manifested export package and receipt |
-| 12 | `SFL-TRANSMIT-001` | Any filing, service or email proposal | Receiving process independently verified | Human approval, delivery, acceptance and rollback receipts |
+Purpose: govern dated schedule/poster/reference artifacts without allowing stale schedule data to become current court-calendar truth.
 
-The July 22 ordered sequence remains historical context. This recovery-adjusted sequence supersedes it for new work because the repository now has at least three independently versioned full-kit source families plus standalone procedural sources and material framework drift.
+Current state: `QUEUED`.
 
-## Sequencing rules
+## Gate 3 — SFL-SCHEMA-001
 
-- The governed unit is the source workflow or procedural source, not merely a blank form.
-- Source capture and independent source review precede executable legal/procedural rules.
-- Form-selection and schedule-selection rules must resolve to stable source-bound identities.
-- A form shared by multiple kits is not automatically one canonical object; equivalence must be proven.
-- A source contradiction affecting a deadline, filing package, service method, signature, fee or recipient blocks the affected runtime branch.
-- Dated court schedules/posters are not current truth without freshness verification.
-- Human-only logic precedes AI enhancement.
-- Deterministic workflow selection precedes narrative generation.
+Purpose: make reviewed source/workflow and matter contracts executable.
+
+Entry:
+
+- applicable source-family semantics accepted,
+- source families required for the implementation slice are reviewed/approved.
+
+Exit:
+
+- executable schemas,
+- deterministic validators,
+- synthetic fixtures,
+- explicit source bindings.
+
+Current state: `BLOCKED`.
+
+## Gate 4 — SFL-TRIAGE-001
+
+Purpose: human-only applicability and form-selection triage.
+
+Entry: executable source-bound schemas.
+
+Exit:
+
+- deterministic decision tree,
+- explanation of why each path/form is selected,
+- safe `I do not know`/blocked/escalation behavior,
+- synthetic tests.
+
+Current state: `BLOCKED`.
+
+## Gate 5 — SFL-TASKPLAN-001
+
+Purpose: generate deterministic form, schedule, evidence and homework plans.
+
+Entry: triage accepted.
+
+Exit: synthetic dependency/deadline/task-plan fixtures and tests.
+
+Current state: `BLOCKED`.
+
+## Gate 6 — SFL-UX-001
+
+Purpose: progressive-disclosure legal workbench shell using qualified reusable xi-io primitives where available.
+
+Entry:
+
+- human-only deterministic logic accepted,
+- applicable framework component adoption path resolved,
+- no legal source ambiguity is being hidden by UI.
+
+Exit:
+
+- keyboard/a11y/responsive/cognitive-load proof,
+- owner visual review,
+- no fake affordances,
+- clear trust/source state.
+
+Current state: `BLOCKED`.
+
+Important framework chain:
+
+```text
+Inbox donor evidence
+-> xi-io.net#236 promotion/collision review
+-> xi-io.net#306 registry admission prerequisites
+-> framework implementation/versioning
+-> xi-io.net#315 adopter lock
+-> SFL/sam_law target adoption
+```
+
+The 33 locked primitive identities in this repo are promotion intake, not implementation authority.
+
+## Gate 7 — SFL-DRAFT-001
+
+Purpose: user-controlled narrative drafting.
+
+Entry: private-data boundary and applicable source/schema gates approved.
+
+Exit: revision/provenance/user-approval receipts.
+
+Current state: `BLOCKED`.
+
+## Gate 8 — SFL-FORMS-001
+
+Purpose: map approved facts into exact governed form templates.
+
+Entry: form/source review and deterministic field bindings accepted.
+
+Exit: field-map tests and rendered-form comparisons.
+
+Current state: `BLOCKED`.
+
+## Gate 9 — SFL-PRIVATE-001
+
+Purpose: real private matter workspace.
+
+Entry: threat model, retention/deletion/recovery policy and storage boundary approved.
+
+Exit: encryption, isolation, deletion and recovery evidence.
+
+Current state: `BLOCKED`.
+
+## Gate 10 — SFL-AI-001
+
+Purpose: optional Ibal/AI assistance.
+
+Entry: private workspace, consent/provider contract and authority ceilings approved.
+
+Exit: grounding, redaction, fallback/disable, cost/privacy and proposal-only tests.
+
+Current state: `BLOCKED`.
+
+AI must never be required for core workflow completion.
+
+## Gate 11 — SFL-EGRESS-001
+
+Purpose: package generation only.
+
+Entry: applicable form/source review accepted.
+
+Exit: exact revision/attachment/source/hash manifest and export receipt.
+
+Current state: `BLOCKED`.
+
+## Gate 12 — SFL-TRANSMIT-001
+
+Purpose: any filing, service, provider-send or external delivery capability.
+
+Entry:
+
+- receiving process independently verified,
+- security/authority/provider gates qualified,
+- human approval model accepted.
+
+Exit:
+
+- approval,
+- attempted-delivery receipt,
+- observed provider outcome,
+- acceptance/rollback distinction,
+- no provider outcome inflated into legal acceptance without authoritative proof.
+
+Current state: `BLOCKED`.
+
+## Cross-cutting sequencing rules
+
+- The governed unit is a source workflow/procedural source, not merely a blank form.
+- Source capture and independent review precede executable legal rules.
+- Form/schedule selection resolves stable source-bound identities.
+- Same form number across kits does not prove equivalence.
+- Contradictions affecting deadline, filing, service, signature, fee or recipient block the affected runtime branch.
+- Human-only deterministic behavior precedes AI enhancement.
 - Synthetic fixtures precede real private data.
 - Package generation precedes transmission.
-- A passing build or catalog check is evidence, not legal-content approval.
-- Unknown, stale, changed, unavailable or disputed source state blocks affected finalization paths.
-- A new source version creates a new snapshot and diff. It never overwrites the prior snapshot.
+- Passing structural checks are evidence, not legal-content approval.
+- New source versions create new snapshots/diffs rather than overwriting old snapshots.
 - Legal, privacy, security, accessibility and source-version reviews are explicit gates.
-- PR #5 may be salvaged only after its dependencies are mapped to these gates.
+- PR #5 is donor evidence until a salvage map classifies coherent future slices.
+- Framework primitive candidates are not canonical merely because SFL needs them.
 
-## Current next action
+## Current next Git action
 
-Continue `chore/framework-recovery-2026-08-12` with complete Kit #2a and Kit #4a source/process capture, current Form 15-52 comparison planning, multi-kit registry validation, Project Kernel namespace migration planning, and PR #5 salvage classification. Runtime implementation and PR #5 merge remain blocked.
+Do not start a new source, UI, schema, private-workspace or PR #5 harvest branch yet.
+
+Current action is:
+
+```text
+SFL-RECOVERY-CLOSEOUT-001
+-> finish PR #6 recovery/control-plane closeout
+-> npm run check + git diff --check
+-> exact-head hostile review
+-> explicit owner gate
+-> merge PR #6
+-> verify merged main
+-> record receipt / retire lane
+-> only then admit one next current-main micro-branch
+```
+
+Exact instructions are in `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`.
