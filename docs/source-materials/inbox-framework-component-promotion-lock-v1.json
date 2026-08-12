@@ -1,0 +1,353 @@
+{
+  "schema": "xiio.framework-component-promotion-lock.v1",
+  "captured_at": "2026-08-12",
+  "owner_direction": "promote mature Inbox Mail/workbench patterns into reusable xi-io framework primitives for sam_law and future products",
+  "target_product": "xi-io: sam_law",
+  "target_repo": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "target_branch": "chore/framework-recovery-2026-08-12",
+  "donor_repo": "Vado42-chris/xi-io-Inbox",
+  "donor_ref": "83826afa0ed18601300302ef1112202d11c7742c",
+  "framework_repo": "Vado42-chris/xi-io.net",
+  "framework_ref_inspected": "b27738d8e31937fb996ba8cf2abd4b8bb125d8f9",
+  "framework_owners": [
+    "xi-io.net#236",
+    "xi-io.net#315",
+    "xi-io.net#301",
+    "xi-io.net#302",
+    "xi-io.net#300",
+    "xi-io.net#306"
+  ],
+  "naming_contract": {
+    "registry_id": "stable snake_case, domain-neutral where the framework concept is domain-neutral",
+    "ui_or_api_symbol": "XiPascalCase",
+    "product_aliases": "product-owned nouns may map to framework IDs but never replace them",
+    "historical_lineage": "preserve prior Xi* framework-backfeed names when semantics still match",
+    "authority_rule": "UI/action availability never implies execution authority"
+  },
+  "registry_write_state": "BLOCKED_BY_XIIO_306_R1_NAMESPACE_PRECEDENCE_GATE",
+  "promotion_state": "NAMES_AND_LINEAGE_LOCKED_FOR_FRAMEWORK_INTAKE_NOT_YET_CANONICAL_REGISTRY",
+  "canonical_claim_allowed": false,
+  "runtime_adoption_allowed": false,
+  "components": [
+    {
+      "component_id": "app_shell",
+      "symbol": "XiAppShell",
+      "kind": "template",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiAppShell candidate", "xi-io Inbox accepted shell lineage"],
+      "sam_law_projection": "product shell around matter/workflow surfaces"
+    },
+    {
+      "component_id": "lane_nav",
+      "symbol": "XiLaneNav",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiLaneNav candidate", "Inbox route/lane navigation"],
+      "sam_law_projection": "Home, Matters, Calendar, Tasks, Activity, Contacts, Integrations, Settings"
+    },
+    {
+      "component_id": "trust_cluster",
+      "symbol": "XiTrustCluster",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiTrustCluster candidate", "Inbox provider/privacy/write-gate shell state"],
+      "sam_law_projection": "source freshness, local/private/cloud posture, save/sync and capability state"
+    },
+    {
+      "component_id": "workbench_shell",
+      "symbol": "XiWorkbenchShell",
+      "kind": "template",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["workbench-preview-panel-component-contract-v1", "ResearchWorkbenchTemplate candidate", "XiMailWorkbench donor alias"],
+      "replaces_candidate_aliases": ["WorkbenchShell", "XiMailWorkbench when used generically"],
+      "sam_law_projection": "scope lens + work list + selected workspace + optional inspector/action lane"
+    },
+    {
+      "component_id": "scope_lens",
+      "symbol": "XiScopeLens",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiScopeLens contract", "Inbox account/mailbox scope"],
+      "replaces_candidate_aliases": ["ScopeRail"],
+      "sam_law_projection": "matter/workspace scope and current procedural lens"
+    },
+    {
+      "component_id": "work_list_controls",
+      "symbol": "XiWorkListControls",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox mail-list-control-ia-001a", "Inbox mail-list-section-controls-001a"],
+      "replaces_candidate_aliases": ["CollectionListHeader"],
+      "sam_law_projection": "search, sort, filter, layout, selected-state summary"
+    },
+    {
+      "component_id": "selectable_work_list",
+      "symbol": "XiSelectableWorkList",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox focus-vs-checked mail list", "Workbench selectable event cards"],
+      "sam_law_projection": "forms, evidence, correspondence, tasks, packages and receipts"
+    },
+    {
+      "component_id": "ui_action_registry",
+      "symbol": "XiActionRegistry",
+      "kind": "workflow_contract",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox MAIL-ACTION-CONTROL-STANDARD-001A"],
+      "replaces_candidate_aliases": ["ActionRegistry"],
+      "required_states": ["enabled", "disabled", "blocked", "proposed", "unavailable"],
+      "authority_rule": "registry describes UI action state and proposal routing; it does not grant provider/runtime authority"
+    },
+    {
+      "component_id": "context_control_cluster",
+      "symbol": "XiContextControls",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox public/src/mail/mail-context-controls.js", "mail-context-control-cluster-and-rail-footer checks"],
+      "replaces_candidate_aliases": ["ContextControlCluster"],
+      "sam_law_projection": "selected-object controls with legal-safe availability state"
+    },
+    {
+      "component_id": "workspace_split",
+      "symbol": "XiWorkspaceSplit",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox list/reader resizer", "Inbox reader/composer split", "geometry checks"],
+      "replaces_candidate_aliases": ["ResizableWorkspaceSplit"],
+      "sam_law_projection": "work list/document and document/editor split geometry"
+    },
+    {
+      "component_id": "trusted_content_reader",
+      "symbol": "XiTrustedContentReader",
+      "kind": "component",
+      "risk_level": "secrets_auth",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox MAIL-BODY-RENDERER-001D", "mail content controls"],
+      "replaces_candidate_aliases": ["TrustedContentReader"],
+      "sam_law_projection": "safe/default, plain and isolated-original views for correspondence and source artifacts"
+    },
+    {
+      "component_id": "context_inspector",
+      "symbol": "XiContextInspector",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiContextInspector candidate", "Workbench context panel", "Inbox slim inspector rail"],
+      "sam_law_projection": "why required, source wording, facts, evidence, blockers, revisions, proposals and receipts"
+    },
+    {
+      "component_id": "safe_action_bar",
+      "symbol": "XiSafeActionBar",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiSafeActionBar candidate", "Inbox action-control system"],
+      "sam_law_projection": "continue, validate, review, preview, propose and gated finalize/egress actions"
+    },
+    {
+      "component_id": "progressive_action_lane",
+      "symbol": "XiProgressiveActionLane",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox MAIL-PROGRESSIVE-ACTIONS-LANE-UX-001A"],
+      "sam_law_projection": "collapsed activity peek, Ask Ibal, then progressive secondary actions"
+    },
+    {
+      "component_id": "draft_workspace",
+      "symbol": "XiDraftWorkspace",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox MAIL-COMPOSER-DRAWER-001A", "XiDraftObject donor lineage"],
+      "sam_law_projection": "context-preserving correspondence or document draft workspace with separate egress gate"
+    },
+    {
+      "component_id": "source_evidence_block",
+      "symbol": "XiSourceEvidenceBlock",
+      "kind": "component",
+      "risk_level": "data_model",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiSourceEvidenceBlock candidate", "Workbench evidence panel", "Inbox source-record direction"],
+      "sam_law_projection": "source/evidence reference with provenance and review state"
+    },
+    {
+      "component_id": "receipt_row",
+      "symbol": "XiReceiptRow",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiReceiptRow candidate", "Inbox activity/receipt rows"],
+      "sam_law_projection": "one user-visible action/evidence receipt"
+    },
+    {
+      "component_id": "receipt_ledger",
+      "symbol": "XiReceiptLedger",
+      "kind": "component",
+      "risk_level": "data_model",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiReceiptLedger candidate", "Inbox Activity/Receipts"],
+      "sam_law_projection": "matter-filtered append-only receipt projection"
+    },
+    {
+      "component_id": "object_timeline",
+      "symbol": "XiObjectTimeline",
+      "kind": "component",
+      "risk_level": "data_model",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiObjectTimeline candidate", "Workbench event chains", "Inbox thread/activity chronology"],
+      "sam_law_projection": "matter/source/document chronology with evidence links"
+    },
+    {
+      "component_id": "status_token",
+      "symbol": "XiStatusToken",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiStatusToken candidate", "Workbench pills", "Inbox status semantics"],
+      "sam_law_projection": "plain-language state without silent green or badge spam"
+    },
+    {
+      "component_id": "gate_panel",
+      "symbol": "XiGatePanel",
+      "kind": "component",
+      "risk_level": "secrets_auth",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiGatePanel candidate", "XiProviderGate contract", "Inbox blocked provider-write panels"],
+      "sam_law_projection": "source, privacy, approval, connector or egress gate with exact reason"
+    },
+    {
+      "component_id": "progressive_empty_state",
+      "symbol": "XiEmptyState",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#236 EmptyState requirement", "Inbox Day UX shared empty helpers"],
+      "sam_law_projection": "purpose-first empty state with one safe next action and optional Learn more"
+    },
+    {
+      "component_id": "selected_context_packet",
+      "symbol": "XiSelectedContext",
+      "kind": "schema",
+      "risk_level": "data_model",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Workbench selectedEventContext", "Inbox selected-context Ibal model"],
+      "replaces_candidate_aliases": ["SelectedContextAssistant"],
+      "authority_rule": "context packet carries references/evidence/capability state but grants no authority"
+    },
+    {
+      "component_id": "ibal_recommendation",
+      "symbol": "XiIbalRecommendation",
+      "kind": "component",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["xi-io.net#239 historical XiIbalRecommendation candidate", "Inbox Ask Ibal / recommendation surfaces"],
+      "sam_law_projection": "selected-context explanation/proposal with accept/reject boundary"
+    },
+    {
+      "component_id": "ui_geometry_accessibility_verifier",
+      "symbol": "XiUiGeometryAccessibilityVerifier",
+      "kind": "validator",
+      "risk_level": "ui_component",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox geometry checks", "Inbox model checks", "Workbench accessibility baseline"],
+      "replaces_candidate_aliases": ["GeometryAccessibilityProof"],
+      "authority_rule": "structural/geometry verification does not replace owner visual proof where human-experience review applies"
+    }
+  ],
+  "communication_contracts": [
+    {
+      "component_id": "communication_account_ref",
+      "symbol": "XiCommunicationAccountRef",
+      "kind": "schema",
+      "risk_level": "secrets_auth",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox provider-neutral Mail Account model"],
+      "authority_rule": "credential values are never carried in the record; references only"
+    },
+    {
+      "component_id": "communication_event",
+      "symbol": "XiCommunicationEvent",
+      "kind": "schema",
+      "risk_level": "data_model",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox evidence_email_event", "framework EventAtom remains separate evidence/event envelope owner"],
+      "authority_rule": "external communication is evidence/ingress, not mutation authority"
+    },
+    {
+      "component_id": "communication_source_record",
+      "symbol": "XiCommunicationSourceRecord",
+      "kind": "schema",
+      "risk_level": "secrets_auth",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox Source Record / Books direction", "offline evidence archive"],
+      "naming_reason": "communication prefix avoids collision with broader Bins ResourceRecord/resource identity"
+    },
+    {
+      "component_id": "communication_attachment_manifest",
+      "symbol": "XiCommunicationAttachmentManifest",
+      "kind": "schema",
+      "risk_level": "secrets_auth",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox SLICE-LIBRARY-ATTACHMENTS-003A", "offline evidence archive attachment hashing"],
+      "authority_rule": "classification does not silently attach an artifact to a legal matter"
+    },
+    {
+      "component_id": "communication_ingress_pipeline",
+      "symbol": "XiCommunicationIngressPipeline",
+      "kind": "workflow_contract",
+      "risk_level": "secrets_auth",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox evidence email ingress metadata standard", "offline .eml archive architecture"],
+      "authority_rule": "preserve -> hash -> normalize -> propose match/classification -> human confirmation for consequential binding"
+    },
+    {
+      "component_id": "communication_draft",
+      "symbol": "XiCommunicationDraft",
+      "kind": "schema",
+      "risk_level": "secrets_auth",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox XiDraftObject donor lineage", "Mail composer/draft contracts"],
+      "authority_rule": "draft existence never grants send authority"
+    },
+    {
+      "component_id": "communication_egress_proposal",
+      "symbol": "XiCommunicationEgressProposal",
+      "kind": "workflow_contract",
+      "risk_level": "secrets_auth",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox draft-only egress and provider-write-gate direction"],
+      "authority_rule": "proposal and approval state remain separate from provider capability and execution"
+    },
+    {
+      "component_id": "communication_receipt",
+      "symbol": "XiCommunicationReceipt",
+      "kind": "schema",
+      "risk_level": "data_model",
+      "candidate_lifecycle_state": "source_mapped",
+      "lineage": ["Inbox send/activity receipt direction"],
+      "authority_rule": "provider outcome is not automatically legal filing, service or court acceptance"
+    }
+  ],
+  "next_framework_slice_after_306_r1": {
+    "owner": "xi-io.net#236 coordinated with #306 R2/R3 and #315",
+    "purpose": "admit these IDs into the existing component registry/capability projection with exact donor refs and field-scoped evidence",
+    "do_not": [
+      "create a second component registry",
+      "mark source_mapped candidates verified",
+      "copy Inbox provider code into xi-io.net",
+      "make sam_law depend on Inbox at runtime",
+      "treat UI action state as execution authority"
+    ]
+  }
+}
