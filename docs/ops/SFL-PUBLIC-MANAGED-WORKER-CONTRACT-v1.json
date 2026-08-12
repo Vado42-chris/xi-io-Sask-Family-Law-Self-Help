@@ -20,7 +20,8 @@
     "human_contract": "docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.md",
     "active_work_checkpoint": "docs/ops/ACTIVE_WORK_CHECKPOINT.md",
     "current_lane_status": "docs/ops/CURRENT_LANE_STATUS.md",
-    "current_state_ref": "docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md",
+    "current_state_ref": "docs/ops/CURRENT_EXECUTION_PLAN.md",
+    "current_situation_command": "npm run current:situation",
     "re_onboarding_delta": "docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md",
     "verification_runbook": "docs/ops/verification-runbook.md",
     "do_not_touch_register": "docs/ops/do-not-touch-register.md",
@@ -34,17 +35,18 @@
     "active_work_checkpoint",
     "current_lane_status",
     "current_execution_plan",
+    "live_current_situation",
     "product_agent_rules",
     "owner_approved_product_and_architecture_locks",
-    "task_specific_source_records",
-    "exact_git_and_validation_evidence"
+    "task_specific_source_records"
   ],
   "truth_classes": {
     "accepted_repository_truth": "main",
     "planning_truth_is_not_implementation_truth": true,
     "implementation_truth_is_not_runtime_or_legal_currentness_proof": true,
     "open_branch_or_pr_is_proposed": true,
-    "historical_branch_is_donor_evidence": true
+    "historical_branch_is_donor_evidence": true,
+    "tracked_projection_is_not_same_head_live_attestation": true
   },
   "planning_planes": [
     "STRATEGIC_WATERFALL",
@@ -125,8 +127,19 @@
     "checkpoint_required": true,
     "checkpoint_ref": "docs/ops/ACTIVE_WORK_CHECKPOINT.md",
     "lane_ref": "docs/ops/CURRENT_LANE_STATUS.md",
-    "do_not_touch_ref": "docs/ops/do-not-touch-register.md",
+    "current_plan_ref": "docs/ops/CURRENT_EXECUTION_PLAN.md",
     "missing_or_unresolvable_custody_blocks_write": true
+  },
+  "live_attestation": {
+    "resolver_command": "npm run current:situation",
+    "joins": [
+      "exact_local_git_head",
+      "accepted_main_head",
+      "open_pull_request_identity",
+      "exact_head_github_actions"
+    ],
+    "tracked_markdown_is_not_live_ci_proof": true,
+    "missing_or_mismatched_live_evidence_state": "UNKNOWN/BLOCKED"
   },
   "validation": {
     "required_commands": ["npm run check", "git diff --check"],
@@ -193,7 +206,9 @@
     "conformance_spec": "docs/ops/SFL-EXTERNAL-WORKER-CONFORMANCE-PILOT-001.md",
     "conformance_run_state": "NOT_EXECUTED",
     "settings_hooks_subagents_in_recovery_scope": false,
-    "next_provider_milestone": "read_only_fresh_clone_conformance_after_recovery_merge"
+    "public_scenarios_are_regression_fixtures": true,
+    "final_qualification_requires_evaluator_holdout": true,
+    "next_provider_milestone": "blind_holdout_current_situation_conformance"
   },
   "worker_report_required_fields": [
     "provider_or_worker_identity",
