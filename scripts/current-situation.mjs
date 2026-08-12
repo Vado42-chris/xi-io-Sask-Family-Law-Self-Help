@@ -2,13 +2,15 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { deriveCurrentSituation, STATES } from './current-situation-core.mjs';
 
+const REQUIRED_VALIDATION_WORKFLOW = 'Foundation check';
+
 function sh(command, args = []) {
   return execFileSync(command, args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 }
 
 function parseRepo(remote) {
   const cleaned = remote.trim().replace(/\.git$/, '');
-  let match = cleaned.match(/github\.com[:/]([^/]+)\/([^/]+)$/);
+  const match = cleaned.match(/github\.com[:/]([^/]+)\/([^/]+)$/);
   if (!match) throw new Error(`Unsupported origin remote: ${remote}`);
   return { owner: match[1], repo: match[2], full_name: `${match[1]}/${match[2]}` };
 }
@@ -88,7 +90,10 @@ async function main() {
     git: { head_sha: headSha, branch },
     tracked: trackedValidationHint(),
     live,
-    policy: { mutation_admission: STATES.BLOCKED }
+    policy: {
+      mutation_admission: STATES.BLOCKED,
+      required_validation_workflow_name: REQUIRED_VALIDATION_WORKFLOW
+    }
   });
 
   if (liveError) situation.live_attestation_error = liveError;
