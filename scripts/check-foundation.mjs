@@ -8,12 +8,16 @@ const requiredFiles = [
   '.env.example',
   'docs/INDEX.md',
   'docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-07-22.md',
+  'docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md',
   'docs/ops/execution-sequence-v1.md',
   'docs/ops/JCC-KIT-3J-SOURCE-CAPTURE-001.md',
+  'docs/ops/SFL-KIT-4A-SCOPE-RECOVERY-001.md',
+  'docs/ops/SFL-PROJECT-KERNEL-NAMESPACE-MIGRATION-001.md',
   'docs/product/product-brief-v1.md',
   'docs/product/first-reference-slice-v1.md',
   'docs/architecture/system-architecture-v1.md',
   'docs/architecture/privacy-and-data-boundary-v1.md',
+  'docs/architecture/multi-kit-source-registry-v1.md',
   'docs/workflows/jcc-kit-3j-workflow-v1.md',
   'docs/ux/progressive-disclosure-interview-v1.md',
   'docs/ux/accessibility-and-cognitive-load-v1.md',
@@ -25,6 +29,9 @@ const requiredFiles = [
   'docs/reviews/local-review-packet-sask_family_law_self_help-001.md',
   'docs/reviews/local-review-packet-jcc-source-capture-001.md',
   'sources/source-registry.json',
+  'sources/intake/index.json',
+  'sources/intake/kit-4a/2023-04-10/source-intake.json',
+  'sources/intake/kit-4a/2023-04-10/form-15-47-schedule-matrix.json',
   'sources/jcc-kit-3j/2026-03-30/forms-index.json',
   'sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-2.json',
   'sources/jcc-kit-3j/2026-03-30/forms/form-10-3-draft-order.json',
@@ -33,6 +40,7 @@ const requiredFiles = [
   'sources/jcc-kit-3j/2026-03-30/forms/form-12-3.json',
   'sources/jcc-kit-3j/2026-03-30/forms/fam-pd-7-5.json',
   'scripts/check-source-catalog.mjs',
+  'scripts/check-recovery-sources.mjs',
   'xi/managed-project.manifest.yaml',
   'xi/project-lexicon.yaml',
   'xi/feature-index.yaml',
@@ -111,7 +119,7 @@ for (const field of [
 }
 
 const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-for (const scriptName of ['check', 'check:foundation', 'check:source-catalog']) {
+for (const scriptName of ['check', 'check:foundation', 'check:source-catalog', 'check:recovery-sources']) {
   if (!packageJson.scripts?.[scriptName]) {
     console.error(`Foundation check failed. Missing package script: ${scriptName}`);
     process.exit(1);
