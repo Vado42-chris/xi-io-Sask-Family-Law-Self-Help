@@ -1,0 +1,172 @@
+{
+  "schema": "sfl.public-managed-worker-projection.v1",
+  "status": "product_local_public_safe_projection",
+  "generated_not_framework_truth": true,
+  "project": {
+    "project_id": "sask_family_law_self_help",
+    "repo_full_name": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+    "default_branch": "main",
+    "repo_visibility": "public"
+  },
+  "export_basis": {
+    "framework_source_visibility": "private",
+    "framework_source_ref": "Vado42-chris/xi-io.net@b27738d8e31937fb996ba8cf2abd4b8bb125d8f9",
+    "exported_at": "2026-08-12",
+    "private_framework_access_required": false,
+    "private_framework_content_included": false
+  },
+  "discovery": {
+    "human_contract": "docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.md",
+    "current_state_ref": "docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md",
+    "agent_rules_ref": "AGENTS.md",
+    "orientation_ref": "README.md",
+    "index_ref": "docs/INDEX.md",
+    "claude_adapter": "CLAUDE.md"
+  },
+  "authority_hierarchy": [
+    "public_managed_worker_contract",
+    "current_execution_plan",
+    "product_agent_rules",
+    "owner_approved_product_and_architecture_locks",
+    "task_specific_source_records",
+    "exact_git_and_validation_evidence"
+  ],
+  "cadence": [
+    "RESUME_HYDRATE",
+    "ASSESS",
+    "PREFLIGHT",
+    "ELIGIBILITY_MUTATION_ADMISSION",
+    "BRANCH_ISOLATE",
+    "IMPLEMENT",
+    "TARGETED_VERIFY",
+    "INTEGRATION_VERIFY",
+    "HOSTILE_INDEPENDENT_REVIEW",
+    "OWNER_GATE",
+    "MERGE",
+    "VERIFY_MAIN",
+    "CHANGE_RECEIPT",
+    "RELEASE_ADOPTION_FRESHNESS_DELTA",
+    "RETIRE",
+    "NEXT"
+  ],
+  "preflight_dimensions": [
+    "TARGET_IDENTITY",
+    "PROCESS_LOCK",
+    "WORK_STATE",
+    "CONTEXT_SUFFICIENCY",
+    "DISCLOSURE_POLICY",
+    "PROVIDER_TRUST",
+    "PACK_FRESHNESS",
+    "EXECUTION_SURFACE",
+    "MUTATION_ADMISSION",
+    "NEXT_SAFE_ACTION"
+  ],
+  "allowed_preflight_states": ["PASS", "BLOCKED", "UNKNOWN", "NOT_APPLICABLE"],
+  "mutation_admission_required_fields": [
+    "work_id_or_change_unit_id",
+    "parent_work_id_when_applicable",
+    "point_of_order_frame_when_applicable",
+    "repo_and_default_branch",
+    "exact_accepted_base_sha",
+    "scope_and_non_goals",
+    "allowed_paths",
+    "blocked_paths",
+    "mutation_owner",
+    "required_authority_and_approvals",
+    "validation_class_and_evidence",
+    "rollback_or_recovery",
+    "return_target_when_subwork"
+  ],
+  "core_invariants": [
+    "main_is_accepted_implementation_truth",
+    "unknown_is_not_pass",
+    "stale_is_not_current",
+    "reference_is_not_disclosure_authority",
+    "context_is_not_authority",
+    "recommendation_is_not_approval",
+    "approval_is_not_execution",
+    "review_is_exact_head_bound",
+    "missing_required_local_export_blocks_consequential_mutation",
+    "worker_must_not_invent_missing_framework_rule"
+  ],
+  "validation": {
+    "required_commands": ["npm run check", "git diff --check"],
+    "structural_green_is_limited_claim": true,
+    "execution_surface_may_not_weaken_required_gate": true
+  },
+  "disclosure": {
+    "projection_class": "PUBLIC_SAFE",
+    "included": [
+      "managed_work_obligations",
+      "product_local_tightening",
+      "current_state_pointer",
+      "validation_requirements",
+      "authority_non_escalation_rules",
+      "legal_and_privacy_stop_lines"
+    ],
+    "omitted": [
+      "private_framework_source",
+      "private_framework_docs_and_issues",
+      "cross_product_topology_and_adopter_intelligence",
+      "internal_framework_implementation_details",
+      "proprietary_internal_heuristics_not_required_for_execution",
+      "private_incident_and_threat_evidence",
+      "secrets_and_credentials",
+      "unrelated_project_evidence",
+      "raw_private_receipts_or_workspace_state"
+    ]
+  },
+  "blocked_repository_content": [
+    "real_matter_data",
+    "credentials_or_secrets",
+    "completed_private_forms",
+    "private_correspondence",
+    "tax_medical_financial_records",
+    "private_child_or_family_data"
+  ],
+  "legal_source_invariants": [
+    "no_legal_runtime_rule_from_ai_memory",
+    "intake_is_not_runtime_truth",
+    "repeated_form_number_is_not_equivalence_proof",
+    "unknown_stale_disputed_source_state_remains_visible",
+    "unresolved_deadline_service_filing_conflict_is_not_silently_normalized",
+    "ai_cannot_file_serve_send_sign_swear_or_commission"
+  ],
+  "worker_report_required_fields": [
+    "provider_or_worker_identity",
+    "user_requested_goal",
+    "repository",
+    "base_sha",
+    "branch_pr_change_unit",
+    "files_changed",
+    "commands_and_checks",
+    "validation_results",
+    "evidence_inspected",
+    "preflight_dimension_results",
+    "blockers_and_unknowns",
+    "risk_level",
+    "review_state",
+    "owner_approval_state",
+    "merge_state",
+    "deploy_or_transmission_state",
+    "next_safe_action"
+  ],
+  "invalidation_triggers": [
+    "accepted_main_sha_change",
+    "active_pr_or_branch_head_change",
+    "current_change_unit_or_custody_change",
+    "source_or_freshness_change",
+    "validation_profile_change",
+    "framework_adoption_or_process_lock_change",
+    "security_privacy_or_disclosure_posture_change",
+    "worker_provider_or_execution_surface_change",
+    "approval_or_authority_change",
+    "material_byte_change_after_exact_head_review"
+  ],
+  "future_portable_contract": {
+    "target_namespace": "xiio/",
+    "current_state": "blocked_pending_framework_namespace_and_registry_prerequisite",
+    "legacy_xi_preserved": true,
+    "this_projection_is_not_final_repo_abi": true
+  }
+}
