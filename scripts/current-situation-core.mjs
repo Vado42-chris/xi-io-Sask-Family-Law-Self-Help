@@ -36,6 +36,10 @@ function currentPullRequest(pullRequests = [], headSha) {
   return null;
 }
 
+function policyState(value, fallback) {
+  return Object.values(STATES).includes(value) ? value : fallback;
+}
+
 export function deriveCurrentSituation(input) {
   const {
     repo = {},
@@ -55,9 +59,10 @@ export function deriveCurrentSituation(input) {
 
   const onAcceptedMain = Boolean(headSha && defaultBranchHeadSha && headSha === defaultBranchHeadSha);
   const liveEvidenceAvailable = Boolean(live.available);
+  const laneAdmission = policyState(policy.lane_admission, STATES.UNKNOWN);
+  const workerMutationAuthority = policyState(policy.worker_mutation_authority, STATES.BLOCKED);
 
   let workState = STATES.UNKNOWN;
-  let mutationAdmission = STATES.BLOCKED;
   let nextSafeAction = 'Resolve current repository identity, live attestations, and work custody.';
 
   if (!headSha) {
@@ -82,12 +87,6 @@ export function deriveCurrentSituation(input) {
   } else {
     workState = STATES.UNKNOWN;
     nextSafeAction = 'No unique open PR owns this non-main exact head; resolve custody before consequential mutation.';
-  }
-
-  if (policy.mutation_admission === STATES.PASS) {
-    mutationAdmission = STATES.PASS;
-  } else if (policy.mutation_admission === STATES.UNKNOWN) {
-    mutationAdmission = STATES.UNKNOWN;
   }
 
   const trackedClaimsLiveValidation = Boolean(tracked.validation_claim);
@@ -137,8 +136,10 @@ export function deriveCurrentSituation(input) {
       }
     },
     authority: {
-      mutation_admission: mutationAdmission,
-      note: 'Capability, branch existence, CI success, or accepted planning does not grant mutation authority.'
+      lane_admission: laneAdmission,
+      worker_mutation_authority: workerMutationAuthority,
+      lane_admission_is_not_worker_authority: true,
+      note: 'An admitted work lane does not authorize every worker. Capability, branch existence, CI success, or accepted planning also does not grant worker mutation authority.'
     },
     freshness: {
       live_attestations_available: liveEvidenceAvailable,
