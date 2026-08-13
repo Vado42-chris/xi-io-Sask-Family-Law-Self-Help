@@ -16,7 +16,8 @@ function base(overrides = {}) {
       workflow_runs: [{ id: 1, run_number: 120, name: 'Foundation check', status: 'completed', conclusion: 'success', head_sha: H }]
     },
     policy: {
-      mutation_admission: STATES.BLOCKED,
+      lane_admission: STATES.PASS,
+      worker_mutation_authority: STATES.BLOCKED,
       required_validation_workflow_name: 'Foundation check'
     },
     ...overrides
@@ -30,6 +31,9 @@ function base(overrides = {}) {
   assert.equal(result.validation.evidence_source, 'LIVE_GITHUB_ACTIONS');
   assert.equal(result.validation.tracked_projection.matches_current_head, false);
   assert.equal(result.active_work.pull_request.number, 9);
+  assert.equal(result.authority.lane_admission, STATES.PASS);
+  assert.equal(result.authority.worker_mutation_authority, STATES.BLOCKED);
+  assert.equal(result.authority.lane_admission_is_not_worker_authority, true);
   assert.match(result.next_safe_action, /review\/owner gates/);
 }
 
@@ -66,9 +70,12 @@ function base(overrides = {}) {
   input.live.default_branch_head_sha = M;
   input.live.pull_requests = [];
   input.live.workflow_runs = [];
+  input.policy.lane_admission = STATES.UNKNOWN;
   const result = deriveCurrentSituation(input);
   assert.equal(result.accepted_source.state, 'ACCEPTED_MAIN');
   assert.equal(result.active_work.state, STATES.PASS);
+  assert.equal(result.authority.lane_admission, STATES.UNKNOWN);
+  assert.equal(result.authority.worker_mutation_authority, STATES.BLOCKED);
   assert.match(result.next_safe_action, /Select and admit one bounded ChangeUnit/);
 }
 
@@ -78,7 +85,17 @@ function base(overrides = {}) {
   const result = deriveCurrentSituation(input);
   assert.equal(result.active_work.state, STATES.UNKNOWN);
   assert.equal(result.validation.state, STATES.UNKNOWN);
+  assert.equal(result.authority.worker_mutation_authority, STATES.BLOCKED);
   assert.match(result.next_safe_action, /Resolve live GitHub attestations/);
 }
 
-console.log('current-situation checks: PASS (6 cases)');
+{
+  const input = base();
+  delete input.policy.lane_admission;
+  delete input.policy.worker_mutation_authority;
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.authority.lane_admission, STATES.UNKNOWN);
+  assert.equal(result.authority.worker_mutation_authority, STATES.BLOCKED);
+}
+
+console.log('current-situation checks: PASS (7 cases)');
