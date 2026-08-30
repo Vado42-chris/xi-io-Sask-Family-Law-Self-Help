@@ -14,6 +14,8 @@ active_branch: feat/current-situation-selfhost-001
 active_pr: 9
 mutation_owner: current admitted self-host lane
 mutation_admission: LIMITED_TO_THIS_CHANGEUNIT
+parallel_mutation_policy: GLOBAL_SINGLE_MUTATION_LANE
+serialized_wait_prs: 10
 ```
 
 ## Goal
@@ -25,6 +27,8 @@ durable repo custody/policy
 + exact local Git HEAD
 + live GitHub PR state
 + live exact-head GitHub Actions evidence
++ exact-head review evidence
++ project-wide open-PR/custody reconciliation
 =
 CurrentSituation
 ```
@@ -59,10 +63,15 @@ npm run check = PASS
 PR-level git diff --check = PASS
 npm run current:situation resolves PR #9 + exact local HEAD
 live validation evidence never transfers across SHAs
+live review evidence never transfers across SHAs
+review observed != review qualified != owner approved != merge authority
 missing live GitHub evidence remains UNKNOWN/BLOCKED
+unqualified sibling mutation lanes fail closed under GLOBAL_SINGLE_MUTATION_LANE
+serialized WAIT siblings remain visible without receiving mutation authority
+stale WAIT declarations fail currentness closed
 blind external Claude holdout review does not receive expected conclusions
 ```
 
 ## Return condition
 
-Return to issue #8 when PR #9 has exact-head hosted validation, hostile review and external-worker conformance evidence. No second sam_law mutation branch may start while PR #9 owns this lane.
+Return to issue #8 when PR #9 has exact-head hosted validation, hostile review and external-worker conformance evidence. No second sam_law mutation branch may actively mutate while PR #9 owns this lane. PR #10 is currently serialized as `WAIT` and retains its branch/evidence without active mutation authority. If a later accepted project policy permits qualified disjoint affected children, this file and CurrentSituation must encode the relationship/admission basis before parallel lanes can be treated as current.

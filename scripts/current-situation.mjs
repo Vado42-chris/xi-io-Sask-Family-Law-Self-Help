@@ -35,16 +35,23 @@ function trackedValidationHint() {
   return { validation_claim: claim, validation_head_sha: sha };
 }
 
+function csvNumbers(value) {
+  if (!value) return [];
+  return value.split(',').map((part) => Number(part.trim())).filter(Number.isInteger);
+}
+
 function trackedCustody() {
   try {
     const content = readFileSync(CURRENT_PLAN_PATH, 'utf8');
     return {
       active_branch: field(content, 'active_branch'),
       active_pr: Number(field(content, 'active_pr')) || null,
-      mutation_admission: field(content, 'mutation_admission')
+      mutation_admission: field(content, 'mutation_admission'),
+      parallel_mutation_policy: field(content, 'parallel_mutation_policy'),
+      serialized_wait_prs: csvNumbers(field(content, 'serialized_wait_prs'))
     };
   } catch {
-    return { active_branch: null, active_pr: null, mutation_admission: null };
+    return { active_branch: null, active_pr: null, mutation_admission: null, parallel_mutation_policy: null, serialized_wait_prs: [] };
   }
 }
 
@@ -67,7 +74,7 @@ async function main() {
   const identity = parseRepo(remote);
   const api = `https://api.github.com/repos/${identity.owner}/${identity.repo}`;
 
-  let live = { available: false, pull_requests: [], workflow_runs: [], default_branch_head_sha: null };
+  let live = { available: false, pull_requests: [], workflow_runs: [], reviews: [], default_branch_head_sha: null };
   let defaultBranch = 'main';
   let liveError = null;
 
@@ -79,16 +86,32 @@ async function main() {
       githubJson(`${api}/pulls?state=open&per_page=100`),
       githubJson(`${api}/actions/runs?head_sha=${encodeURIComponent(headSha)}&per_page=20`)
     ]);
+
+    const pullRequests = pulls.map((pr) => ({
+      number: pr.number,
+      state: pr.state,
+      draft: Boolean(pr.draft),
+      base: pr.base?.ref || defaultBranch,
+      head_sha: pr.head?.sha || null
+    }));
+    const matchingPulls = pullRequests.filter((pr) => pr.head_sha === headSha && pr.state === 'open');
+    let reviews = [];
+    if (matchingPulls.length === 1) {
+      const reviewRows = await githubJson(`${api}/pulls/${matchingPulls[0].number}/reviews?per_page=100`);
+      reviews = reviewRows.map((review) => ({
+        id: review.id,
+        state: review.state,
+        user_login: review.user?.login || null,
+        commit_id: review.commit_id || null,
+        submitted_at: review.submitted_at || null,
+        html_url: review.html_url || null
+      }));
+    }
+
     live = {
       available: true,
       default_branch_head_sha: mainCommit.sha,
-      pull_requests: pulls.map((pr) => ({
-        number: pr.number,
-        state: pr.state,
-        draft: Boolean(pr.draft),
-        base: pr.base?.ref || defaultBranch,
-        head_sha: pr.head?.sha || null
-      })),
+      pull_requests: pullRequests,
       workflow_runs: (runs.workflow_runs || []).map((run) => ({
         id: run.id,
         run_number: run.run_number,
@@ -98,7 +121,8 @@ async function main() {
         head_sha: run.head_sha,
         updated_at: run.updated_at,
         html_url: run.html_url
-      }))
+      })),
+      reviews
     };
   } catch (error) {
     liveError = error instanceof Error ? error.message : String(error);
@@ -123,6 +147,10 @@ async function main() {
     policy: {
       lane_admission: laneAdmission,
       worker_mutation_authority: STATES.BLOCKED,
+      review_gate: STATES.UNKNOWN,
+      owner_gate: STATES.UNKNOWN,
+      project_parallel_mutation_policy: custody.parallel_mutation_policy,
+      serialized_wait_prs: custody.serialized_wait_prs,
       required_validation_workflow_name: REQUIRED_VALIDATION_WORKFLOW
     }
   });

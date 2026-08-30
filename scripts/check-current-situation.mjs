@@ -13,11 +13,16 @@ function base(overrides = {}) {
       available: true,
       default_branch_head_sha: M,
       pull_requests: [{ number: 9, state: 'open', draft: true, base: 'main', head_sha: H }],
-      workflow_runs: [{ id: 1, run_number: 120, name: 'Foundation check', status: 'completed', conclusion: 'success', head_sha: H }]
+      workflow_runs: [{ id: 1, run_number: 120, name: 'Foundation check', status: 'completed', conclusion: 'success', head_sha: H }],
+      reviews: [{ id: 44, state: 'COMMENTED', user_login: 'external-reviewer', commit_id: H, submitted_at: '2026-08-17T00:00:00Z' }]
     },
     policy: {
       lane_admission: STATES.PASS,
       worker_mutation_authority: STATES.BLOCKED,
+      review_gate: STATES.UNKNOWN,
+      owner_gate: STATES.UNKNOWN,
+      project_parallel_mutation_policy: 'GLOBAL_SINGLE_MUTATION_LANE',
+      serialized_wait_prs: [],
       required_validation_workflow_name: 'Foundation check'
     },
     ...overrides
@@ -34,7 +39,10 @@ function base(overrides = {}) {
   assert.equal(result.authority.lane_admission, STATES.PASS);
   assert.equal(result.authority.worker_mutation_authority, STATES.BLOCKED);
   assert.equal(result.authority.lane_admission_is_not_worker_authority, true);
-  assert.match(result.next_safe_action, /review\/owner gates/);
+  assert.equal(result.review_attestations.exact_head_review_count, 1);
+  assert.deepEqual(result.review_attestations.principals, ['external-reviewer']);
+  assert.equal(result.project_custody.state, STATES.PASS);
+  assert.match(result.next_safe_action, /Classify the existing exact-head review attestations/);
 }
 
 {
@@ -70,6 +78,7 @@ function base(overrides = {}) {
   input.live.default_branch_head_sha = M;
   input.live.pull_requests = [];
   input.live.workflow_runs = [];
+  input.live.reviews = [];
   input.policy.lane_admission = STATES.UNKNOWN;
   const result = deriveCurrentSituation(input);
   assert.equal(result.accepted_source.state, 'ACCEPTED_MAIN');
@@ -81,7 +90,7 @@ function base(overrides = {}) {
 
 {
   const input = base();
-  input.live = { available: false, default_branch_head_sha: null, pull_requests: [], workflow_runs: [] };
+  input.live = { available: false, default_branch_head_sha: null, pull_requests: [], workflow_runs: [], reviews: [] };
   const result = deriveCurrentSituation(input);
   assert.equal(result.active_work.state, STATES.UNKNOWN);
   assert.equal(result.validation.state, STATES.UNKNOWN);
@@ -98,4 +107,72 @@ function base(overrides = {}) {
   assert.equal(result.authority.worker_mutation_authority, STATES.BLOCKED);
 }
 
-console.log('current-situation checks: PASS (7 cases)');
+{
+  const input = base();
+  input.live.reviews = [{ id: 45, state: 'APPROVED', user_login: 'stale-reviewer', commit_id: M, submitted_at: '2026-08-16T00:00:00Z' }];
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.review_attestations.exact_head_review_count, 0);
+  assert.equal(result.review_attestations.state, 'NONE_OBSERVED_EXACT_HEAD');
+  assert.match(result.next_safe_action, /Obtain exact-head review evidence/);
+}
+
+{
+  const input = base();
+  input.policy.review_gate = STATES.PASS;
+  input.policy.owner_gate = STATES.BLOCKED;
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.gates.review, STATES.PASS);
+  assert.equal(result.gates.owner, STATES.BLOCKED);
+  assert.match(result.next_safe_action, /owner disposition/);
+}
+
+{
+  const input = base();
+  input.policy.review_gate = STATES.PASS;
+  input.policy.owner_gate = STATES.PASS;
+  const result = deriveCurrentSituation(input);
+  assert.match(result.next_safe_action, /verify merge-specific authority/);
+  assert.equal(result.authority.worker_mutation_authority, STATES.BLOCKED);
+}
+
+{
+  const input = base();
+  input.live.pull_requests.push({ number: 10, state: 'open', draft: true, base: 'main', head_sha: 'cccccccccccccccccccccccccccccccccccccccc' });
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.project_custody.state, STATES.BLOCKED);
+  assert.equal(result.active_work.state, STATES.BLOCKED);
+  assert.deepEqual(result.project_custody.conflicting_sibling_prs, [10]);
+  assert.match(result.next_safe_action, /Resolve sibling open mutation lane\(s\) #10/);
+}
+
+{
+  const input = base();
+  input.live.pull_requests.push({ number: 10, state: 'open', draft: true, base: 'main', head_sha: 'cccccccccccccccccccccccccccccccccccccccc' });
+  input.policy.serialized_wait_prs = [10];
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.project_custody.state, STATES.PASS);
+  assert.deepEqual(result.project_custody.waiting_sibling_prs, [10]);
+  assert.deepEqual(result.project_custody.conflicting_sibling_prs, []);
+  assert.match(result.next_safe_action, /Classify the existing exact-head review attestations/);
+}
+
+{
+  const input = base();
+  input.live.pull_requests.push({ number: 10, state: 'open', draft: true, base: 'main', head_sha: 'cccccccccccccccccccccccccccccccccccccccc' });
+  input.policy.project_parallel_mutation_policy = null;
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.project_custody.state, STATES.UNKNOWN);
+  assert.equal(result.active_work.state, STATES.UNKNOWN);
+  assert.match(result.next_safe_action, /Resolve project-wide concurrency\/custody/);
+}
+
+{
+  const input = base();
+  input.policy.serialized_wait_prs = [10];
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.project_custody.state, STATES.UNKNOWN);
+  assert.deepEqual(result.project_custody.stale_serialized_wait_prs, [10]);
+  assert.match(result.next_safe_action, /Reconcile stale serialized WAIT declaration/);
+}
+
+console.log('current-situation checks: PASS (14 cases)');

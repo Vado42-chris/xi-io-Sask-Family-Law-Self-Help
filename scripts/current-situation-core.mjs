@@ -36,6 +36,12 @@ function currentPullRequest(pullRequests = [], headSha) {
   return null;
 }
 
+function exactHeadReviews(reviews = [], headSha) {
+  return reviews
+    .filter((review) => review && review.commit_id === headSha)
+    .sort((a, b) => String(a.submitted_at || '').localeCompare(String(b.submitted_at || '')));
+}
+
 function policyState(value, fallback) {
   return Object.values(STATES).includes(value) ? value : fallback;
 }
@@ -55,12 +61,31 @@ export function deriveCurrentSituation(input) {
   const requiredWorkflowName = policy.required_validation_workflow_name || null;
   const pr = currentPullRequest(live.pull_requests || [], headSha);
   const run = latestCompletedRun(live.workflow_runs || [], headSha, requiredWorkflowName);
+  const reviews = exactHeadReviews(live.reviews || [], headSha);
   const validation = validationState(run);
 
   const onAcceptedMain = Boolean(headSha && defaultBranchHeadSha && headSha === defaultBranchHeadSha);
   const liveEvidenceAvailable = Boolean(live.available);
   const laneAdmission = policyState(policy.lane_admission, STATES.UNKNOWN);
   const workerMutationAuthority = policyState(policy.worker_mutation_authority, STATES.BLOCKED);
+  const reviewGate = policyState(policy.review_gate, STATES.UNKNOWN);
+  const ownerGate = policyState(policy.owner_gate, STATES.UNKNOWN);
+  const parallelMutationPolicy = policy.project_parallel_mutation_policy || null;
+  const serializedWaitPrs = [...new Set((policy.serialized_wait_prs || []).map(Number).filter(Number.isInteger))].sort((a, b) => a - b);
+  const siblingPulls = (live.pull_requests || []).filter((candidate) =>
+    candidate && candidate.state === 'open' && candidate.head_sha !== headSha && candidate.base === defaultBranch
+  );
+  const siblingNumbers = new Set(siblingPulls.map((candidate) => Number(candidate.number)));
+  const waitingSiblingPulls = siblingPulls.filter((candidate) => serializedWaitPrs.includes(Number(candidate.number)));
+  const conflictingSiblingPulls = siblingPulls.filter((candidate) => !serializedWaitPrs.includes(Number(candidate.number)));
+  const staleSerializedWaitPrs = serializedWaitPrs.filter((number) => !siblingNumbers.has(number));
+
+  let projectCustody = STATES.PASS;
+  if (pr && staleSerializedWaitPrs.length > 0) {
+    projectCustody = STATES.UNKNOWN;
+  } else if (pr && conflictingSiblingPulls.length > 0) {
+    projectCustody = parallelMutationPolicy === 'GLOBAL_SINGLE_MUTATION_LANE' ? STATES.BLOCKED : STATES.UNKNOWN;
+  }
 
   let workState = STATES.UNKNOWN;
   let nextSafeAction = 'Resolve current repository identity, live attestations, and work custody.';
@@ -73,13 +98,29 @@ export function deriveCurrentSituation(input) {
     nextSafeAction = 'Resolve live GitHub attestations for the exact HEAD; do not infer them from tracked status text.';
   } else if (pr) {
     workState = STATES.PASS;
-    if (validation === STATES.FAIL) {
+    if (projectCustody === STATES.BLOCKED) {
+      workState = STATES.BLOCKED;
+      nextSafeAction = `Resolve sibling open mutation lane(s) ${conflictingSiblingPulls.map((candidate) => `#${candidate.number}`).join(', ')} against project custody policy before consequential work on PR #${pr.number}.`;
+    } else if (projectCustody === STATES.UNKNOWN) {
+      workState = STATES.UNKNOWN;
+      if (staleSerializedWaitPrs.length > 0) {
+        nextSafeAction = `Reconcile stale serialized WAIT declaration(s) ${staleSerializedWaitPrs.map((number) => `#${number}`).join(', ')} before treating PR #${pr.number} as project-current.`;
+      } else {
+        nextSafeAction = `Resolve project-wide concurrency/custody for sibling open PR(s) ${conflictingSiblingPulls.map((candidate) => `#${candidate.number}`).join(', ')} before treating PR #${pr.number} as project-current.`;
+      }
+    } else if (validation === STATES.FAIL) {
       nextSafeAction = `Repair the failing exact-head validation on PR #${pr.number} without broadening scope.`;
     } else if (validation === STATES.UNKNOWN) {
       const workflowClause = requiredWorkflowName ? ` for required workflow ${requiredWorkflowName}` : '';
       nextSafeAction = `Wait for or obtain exact-head validation evidence${workflowClause} for PR #${pr.number}.`;
+    } else if (reviewGate === STATES.PASS && ownerGate === STATES.PASS) {
+      nextSafeAction = `Review and owner gates are recorded PASS for PR #${pr.number}; verify merge-specific authority before any merge or acceptance effect.`;
+    } else if (reviewGate === STATES.PASS) {
+      nextSafeAction = `Wait for or obtain owner disposition for PR #${pr.number}; exact-head validation and review gates are current.`;
+    } else if (reviews.length > 0) {
+      nextSafeAction = `Classify the existing exact-head review attestations and owner gate for PR #${pr.number}; do not redispatch review merely because qualification is unresolved.`;
     } else {
-      nextSafeAction = `Resolve remaining review/owner gates for PR #${pr.number}; required validation is current for this exact head.`;
+      nextSafeAction = `Obtain exact-head review evidence for PR #${pr.number}, then resolve the owner gate; required validation is current.`;
     }
   } else if (onAcceptedMain) {
     workState = STATES.PASS;
@@ -135,11 +176,44 @@ export function deriveCurrentSituation(input) {
         matches_current_head: trackedValidationMatchesHead
       }
     },
+    review_attestations: {
+      state: reviews.length > 0 ? 'OBSERVED_EXACT_HEAD' : (liveEvidenceAvailable ? 'NONE_OBSERVED_EXACT_HEAD' : 'UNAVAILABLE'),
+      exact_head_review_count: reviews.length,
+      principals: [...new Set(reviews.map((review) => review.user_login).filter(Boolean))].sort(),
+      reviews: reviews.map((review) => ({
+        id: review.id || null,
+        state: review.state || null,
+        user_login: review.user_login || null,
+        commit_id: review.commit_id,
+        submitted_at: review.submitted_at || null,
+        html_url: review.html_url || null
+      })),
+      qualification_rule: 'Observed review records are evidence only. They do not prove independence, approval, owner disposition, or merge authority without an explicit qualified gate.'
+    },
+    gates: {
+      review: reviewGate,
+      owner: ownerGate
+    },
+    project_custody: {
+      state: projectCustody,
+      parallel_mutation_policy: parallelMutationPolicy,
+      serialized_wait_prs: serializedWaitPrs,
+      sibling_open_prs: siblingPulls.map((candidate) => ({
+        number: candidate.number,
+        base: candidate.base || defaultBranch,
+        head_sha: candidate.head_sha || null,
+        draft: Boolean(candidate.draft)
+      })),
+      waiting_sibling_prs: waitingSiblingPulls.map((candidate) => candidate.number),
+      conflicting_sibling_prs: conflictingSiblingPulls.map((candidate) => candidate.number),
+      stale_serialized_wait_prs: staleSerializedWaitPrs,
+      rule: 'Local unique-PR and exact-head CI evidence do not establish project-wide custody. An open sibling is not an active writer when it is explicitly serialized as WAIT; every other concurrent mutation lane requires an explicit relationship/admission basis.'
+    },
     authority: {
       lane_admission: laneAdmission,
       worker_mutation_authority: workerMutationAuthority,
       lane_admission_is_not_worker_authority: true,
-      note: 'An admitted work lane does not authorize every worker. Capability, branch existence, CI success, or accepted planning also does not grant worker mutation authority.'
+      note: 'An admitted work lane does not authorize every worker. Capability, branch existence, CI success, review presence, or accepted planning also does not grant worker mutation authority.'
     },
     freshness: {
       live_attestations_available: liveEvidenceAvailable,
