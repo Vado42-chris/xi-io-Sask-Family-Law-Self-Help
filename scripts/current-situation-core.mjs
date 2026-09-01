@@ -56,7 +56,7 @@ function runnerEvidence(run, jobs = []) {
       runner_name: runnerName,
       steps_count: steps.length,
       steps_executed: stepsExecuted,
-      positive_execution: Boolean(runnerId && steps.length >= 1)
+      positive_execution: Boolean(runnerId && stepsExecuted >= 1)
     };
   });
   const executedJobs = evidence.filter((job) => job.positive_execution);
