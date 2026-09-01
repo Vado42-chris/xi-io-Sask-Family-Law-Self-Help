@@ -1,47 +1,49 @@
 # xi-io: Saskatchewan Family Law Self-Help
 
-Status: `ACTIVE EXISTING-PROJECT RECOVERY; RUNTIME LEGAL WORK BLOCKED`  
+Status: `ACTIVE MANAGED SELF-HOST PROOF; RUNTIME LEGAL WORK BLOCKED`  
 Project ID: `sask_family_law_self_help`  
 Repository: `Vado42-chris/xi-io-Sask-Family-Law-Self-Help`  
 Default branch: `main`  
-Current recovery PR: `#6`  
-Current recovery branch: `chore/framework-recovery-2026-08-12`
+Current PR: `#9`  
+Current branch: `feat/current-situation-selfhost-001`  
+Current ChangeUnit: `SFL-CURRENT-SITUATION-001`
 
 ## Current status
 
-This repository is being recovered and re-onboarded from an older single-workflow bootstrap into the Saskatchewan jurisdiction package for the planned `xi-io: sam_law` product. The project is not a one-kit JCC application.
+This repository is the Saskatchewan jurisdiction package for the planned `xi-io: sam_law` product. Recovery PR #6 merged on August 12, 2026. The current admitted mutation lane is PR #9, which is proving the product-local `CurrentSituation` self-host primitive. PR #10 remains serialized `WAIT` and has no active mutation authority while PR #9 owns the single-writer lane.
 
 Current cold-start/custody surfaces are:
 
-1. `docs/ops/ACTIVE_WORK_CHECKPOINT.md`
-2. `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`
-3. `docs/ops/CURRENT_LANE_STATUS.md`
-4. `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md` for kickoff/process-freshness state.
+1. `docs/ops/CURRENT_EXECUTION_PLAN.md`, stable present-tense execution-plan entry point.
+2. `docs/ops/ACTIVE_WORK_CHECKPOINT.md`, fail-closed durable custody projection.
+3. `docs/ops/CURRENT_LANE_STATUS.md`, concise active-lane projection.
+4. `docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.md`, provider-neutral public worker obligations.
+5. `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md`, historical/process-freshness evidence, not current custody authority.
 
-A fresh worker must resolve those before selecting or creating Git work. Do not infer current work from newest branch, PR, issue comment or commit.
+A fresh worker must resolve the stable current plan and, where the execution surface permits it, run `npm run current:situation` before selecting or creating Git work. Do not infer current work from newest branch, PR, issue comment, commit, dated plan, or chat history.
 
 | Area | Current state |
 |---|---|
-| Accepted repository truth | `main` |
-| Active proposed recovery | PR `#6` |
-| Current ChangeUnit | `SFL-RECOVERY-CLOSEOUT-001` |
-| PR #5 | `FROZEN_DONOR / SALVAGE_SOURCE`, no wholesale merge; R6-D classification complete |
-| Recovery closeout gate | R6-E exact-head validation next; R6-F hostile review follows |
+| Accepted repository truth | `main@5f9d2a46898d97b87503cff2a2554c2eec665d47` |
+| Active mutation lane | PR `#9` / `feat/current-situation-selfhost-001` |
+| Current ChangeUnit | `SFL-CURRENT-SITUATION-001` |
+| Serialized sibling | PR `#10` = `WAIT_SERIALIZED`, retained evidence, no active mutation authority |
+| PR #5 | `FROZEN_DONOR / SALVAGE_SOURCE`, no wholesale merge |
+| Current proof gate | exact-head hosted validation -> hostile review -> independent external-worker review -> owner disposition |
 | Strategic/waterfall projection | product vision/architecture exist; one typed accepted PlanRevision projection still missing |
-| Agile/current-work projection | recovery dependency queue exists; separate canonical planning object pending |
-| Active execution projection | checkpoint + lane + detailed execution plan in PR #6 |
-| Legal source model | multi-kit recovery active |
+| Agile/current-work projection | historical work evidence exists; separate canonical planning object pending |
+| Active execution projection | stable current plan + checkpoint + lane + live CurrentSituation resolver |
+| Legal source model | multi-kit recovery/source review active but separately gated |
 | Runtime legal/procedural rules | blocked |
 | Private matter runtime | blocked / not accepted |
 | AI runtime | blocked / not accepted |
-| Claude discovery contract | present as public-safe pilot projection |
-| Claude conformance | not yet executed; first final run is post-recovery fresh clone |
+| External-worker discovery | public-safe pilot projection present |
+| External holdout evidence | Aug 17 holdout produced `PASS_WITH_FINDINGS`; current exact-head independent qualification still required after later bytes |
 | Court/email transmission | forbidden / not implemented |
 | Legacy framework namespace | tracked under `xi/`, preserve as legacy input |
-| New `xiio/` writes | blocked pending framework namespace/read-order prerequisite |
+| New `xiio/` writes | blocked pending explicit current framework adoption/migration authority |
 | Rights/license posture | repository public; project license not selected; reuse/distribution claims remain unresolved |
-| Inbox-derived primitive names | source-mapped promotion intake only, not canonical framework registry truth |
-| Product-family/convergence work | distributed to framework/product owners; not implementation scope for PR #6 |
+| Framework rebase observation | private framework main observed at `0c9db9b1395b626d7fd0b8b4bea3bc9d1586cc53` on 2026-09-01; observation is not automatic adoption |
 
 ## What this repo is
 
@@ -118,7 +120,7 @@ It may not invent facts or procedure, silently choose legal relief, override det
 
 `XiSelectedContext`/Ibal proposal state is context and recommendation, not execution authority.
 
-External development agents such as Claude consume `docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.md`; provider-specific adapters may change discovery/representation only, not policy or authority.
+External development agents consume the provider-neutral public contract; provider-specific adapters may change discovery/representation only, not policy or authority.
 
 ## Local-first and data posture
 
@@ -135,6 +137,8 @@ npm run check:source-catalog
 npm run check:recovery-sources
 npm run check:framework-component-promotion-lock
 npm run check:public-managed-worker-contract
+npm run check:current-situation
+npm run current:situation
 git diff --check
 ```
 
@@ -149,7 +153,7 @@ Unless a separately admitted and approved lane says otherwise:
 ```text
 destructive Git / force push / history rewrite
 merge or release without owner gate
-branch deletion / broad cleanup
+branch deletion / broad cleanup without proof and explicit retirement authority
 public deploy or tunnel changes
 secret or .env display
 schema/database migration
@@ -161,26 +165,28 @@ cross-repo mutation
 wholesale PR #5 merge
 new canonical xi-io.net registry writes from this repo
 new xiio/ managed-project writes before the framework namespace prerequisite clears
-Claude settings/hooks/subagent enforcement work inside PR #6
-product-family brand or convergence implementation inside PR #6
+Claude settings/hooks/subagent enforcement work inside PR #9
+capability-distribution / Bug-work / SDK / MCP expansion inside PR #9
+legal-source promotion inside PR #9
 ```
 
 ## Documentation map
 
 Start here for current work:
 
-1. `docs/ops/ACTIVE_WORK_CHECKPOINT.md`, fail-closed active-work checkpoint.
-2. `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`, detailed current GitHub execution/custody authority.
+1. `docs/ops/CURRENT_EXECUTION_PLAN.md`, stable present-tense execution/custody authority.
+2. `docs/ops/ACTIVE_WORK_CHECKPOINT.md`, fail-closed durable active-work checkpoint.
 3. `docs/ops/CURRENT_LANE_STATUS.md`, concise active-lane projection.
-4. `AGENTS.md`, worker rules.
-5. `docs/INDEX.md`, navigation.
-6. `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md`, recovery provenance.
-7. `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md`, current kickoff/process delta.
-8. `docs/ops/SFL-PR5-SALVAGE-MAP-001.md`, completed R6-D read-only donor classification.
-9. `docs/ops/execution-sequence-v1.md`, product gate dependency graph.
-10. `project-tracking/open-work-ledger.md`, work inventory.
-11. `docs/product/product-vision-locked-v1.md`, product vision.
-12. `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`, architecture approval.
+4. `docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.md`, provider-neutral worker contract.
+5. `AGENTS.md`, worker rules.
+6. `docs/INDEX.md`, navigation.
+7. `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md`, recovery provenance.
+8. `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md`, historical/process delta.
+9. `docs/ops/SFL-PR5-SALVAGE-MAP-001.md`, completed donor classification.
+10. `docs/ops/execution-sequence-v1.md`, product gate dependency graph.
+11. `project-tracking/open-work-ledger.md`, historical work inventory, not current selection authority.
+12. `docs/product/product-vision-locked-v1.md`, product vision.
+13. `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`, architecture approval.
 
 External-worker / Claude handoff:
 
@@ -202,28 +208,32 @@ Reusable primitive intake:
 
 Canonical framework repository: `Vado42-chris/xi-io.net`.
 
-Current owner/provenance pointers materially affecting future sam_law adoption include framework work for:
+The 2026-09-01 cold-start rebase observed framework main `0c9db9b1395b626d7fd0b8b4bea3bc9d1586cc53` and consumed these current invariants for this lane:
 
-- Git cadence / mutation admission,
-- namespace/registry/read-order reconciliation,
-- Task Context,
-- strategy-to-execution lifecycle,
-- versioned capability distribution/adopter locks,
-- rights/licensing/contribution/distribution qualification,
-- managed-project onboarding/re-onboarding,
-- Work Continuation,
-- planning-promotion graduation,
-- product-family identity/brand binding,
-- Repo Rehab provenance/convergence projection.
+```text
+WORKER_BIND = tip_sha · branch · PR · managed_first_hop · worker_label
+PASS = NEXT_FROZEN_INPUT
+BRANCH_PASS != RUNTIME
+MERGED_TO_MAIN != MAIN_READBACK_CURRENT
+MAIN_READBACK_CURRENT != AFFECTED_RETURN_CURRENT
+COMMENT != WORK
+CANDIDATE != ACCEPTED
+HISTORY != EXECUTABLE
+```
+
+The public managed-worker contract remains a dated product-local export and is not silently relabelled as synchronized to current framework main. That framework-delta work remains separately gated.
+
+Current owner/provenance pointers materially affecting future sam_law adoption include framework work for Git cadence/mutation admission, namespace/read-order reconciliation, Task Context, strategy-to-execution lifecycle, capability distribution/adopter locks, rights qualification, managed-project onboarding, Work Continuation, and runtime-main closure.
 
 Open framework planning work is not automatically an accepted product contract. Required public-worker obligations must be exported locally, and product adoption must remain explicit.
 
 ## Known gaps
 
-- R6-D PR #5 donor/salvage classification is complete; later code harvest remains separately gated and must not be started in PR #6.
-- Current closeout-status bytes require fresh exact-head validation and hostile review before owner merge consideration.
+- `SFL-COLD-BIND-001`: the current framework has a local worker-bind script, but this connector-hosted worker has no provider-neutral binder action/receipt surface.
+- `SFL-FRAMEWORK-DRIFT-001`: the public worker contract export basis predates observed framework main and needs a bounded delta/adoption pass, not a version-string edit.
+- PR #9 still requires exact-head hosted validation and independent review after the 2026-09-01 onboarding repair bytes.
 - A single typed accepted strategic PlanRevision/current phase/gate projection is not yet on accepted `main`.
-- The recovery queue is not yet a canonical agile-plan object.
+- The historical recovery queue is not a canonical agile-plan object.
 - Kit #3J independent rendered/current-source review is incomplete.
 - Kit #2a full form/process review and current official comparison are incomplete.
 - Kit #4a full form/process review and current official comparison are incomplete.
@@ -234,32 +244,31 @@ Open framework planning work is not automatically an accepted product contract. 
 - Framework primitive rows are not yet canonical registry entries.
 - No accepted runtime schema/triage/task/form engine exists on `main` for the recovered product scope.
 - No accepted private workspace, AI adapter, egress or transmission system exists.
-- Claude conformance has not yet been run from an accepted fresh clone.
-- Claude enforcement hooks/settings/subagents and provider-neutral executable preflight are not yet built.
 - Project rights/license/contribution/distribution posture requires a future explicit qualification pass.
 - Saskatchewan's broader self-help kit catalogue still requires authoritative reconciliation before completeness can be claimed.
-- Product-family brand and evidence-backed convergence adoption remain future separately admitted capabilities; PR #6 only records their consumer boundary.
 
 ## Next action
 
 Do **not** start another development branch.
 
-Continue `SFL-RECOVERY-CLOSEOUT-001` in PR #6 according to `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`:
+Continue `SFL-CURRENT-SITUATION-001` in PR #9 according to `docs/ops/CURRENT_EXECUTION_PLAN.md`:
 
-1. treat R6-D as complete and do not redo the PR #5 salvage map,
-2. run `npm run check` and `git diff --check` on the exact current head,
-3. require exact-head hosted CI success,
-4. perform exact-head hostile review,
-5. obtain explicit owner merge approval,
-6. merge PR #6,
-7. verify merged `main`,
-8. record recovery closeout/retirement evidence,
-9. then run `CLAUDE-CONFORMANCE-001` from a fresh clone with no chat history/private framework access,
-10. only after that evidence admit the next bounded development/worker-preflight ChangeUnit.
+1. keep PR #10 serialized `WAIT`,
+2. run `npm run check` and `git diff --check` on the exact current PR #9 head,
+3. run `npm run current:situation` and confirm it resolves PR #9 plus the exact local HEAD,
+4. require exact-head hosted Foundation Check success,
+5. perform exact-head hostile review of the final bytes,
+6. obtain an independent external-worker review on the same exact head,
+7. stop for explicit owner disposition,
+8. only with applicable merge authority, merge PR #9,
+9. read back accepted `main`,
+10. verify affected onboarding consumers return current before granting runtime credit.
+
+`PASS = NEXT_FROZEN_INPUT`. A green PR branch is not product-current runtime.
 
 ## Maintenance rule
 
-This README is orientation, not the full execution ledger. When current work custody changes, update the active-work checkpoint and execution plan first, then keep README/AGENTS/INDEX/Claude pointers consistent.
+This README is orientation, not the execution SSOT. When current work custody changes, update `docs/ops/CURRENT_EXECUTION_PLAN.md`, checkpoint, and lane first, then keep README/AGENTS/INDEX/provider adapters consistent. `npm run check:foundation` now fails if these three entry points drift from the active branch/PR/ChangeUnit again.
 
 Do not describe captured source, planning item, framework candidate, product implementation or release state as current/verified without linked evidence.
 

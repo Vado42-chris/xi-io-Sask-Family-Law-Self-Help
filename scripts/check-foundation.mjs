@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 
+const currentPlanPath = 'docs/ops/CURRENT_EXECUTION_PLAN.md';
+const checkpointPath = 'docs/ops/ACTIVE_WORK_CHECKPOINT.md';
+const lanePath = 'docs/ops/CURRENT_LANE_STATUS.md';
+const reonboardPath = 'docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md';
+
 const requiredFiles = [
   'README.md',
   'AGENTS.md',
@@ -8,12 +13,13 @@ const requiredFiles = [
   'package.json',
   '.env.example',
   'docs/INDEX.md',
-  'docs/ops/ACTIVE_WORK_CHECKPOINT.md',
-  'docs/ops/CURRENT_LANE_STATUS.md',
+  checkpointPath,
+  lanePath,
+  currentPlanPath,
   'docs/ops/do-not-touch-register.md',
   'docs/ops/verification-runbook.md',
   'docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md',
-  'docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md',
+  reonboardPath,
   'docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.md',
   'docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.json',
   'docs/ops/SFL-EXTERNAL-WORKER-CONFORMANCE-PILOT-001.md',
@@ -56,6 +62,9 @@ const requiredFiles = [
   'scripts/check-recovery-sources.mjs',
   'scripts/check-framework-component-promotion-lock.mjs',
   'scripts/check-public-managed-worker-contract.mjs',
+  'scripts/current-situation-core.mjs',
+  'scripts/current-situation.mjs',
+  'scripts/check-current-situation.mjs',
   'xi/managed-project.manifest.yaml',
   'xi/project-lexicon.yaml',
   'xi/feature-index.yaml',
@@ -68,12 +77,18 @@ const requiredFiles = [
   'project-tracking/evidence-ledger.md'
 ];
 
-const missing = requiredFiles.filter((filePath) => !fs.existsSync(filePath));
-if (missing.length > 0) {
-  console.error('Foundation check failed. Missing required files:');
-  for (const filePath of missing) console.error(`- ${filePath}`);
+function fail(message) {
+  console.error(`Foundation check failed. ${message}`);
   process.exit(1);
 }
+
+function field(text, key) {
+  const match = text.match(new RegExp(`^${key}:\\s*(.+?)\\s*$`, 'm'));
+  return match ? match[1].trim() : null;
+}
+
+const missing = requiredFiles.filter((filePath) => !fs.existsSync(filePath));
+if (missing.length > 0) fail(`Missing required files:\n${missing.map((p) => `- ${p}`).join('\n')}`);
 
 const forbiddenPatterns = [
   /ghp_[A-Za-z0-9_]+/,
@@ -87,10 +102,7 @@ const forbiddenPatterns = [
 for (const filePath of requiredFiles) {
   const content = fs.readFileSync(filePath, 'utf8');
   for (const pattern of forbiddenPatterns) {
-    if (pattern.test(content)) {
-      console.error(`Foundation check failed. Secret-like content found in ${filePath}.`);
-      process.exit(1);
-    }
+    if (pattern.test(content)) fail(`Secret-like content found in ${filePath}.`);
   }
 }
 
@@ -109,67 +121,71 @@ for (const heading of [
   '## Known gaps',
   '## Next action'
 ]) {
-  if (!readme.includes(heading)) {
-    console.error(`Foundation check failed. README heading missing: ${heading}`);
-    process.exit(1);
-  }
+  if (!readme.includes(heading)) fail(`README heading missing: ${heading}`);
 }
 
-const checkpointPath = 'docs/ops/ACTIVE_WORK_CHECKPOINT.md';
-const lanePath = 'docs/ops/CURRENT_LANE_STATUS.md';
-const planPath = 'docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md';
-const reonboardPath = 'docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md';
-const agents = fs.readFileSync('AGENTS.md', 'utf8');
 const checkpoint = fs.readFileSync(checkpointPath, 'utf8');
 const lane = fs.readFileSync(lanePath, 'utf8');
-const plan = fs.readFileSync(planPath, 'utf8');
+const currentPlan = fs.readFileSync(currentPlanPath, 'utf8');
 const reonboard = fs.readFileSync(reonboardPath, 'utf8');
+const agents = fs.readFileSync('AGENTS.md', 'utf8');
+const index = fs.readFileSync('docs/INDEX.md', 'utf8');
+const claude = fs.readFileSync('CLAUDE.md', 'utf8');
 
-for (const ref of [checkpointPath, lanePath, planPath, reonboardPath]) {
-  if (!readme.includes(ref)) {
-    console.error(`Foundation check failed. README does not point to ${ref}.`);
-    process.exit(1);
-  }
+if (!readme.includes(checkpointPath) || !readme.includes(lanePath) || !readme.includes(reonboardPath)) {
+  fail('README must expose checkpoint, lane, and re-onboarding discovery surfaces.');
 }
-if (!agents.includes(`1. \`${checkpointPath}\``) || !agents.includes(`2. \`${planPath}\``)) {
-  console.error('Foundation check failed. AGENTS must make active checkpoint first and execution plan second in read order.');
-  process.exit(1);
+if (!agents.includes(checkpointPath)) fail('AGENTS must point to the active-work checkpoint.');
+if (!claude.includes(currentPlanPath) || !claude.includes('npm run current:situation')) {
+  fail('Claude adapter must expose the stable current execution plan and live CurrentSituation resolver.');
 }
-for (const requiredCheckpointClaim of [
-  'latest_known_safe_sha:',
-  'verification_state:',
-  'next_safe_action:',
-  'No new branch is authorized by this checkpoint.'
+
+const custodyKeys = ['active_change_unit', 'active_branch', 'active_pr', 'accepted_base_sha_at_lane_start'];
+for (const key of custodyKeys) {
+  const a = field(checkpoint, key);
+  const b = field(lane, key);
+  const c = field(currentPlan, key);
+  if (!a || !b || !c) fail(`Current custody surfaces must all expose ${key}.`);
+  if (a !== b || a !== c) fail(`Current custody ${key} disagrees: checkpoint=${a}, lane=${b}, plan=${c}`);
+}
+
+const activePr = field(lane, 'active_pr');
+const activeBranch = field(lane, 'active_branch');
+const activeChangeUnit = field(lane, 'active_change_unit');
+const nextNewBranch = field(lane, 'next_new_branch');
+if (!nextNewBranch?.startsWith('BLOCKED') || !nextNewBranch.includes(`PR #${activePr}`)) {
+  fail(`Current lane must block a second mutation branch and identify active PR #${activePr}.`);
+}
+if (!checkpoint.includes('TRACKED CHECKPOINT') || !checkpoint.includes('LIVE CURRENT SITUATION')) {
+  fail('Checkpoint must distinguish durable tracked custody from live attestations.');
+}
+if (!currentPlan.includes('CurrentSituation') || !currentPlan.includes('npm run current:situation')) {
+  fail('Stable current execution plan must define the CurrentSituation proof.');
+}
+
+for (const [name, content] of [
+  ['README.md', readme],
+  ['AGENTS.md', agents],
+  ['docs/INDEX.md', index]
 ]) {
-  if (!checkpoint.includes(requiredCheckpointClaim)) {
-    console.error(`Foundation check failed. Active-work checkpoint missing: ${requiredCheckpointClaim}`);
-    process.exit(1);
-  }
+  if (!content.includes(currentPlanPath)) fail(`${name} must point to the stable current execution plan.`);
+  if (!content.includes(activeBranch)) fail(`${name} must expose current active branch ${activeBranch}.`);
+  if (!content.includes(`#${activePr}`)) fail(`${name} must expose current active PR #${activePr}.`);
+  if (!content.includes(activeChangeUnit)) fail(`${name} must expose current ChangeUnit ${activeChangeUnit}.`);
 }
-for (const requiredLaneClaim of [
-  'active_pr: 6',
-  'active_change_unit: SFL-RECOVERY-CLOSEOUT-001',
-  'next_new_branch: BLOCKED'
-]) {
-  if (!lane.includes(requiredLaneClaim)) {
-    console.error(`Foundation check failed. Current-lane projection missing: ${requiredLaneClaim}`);
-    process.exit(1);
-  }
+
+const staleCurrentCustodyPatterns = [
+  ['README.md', readme, /Current recovery PR:\s*`#6`/],
+  ['README.md', readme, /Continue `SFL-RECOVERY-CLOSEOUT-001` in PR #6/],
+  ['AGENTS.md', agents, /active proposed recovery = PR #6/],
+  ['AGENTS.md', agents, /immediate Git task[^\n]*SFL-RECOVERY-CLOSEOUT-001[^\n]*PR #6/i],
+  ['docs/INDEX.md', index, /PR #6 = active recovery\/control-plane proposal/],
+  ['docs/INDEX.md', index, /current mutation priority is to finish PR #6/i]
+];
+for (const [name, content, pattern] of staleCurrentCustodyPatterns) {
+  if (pattern.test(content)) fail(`${name} contains stale PR #6 current-custody guidance.`);
 }
-for (const requiredPlanClaim of [
-  'CURRENT COLD-START EXECUTION AUTHORITY FOR REPOSITORY WORK',
-  'PR #5 = frozen donor/salvage source, not a merge unit',
-  'Current active recovery PR: `#6`'
-]) {
-  if (!plan.includes(requiredPlanClaim)) {
-    console.error(`Foundation check failed. GitHub execution plan missing required custody claim: ${requiredPlanClaim}`);
-    process.exit(1);
-  }
-}
-if (!/NEXT NEW BRANCH\s*=\s*NONE until PR #6 merges and main is verified/.test(plan)) {
-  console.error('Foundation check failed. GitHub execution plan must explicitly block a new branch until PR #6 merges and main is verified.');
-  process.exit(1);
-}
+
 for (const claim of [
   'operation: re_onboard_existing_project',
   'REFERENCE SLICE SELECTED',
@@ -178,14 +194,11 @@ for (const claim of [
   '### C. Active execution truth',
   'CLAUDE-CONFORMANCE-001'
 ]) {
-  if (!reonboard.includes(claim)) {
-    console.error(`Foundation check failed. Re-onboarding delta missing required claim: ${claim}`);
-    process.exit(1);
-  }
+  if (!reonboard.includes(claim)) fail(`Re-onboarding delta missing required claim: ${claim}`);
 }
 
 const manifest = fs.readFileSync('xi/managed-project.manifest.yaml', 'utf8');
-for (const field of [
+for (const manifestField of [
   'project_id:',
   'human_only_path:',
   'ai_optional_path:',
@@ -196,10 +209,7 @@ for (const field of [
   'known_blockers:',
   'next_action:'
 ]) {
-  if (!manifest.includes(field)) {
-    console.error(`Foundation check failed. Manifest field missing: ${field}`);
-    process.exit(1);
-  }
+  if (!manifest.includes(manifestField)) fail(`Manifest field missing: ${manifestField}`);
 }
 
 const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -209,13 +219,13 @@ for (const scriptName of [
   'check:source-catalog',
   'check:recovery-sources',
   'check:framework-component-promotion-lock',
-  'check:public-managed-worker-contract'
+  'check:public-managed-worker-contract',
+  'check:current-situation',
+  'current:situation'
 ]) {
-  if (!packageJson.scripts?.[scriptName]) {
-    console.error(`Foundation check failed. Missing package script: ${scriptName}`);
-    process.exit(1);
-  }
+  if (!packageJson.scripts?.[scriptName]) fail(`Missing package script: ${scriptName}`);
 }
 
 console.log(`Foundation check passed (${requiredFiles.length} required files).`);
-console.log('Cold-start checkpoint, lane, execution authority, re-onboarding delta, and public external-worker surfaces are present.');
+console.log('Current custody is consistent across checkpoint, lane, stable current-plan, and onboarding entry-point surfaces.');
+console.log('Same-head validation remains live evidence resolved by CurrentSituation, not a frozen PR literal.');
