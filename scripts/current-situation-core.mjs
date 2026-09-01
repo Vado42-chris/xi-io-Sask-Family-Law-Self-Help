@@ -97,6 +97,17 @@ function policyState(value, fallback) {
   return Object.values(STATES).includes(value) ? value : fallback;
 }
 
+function trackedRepoIdentityState(repo, tracked) {
+  const repoFullName = repo.full_name || null;
+  const defaultBranch = repo.default_branch || null;
+  const trackedRepoFullName = tracked.repo_full_name || null;
+  const trackedBaseBranch = tracked.accepted_base_branch || null;
+  if (!repoFullName || !defaultBranch || !trackedRepoFullName || !trackedBaseBranch) return STATES.UNKNOWN;
+  if (repoFullName !== trackedRepoFullName) return STATES.UNKNOWN;
+  if (defaultBranch !== trackedBaseBranch) return STATES.UNKNOWN;
+  return STATES.PASS;
+}
+
 export function deriveCurrentSituation(input) {
   const {
     repo = {},
@@ -113,8 +124,12 @@ export function deriveCurrentSituation(input) {
   const pr = currentPullRequest(live.pull_requests || [], headSha);
   const run = latestCompletedRun(live.workflow_runs || [], headSha, requiredWorkflowName);
   const validationResult = validationState(run, live.workflow_jobs || []);
-  const validation = validationResult.state;
   const reviews = exactHeadReviews(live.reviews || [], headSha);
+
+  const relevantWorktreeClean = git.relevant_worktree_clean === true;
+  const trackedRepoIdentity = trackedRepoIdentityState(repo, tracked);
+  const exactLocalProjection = relevantWorktreeClean && trackedRepoIdentity === STATES.PASS;
+  let validation = exactLocalProjection ? validationResult.state : STATES.UNKNOWN;
 
   const onAcceptedMain = Boolean(headSha && defaultBranchHeadSha && headSha === defaultBranchHeadSha);
   const liveEvidenceAvailable = Boolean(live.available);
@@ -145,6 +160,12 @@ export function deriveCurrentSituation(input) {
   if (!headSha) {
     workState = STATES.BLOCKED;
     nextSafeAction = 'Resolve exact Git HEAD before consequential work.';
+  } else if (!relevantWorktreeClean) {
+    workState = STATES.UNKNOWN;
+    nextSafeAction = 'Restore, commit, or deliberately isolate dirty CurrentSituation/custody bytes before joining clean-HEAD CI or review evidence.';
+  } else if (trackedRepoIdentity !== STATES.PASS) {
+    workState = STATES.UNKNOWN;
+    nextSafeAction = 'Bind tracked custody to the actual repository full name and accepted default branch before treating this checkout as current.';
   } else if (!liveEvidenceAvailable) {
     workState = STATES.UNKNOWN;
     nextSafeAction = 'Resolve live GitHub attestations for the exact HEAD; do not infer them from tracked status text.';
@@ -188,13 +209,27 @@ export function deriveCurrentSituation(input) {
     tracked.validation_head_sha && headSha && tracked.validation_head_sha === headSha
   );
 
+  let validationEvidenceSource = 'UNAVAILABLE';
+  if (!relevantWorktreeClean) {
+    validationEvidenceSource = 'DIRTY_RELEVANT_WORKTREE_INVALIDATES_EXACT_HEAD';
+  } else if (trackedRepoIdentity !== STATES.PASS) {
+    validationEvidenceSource = 'TRACKED_REPO_IDENTITY_UNBOUND';
+  } else if (run) {
+    validationEvidenceSource = validationResult.runner.complete
+      ? 'LIVE_GITHUB_ACTIONS_WITH_RUNNER_EVIDENCE'
+      : 'LIVE_GITHUB_ACTIONS_INCOMPLETE_RUNNER_EVIDENCE';
+  } else if (liveEvidenceAvailable) {
+    validationEvidenceSource = 'LIVE_GITHUB_ACTIONS_NO_MATCHING_COMPLETED_REQUIRED_RUN';
+  }
+
   return {
     schema: 'sfl.current-situation.v1',
     generated_from: {
       repo: repo.full_name || null,
       default_branch: defaultBranch,
       head_sha: headSha,
-      branch: git.branch || null
+      branch: git.branch || null,
+      relevant_worktree_clean: relevantWorktreeClean
     },
     accepted_source: {
       state: onAcceptedMain ? 'ACCEPTED_MAIN' : 'PROPOSED_OR_NON_MAIN_HEAD',
@@ -214,7 +249,7 @@ export function deriveCurrentSituation(input) {
     validation: {
       state: validation,
       required_workflow_name: requiredWorkflowName,
-      evidence_source: run ? (validationResult.runner.complete ? 'LIVE_GITHUB_ACTIONS_WITH_RUNNER_EVIDENCE' : 'LIVE_GITHUB_ACTIONS_INCOMPLETE_RUNNER_EVIDENCE') : (liveEvidenceAvailable ? 'LIVE_GITHUB_ACTIONS_NO_MATCHING_COMPLETED_REQUIRED_RUN' : 'UNAVAILABLE'),
+      evidence_source: validationEvidenceSource,
       run: run ? {
         id: run.id || null,
         number: run.run_number || null,
@@ -272,7 +307,12 @@ export function deriveCurrentSituation(input) {
     freshness: {
       live_attestations_available: liveEvidenceAvailable,
       tracked_projection_is_live_attestation: false,
-      rule: 'Tracked repository projections declare required evidence and custody pointers; same-head CI/review outcomes are joined from live attestations.'
+      relevant_worktree_clean: relevantWorktreeClean,
+      relevant_worktree_changes: Array.isArray(git.relevant_worktree_changes) ? git.relevant_worktree_changes : [],
+      tracked_repo_identity_state: trackedRepoIdentity,
+      tracked_repo_full_name: tracked.repo_full_name || null,
+      tracked_accepted_base_branch: tracked.accepted_base_branch || null,
+      rule: 'Tracked repository projections declare required evidence and custody pointers; same-head CI/review outcomes are joined only when the relevant local bytes are clean and tracked custody is bound to the actual repository identity.'
     },
     next_safe_action: nextSafeAction
   };
