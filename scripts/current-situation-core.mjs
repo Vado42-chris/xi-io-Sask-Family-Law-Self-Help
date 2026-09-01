@@ -21,13 +21,64 @@ function latestCompletedRun(runs = [], headSha, requiredWorkflowName) {
     })[0] || null;
 }
 
-function validationState(run) {
-  if (!run) return STATES.UNKNOWN;
-  if (run.conclusion === 'success') return STATES.PASS;
-  if (['failure', 'cancelled', 'timed_out', 'action_required', 'startup_failure'].includes(run.conclusion)) {
-    return STATES.FAIL;
+function normalizeRunnerIdentity(value) {
+  if (value == null) return null;
+  const normalized = String(value).trim();
+  if (!normalized || /^0+$/.test(normalized)) return null;
+  return normalized;
+}
+
+function runnerEvidence(run, jobs = []) {
+  if (!run) {
+    return {
+      complete: false,
+      classification: 'NO_MATCHING_COMPLETED_REQUIRED_RUN',
+      jobs_observed: 0,
+      executed_jobs: 0,
+      evidence: []
+    };
   }
-  return STATES.UNKNOWN;
+
+  const matching = jobs.filter((job) => job && String(job.run_id) === String(run.id));
+  const evidence = matching.map((job) => {
+    const runnerId = normalizeRunnerIdentity(job.runner_id ?? job.runnerId);
+    const runnerName = String(job.runner_name || '').trim() || null;
+    const steps = Array.isArray(job.steps) ? job.steps : [];
+    const stepsExecuted = steps.filter((step) => {
+      if (!step || step.status !== 'completed') return false;
+      return !['skipped', 'cancelled'].includes(String(step.conclusion || '').toLowerCase());
+    }).length;
+    return {
+      id: job.id || null,
+      status: job.status || null,
+      conclusion: job.conclusion || null,
+      runner_id: runnerId,
+      runner_name: runnerName,
+      steps_count: steps.length,
+      steps_executed: stepsExecuted,
+      positive_execution: Boolean(runnerId && steps.length >= 1)
+    };
+  });
+  const executedJobs = evidence.filter((job) => job.positive_execution);
+
+  return {
+    complete: executedJobs.length > 0,
+    classification: executedJobs.length > 0 ? 'RUNNER_EXECUTED' : 'PRE_RUNNER_OR_INCOMPLETE_RUNNER_EVIDENCE',
+    jobs_observed: matching.length,
+    executed_jobs: executedJobs.length,
+    evidence
+  };
+}
+
+function validationState(run, jobs = []) {
+  if (!run) return { state: STATES.UNKNOWN, runner: runnerEvidence(run, jobs) };
+  const runner = runnerEvidence(run, jobs);
+  if (!runner.complete) return { state: STATES.UNKNOWN, runner };
+  if (run.conclusion === 'success') return { state: STATES.PASS, runner };
+  if (['failure', 'cancelled', 'timed_out', 'action_required', 'startup_failure'].includes(run.conclusion)) {
+    return { state: STATES.FAIL, runner };
+  }
+  return { state: STATES.UNKNOWN, runner };
 }
 
 function currentPullRequest(pullRequests = [], headSha) {
@@ -61,8 +112,9 @@ export function deriveCurrentSituation(input) {
   const requiredWorkflowName = policy.required_validation_workflow_name || null;
   const pr = currentPullRequest(live.pull_requests || [], headSha);
   const run = latestCompletedRun(live.workflow_runs || [], headSha, requiredWorkflowName);
+  const validationResult = validationState(run, live.workflow_jobs || []);
+  const validation = validationResult.state;
   const reviews = exactHeadReviews(live.reviews || [], headSha);
-  const validation = validationState(run);
 
   const onAcceptedMain = Boolean(headSha && defaultBranchHeadSha && headSha === defaultBranchHeadSha);
   const liveEvidenceAvailable = Boolean(live.available);
@@ -112,7 +164,8 @@ export function deriveCurrentSituation(input) {
       nextSafeAction = `Repair the failing exact-head validation on PR #${pr.number} without broadening scope.`;
     } else if (validation === STATES.UNKNOWN) {
       const workflowClause = requiredWorkflowName ? ` for required workflow ${requiredWorkflowName}` : '';
-      nextSafeAction = `Wait for or obtain exact-head validation evidence${workflowClause} for PR #${pr.number}.`;
+      const runnerClause = run && !validationResult.runner.complete ? ` Runner evidence is ${validationResult.runner.classification}; do not convert provider prose or a zero/empty runner record into PASS or repository FAIL.` : '';
+      nextSafeAction = `Wait for or obtain exact-head validation evidence${workflowClause} for PR #${pr.number}.${runnerClause}`;
     } else if (reviewGate === STATES.PASS && ownerGate === STATES.PASS) {
       nextSafeAction = `Review and owner gates are recorded PASS for PR #${pr.number}; verify merge-specific authority before any merge or acceptance effect.`;
     } else if (reviewGate === STATES.PASS) {
@@ -161,7 +214,7 @@ export function deriveCurrentSituation(input) {
     validation: {
       state: validation,
       required_workflow_name: requiredWorkflowName,
-      evidence_source: run ? 'LIVE_GITHUB_ACTIONS' : (liveEvidenceAvailable ? 'LIVE_GITHUB_ACTIONS_NO_MATCHING_COMPLETED_REQUIRED_RUN' : 'UNAVAILABLE'),
+      evidence_source: run ? (validationResult.runner.complete ? 'LIVE_GITHUB_ACTIONS_WITH_RUNNER_EVIDENCE' : 'LIVE_GITHUB_ACTIONS_INCOMPLETE_RUNNER_EVIDENCE') : (liveEvidenceAvailable ? 'LIVE_GITHUB_ACTIONS_NO_MATCHING_COMPLETED_REQUIRED_RUN' : 'UNAVAILABLE'),
       run: run ? {
         id: run.id || null,
         number: run.run_number || null,
@@ -170,6 +223,7 @@ export function deriveCurrentSituation(input) {
         head_sha: run.head_sha,
         html_url: run.html_url || null
       } : null,
+      runner_evidence: validationResult.runner,
       tracked_projection: {
         claim_present: trackedClaimsLiveValidation,
         validation_head_sha: tracked.validation_head_sha || null,
