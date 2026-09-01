@@ -14,6 +14,15 @@ function base(overrides = {}) {
       default_branch_head_sha: M,
       pull_requests: [{ number: 9, state: 'open', draft: true, base: 'main', head_sha: H }],
       workflow_runs: [{ id: 1, run_number: 120, name: 'Foundation check', status: 'completed', conclusion: 'success', head_sha: H }],
+      workflow_jobs: [{
+        run_id: 1,
+        id: 101,
+        status: 'completed',
+        conclusion: 'success',
+        runner_id: 42,
+        runner_name: 'GitHub Actions 42',
+        steps: [{ number: 1, name: 'Run repository checks', status: 'completed', conclusion: 'success' }]
+      }],
       reviews: [{ id: 44, state: 'COMMENTED', user_login: 'external-reviewer', commit_id: H, submitted_at: '2026-08-17T00:00:00Z' }]
     },
     policy: {
@@ -33,7 +42,9 @@ function base(overrides = {}) {
   const result = deriveCurrentSituation(base());
   assert.equal(result.validation.state, STATES.PASS);
   assert.equal(result.validation.required_workflow_name, 'Foundation check');
-  assert.equal(result.validation.evidence_source, 'LIVE_GITHUB_ACTIONS');
+  assert.equal(result.validation.evidence_source, 'LIVE_GITHUB_ACTIONS_WITH_RUNNER_EVIDENCE');
+  assert.equal(result.validation.runner_evidence.complete, true);
+  assert.equal(result.validation.runner_evidence.executed_jobs, 1);
   assert.equal(result.validation.tracked_projection.matches_current_head, false);
   assert.equal(result.active_work.pull_request.number, 9);
   assert.equal(result.authority.lane_admission, STATES.PASS);
@@ -48,6 +59,8 @@ function base(overrides = {}) {
 {
   const input = base();
   input.live.workflow_runs[0].conclusion = 'failure';
+  input.live.workflow_jobs[0].conclusion = 'failure';
+  input.live.workflow_jobs[0].steps[0].conclusion = 'failure';
   const result = deriveCurrentSituation(input);
   assert.equal(result.validation.state, STATES.FAIL);
   assert.match(result.next_safe_action, /Repair the failing exact-head validation/);
@@ -56,6 +69,7 @@ function base(overrides = {}) {
 {
   const input = base();
   input.live.workflow_runs = [];
+  input.live.workflow_jobs = [];
   const result = deriveCurrentSituation(input);
   assert.equal(result.validation.state, STATES.UNKNOWN);
   assert.match(result.next_safe_action, /required workflow Foundation check/);
@@ -66,6 +80,7 @@ function base(overrides = {}) {
   input.live.workflow_runs = [
     { id: 2, run_number: 121, name: 'Unrelated docs check', status: 'completed', conclusion: 'success', head_sha: H }
   ];
+  input.live.workflow_jobs = [{ run_id: 2, id: 202, runner_id: 7, steps: [{ status: 'completed', conclusion: 'success' }] }];
   const result = deriveCurrentSituation(input);
   assert.equal(result.validation.state, STATES.UNKNOWN);
   assert.equal(result.validation.run, null);
@@ -74,10 +89,57 @@ function base(overrides = {}) {
 
 {
   const input = base();
+  input.live.workflow_jobs = [];
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.validation.state, STATES.UNKNOWN);
+  assert.equal(result.validation.runner_evidence.complete, false);
+  assert.equal(result.validation.runner_evidence.classification, 'PRE_RUNNER_OR_INCOMPLETE_RUNNER_EVIDENCE');
+  assert.equal(result.validation.evidence_source, 'LIVE_GITHUB_ACTIONS_INCOMPLETE_RUNNER_EVIDENCE');
+  assert.match(result.next_safe_action, /do not convert provider prose or a zero\/empty runner record/);
+}
+
+{
+  const input = base();
+  input.live.workflow_jobs[0].runner_id = 0;
+  input.live.workflow_jobs[0].runner_name = '';
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.validation.state, STATES.UNKNOWN);
+  assert.equal(result.validation.runner_evidence.evidence[0].runner_id, null);
+}
+
+{
+  const input = base();
+  input.live.workflow_jobs[0].runner_id = '000';
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.validation.state, STATES.UNKNOWN);
+  assert.equal(result.validation.runner_evidence.evidence[0].runner_id, null);
+}
+
+{
+  const input = base();
+  input.live.workflow_jobs[0].steps = [];
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.validation.state, STATES.UNKNOWN);
+  assert.equal(result.validation.runner_evidence.evidence[0].positive_execution, false);
+}
+
+{
+  const input = base();
+  input.live.workflow_runs[0].conclusion = 'failure';
+  input.live.workflow_jobs = [];
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.validation.state, STATES.UNKNOWN);
+  assert.equal(result.validation.runner_evidence.classification, 'PRE_RUNNER_OR_INCOMPLETE_RUNNER_EVIDENCE');
+  assert.doesNotMatch(result.next_safe_action, /Repair the failing exact-head validation/);
+}
+
+{
+  const input = base();
   input.git = { head_sha: M, branch: 'main' };
   input.live.default_branch_head_sha = M;
   input.live.pull_requests = [];
   input.live.workflow_runs = [];
+  input.live.workflow_jobs = [];
   input.live.reviews = [];
   input.policy.lane_admission = STATES.UNKNOWN;
   const result = deriveCurrentSituation(input);
@@ -90,7 +152,7 @@ function base(overrides = {}) {
 
 {
   const input = base();
-  input.live = { available: false, default_branch_head_sha: null, pull_requests: [], workflow_runs: [], reviews: [] };
+  input.live = { available: false, default_branch_head_sha: null, pull_requests: [], workflow_runs: [], workflow_jobs: [], reviews: [] };
   const result = deriveCurrentSituation(input);
   assert.equal(result.active_work.state, STATES.UNKNOWN);
   assert.equal(result.validation.state, STATES.UNKNOWN);
@@ -175,4 +237,4 @@ function base(overrides = {}) {
   assert.match(result.next_safe_action, /Reconcile stale serialized WAIT declaration/);
 }
 
-console.log('current-situation checks: PASS (14 cases)');
+console.log('current-situation checks: PASS (19 cases)');
