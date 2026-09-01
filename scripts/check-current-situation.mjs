@@ -3,12 +3,18 @@ import { deriveCurrentSituation, STATES } from './current-situation-core.mjs';
 
 const H = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const M = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb';
+const REPO = 'Vado42-chris/xi-io-Sask-Family-Law-Self-Help';
 
 function base(overrides = {}) {
   return {
-    repo: { full_name: 'Vado42-chris/xi-io-Sask-Family-Law-Self-Help', default_branch: 'main' },
-    git: { head_sha: H, branch: 'feat/test' },
-    tracked: { validation_claim: true, validation_head_sha: M },
+    repo: { full_name: REPO, default_branch: 'main' },
+    git: { head_sha: H, branch: 'feat/test', relevant_worktree_clean: true, relevant_worktree_changes: [] },
+    tracked: {
+      validation_claim: true,
+      validation_head_sha: M,
+      repo_full_name: REPO,
+      accepted_base_branch: 'main'
+    },
     live: {
       available: true,
       default_branch_head_sha: M,
@@ -53,6 +59,8 @@ function base(overrides = {}) {
   assert.equal(result.review_attestations.exact_head_review_count, 1);
   assert.deepEqual(result.review_attestations.principals, ['external-reviewer']);
   assert.equal(result.project_custody.state, STATES.PASS);
+  assert.equal(result.freshness.relevant_worktree_clean, true);
+  assert.equal(result.freshness.tracked_repo_identity_state, STATES.PASS);
   assert.match(result.next_safe_action, /Classify the existing exact-head review attestations/);
 }
 
@@ -148,7 +156,7 @@ function base(overrides = {}) {
 
 {
   const input = base();
-  input.git = { head_sha: M, branch: 'main' };
+  input.git = { head_sha: M, branch: 'main', relevant_worktree_clean: true, relevant_worktree_changes: [] };
   input.live.default_branch_head_sha = M;
   input.live.pull_requests = [];
   input.live.workflow_runs = [];
@@ -250,4 +258,39 @@ function base(overrides = {}) {
   assert.match(result.next_safe_action, /Reconcile stale serialized WAIT declaration/);
 }
 
-console.log('current-situation checks: PASS (20 cases)');
+{
+  const input = base();
+  input.git.relevant_worktree_clean = false;
+  input.git.relevant_worktree_changes = [' M docs/ops/CURRENT_EXECUTION_PLAN.md'];
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.active_work.state, STATES.UNKNOWN);
+  assert.equal(result.validation.state, STATES.UNKNOWN);
+  assert.equal(result.validation.evidence_source, 'DIRTY_RELEVANT_WORKTREE_INVALIDATES_EXACT_HEAD');
+  assert.equal(result.freshness.relevant_worktree_clean, false);
+  assert.deepEqual(result.freshness.relevant_worktree_changes, [' M docs/ops/CURRENT_EXECUTION_PLAN.md']);
+  assert.match(result.next_safe_action, /dirty CurrentSituation\/custody bytes/);
+}
+
+{
+  const input = base();
+  input.tracked.repo_full_name = 'Vado42-chris/copied-or-foreign-repo';
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.active_work.state, STATES.UNKNOWN);
+  assert.equal(result.validation.state, STATES.UNKNOWN);
+  assert.equal(result.validation.evidence_source, 'TRACKED_REPO_IDENTITY_UNBOUND');
+  assert.equal(result.freshness.tracked_repo_identity_state, STATES.UNKNOWN);
+  assert.match(result.next_safe_action, /actual repository full name/);
+}
+
+{
+  const input = base();
+  input.tracked.accepted_base_branch = 'develop';
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.active_work.state, STATES.UNKNOWN);
+  assert.equal(result.validation.state, STATES.UNKNOWN);
+  assert.equal(result.validation.evidence_source, 'TRACKED_REPO_IDENTITY_UNBOUND');
+  assert.equal(result.freshness.tracked_repo_identity_state, STATES.UNKNOWN);
+  assert.match(result.next_safe_action, /accepted default branch/);
+}
+
+console.log('current-situation checks: PASS (23 cases)');
