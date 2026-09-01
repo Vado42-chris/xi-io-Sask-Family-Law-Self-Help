@@ -4,41 +4,59 @@
 
 Before changing this repository, read:
 
-1. `docs/ops/ACTIVE_WORK_CHECKPOINT.md`
-2. `docs/ops/SFL-GITHUB-EXECUTION-PLAN-2026-08-12.md`
+1. `docs/ops/CURRENT_EXECUTION_PLAN.md`
+2. `docs/ops/ACTIVE_WORK_CHECKPOINT.md`
 3. `docs/ops/CURRENT_LANE_STATUS.md`
-4. `README.md`
-5. `docs/INDEX.md`
-6. `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md`
-7. `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md`
-8. `docs/ops/execution-sequence-v1.md`
-9. `project-tracking/open-work-ledger.md`
-10. `docs/product/product-vision-locked-v1.md`
-11. `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`
-12. `docs/architecture/privacy-and-data-boundary-v1.md`
-13. `docs/legal/legal-information-boundary-v1.md`
-14. only then the source-family or implementation artifacts applicable to the admitted task.
+4. `docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.md`
+5. `README.md`
+6. `docs/INDEX.md`
+7. `docs/ops/PROJECT-STARTUP-sask_family_law_self_help-2026-08-12.md`
+8. `docs/ops/SFL-REONBOARDING-DELTA-2026-08-12.md`
+9. `docs/ops/execution-sequence-v1.md`
+10. `project-tracking/open-work-ledger.md`
+11. `docs/product/product-vision-locked-v1.md`
+12. `docs/ops/SFL-PRODUCT-ARCHITECTURE-LOCK-001.md`
+13. `docs/architecture/privacy-and-data-boundary-v1.md`
+14. `docs/legal/legal-information-boundary-v1.md`
+15. only then the source-family or implementation artifacts applicable to the admitted task.
 
-For an external worker without private framework access, also follow `docs/ops/SFL-PUBLIC-MANAGED-WORKER-CONTRACT-v1.md`. Claude discovers that contract through `CLAUDE.md`.
+The stable current execution plan is the first present-tense custody surface. Dated execution plans and recovery records are provenance/history unless the stable plan delegates to them. Chat history is context, not project truth.
 
-The canonical framework reference is `Vado42-chris/xi-io.net`, but external workers are not required to access the private framework. Required obligations must be exported locally. Chat history is context, not project truth.
-
-The active-work checkpoint is the first current-custody stop. The detailed GitHub execution plan remains the authority for active branch/PR custody, current mutation scope, blockers, post-merge queue and Point-of-Order return behavior. Do not infer current work from Git recency.
+When the execution surface can access Git/GitHub, run `npm run current:situation` before consequential mutation. Missing, stale, contradictory, or unavailable live evidence remains `UNKNOWN/BLOCKED`.
 
 ## Current work custody
 
 ```text
-accepted repository truth = main
-active proposed recovery = PR #6
-active branch = chore/framework-recovery-2026-08-12
-current ChangeUnit = SFL-RECOVERY-CLOSEOUT-001
+accepted repository truth = main@5f9d2a46898d97b87503cff2a2554c2eec665d47
+active ChangeUnit = SFL-CURRENT-SITUATION-001
+active PR = #9
+active branch = feat/current-situation-selfhost-001
+parallel mutation policy = GLOBAL_SINGLE_MUTATION_LANE
+PR #10 = WAIT_SERIALIZED / retained evidence / no active mutation authority
 PR #5 = FROZEN_DONOR / SALVAGE_SOURCE / NO WHOLESALE MERGE
-next new branch = NONE until PR #6 merges and merged main is verified
+next new branch = BLOCKED while PR #9 owns mutation
 ```
 
-PR #6 is recovery/control-plane closeout only. Do not keep expanding it into deep source implementation, runtime UI, private workspace, AI, provider/email or framework-component implementation work.
+The current lane is a managed-project self-host proof. It may repair CurrentSituation and the onboarding surfaces required to discover it. It must not widen into legal-source promotion, runtime UI/provider/database/private workspace, capability distribution, Bug-work/SDK/MCP adoption, `.claude` enforcement, court/email/filing/service transmission, or unrelated framework implementation.
 
-The current kickoff/re-onboarding correction set is itself inside this allowed control-plane scope. Because those bytes changed after the previously validated recovery head, exact-head validation/review must be rerun before an owner merge gate.
+## Current framework rebase observation
+
+On 2026-09-01 a cold worker observed private framework main at `0c9db9b1395b626d7fd0b8b4bea3bc9d1586cc53`. The product-local public contract is older and must not be silently relabelled as synchronized.
+
+Current invariants consumed by this lane:
+
+```text
+WORKER_BIND = tip_sha · branch · PR · managed_first_hop · worker_label
+PASS = NEXT_FROZEN_INPUT
+BRANCH_PASS != RUNTIME
+MERGED_TO_MAIN != MAIN_READBACK_CURRENT
+MAIN_READBACK_CURRENT != AFFECTED_RETURN_CURRENT
+COMMENT != WORK
+CANDIDATE != ACCEPTED
+HISTORY != EXECUTABLE
+```
+
+A worker-bind record is provenance only. It does not mint OWNER_PASS, product current, provider authority, source currentness, filing/service authority, or runtime credit.
 
 ## Planning/work-state separation
 
@@ -67,7 +85,7 @@ EXECUTED != VERIFIED
 VERIFIED != LEGALLY CURRENT
 ```
 
-The current re-onboarding delta records that a single accepted strategic PlanRevision projection is still missing. Do not invent one locally from issue/branch recency. Current recovery queue order is planning/dependency evidence, not blanket branch authorization.
+Historical ledgers are evidence, not current selection authority.
 
 ## Project role
 
@@ -81,7 +99,7 @@ A first/reference kit proves a bounded slice only. It does not prove jurisdictio
 
 The immutable source snapshot, approved normalized line-item catalog, deterministic workflow definition and verified user facts are source truth. AI-generated prose, UI prompts, previews and exported court forms are derived artifacts.
 
-Framework/UI donor behavior is likewise not legal truth. Reusable components may structure interaction, but jurisdiction-specific legal meaning remains target-owned.
+Framework/UI donor behavior is not legal truth. Reusable components may structure interaction, but jurisdiction-specific legal meaning remains target-owned.
 
 ## Source-of-truth rules
 
@@ -97,7 +115,7 @@ Framework/UI donor behavior is likewise not legal truth. Reusable components may
 10. Unknown, stale, changed, unavailable or materially disputed source state blocks affected final-ready filing, service or transmission output.
 11. No source under `sources/intake/` becomes runtime truth without explicit reviewed promotion.
 12. Repeated form numbers across source families are not assumed equivalent. Equivalence/divergence must be proven.
-13. Selection/procedure rules, forms, supporting-document rules and follow-up process are one source-review concern; do not call the family complete when only form fields were cataloged.
+13. Selection/procedure rules, forms, supporting-document rules and follow-up process are one source-review concern.
 
 ## Non-negotiable rules
 
@@ -113,31 +131,30 @@ Framework/UI donor behavior is likewise not legal truth. Reusable components may
 10. Family violence, immediate child safety, criminal proceedings, Child and Family Services involvement, unsafe service, imminent deadlines and protection orders require specialized escalation states.
 11. Keep legal information distinct from legal advice. Do not represent generated content as lawyer-reviewed unless evidence says so.
 12. Unknown, blocked, reported-only and stale states remain visible. No silent green.
-13. Public repository visibility is not a license or redistribution grant. The current project rights/license posture remains unresolved for reuse/distribution claims.
+13. Public repository visibility is not a license or redistribution grant.
 
 ## Framework and donor boundaries
 
 `xi-io Inbox` is a read-only donor for this repository. Do not modify Inbox from an SFL task, fork it wholesale or make SFL runtime depend on Inbox `main`.
 
-The Inbox-derived primitive promotion artifacts in this repo lock names, aliases, source lineage and target adoption pressure. They are not a second component registry and do not make those primitives canonical framework truth.
+Inbox-derived primitive promotion artifacts in this repo lock names, aliases, source lineage and adopter pressure. They are not a second component registry and do not make those primitives canonical framework truth.
 
-Canonical ownership remains outside this repo, including framework owners for component adoption/freshness, namespace/registry reconciliation, versioned capability distribution/adopter locks, Task Context, Work Continuation and Git cadence.
+Canonical ownership remains outside this repo, including framework owners for component adoption/freshness, namespace/registry reconciliation, versioned capability distribution/adopter locks, Task Context, Work Continuation, CurrentSituation and Git cadence.
 
-Until the framework namespace/read-order prerequisite is accepted:
+Until a current framework namespace/adoption gate explicitly clears it:
 
 ```text
 preserve legacy xi/
 do not create new xiio/ managed-project copies from stale/conflicting guidance
-do not claim canonical framework registry admission for the locked primitives
+do not claim canonical framework registry admission for product-local candidates
 ```
-
-Open framework planning issues are owner/provenance pointers, not automatically accepted product contracts. Product adoption must be explicit and evidence-backed.
 
 ## Active-work / collision rules
 
 Read:
 
 ```text
+docs/ops/CURRENT_EXECUTION_PLAN.md
 docs/ops/ACTIVE_WORK_CHECKPOINT.md
 docs/ops/CURRENT_LANE_STATUS.md
 docs/ops/do-not-touch-register.md
@@ -148,8 +165,6 @@ If active custody, allowed paths, overlapping work or handoff state is missing/c
 A direct chat instruction does not erase a repo-local collision. Resolve the live PR/branch/head and recorded custody before writing, rebasing, merging or cleaning up.
 
 ## Git mutation rules
-
-Follow the current execution plan and the exported managed-worker contract.
 
 Before mutation, resolve:
 
@@ -169,33 +184,34 @@ Planning, research, archaeology, issue maintenance and a Point of Order do not a
 
 Same-scope review corrections remain in the current admitted branch by default. A material scope/ownership change requires reassessment before another branch.
 
-## PR #6 allowed scope
+Never force-push, rewrite history, merge, release, deploy, or broadly delete branches without explicit applicable authority and evidence.
+
+## PR #9 allowed scope
 
 Allowed:
 
-- cold-start README/AGENTS/INDEX/execution guidance corrections,
-- recovery/startup/re-onboarding/gate/checkpoint/runbook documentation,
-- existing intake metadata/blocker preservation,
-- recovery validators,
-- framework primitive promotion lock/source map/validator maintenance,
-- read-only PR #5 salvage classification,
-- append-only recovery evidence/ledger updates,
-- same-scope review fixes.
+- `CurrentSituation` reducer/resolver/tests,
+- exact-head Git/GitHub attestation joins,
+- current checkpoint/lane/stable plan records,
+- `README.md`, `AGENTS.md`, and `docs/INDEX.md` only to remove contradictory current-custody guidance and point at the stable current plan,
+- thin provider discovery guidance,
+- same-scope validation and review fixes,
+- evidence/receipts for this ChangeUnit.
 
-Blocked in PR #6:
+Blocked:
 
+- legal-source promotion/currentness decisions,
 - runtime application/UI implementation,
-- full new source-family catalog implementation merely because the source exists,
 - private-matter runtime,
 - database/storage runtime,
-- AI runtime,
-- provider/email runtime,
+- AI/provider/email runtime,
 - court transmission,
 - canonical framework registry implementation,
-- new `xiio/` migration writes before framework prerequisite,
+- capability distribution / Bug-work / SDK / MCP expansion,
+- new `xiio/` migration writes,
+- `.claude/` settings/hooks/subagent enforcement,
 - wholesale PR #5 harvest,
-- branch deletion/cleanup,
-- `.claude/` settings/hooks/subagent enforcement machinery.
+- branch deletion/cleanup that is not separately proven and authorized.
 
 ## Public and private boundary
 
@@ -210,18 +226,18 @@ npm run check:source-catalog
 npm run check:recovery-sources
 npm run check:framework-component-promotion-lock
 npm run check:public-managed-worker-contract
+npm run check:current-situation
+npm run current:situation
 git diff --check
 ```
 
 Detailed applicability is in `docs/ops/verification-runbook.md`.
 
-## Claude/external-worker boundary
+## External-worker boundary
 
 `CLAUDE.md` is discovery only. The provider-neutral public worker contract owns exported process semantics.
 
-The next Claude milestone after PR #6 is accepted and merged is the read-only fresh-clone conformance pilot. That pilot must prove discovery, planning-plane separation, fail-closed preflight, confidentiality, source/privacy/rights stop lines and correct outcome reporting.
-
-Do not add Claude settings/hooks/subagents or treat Claude permission modes as xi-io authority in this recovery lane.
+The August 17 external holdout produced valuable `PASS_WITH_FINDINGS` evidence, including the finding that capability/bug-work/SDK/MCP adoption surfaces are not yet authoritative public interfaces. Do not solve that by stuffing framework doctrine into provider adapters or by widening PR #9. Current exact-head independent review must be repeated after material byte changes.
 
 ## Required report shape
 
@@ -231,17 +247,18 @@ Exact-head review claims are invalidated by material byte changes.
 
 ## Current implementation gate
 
-Runtime implementation remains blocked behind applicable source and framework gates.
+Runtime legal implementation remains blocked behind applicable source and framework gates.
 
-Current legal-source work is multi-family:
+Current legal-source work is multi-family and separately gated:
 
 - Kit #3J independent source review remains incomplete,
 - Kit #2a is unreviewed recovery intake,
 - Kit #4a is unreviewed recovery intake,
 - Form 15-52 is unreviewed/currentness-unresolved intake,
+- Form 13-31 has a separate draft PR #10 source slice and no active mutation authority while PR #9 owns the lane,
 - multi-kit source-family canonical semantics remain pending.
 
-The immediate Git task is not broad runtime implementation. It is to complete `SFL-RECOVERY-CLOSEOUT-001` in PR #6, validate the exact head, obtain owner approval, merge, verify `main`, and only then admit the next bounded current-main branch.
+The immediate Git task is `SFL-CURRENT-SITUATION-001` in PR #9. Finish exact-head validation and review, stop for owner disposition, and only then consider merge/main readback and affected-return closure. `PASS = NEXT_FROZEN_INPUT`; branch green is not runtime current.
 
 ## Point of Order
 
