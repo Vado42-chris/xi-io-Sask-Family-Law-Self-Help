@@ -4,6 +4,19 @@ import { deriveCurrentSituation, STATES } from './current-situation-core.mjs';
 
 const REQUIRED_VALIDATION_WORKFLOW = 'Foundation check';
 const CURRENT_PLAN_PATH = 'docs/ops/CURRENT_EXECUTION_PLAN.md';
+const ACTIVE_CHECKPOINT_PATH = 'docs/ops/ACTIVE_WORK_CHECKPOINT.md';
+const CURRENT_LANE_PATH = 'docs/ops/CURRENT_LANE_STATUS.md';
+const RELEVANT_EXACTNESS_PATHS = [
+  CURRENT_PLAN_PATH,
+  ACTIVE_CHECKPOINT_PATH,
+  CURRENT_LANE_PATH,
+  'scripts/current-situation.mjs',
+  'scripts/current-situation-core.mjs',
+  'scripts/check-current-situation.mjs',
+  'scripts/check-foundation.mjs',
+  'package.json',
+  '.github/workflows/foundation-check.yml'
+];
 
 function sh(command, args = []) {
   return execFileSync(command, args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
@@ -21,11 +34,16 @@ function field(text, key) {
   return match ? match[1].trim() : null;
 }
 
+function relevantWorktreeStatus() {
+  const status = sh('git', ['status', '--porcelain=v1', '--untracked-files=all', '--', ...RELEVANT_EXACTNESS_PATHS]);
+  return {
+    clean: status.length === 0,
+    changes: status ? status.split('\n').filter(Boolean) : []
+  };
+}
+
 function trackedValidationHint() {
-  const paths = [
-    'docs/ops/ACTIVE_WORK_CHECKPOINT.md',
-    'docs/ops/CURRENT_LANE_STATUS.md'
-  ];
+  const paths = [ACTIVE_CHECKPOINT_PATH, CURRENT_LANE_PATH];
   let combined = '';
   for (const path of paths) {
     try { combined += `\n${readFileSync(path, 'utf8')}`; } catch {}
@@ -44,6 +62,8 @@ function trackedCustody() {
   try {
     const content = readFileSync(CURRENT_PLAN_PATH, 'utf8');
     return {
+      repo_full_name: field(content, 'repo_full_name'),
+      accepted_base_branch: field(content, 'accepted_base_branch'),
       active_branch: field(content, 'active_branch'),
       active_pr: Number(field(content, 'active_pr')) || null,
       mutation_admission: field(content, 'mutation_admission'),
@@ -51,7 +71,15 @@ function trackedCustody() {
       serialized_wait_prs: csvNumbers(field(content, 'serialized_wait_prs'))
     };
   } catch {
-    return { active_branch: null, active_pr: null, mutation_admission: null, parallel_mutation_policy: null, serialized_wait_prs: [] };
+    return {
+      repo_full_name: null,
+      accepted_base_branch: null,
+      active_branch: null,
+      active_pr: null,
+      mutation_admission: null,
+      parallel_mutation_policy: null,
+      serialized_wait_prs: []
+    };
   }
 }
 
@@ -72,6 +100,8 @@ async function main() {
   const branch = sh('git', ['branch', '--show-current']) || null;
   const remote = sh('git', ['remote', 'get-url', 'origin']);
   const identity = parseRepo(remote);
+  const worktree = relevantWorktreeStatus();
+  const custody = trackedCustody();
   const api = `https://api.github.com/repos/${identity.owner}/${identity.repo}`;
 
   let live = { available: false, pull_requests: [], workflow_runs: [], workflow_jobs: [], reviews: [], default_branch_head_sha: null };
@@ -156,11 +186,18 @@ async function main() {
     liveError = error instanceof Error ? error.message : String(error);
   }
 
-  const custody = trackedCustody();
   const matchingPulls = live.pull_requests.filter((pr) => pr.head_sha === headSha && pr.state === 'open');
   const uniquePull = matchingPulls.length === 1 ? matchingPulls[0] : null;
   const branchMatches = !branch || custody.active_branch === branch;
+  const repoIdentityMatches = Boolean(
+    custody.repo_full_name &&
+    custody.accepted_base_branch &&
+    custody.repo_full_name === identity.full_name &&
+    custody.accepted_base_branch === defaultBranch
+  );
   const laneAdmission = Boolean(
+    worktree.clean &&
+    repoIdentityMatches &&
     uniquePull &&
     custody.active_pr === uniquePull.number &&
     custody.mutation_admission === 'LIMITED_TO_THIS_CHANGEUNIT' &&
@@ -169,8 +206,17 @@ async function main() {
 
   const situation = deriveCurrentSituation({
     repo: { full_name: identity.full_name, default_branch: defaultBranch },
-    git: { head_sha: headSha, branch },
-    tracked: trackedValidationHint(),
+    git: {
+      head_sha: headSha,
+      branch,
+      relevant_worktree_clean: worktree.clean,
+      relevant_worktree_changes: worktree.changes
+    },
+    tracked: {
+      ...trackedValidationHint(),
+      repo_full_name: custody.repo_full_name,
+      accepted_base_branch: custody.accepted_base_branch
+    },
     live,
     policy: {
       lane_admission: laneAdmission,
@@ -184,7 +230,7 @@ async function main() {
   });
 
   situation.authority.source = {
-    lane_admission: `${CURRENT_PLAN_PATH} + exact open PR/HEAD join`,
+    lane_admission: `${CURRENT_PLAN_PATH} + clean relevant worktree + bound repo/default branch + exact open PR/HEAD join`,
     worker_mutation_authority: 'No worker-specific Task Context/admission grant was supplied to this read-only resolver.'
   };
 
@@ -197,7 +243,7 @@ main().catch((error) => {
     schema: 'sfl.current-situation.error.v1',
     state: 'BLOCKED',
     error: error instanceof Error ? error.message : String(error),
-    next_safe_action: 'Resolve local Git identity/current HEAD before consequential work.'
+    next_safe_action: 'Resolve local Git identity/current HEAD and relevant worktree state before consequential work.'
   }, null, 2));
   process.exitCode = 1;
 });
