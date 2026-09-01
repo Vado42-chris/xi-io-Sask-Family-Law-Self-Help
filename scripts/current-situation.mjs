@@ -74,7 +74,7 @@ async function main() {
   const identity = parseRepo(remote);
   const api = `https://api.github.com/repos/${identity.owner}/${identity.repo}`;
 
-  let live = { available: false, pull_requests: [], workflow_runs: [], reviews: [], default_branch_head_sha: null };
+  let live = { available: false, pull_requests: [], workflow_runs: [], workflow_jobs: [], reviews: [], default_branch_head_sha: null };
   let defaultBranch = 'main';
   let liveError = null;
 
@@ -108,20 +108,48 @@ async function main() {
       }));
     }
 
+    const workflowRuns = (runs.workflow_runs || []).map((run) => ({
+      id: run.id,
+      run_number: run.run_number,
+      name: run.name,
+      status: run.status,
+      conclusion: run.conclusion,
+      head_sha: run.head_sha,
+      updated_at: run.updated_at,
+      html_url: run.html_url
+    }));
+
+    const requiredCompletedRuns = workflowRuns
+      .filter((run) => run.name === REQUIRED_VALIDATION_WORKFLOW && run.status === 'completed')
+      .sort((a, b) => Number(b.run_number || 0) - Number(a.run_number || 0))
+      .slice(0, 5);
+    const workflowJobs = [];
+    for (const run of requiredCompletedRuns) {
+      const jobPage = await githubJson(`${api}/actions/runs/${run.id}/jobs?per_page=100`);
+      for (const job of jobPage.jobs || []) {
+        workflowJobs.push({
+          run_id: run.id,
+          id: job.id,
+          status: job.status,
+          conclusion: job.conclusion,
+          runner_id: job.runner_id,
+          runner_name: job.runner_name || null,
+          steps: (job.steps || []).map((step) => ({
+            number: step.number,
+            name: step.name,
+            status: step.status,
+            conclusion: step.conclusion || null
+          }))
+        });
+      }
+    }
+
     live = {
       available: true,
       default_branch_head_sha: mainCommit.sha,
       pull_requests: pullRequests,
-      workflow_runs: (runs.workflow_runs || []).map((run) => ({
-        id: run.id,
-        run_number: run.run_number,
-        name: run.name,
-        status: run.status,
-        conclusion: run.conclusion,
-        head_sha: run.head_sha,
-        updated_at: run.updated_at,
-        html_url: run.html_url
-      })),
+      workflow_runs: workflowRuns,
+      workflow_jobs: workflowJobs,
       reviews
     };
   } catch (error) {
