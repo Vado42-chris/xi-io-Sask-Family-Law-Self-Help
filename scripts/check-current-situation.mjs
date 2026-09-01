@@ -125,6 +125,19 @@ function base(overrides = {}) {
 
 {
   const input = base();
+  input.live.workflow_jobs[0].steps = [
+    { number: 1, name: 'Skipped setup', status: 'completed', conclusion: 'skipped' },
+    { number: 2, name: 'Cancelled checks', status: 'completed', conclusion: 'cancelled' }
+  ];
+  const result = deriveCurrentSituation(input);
+  assert.equal(result.validation.state, STATES.UNKNOWN);
+  assert.equal(result.validation.runner_evidence.executed_jobs, 0);
+  assert.equal(result.validation.runner_evidence.evidence[0].steps_executed, 0);
+  assert.equal(result.validation.runner_evidence.evidence[0].positive_execution, false);
+}
+
+{
+  const input = base();
   input.live.workflow_runs[0].conclusion = 'failure';
   input.live.workflow_jobs = [];
   const result = deriveCurrentSituation(input);
@@ -237,4 +250,4 @@ function base(overrides = {}) {
   assert.match(result.next_safe_action, /Reconcile stale serialized WAIT declaration/);
 }
 
-console.log('current-situation checks: PASS (19 cases)');
+console.log('current-situation checks: PASS (20 cases)');
