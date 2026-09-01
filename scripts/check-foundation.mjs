@@ -129,6 +129,7 @@ const lane = fs.readFileSync(lanePath, 'utf8');
 const currentPlan = fs.readFileSync(currentPlanPath, 'utf8');
 const reonboard = fs.readFileSync(reonboardPath, 'utf8');
 const agents = fs.readFileSync('AGENTS.md', 'utf8');
+const index = fs.readFileSync('docs/INDEX.md', 'utf8');
 const claude = fs.readFileSync('CLAUDE.md', 'utf8');
 
 if (!readme.includes(checkpointPath) || !readme.includes(lanePath) || !readme.includes(reonboardPath)) {
@@ -149,6 +150,8 @@ for (const key of custodyKeys) {
 }
 
 const activePr = field(lane, 'active_pr');
+const activeBranch = field(lane, 'active_branch');
+const activeChangeUnit = field(lane, 'active_change_unit');
 const nextNewBranch = field(lane, 'next_new_branch');
 if (!nextNewBranch?.startsWith('BLOCKED') || !nextNewBranch.includes(`PR #${activePr}`)) {
   fail(`Current lane must block a second mutation branch and identify active PR #${activePr}.`);
@@ -158,6 +161,29 @@ if (!checkpoint.includes('TRACKED CHECKPOINT') || !checkpoint.includes('LIVE CUR
 }
 if (!currentPlan.includes('CurrentSituation') || !currentPlan.includes('npm run current:situation')) {
   fail('Stable current execution plan must define the CurrentSituation proof.');
+}
+
+for (const [name, content] of [
+  ['README.md', readme],
+  ['AGENTS.md', agents],
+  ['docs/INDEX.md', index]
+]) {
+  if (!content.includes(currentPlanPath)) fail(`${name} must point to the stable current execution plan.`);
+  if (!content.includes(activeBranch)) fail(`${name} must expose current active branch ${activeBranch}.`);
+  if (!content.includes(`#${activePr}`)) fail(`${name} must expose current active PR #${activePr}.`);
+  if (!content.includes(activeChangeUnit)) fail(`${name} must expose current ChangeUnit ${activeChangeUnit}.`);
+}
+
+const staleCurrentCustodyPatterns = [
+  ['README.md', readme, /Current recovery PR:\s*`#6`/],
+  ['README.md', readme, /Continue `SFL-RECOVERY-CLOSEOUT-001` in PR #6/],
+  ['AGENTS.md', agents, /active proposed recovery = PR #6/],
+  ['AGENTS.md', agents, /immediate Git task[^\n]*SFL-RECOVERY-CLOSEOUT-001[^\n]*PR #6/i],
+  ['docs/INDEX.md', index, /PR #6 = active recovery\/control-plane proposal/],
+  ['docs/INDEX.md', index, /current mutation priority is to finish PR #6/i]
+];
+for (const [name, content, pattern] of staleCurrentCustodyPatterns) {
+  if (pattern.test(content)) fail(`${name} contains stale PR #6 current-custody guidance.`);
 }
 
 for (const claim of [
@@ -201,5 +227,5 @@ for (const scriptName of [
 }
 
 console.log(`Foundation check passed (${requiredFiles.length} required files).`);
-console.log('Current custody is consistent across checkpoint, lane, and stable current-plan surfaces.');
+console.log('Current custody is consistent across checkpoint, lane, stable current-plan, and onboarding entry-point surfaces.');
 console.log('Same-head validation remains live evidence resolved by CurrentSituation, not a frozen PR literal.');
