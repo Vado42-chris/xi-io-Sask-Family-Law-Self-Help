@@ -1,0 +1,45 @@
+{
+  "schema": "xiio.runtime-tool-manifest.v1",
+  "project_id": "sfl",
+  "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "framework_main_sha": "a0cb029cb13bda5c902301a48d52e20bb9a71774",
+  "tools": [
+    {
+      "id": "spiral-loop-runner",
+      "path": "xiio/tools/spiral-loop.mjs",
+      "template": "xiio/spiral-loop.template.json",
+      "result_catalog": "xiio/catalog/spiral-loop-results.json",
+      "effects": "none",
+      "callback": "append local result and issue next action"
+    }
+  ],
+  "fractal_skills": [
+    {
+      "id": "source-review",
+      "link": "xiio/skills/source-review.json",
+      "callback": "load before evaluating the matching gate"
+    },
+    {
+      "id": "privacy-boundary",
+      "link": "xiio/skills/privacy-boundary.json",
+      "callback": "load before evaluating the matching gate"
+    },
+    {
+      "id": "qual-quant",
+      "link": "xiio/skills/qual-quant.json",
+      "callback": "load before evaluating the matching gate"
+    },
+    {
+      "id": "currentness",
+      "link": "xiio/skills/currentness.json",
+      "callback": "load before evaluating the matching gate"
+    },
+    {
+      "id": "live-gate",
+      "link": "xiio/skills/live-gate.json",
+      "callback": "load before evaluating the matching gate"
+    }
+  ],
+  "runtime_inventory_status": "INSTALLED_NOT_PROVEN",
+  "ok_to_base": false
+}
