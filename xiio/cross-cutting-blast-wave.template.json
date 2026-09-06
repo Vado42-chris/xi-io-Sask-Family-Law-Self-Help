@@ -1,0 +1,62 @@
+{
+  "schema": "xiio.cross-cutting-blast-wave-template.v1",
+  "project_id": "sfl",
+  "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "framework_main_sha": "a0cb029cb13bda5c902301a48d52e20bb9a71774",
+  "cadence": {
+    "micro": "On every result, event, failed check, stale head, branch update, or missing receipt.",
+    "meso": "After each dependency return or child-repo batch, recompile direct and indirect impacts.",
+    "macro": "At each golden-priority burn, assess portfolio readiness, live gates, and cross-repo blast radius.",
+    "meta": "At each framework change, revise the protocol, templates, skills, and failure corpus from observed misses."
+  },
+  "failure_classes": [
+    "event_missing",
+    "catalog_write_missing",
+    "stale_currentness",
+    "orphan_branch",
+    "duplicate_work",
+    "identity_bleed",
+    "authority_mismatch",
+    "privacy_boundary",
+    "schema_drift",
+    "missing_receipt",
+    "runtime_unknown",
+    "running_without_live",
+    "external_dependency_failure"
+  ],
+  "layers": [
+    "MICRO",
+    "MESO",
+    "MACRO",
+    "META"
+  ],
+  "inputs": [
+    "events",
+    "artifacts",
+    "branches",
+    "dependency_heads",
+    "authority_claims",
+    "runtime_checks",
+    "live_checks",
+    "open_comments"
+  ],
+  "required_output": [
+    "blast_id",
+    "source",
+    "affected_nodes",
+    "failure_class",
+    "layer",
+    "severity",
+    "reach",
+    "owner_attention",
+    "evidence",
+    "repair",
+    "next_action",
+    "cadence",
+    "ok_to_base"
+  ],
+  "runner": "xiio/tools/cross-cutting-blast-wave.mjs",
+  "result_catalog": "xiio/catalog/blast-wave-results.json",
+  "skill_link": "xiio/skills/blast-wave-triage.json",
+  "default_next_action": "Assess highest-reach impact, repair the source, then re-run dependent checks."
+}
