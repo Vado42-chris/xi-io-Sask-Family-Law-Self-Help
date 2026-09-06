@@ -1,0 +1,24 @@
+{
+  "schema_version": "xiio.repo-qual-quant/v1",
+  "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "project_id": "sfl",
+  "framework_main_sha": "bc4a1909bf6cef63a2fbb2e1c9d635a92ce76332",
+  "consumer_main_sha": "5f9d2a46898d97b87503cff2a2554c2eec665d47",
+  "state": "BOOTSTRAP",
+  "purpose": "private legal source-review product lane",
+  "concepts": [
+    "project",
+    "runtime",
+    "provider",
+    "receipt",
+    "return",
+    "Studio projection",
+    "framework generation"
+  ],
+  "authority_boundaries": {
+    "framework": "shared contracts",
+    "project": "domain meaning",
+    "Studio": "owner-visible projection",
+    "provider": "provider-native effects"
+  }
+}
