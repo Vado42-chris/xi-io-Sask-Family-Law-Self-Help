@@ -2,7 +2,7 @@
   "schema": "xiio.runtime-tool-manifest.v1",
   "project_id": "sfl",
   "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
-  "framework_main_sha": "2a3a8e7a8e5071522a5c3ec2adca10b6a3351871",
+  "framework_main_sha": "5229c8e6066c4dbd61c4bc0753e3530a12e27583",
   "tools": [
     {
       "id": "spiral-loop-runner",
@@ -19,6 +19,14 @@
       "result_catalog": "xiio/catalog/blast-wave-results.json",
       "effects": "none",
       "callback": "assess direct and reverse impact, issue triage action"
+    },
+    {
+      "id": "owner-cognitive-load",
+      "path": "xiio/tools/owner-cognitive-load.mjs",
+      "template": "xiio/owner-cognitive-load.template.json",
+      "result_catalog": "xiio/catalog/owner-cognitive-load-results.json",
+      "effects": "none",
+      "callback": "measure raw versus collapsed attention and emit audio brief"
     }
   ],
   "fractal_skills": [
@@ -51,6 +59,11 @@
       "id": "blast-wave-triage",
       "link": "xiio/skills/blast-wave-triage.json",
       "callback": "load before blast-wave assessment"
+    },
+    {
+      "id": "owner-cognitive-load",
+      "link": "xiio/skills/owner-cognitive-load.json",
+      "callback": "load before attention triage"
     }
   ],
   "runtime_inventory_status": "INSTALLED_NOT_PROVEN",
