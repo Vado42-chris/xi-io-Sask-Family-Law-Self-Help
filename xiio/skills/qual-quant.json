@@ -1,0 +1,24 @@
+{
+  "schema": "xiio.fractal-skill.v1",
+  "project_id": "sfl",
+  "skill_id": "qual-quant",
+  "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "tool_callback": "xiio/tools/spiral-loop.mjs",
+  "template_callback": "xiio/spiral-loop.template.json",
+  "result_callback": "xiio/catalog/spiral-loop-results.json",
+  "framework_ref": "standards/punchcards/qual-quant.v1.json",
+  "inputs": [
+    "exact_main_sha",
+    "native_check_result",
+    "qual_quant_delta",
+    "privacy_authority_result"
+  ],
+  "outputs": [
+    "evidence",
+    "gaps",
+    "repairs",
+    "next_action"
+  ],
+  "gate": "remain fail-closed until evidence is appended",
+  "status": "LINKED_NOT_PROVEN"
+}
