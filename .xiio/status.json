@@ -1,0 +1,15 @@
+{
+  "schema_version": "xiio.repo-status/v1",
+  "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "repository_main_sha": "5f9d2a46898d97b87503cff2a2554c2eec665d47",
+  "framework_main_sha": "bc4a1909bf6cef63a2fbb2e1c9d635a92ce76332",
+  "state": "BLOCKED_CURRENTNESS",
+  "current_work": "SFL-FRAMEWORK-DISTRIBUTION-CANARY",
+  "current_owner": "repo:sfl",
+  "provider_state": "UNKNOWN",
+  "effect_authority": "DENIED",
+  "live_state": "UNKNOWN",
+  "next_action": "run native checks, exact-main readback, and affected return",
+  "backbeat_check": "Portable ingress is newly distributed; current consumer adoption remains unproven.",
+  "forward_check": "Run the smallest native check and record its return."
+}
