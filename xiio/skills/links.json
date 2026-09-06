@@ -1,0 +1,41 @@
+{
+  "schema": "xiio.fractal-skill-links.v1",
+  "project_id": "sfl",
+  "links": [
+    {
+      "skill": "source-review",
+      "local_ref": "xiio/skills/source-review.json",
+      "framework_ref": "standards/punchcards/source-review.v1.json",
+      "when": "before matching tool gate",
+      "return": "append receipt to xiio/catalog/spiral-loop-results.json"
+    },
+    {
+      "skill": "privacy-boundary",
+      "local_ref": "xiio/skills/privacy-boundary.json",
+      "framework_ref": "standards/punchcards/privacy-boundary.v1.json",
+      "when": "before matching tool gate",
+      "return": "append receipt to xiio/catalog/spiral-loop-results.json"
+    },
+    {
+      "skill": "qual-quant",
+      "local_ref": "xiio/skills/qual-quant.json",
+      "framework_ref": "standards/punchcards/qual-quant.v1.json",
+      "when": "before matching tool gate",
+      "return": "append receipt to xiio/catalog/spiral-loop-results.json"
+    },
+    {
+      "skill": "currentness",
+      "local_ref": "xiio/skills/currentness.json",
+      "framework_ref": "standards/punchcards/currentness.v1.json",
+      "when": "before matching tool gate",
+      "return": "append receipt to xiio/catalog/spiral-loop-results.json"
+    },
+    {
+      "skill": "live-gate",
+      "local_ref": "xiio/skills/live-gate.json",
+      "framework_ref": "standards/punchcards/live-gate.v1.json",
+      "when": "before matching tool gate",
+      "return": "append receipt to xiio/catalog/spiral-loop-results.json"
+    }
+  ]
+}
