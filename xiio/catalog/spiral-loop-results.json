@@ -1,0 +1,10 @@
+{
+  "schema": "xiio.spiral-loop-result-catalog.v1",
+  "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "project_id": "sfl",
+  "events": [],
+  "last_result_id": null,
+  "updated_at": null,
+  "authority": "child repo owns local events; Bins indexes copies and provenance",
+  "ok_to_base": false
+}
