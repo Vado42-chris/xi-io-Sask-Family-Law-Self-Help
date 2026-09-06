@@ -69,6 +69,24 @@
         "current official Rule 15-52 and form comparison missing",
         "complete line-item review missing"
       ]
+    },
+    {
+      "snapshot_intake_id": "form-13-31-official-2025-verified-2026-08-27",
+      "source_family_candidate_id": "form-13-31-affidavit",
+      "source_title": "Form 13-31, Affidavit, with King’s Bench Rule 13-31",
+      "source_date": null,
+      "intake_path": "sources/intake/form-13-31/2025/official-source-intake.json",
+      "state": "official_source_verified_text_and_render_intake",
+      "currentness": "official_urls_verified_2026-08-27",
+      "canonical_snapshot_id": null,
+      "runtime_admissible": false,
+      "blockers": [
+        "exact official PDF bytes not archived in Git from this worker surface",
+        "exact official binary SHA-256 and byte size unavailable until custody-capable capture",
+        "independent second rendered-page review missing",
+        "Kit #4a Form 13-31 equivalence unreviewed",
+        "human owner or delegated source-review approval missing"
+      ]
     }
   ],
   "procedural_reference_candidates": [

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "rule_id": "kb-rule-13-31",
+  "title": "Requirements for affidavits",
+  "source_intake_id": "form-13-31-official-2025-verified-2026-08-27",
+  "source_id": "sask-kb-rules-part-13",
+  "source_location": "Part 13: Technical Rules, rule 13-31",
+  "catalog_state": "official_rule_text_bound_pass_bounded",
+  "requirements": [
+    {"requirement_id":"13-31.1.base","citation":"13-31(1)","requirement":"Affidavit must also comply with rule 13-20.","kind":"dependency"},
+    {"requirement_id":"13-31.1.a","citation":"13-31(1)(a)","requirement":"Be in Form 13-31.","kind":"form_identity"},
+    {"requirement_id":"13-31.1.b","citation":"13-31(1)(b)","requirement":"State on the front page the style of cause and full name of the person swearing or affirming the affidavit.","kind":"front_page_identity"},
+    {"requirement_id":"13-31.1.c","citation":"13-31(1)(c)","requirement":"State the place of residence of the person swearing or affirming the affidavit.","kind":"deponent_identity"},
+    {"requirement_id":"13-31.1.d","citation":"13-31(1)(d)","requirement":"Be written in the first person.","kind":"content_structure"},
+    {"requirement_id":"13-31.1.e","citation":"13-31(1)(e)","requirement":"Be divided into consecutively numbered paragraphs, each as nearly as may be confined to a distinct portion of the subject.","kind":"content_structure"},
+    {"requirement_id":"13-31.1.f","citation":"13-31(1)(f)","requirement":"Subject to rule 13-35, be signed or acknowledged and sworn or affirmed before a person empowered to administer oaths and affirmations.","kind":"commissioning"},
+    {"requirement_id":"13-31.1.g","citation":"13-31(1)(g)","requirement":"Contain a statement of when, where and before whom the affidavit was sworn or affirmed.","kind":"jurat"},
+    {"requirement_id":"13-31.1.h","citation":"13-31(1)(h)","requirement":"Be signed by the person administering the oath or taking the affirmation.","kind":"commissioning"},
+    {"requirement_id":"13-31.2","citation":"13-31(2)","requirement":"An affidavit sworn or affirmed in Saskatchewan must be sworn or affirmed before an authorized judge, registrar, notary public, justice of the peace or commissioner empowered to administer oaths or affirmations.","kind":"commissioning_authority"},
+    {"requirement_id":"13-31.3","citation":"13-31(3)","requirement":"An affidavit is not invalid or improper solely because it was sworn or affirmed before a commencement document was filed.","kind":"validity_rule"},
+    {"requirement_id":"13-31.4","citation":"13-31(4)","requirement":"No costs are to be allowed for an affidavit substantially departing from the rule.","kind":"consequence"}
+  ],
+  "requirement_count": 12,
+  "private_matter_data": false,
+  "runtime_admissible": false,
+  "review_state": "official_text_readback_complete_independent_second_review_open"
+}

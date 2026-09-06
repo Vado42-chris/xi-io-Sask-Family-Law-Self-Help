@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "record_status": "official_source_verified_text_and_render_intake_not_runtime_truth",
+  "snapshot_intake_id": "form-13-31-official-2025-verified-2026-08-27",
+  "source_family_candidate_id": "form-13-31-affidavit",
+  "jurisdiction": "Court of King's Bench for Saskatchewan",
+  "private_matter_data": false,
+  "runtime_admissible": false,
+  "canonical_snapshot_id": null,
+  "captured_at": "2026-08-27",
+  "official_currentness_verified_at": "2026-08-27",
+  "sources": [
+    {
+      "source_id": "sask-courts-affidavit-guide-2025",
+      "source_title": "Guide to Affidavits in Court of King's Bench 2025",
+      "source_version_label": "2025",
+      "source_date": null,
+      "authority_class": "official_court_legal_information",
+      "url": "https://sasklawcourts.ca/wp-content/uploads/2025/05/KB_Affidavit-Guide.pdf",
+      "form_location": "page 5",
+      "page_count_observed": 5,
+      "provider_read_state": "text_and_render_verified",
+      "exact_binary_archived_in_repo": false,
+      "exact_binary_sha256": null,
+      "binary_archive_blocker": "Current worker surface can inspect the official PDF through the web provider but cannot retrieve the exact PDF bytes into repository custody. Do not substitute a transcript or screenshot hash for the official binary hash."
+    },
+    {
+      "source_id": "sask-kb-rules-part-13",
+      "source_title": "Part 13: Technical Rules",
+      "source_version_label": "current official Part 13 fetched 2026-08-27",
+      "source_date": null,
+      "authority_class": "official_rules",
+      "url": "https://pubsaskdev.blob.core.windows.net/pubsask-prod/77671/14Part13.pdf",
+      "rule_location": "rule 13-31, PDF page 19 / provider page index 18",
+      "page_count_observed": 30,
+      "provider_read_state": "text_verified",
+      "exact_binary_archived_in_repo": false,
+      "exact_binary_sha256": null,
+      "binary_archive_blocker": "Current worker surface can read the official rules PDF through the web provider but cannot retrieve the exact PDF bytes into repository custody."
+    }
+  ],
+  "form_catalog_path": "sources/intake/form-13-31/2025/form-13-31-line-items.json",
+  "rule_catalog_path": "sources/intake/form-13-31/2025/rule-13-31-requirements.json",
+  "review_receipt_path": "docs/reviews/SFL-FORM13-31-OFFICIAL-SOURCE-REVIEW-20260827.md",
+  "cross_snapshot_relationships": [
+    {
+      "other_snapshot_intake_id": "kit-4a-2023-04-10",
+      "other_form_id": "form-13-31",
+      "relationship": "candidate_equivalent_unverified",
+      "reason": "Kit #4a contains a Form 13-31 instance but its full line-item catalog, exact binary archival and official-current comparison remain incomplete. Matching form number alone is not equivalence proof."
+    }
+  ],
+  "qualification": {
+    "official_source_identity": "PASS_BOUNDED",
+    "form_text_capture": "PASS_BOUNDED",
+    "rule_13_31_binding": "PASS_BOUNDED",
+    "rendered_form_review": "PASS_BOUNDED",
+    "stable_line_item_denominator": "PASS_BOUNDED",
+    "exact_official_binary_archive": "BLOCKED_PROVIDER_SURFACE",
+    "independent_second_reviewer": "OPEN",
+    "human_or_delegated_approval": "OPEN",
+    "canonical_promotion": "BLOCKED",
+    "runtime_admissibility": "BLOCKED"
+  },
+  "required_before_canonical_promotion": [
+    "archive exact official source bytes and record SHA-256, byte size and media type",
+    "independent second rendered-page review",
+    "review candidate-equivalence relationship to the Kit #4a Form 13-31 instance",
+    "human owner or delegated qualified reviewer approval",
+    "admit through the multi-kit source-family registry without rewriting historical intake"
+  ]
+}
