@@ -256,3 +256,12 @@ When the owner says `Point of Order` during active work:
 7. resume the parent when the interrupt is resolved/deferred.
 
 A Point of Order may change future architecture or priorities, but it is not automatic mutation authority.
+
+
+## Studio child canary inheritance
+
+This repo is a Studio child with role: private legal source-review product lane. Read `xiio/ack.json`, `xiio/repo-ingress-manifest.json`, `.xiio/status.json`, and the framework MOMENTUM_PRESERVATION contract before selecting work.
+
+Apply MICRO, MESO, MACRO, META across this repo, its framework dependency, CLI admission, Studio projection, and affected sibling returns. Every non-terminal Result must include a named BACKBEAT_CHECK and an issued FORWARD_CHECK before the worker or sub-agent yields. `NO_EFFECT` remains the default until the owning authority and proof gates admit otherwise.
+
+Current parent chain: project main -> xi-io.net framework -> xi-io CLI -> xi-io Studio projection. Re-read accepted main and affected returns after every material change.
