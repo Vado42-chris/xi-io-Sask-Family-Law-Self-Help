@@ -1,0 +1,9 @@
+{
+  "schema": "xiio.blast-wave-result-catalog.v1",
+  "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "project_id": "sfl",
+  "events": [],
+  "updated_at": null,
+  "authority": "child repo owns local impact events; Bins indexes them",
+  "ok_to_base": false
+}
