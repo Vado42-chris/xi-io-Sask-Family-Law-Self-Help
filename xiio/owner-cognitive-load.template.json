@@ -1,0 +1,31 @@
+{
+  "schema": "xiio.owner-cognitive-load-template.v1",
+  "project_id": "sfl",
+  "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "cadence": {
+    "micro": "After each result, comment, branch, agent handoff, or failure.",
+    "meso": "After each repo or dependency batch, collapse duplicate work and publish one operator brief.",
+    "macro": "At each golden-priority burn, measure unresolved owner decisions, open tabs, and rework.",
+    "meta": "After each dogfood session, update the heuristics and failure corpus from repeated prompts or anger escalation."
+  },
+  "metrics": [
+    "attention_reduction_ratio",
+    "duplicate_collapse_ratio",
+    "owner_decision_count",
+    "stew_residue_count",
+    "forward_action_presence"
+  ],
+  "inputs": [
+    "open_comments",
+    "open_branches",
+    "agent_results",
+    "duplicate_requests",
+    "owner_decisions",
+    "blocked_gates",
+    "next_actions"
+  ],
+  "runner": "xiio/tools/owner-cognitive-load.mjs",
+  "result_catalog": "xiio/catalog/owner-cognitive-load-results.json",
+  "skill_link": "xiio/skills/owner-cognitive-load.json",
+  "default_next_action": "Collapse duplicate work, name the highest-reach unresolved gate, and issue one owner-ready next action."
+}
