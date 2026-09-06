@@ -2,7 +2,7 @@
   "schema": "xiio.runtime-tool-manifest.v1",
   "project_id": "sfl",
   "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
-  "framework_main_sha": "a0cb029cb13bda5c902301a48d52e20bb9a71774",
+  "framework_main_sha": "2a3a8e7a8e5071522a5c3ec2adca10b6a3351871",
   "tools": [
     {
       "id": "spiral-loop-runner",
@@ -11,6 +11,14 @@
       "result_catalog": "xiio/catalog/spiral-loop-results.json",
       "effects": "none",
       "callback": "append local result and issue next action"
+    },
+    {
+      "id": "cross-cutting-blast-wave",
+      "path": "xiio/tools/cross-cutting-blast-wave.mjs",
+      "template": "xiio/cross-cutting-blast-wave.template.json",
+      "result_catalog": "xiio/catalog/blast-wave-results.json",
+      "effects": "none",
+      "callback": "assess direct and reverse impact, issue triage action"
     }
   ],
   "fractal_skills": [
@@ -38,8 +46,14 @@
       "id": "live-gate",
       "link": "xiio/skills/live-gate.json",
       "callback": "load before evaluating the matching gate"
+    },
+    {
+      "id": "blast-wave-triage",
+      "link": "xiio/skills/blast-wave-triage.json",
+      "callback": "load before blast-wave assessment"
     }
   ],
   "runtime_inventory_status": "INSTALLED_NOT_PROVEN",
-  "ok_to_base": false
+  "ok_to_base": false,
+  "status": "INSTALLED_LINKED_NOT_PROVEN"
 }
