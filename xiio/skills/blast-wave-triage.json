@@ -1,0 +1,43 @@
+{
+  "schema": "xiio.fractal-skill.v1",
+  "project_id": "sfl",
+  "skill_id": "blast-wave-triage",
+  "tool_callback": "xiio/tools/cross-cutting-blast-wave.mjs",
+  "template_callback": "xiio/cross-cutting-blast-wave.template.json",
+  "result_callback": "xiio/catalog/blast-wave-results.json",
+  "framework_ref": "standards/punchcards/cross-cutting-blast-wave.v1.json",
+  "inputs": [
+    "events",
+    "artifacts",
+    "branches",
+    "dependency_heads",
+    "authority_claims",
+    "runtime_checks",
+    "live_checks",
+    "open_comments"
+  ],
+  "outputs": [
+    "blast_id",
+    "source",
+    "affected_nodes",
+    "failure_class",
+    "layer",
+    "severity",
+    "reach",
+    "owner_attention",
+    "evidence",
+    "repair",
+    "next_action",
+    "cadence",
+    "ok_to_base"
+  ],
+  "gates": [
+    "unknown impact remains blocked",
+    "missing event remains blocked",
+    "missing receipt remains blocked",
+    "runtime is not live",
+    "running is not live",
+    "live requires owner-visible proof"
+  ],
+  "status": "LINKED_NOT_PROVEN"
+}
