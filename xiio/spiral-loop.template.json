@@ -1,0 +1,30 @@
+{
+  "schema": "xiio.spiral-loop-template.v1",
+  "project_id": "sfl",
+  "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "role": "product_child",
+  "framework_main_sha": "a0cb029cb13bda5c902301a48d52e20bb9a71774",
+  "dependencies": [
+    "framework",
+    "inbox",
+    "docuforge",
+    "ward",
+    "bins"
+  ],
+  "skill_links": [
+    "xiio/skills/source-review.json",
+    "xiio/skills/privacy-boundary.json",
+    "xiio/skills/qual-quant.json",
+    "xiio/skills/currentness.json",
+    "xiio/skills/live-gate.json"
+  ],
+  "default_next_action": "Run the next dependency return, append evidence, repair local gaps, and re-enter the loop.",
+  "gates": [
+    "exact_main_sha",
+    "native_check",
+    "qual_quant_delta",
+    "privacy_authority",
+    "consumer_adoption_receipt",
+    "live_readback"
+  ]
+}
