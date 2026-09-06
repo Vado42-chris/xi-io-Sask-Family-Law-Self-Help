@@ -1,0 +1,53 @@
+{
+  "schema_version": "xiio.ack/v1",
+  "ack_state": "FROZEN",
+  "ack_generation": "ACK-SFL-DIST-20260906-001",
+  "ack_revision": 1,
+  "operator_id": "codex:work-mode",
+  "execution_mode": "READ_ONLY_AUDIT",
+  "real_world_outcome": "NONE",
+  "deadline_ttl": "NONE_UNTIL_OPERATOR_SET",
+  "selected_root": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "provider_generation": "bc4a1909bf6cef63a2fbb2e1c9d635a92ce76332",
+  "current_owner": "repo:sfl",
+  "semantic_work_ref": "github:Vado42-chris/xi-io-Sask-Family-Law-Self-Help/main",
+  "source_ceiling": "REPO_SOURCE_ONLY",
+  "effect_ceiling": "NO_EFFECT",
+  "resources": [],
+  "prohibitions": [
+    "no provider attempt",
+    "no external write",
+    "no deployment",
+    "no LIVE promotion"
+  ],
+  "priority": "P1",
+  "cross_lane_set": [
+    "framework-distribution",
+    "sfl",
+    "xi-io-studio"
+  ],
+  "rent_consumer": "framework-distribution",
+  "escalation_state": "BLOCKED_ON_NATIVE_CHECKS_AND_AFFECTED_RETURN",
+  "hot_folders": [
+    "xiio",
+    ".xiio",
+    "scripts",
+    "docs"
+  ],
+  "detonator_policy": "FAIL_CLOSED",
+  "truncation_plan": "MICRO->MESO->MACRO->META",
+  "next_milestone": "native checks, exact-main readback, affected return, Studio projection",
+  "four_scale_plan": {
+    "micro": "ACK, privacy, freshness, and source identity",
+    "meso": "native checks, runtime proof, and typed return",
+    "macro": "framework/CLI/Studio compatibility",
+    "meta": "cross-repo adoption and owner-visible posture"
+  },
+  "framework_main_sha": "bc4a1909bf6cef63a2fbb2e1c9d635a92ce76332",
+  "consumer_main_sha": "5f9d2a46898d97b87503cff2a2554c2eec665d47",
+  "momentum_preservation": {
+    "backbeat_check": "Consumer adoption and runtime proof remain open.",
+    "forward_check": "Run native checks, reread main, and emit affected return.",
+    "terminal": false
+  }
+}
