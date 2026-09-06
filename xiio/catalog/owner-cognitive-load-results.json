@@ -1,0 +1,9 @@
+{
+  "schema": "xiio.owner-cognitive-load-result-catalog.v1",
+  "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "project_id": "sfl",
+  "events": [],
+  "updated_at": null,
+  "authority": "child repo owns measurements; Bins indexes results",
+  "ok_to_base": false
+}
