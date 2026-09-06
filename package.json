@@ -5,11 +5,13 @@
   "description": "Governance-first Saskatchewan family-law self-help workflow project with source-bound forms and procedure recovery.",
   "type": "module",
   "scripts": {
-    "check": "npm run check:foundation && npm run check:source-catalog && npm run check:recovery-sources && npm run check:framework-component-promotion-lock && npm run check:public-managed-worker-contract",
+    "check": "npm run check:foundation && npm run check:source-catalog && npm run check:recovery-sources && npm run check:framework-component-promotion-lock && npm run check:public-managed-worker-contract && npm run check:current-situation",
     "check:foundation": "node scripts/check-foundation.mjs",
     "check:source-catalog": "node scripts/check-source-catalog.mjs",
     "check:recovery-sources": "node scripts/check-recovery-sources.mjs",
     "check:framework-component-promotion-lock": "node scripts/check-framework-component-promotion-lock.mjs",
-    "check:public-managed-worker-contract": "node scripts/check-public-managed-worker-contract.mjs"
+    "check:public-managed-worker-contract": "node scripts/check-public-managed-worker-contract.mjs",
+    "check:current-situation": "node scripts/check-current-situation.mjs",
+    "current:situation": "node scripts/current-situation.mjs"
   }
 }
