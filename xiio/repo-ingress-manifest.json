@@ -1,0 +1,24 @@
+{
+  "schema_version": "xiio.repo-ingress-manifest/v1",
+  "repository": "Vado42-chris/xi-io-Sask-Family-Law-Self-Help",
+  "repository_main_sha": "5f9d2a46898d97b87503cff2a2554c2eec665d47",
+  "framework_main_sha": "bc4a1909bf6cef63a2fbb2e1c9d635a92ce76332",
+  "hydration_state": "PARTIALLY_HYDRATED",
+  "required_artifacts": [
+    "README.md",
+    "AGENTS.md",
+    ".xiio/status.json",
+    "xiio/ack.json",
+    "xiio/privacy-boundary.json",
+    "xiio/freshness-status.json",
+    "xiio/source-index.json",
+    "xiio/file-index.json",
+    "xiio/concept-index.json",
+    "xiio/donor-status.json",
+    "xiio/bootstrap-receipt.json"
+  ],
+  "missing_runtime_truth": true,
+  "adoption_receipt": null,
+  "backbeat_check": "sfl now has the portable ingress baseline, but consumer checks and affected returns are not proven.",
+  "forward_check": "Run native checks, reread exact main, and emit the affected return before base admission."
+}
