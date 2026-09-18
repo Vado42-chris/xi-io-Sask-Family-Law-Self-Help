@@ -1,0 +1,30 @@
+{
+  "matrix_version": 1,
+  "source_intake_id": "form-13-31-official-2025-verified-2026-08-27",
+  "private_matter_data": 0,
+  "quantitative": {
+    "official_source_records": {"expected": 2, "captured": 2, "state": "PASS_BOUNDED"},
+    "form_line_items": {"expected": 23, "captured": 23, "state": "PASS_BOUNDED"},
+    "rule_requirements": {"expected": 12, "captured": 12, "state": "PASS_BOUNDED"},
+    "rendered_form_pages_reviewed": {"expected": 1, "reviewed": 1, "state": "PASS_BOUNDED"},
+    "exact_official_binaries_archived": {"expected": 2, "archived": 0, "state": "BLOCKED_PROVIDER_SURFACE"},
+    "independent_second_reviews": {"expected": 1, "completed": 0, "state": "OPEN"},
+    "human_or_delegated_approvals": {"expected": 1, "completed": 0, "state": "OPEN"}
+  },
+  "qualitative": {
+    "official_source_identity": "PASS_BOUNDED",
+    "official_currentness_readback": "PASS_BOUNDED_2026-08-27",
+    "form_render_fidelity": "PASS_BOUNDED_FIRST_REVIEW",
+    "rule_binding": "PASS_BOUNDED",
+    "kit_4a_relationship": "CANDIDATE_EQUIVALENT_UNVERIFIED",
+    "binary_custody": "BLOCKED_PROVIDER_SURFACE",
+    "canonical_promotion": "BLOCKED",
+    "runtime_admissibility": "BLOCKED",
+    "transmission_authority": "NONE"
+  },
+  "terminal_predicate": {
+    "state": "FALSE",
+    "reason": "Exact official binaries, independent second review and approval remain incomplete."
+  },
+  "next_exact_stage": "archive exact official PDF bytes and add SHA-256/byte-size evidence; then independent review; then validator/check integration and approval"
+}
